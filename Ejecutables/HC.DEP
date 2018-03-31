@@ -1,0 +1,228 @@
+[Version]
+Version=1.0.0.8
+
+[HC.exe <000A>]
+Dest=$(AppPath)
+Date=25/06/2009
+Time=18:25
+Version=1.0.0.8
+CABFilename=HC.CAB
+CABINFFile=HC.INF
+Uses1=msvbvm60.dll
+Uses2=oleaut32.dll
+Uses3=olepro32.dll
+Uses4=asycfilt.dll
+Uses5=stdole2.tlb
+Uses6=COMCAT.DLL
+Uses7=vb6es.dll
+Uses8=msado21.tlb
+Uses9=msstdfmt.dll
+Uses10=Dao2535.tlb
+Uses11=scrrun.dll
+Uses12=comdlg32.ocx
+Uses13=tabctl32.ocx
+Uses14=DBLIST32.OCX
+Uses15=Crystl32.OCX
+Uses16=msflxgrd.ocx
+Uses17=COMCTL32.OCX
+Uses18=Fecha32.ocx
+Uses19=MSMASK32.OCX
+Uses20=mscomct2.ocx
+
+[msado21.tlb <000A>]
+Dest=$(WinSysPath)
+Date=03/08/2004
+Time=17:21
+Version=2.81.1117.0
+
+[msstdfmt.dll <000A>]
+Dest=$(WinSysPath)
+Date=03/04/2000
+Time=16:05
+Version=6.0.88.4
+
+[p3dbdes.dll <000A>]
+Dest=$(WinSysPath)
+Date=05/01/2000
+Time=02:07
+Version=8.0.0.1
+
+[p3ddoes.dll <000A>]
+Dest=$(WinSysPath)
+Date=05/01/2000
+Time=02:07
+Version=8.0.0.4
+
+[p3dxbes.dll <000A>]
+Dest=$(WinSysPath)
+Date=04/01/2000
+Time=02:52
+Version=8.0.0.0
+
+[p3tdoes.dll <000A>]
+Dest=$(WinSysPath)
+Date=04/01/2000
+Time=02:52
+Version=8.0.0.3
+
+[p3rdoes.dll <000A>]
+Dest=$(WinSysPath)
+Date=05/01/2000
+Time=02:07
+Version=8.0.0.5
+
+[p3sifes.dll <000A>]
+Dest=$(WinSysPath)
+Date=03/03/2000
+Time=05:52
+Version=8.0.0.16
+
+[p3smnes.dll <000A>]
+Dest=$(WinSysPath)
+Date=03/03/2000
+Time=05:52
+Version=8.0.0.15
+
+[p3sodes.dll <000A>]
+Dest=$(WinSysPath)
+Date=03/03/2000
+Time=05:52
+Version=8.0.0.84
+
+[p3so7es.dll <000A>]
+Dest=$(WinSysPath)
+Date=09/03/2000
+Time=23:00
+Version=8.0.0.15
+
+[p3ssqes.dll <000A>]
+Dest=$(WinSysPath)
+Date=03/03/2000
+Time=05:52
+Version=8.0.0.21
+
+[p3soles.dll <000A>]
+Dest=$(WinSysPath)
+Date=03/03/2000
+Time=05:52
+Version=8.0.0.24
+
+[x3ddkes.dll <000A>]
+Dest=$(WinSysPath)
+Date=04/01/2000
+Time=02:50
+Version=8.0.0.0
+
+[x3dmpes.dll <000A>]
+Dest=$(WinSysPath)
+Date=04/01/2000
+Time=02:50
+Version=8.0.0.0
+
+[x3dntes.dll <000A>]
+Dest=$(WinSysPath)
+Date=13/02/2000
+Time=23:52
+Version=8.0.0.8
+
+[x3dptes.dll <000A>]
+Dest=$(WinSysPath)
+Date=07/01/2000
+Time=04:26
+Version=8.0.0.0
+
+[x3dvmes.dll <000A>]
+Dest=$(WinSysPath)
+Date=04/01/2000
+Time=02:50
+Version=8.0.0.0
+
+[x3dapes.dll <000A>]
+Dest=$(WinSysPath)
+Date=09/03/2000
+Time=22:59
+Version=8.0.0.0
+
+[x3fcres.dll <000A>]
+Dest=$(WinSysPath)
+Date=04/01/2000
+Time=02:50
+Version=8.0.0.1
+
+[x3fhtes.dll <000A>]
+Dest=$(WinSysPath)
+Date=13/02/2000
+Time=23:52
+Version=8.0.0.13
+
+[x3fodes.dll <000A>]
+Dest=$(WinSysPath)
+Date=04/01/2000
+Time=02:50
+Version=8.0.0.2
+
+[x3frces.dll <000A>]
+Dest=$(WinSysPath)
+Date=04/01/2000
+Time=02:50
+Version=8.0.0.0
+
+[x3frtes.dll <000A>]
+Dest=$(WinSysPath)
+Date=13/02/2000
+Time=23:52
+Version=8.0.0.33
+
+[x3fsves.dll <000A>]
+Dest=$(WinSysPath)
+Date=05/01/2000
+Time=02:06
+Version=8.0.0.8
+
+[x3ftxes.dll <000A>]
+Dest=$(WinSysPath)
+Date=07/01/2000
+Time=04:26
+Version=8.0.0.1
+
+[x3fwkes.dll <000A>]
+Dest=$(WinSysPath)
+Date=05/01/2000
+Time=02:06
+Version=8.0.0.4
+
+[x3fwdes.dll <000A>]
+Dest=$(WinSysPath)
+Date=13/02/2000
+Time=23:52
+Version=8.0.100.4
+
+[x3fxles.dll <000A>]
+Dest=$(WinSysPath)
+Date=13/02/2000
+Time=23:52
+Version=8.0.0.25
+
+[u3l20es.dll <000A>]
+Dest=$(WinSysPath)
+Date=04/01/2000
+Time=02:52
+Version=8.0.0.0
+
+[u3ls1es.dll <000A>]
+Dest=$(WinSysPath)
+Date=04/01/2000
+Time=02:52
+Version=8.0.0.1
+
+[u3520es.dll <000A>]
+Dest=$(WinSysPath)
+Date=04/01/2000
+Time=02:52
+Version=8.0.0.0
+
+[Fecha32.ocx <000A>]
+Dest=$(WinSysPath)
+Date=22/03/2005
+Time=18:36
+Version=1.0.0.2

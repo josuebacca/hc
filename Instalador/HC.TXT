@@ -1,0 +1,5 @@
+Se ha generado el archivo .cab para su aplicación como 'C:\Documents and Settings\Administrador\Mis documentos\Visual Basic\Ferreyra\Instalador\HC.CAB'.
+
+También hay un archivo de proceso por lotes en el directorio de soporte (C:\Documents and Settings\Administrador\Mis documentos\Visual Basic\Ferreyra\Instalador\Support\HC.BAT) que le permitirá volver a crear el archivo .cab en caso de que modifique alguno de los archivos.
+
+Ha incluido mdac_typ.exe en el paquete de instalación. Si va a instalar este paquete en un sistema Windows 95/98, requerirá DCOM98 para instalarse correctamente.
