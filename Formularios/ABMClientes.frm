@@ -45,18 +45,18 @@ Begin VB.Form ABMClientes
       TabCaption(0)   =   "&Datos del Paciente"
       TabPicture(0)   =   "ABMClientes.frx":0BC2
       Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "cboIva"
-      Tab(0).Control(1)=   "cboPais"
-      Tab(0).Control(2)=   "Frame3"
-      Tab(0).Control(3)=   "txtObserva"
-      Tab(0).Control(4)=   "txtMail"
-      Tab(0).Control(5)=   "txtIngresosBrutos"
-      Tab(0).Control(6)=   "txtCuit"
-      Tab(0).Control(7)=   "Label1(9)"
-      Tab(0).Control(8)=   "Label1(7)"
-      Tab(0).Control(9)=   "Label1(10)"
-      Tab(0).Control(10)=   "Label1(11)"
-      Tab(0).Control(11)=   "Label1(12)"
+      Tab(0).Control(0)=   "Label1(12)"
+      Tab(0).Control(1)=   "Label1(11)"
+      Tab(0).Control(2)=   "Label1(10)"
+      Tab(0).Control(3)=   "Label1(7)"
+      Tab(0).Control(4)=   "Label1(9)"
+      Tab(0).Control(5)=   "txtCuit"
+      Tab(0).Control(6)=   "txtIngresosBrutos"
+      Tab(0).Control(7)=   "txtMail"
+      Tab(0).Control(8)=   "txtObserva"
+      Tab(0).Control(9)=   "Frame3"
+      Tab(0).Control(10)=   "cboPais"
+      Tab(0).Control(11)=   "cboIva"
       Tab(0).ControlCount=   12
       TabCaption(1)   =   "&Anamnesis"
       TabPicture(1)   =   "ABMClientes.frx":0BDE
@@ -66,19 +66,19 @@ Begin VB.Form ABMClientes
       TabCaption(2)   =   "&Historia Clinica"
       TabPicture(2)   =   "ABMClientes.frx":0BFA
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "Frame6"
-      Tab(2).Control(1)=   "cboTratamiento"
-      Tab(2).Control(2)=   "Frame2"
-      Tab(2).Control(3)=   "Frame1"
-      Tab(2).Control(4)=   "txtHC"
-      Tab(2).Control(5)=   "grdCClinico"
+      Tab(2).Control(0)=   "grdCClinico"
+      Tab(2).Control(1)=   "txtHC"
+      Tab(2).Control(2)=   "Frame1"
+      Tab(2).Control(3)=   "Frame2"
+      Tab(2).Control(4)=   "cboTratamiento"
+      Tab(2).Control(5)=   "Frame6"
       Tab(2).ControlCount=   6
       TabCaption(3)   =   "Medicamentos"
       TabPicture(3)   =   "ABMClientes.frx":0C16
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "Frame4"
+      Tab(3).Control(0)=   "GrdCMedica"
       Tab(3).Control(1)=   "txtMedica"
-      Tab(3).Control(2)=   "GrdCMedica"
+      Tab(3).Control(2)=   "Frame4"
       Tab(3).ControlCount=   3
       TabCaption(4)   =   "Pedidos"
       TabPicture(4)   =   "ABMClientes.frx":0C32
@@ -302,7 +302,7 @@ Begin VB.Form ABMClientes
             _ExtentY        =   556
             _Version        =   393216
             CheckBox        =   -1  'True
-            Format          =   110034945
+            Format          =   110166017
             CurrentDate     =   40070
          End
          Begin VB.TextBox txtcualca 
@@ -681,7 +681,7 @@ Begin VB.Form ABMClientes
             CalendarBackColor=   12648384
             CalendarForeColor=   0
             CalendarTitleBackColor=   12648384
-            Format          =   110034945
+            Format          =   110166017
             UpDown          =   -1  'True
             CurrentDate     =   40063
          End
@@ -708,7 +708,7 @@ Begin VB.Form ABMClientes
             CalendarTitleBackColor=   12648384
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110034945
+            Format          =   110166017
             CurrentDate     =   40063
          End
          Begin VB.TextBox txtDescTra 
@@ -1133,7 +1133,7 @@ Begin VB.Form ABMClientes
             CalendarBackColor=   12648384
             CalendarForeColor=   0
             CalendarTitleBackColor=   12648384
-            Format          =   110034945
+            Format          =   110166017
             UpDown          =   -1  'True
             CurrentDate     =   40063
          End
@@ -1396,7 +1396,7 @@ Begin VB.Form ABMClientes
             _ExtentY        =   556
             _Version        =   393216
             CheckBox        =   -1  'True
-            Format          =   110034945
+            Format          =   110166017
             CurrentDate     =   40071
          End
          Begin MSComCtl2.DTPicker DTFechaNac 
@@ -1409,7 +1409,7 @@ Begin VB.Form ABMClientes
             _ExtentY        =   556
             _Version        =   393216
             CheckBox        =   -1  'True
-            Format          =   110034945
+            Format          =   110166017
             CurrentDate     =   40071
          End
          Begin VB.Image Image1 

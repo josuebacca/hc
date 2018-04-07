@@ -22,42 +22,27 @@ Begin VB.Form ABMPedido
    ScaleHeight     =   2220
    ScaleWidth      =   4575
    ShowInTaskbar   =   0   'False
-   Begin VB.ComboBox cmbProfesional 
+   Begin VB.ComboBox cboProfesional 
       Height          =   315
       Left            =   120
-      TabIndex        =   7
+      TabIndex        =   5
       Text            =   "Profesional"
       Top             =   1440
       Width           =   2295
    End
-   Begin VB.ComboBox cmbEsp 
+   Begin VB.ComboBox cboEsp 
       Height          =   315
       Left            =   120
-      TabIndex        =   6
+      TabIndex        =   4
       Text            =   "Especialidad"
       Top             =   240
       Width           =   2535
-   End
-   Begin VB.TextBox txtDescri 
-      Height          =   300
-      Left            =   1545
-      MaxLength       =   50
-      TabIndex        =   1
-      Top             =   990
-      Width           =   2895
-   End
-   Begin VB.TextBox txtID 
-      Height          =   300
-      Left            =   1560
-      TabIndex        =   0
-      Top             =   645
-      Width           =   720
    End
    Begin VB.CommandButton cmdCerrar 
       Caption         =   "&Cerrar"
       Height          =   345
       Left            =   3150
-      TabIndex        =   3
+      TabIndex        =   1
       Top             =   1800
       Width           =   1300
    End
@@ -65,7 +50,7 @@ Begin VB.Form ABMPedido
       Caption         =   "&Aceptar"
       Height          =   345
       Left            =   1800
-      TabIndex        =   2
+      TabIndex        =   0
       Top             =   1800
       Width           =   1300
    End
@@ -75,7 +60,7 @@ Begin VB.Form ABMPedido
       Height          =   195
       Index           =   1
       Left            =   135
-      TabIndex        =   5
+      TabIndex        =   3
       Top             =   1035
       Width           =   1155
    End
@@ -85,7 +70,7 @@ Begin VB.Form ABMPedido
       Height          =   195
       Index           =   0
       Left            =   135
-      TabIndex        =   4
+      TabIndex        =   2
       Top             =   675
       Width           =   1020
    End
@@ -288,16 +273,17 @@ Private Sub cmdAceptar_Click()
             Case 1 'nuevo
             
                 cSQL = "INSERT INTO " & cTabla
-                cSQL = cSQL & "     (TAR_CODIGO, PLA_CODIGO ,PLA_DESCRI, PLA_CUOTAS) "
+                cSQL = cSQL & "     (COD_PEDIDO, FECHA_PEDIDO ,FECHA_ATENCION, ESPECIALIDAD, CLIENTE) "
                 cSQL = cSQL & "VALUES "
-                cSQL = cSQL & "     (" & cboTarjeta.ItemData(cboTarjeta.ListIndex) & ", "
-                cSQL = cSQL & XN(txtID.Text) & ", " & XS(txtDescri.Text) & ", " & XN(txtCuotas.Text) & ") "
+                cSQL = cSQL & "     (" & cboEsp.ItemData(cboEsp.ListIndex) & ", "
+                cSQL = cSQL & "     (" & cboProfesional.ItemData(cboProfesional.ListIndex) & ", "
+                'cSQL = cSQL & XN(txtID.Text) & ", " & XS(txtDescri.Text) & ", " & XN(txtCuotas.Text) & ") "
             
             Case 2 'editar
                 
                 cSQL = "UPDATE " & cTabla & " SET "
-                cSQL = cSQL & "  PLA_DESCRI = " & XS(txtDescri.Text)
-                cSQL = cSQL & "  ,PLA_CUOTAS = " & XN(txtCuotas.Text)
+                cSQL = cSQL & "  ESPECIALIDAD = " & XS(cboEsp.Text)
+                cSQL = cSQL & "  ,PROFESIONAL = " & XS(cboProfesional.Text)
                 cSQL = cSQL & " WHERE PLA_CODIGO  = " & XN(txtID.Text)
                 cSQL = cSQL & " AND TAR_CODIGO = " & cboTarjeta.ItemData(cboTarjeta.ListIndex)
             
