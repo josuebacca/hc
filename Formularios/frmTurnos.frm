@@ -1,7 +1,7 @@
 VERSION 5.00
 Object = "{00025600-0000-0000-C000-000000000046}#5.2#0"; "Crystl32.OCX"
-Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "Msflxgrd.ocx"
-Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomct2.ocx"
+Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "MSFLXGRD.OCX"
+Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form frmTurnos 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "CORE - Turnos de Pacientes"
@@ -426,7 +426,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   61014018
+         StartOfWeek     =   110034946
          CurrentDate     =   40049
       End
    End
@@ -657,7 +657,7 @@ Private Sub cmdAgregar_Click()
     'agregar teniendo en cuentas loc combos de horas
     On Error GoTo HayErrorTurno
     
-    grdGrilla.HighLight = flexHighlightAlways
+    grdGrilla.Highlight = flexHighlightAlways
     
     nFilaD = cboDesde.ListIndex
     nFilaH = cbohasta.ListIndex

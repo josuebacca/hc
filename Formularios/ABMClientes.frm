@@ -1,16 +1,16 @@
 VERSION 5.00
 Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "Comdlg32.ocx"
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
-Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "Msflxgrd.ocx"
+Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "MSFLXGRD.OCX"
 Object = "{C932BA88-4374-101B-A56C-00AA003668DC}#1.1#0"; "MSMASK32.OCX"
-Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomct2.ocx"
+Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form ABMClientes 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Actualizacion de Pacientes..."
    ClientHeight    =   7950
    ClientLeft      =   2700
    ClientTop       =   2625
-   ClientWidth     =   11025
+   ClientWidth     =   17580
    BeginProperty Font 
       Name            =   "Tahoma"
       Size            =   8.25
@@ -27,9 +27,9 @@ Begin VB.Form ABMClientes
    MinButton       =   0   'False
    ScaleHeight     =   7950
    ScaleMode       =   0  'User
-   ScaleWidth      =   11025
+   ScaleWidth      =   17580
    StartUpPosition =   2  'CenterScreen
-   Begin TabDlg.SSTab TabClientes 
+   Begin TabDlg.SSTab Frame8 
       Height          =   7275
       Left            =   45
       TabIndex        =   21
@@ -38,25 +38,25 @@ Begin VB.Form ABMClientes
       _ExtentX        =   19288
       _ExtentY        =   12832
       _Version        =   393216
-      Tabs            =   4
-      Tab             =   2
-      TabsPerRow      =   4
+      Tabs            =   6
+      Tab             =   4
+      TabsPerRow      =   6
       TabHeight       =   520
       TabCaption(0)   =   "&Datos del Paciente"
       TabPicture(0)   =   "ABMClientes.frx":0BC2
       Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "Label1(12)"
-      Tab(0).Control(1)=   "Label1(11)"
-      Tab(0).Control(2)=   "Label1(10)"
-      Tab(0).Control(3)=   "Label1(7)"
-      Tab(0).Control(4)=   "Label1(9)"
-      Tab(0).Control(5)=   "txtCuit"
-      Tab(0).Control(6)=   "txtIngresosBrutos"
-      Tab(0).Control(7)=   "txtMail"
-      Tab(0).Control(8)=   "txtObserva"
-      Tab(0).Control(9)=   "Frame3"
-      Tab(0).Control(10)=   "cboPais"
-      Tab(0).Control(11)=   "cboIva"
+      Tab(0).Control(0)=   "cboIva"
+      Tab(0).Control(1)=   "cboPais"
+      Tab(0).Control(2)=   "Frame3"
+      Tab(0).Control(3)=   "txtObserva"
+      Tab(0).Control(4)=   "txtMail"
+      Tab(0).Control(5)=   "txtIngresosBrutos"
+      Tab(0).Control(6)=   "txtCuit"
+      Tab(0).Control(7)=   "Label1(9)"
+      Tab(0).Control(8)=   "Label1(7)"
+      Tab(0).Control(9)=   "Label1(10)"
+      Tab(0).Control(10)=   "Label1(11)"
+      Tab(0).Control(11)=   "Label1(12)"
       Tab(0).ControlCount=   12
       TabCaption(1)   =   "&Anamnesis"
       TabPicture(1)   =   "ABMClientes.frx":0BDE
@@ -65,27 +65,135 @@ Begin VB.Form ABMClientes
       Tab(1).ControlCount=   1
       TabCaption(2)   =   "&Historia Clinica"
       TabPicture(2)   =   "ABMClientes.frx":0BFA
-      Tab(2).ControlEnabled=   -1  'True
-      Tab(2).Control(0)=   "grdCClinico"
-      Tab(2).Control(0).Enabled=   0   'False
-      Tab(2).Control(1)=   "txtHC"
-      Tab(2).Control(1).Enabled=   0   'False
-      Tab(2).Control(2)=   "Frame1"
-      Tab(2).Control(2).Enabled=   0   'False
-      Tab(2).Control(3)=   "Frame2"
-      Tab(2).Control(3).Enabled=   0   'False
-      Tab(2).Control(4)=   "cboTratamiento"
-      Tab(2).Control(4).Enabled=   0   'False
-      Tab(2).Control(5)=   "Frame6"
-      Tab(2).Control(5).Enabled=   0   'False
+      Tab(2).ControlEnabled=   0   'False
+      Tab(2).Control(0)=   "Frame6"
+      Tab(2).Control(1)=   "cboTratamiento"
+      Tab(2).Control(2)=   "Frame2"
+      Tab(2).Control(3)=   "Frame1"
+      Tab(2).Control(4)=   "txtHC"
+      Tab(2).Control(5)=   "grdCClinico"
       Tab(2).ControlCount=   6
       TabCaption(3)   =   "Medicamentos"
       TabPicture(3)   =   "ABMClientes.frx":0C16
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "GrdCMedica"
+      Tab(3).Control(0)=   "Frame4"
       Tab(3).Control(1)=   "txtMedica"
-      Tab(3).Control(2)=   "Frame4"
+      Tab(3).Control(2)=   "GrdCMedica"
       Tab(3).ControlCount=   3
+      TabCaption(4)   =   "Pedidos"
+      TabPicture(4)   =   "ABMClientes.frx":0C32
+      Tab(4).ControlEnabled=   -1  'True
+      Tab(4).Control(0)=   "Frame7"
+      Tab(4).Control(0).Enabled=   0   'False
+      Tab(4).Control(1)=   "cmdAgregarPedido"
+      Tab(4).Control(1).Enabled=   0   'False
+      Tab(4).Control(2)=   "Command2"
+      Tab(4).Control(2).Enabled=   0   'False
+      Tab(4).Control(3)=   "cmdCancelarPedido"
+      Tab(4).Control(3).Enabled=   0   'False
+      Tab(4).Control(4)=   "cmdRealizado"
+      Tab(4).Control(4).Enabled=   0   'False
+      Tab(4).Control(5)=   "cmdImprimirPedido"
+      Tab(4).Control(5).Enabled=   0   'False
+      Tab(4).ControlCount=   6
+      TabCaption(5)   =   "Imágenes"
+      TabPicture(5)   =   "ABMClientes.frx":0C4E
+      Tab(5).ControlEnabled=   0   'False
+      Tab(5).Control(0)=   "ImagenesRealizadas"
+      Tab(5).ControlCount=   1
+      Begin VB.Frame ImagenesRealizadas 
+         Caption         =   "Imágenes realizadas"
+         ForeColor       =   &H00FF0000&
+         Height          =   6495
+         Left            =   -74880
+         TabIndex        =   146
+         Top             =   480
+         Width           =   10575
+         Begin VB.CommandButton cmdEliminarImag 
+            Caption         =   "Eliminar"
+            Height          =   375
+            Left            =   9120
+            TabIndex        =   149
+            Top             =   5880
+            Width           =   1095
+         End
+         Begin VB.CommandButton cmdAgregarImag 
+            Caption         =   "Agregar"
+            Height          =   375
+            Left            =   7680
+            TabIndex        =   148
+            Top             =   5880
+            Width           =   1095
+         End
+         Begin VB.ComboBox Combo1 
+            Height          =   315
+            Left            =   120
+            TabIndex        =   147
+            Text            =   "Especialidad"
+            Top             =   360
+            Width           =   2415
+         End
+      End
+      Begin VB.CommandButton cmdImprimirPedido 
+         Caption         =   "Imprimir"
+         Height          =   375
+         Left            =   9480
+         TabIndex        =   145
+         Top             =   6600
+         Width           =   1095
+      End
+      Begin VB.CommandButton cmdRealizado 
+         Caption         =   "Realizado"
+         Height          =   375
+         Left            =   8280
+         TabIndex        =   144
+         Top             =   6600
+         Width           =   1095
+      End
+      Begin VB.CommandButton cmdCancelarPedido 
+         Caption         =   "Cancelar"
+         Height          =   375
+         Left            =   7080
+         TabIndex        =   143
+         Top             =   6600
+         Width           =   1095
+      End
+      Begin VB.CommandButton Command2 
+         Caption         =   "Agregar"
+         Height          =   375
+         Left            =   11760
+         TabIndex        =   142
+         Top             =   9600
+         Width           =   1095
+      End
+      Begin VB.CommandButton cmdAgregarPedido 
+         Caption         =   "Agregar"
+         Height          =   375
+         Left            =   5760
+         TabIndex        =   141
+         Top             =   6600
+         Width           =   1095
+      End
+      Begin VB.Frame Frame7 
+         Caption         =   "Pedidos de atención"
+         ForeColor       =   &H00000080&
+         Height          =   6135
+         Left            =   120
+         TabIndex        =   139
+         Top             =   380
+         Width           =   10695
+         Begin MSFlexGridLib.MSFlexGrid MSFlexGrid1 
+            Height          =   5760
+            Left            =   0
+            TabIndex        =   140
+            Top             =   240
+            Width           =   10575
+            _ExtentX        =   18653
+            _ExtentY        =   10160
+            _Version        =   393216
+            Cols            =   4
+         End
+      End
       Begin VB.Frame Frame6 
          Caption         =   "Aspecto Clinico"
          BeginProperty Font 
@@ -99,9 +207,9 @@ Begin VB.Form ABMClientes
          EndProperty
          ForeColor       =   &H000000FF&
          Height          =   2175
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   134
-         Top             =   360
+         Top             =   400
          Width           =   10695
          Begin VB.TextBox txtAspCli 
             BackColor       =   &H00C0C0FF&
@@ -135,10 +243,10 @@ Begin VB.Form ABMClientes
             Strikethrough   =   0   'False
          EndProperty
          Height          =   315
-         Left            =   240
+         Left            =   -74760
          Style           =   2  'Dropdown List
          TabIndex        =   132
-         Top             =   5400
+         Top             =   5440
          Visible         =   0   'False
          Width           =   735
       End
@@ -157,7 +265,7 @@ Begin VB.Form ABMClientes
          Height          =   6015
          Left            =   -74760
          TabIndex        =   108
-         Top             =   480
+         Top             =   520
          Width           =   10455
          Begin VB.TextBox txtAnamOtros 
             Height          =   915
@@ -194,7 +302,7 @@ Begin VB.Form ABMClientes
             _ExtentY        =   556
             _Version        =   393216
             CheckBox        =   -1  'True
-            Format          =   61210625
+            Format          =   110034945
             CurrentDate     =   40070
          End
          Begin VB.TextBox txtcualca 
@@ -438,10 +546,18 @@ Begin VB.Form ABMClientes
          EndProperty
          ForeColor       =   &H00004000&
          Height          =   1455
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   79
-         Top             =   2520
+         Top             =   2560
          Width           =   10695
+         Begin VB.CommandButton GenWord 
+            Caption         =   "Gen. word"
+            Height          =   375
+            Left            =   8040
+            TabIndex        =   138
+            Top             =   960
+            Width           =   975
+         End
          Begin VB.TextBox txtCCodigo 
             BackColor       =   &H80000003&
             BeginProperty Font 
@@ -472,7 +588,7 @@ Begin VB.Form ABMClientes
             EndProperty
             Height          =   375
             Left            =   10200
-            Picture         =   "ABMClientes.frx":0C32
+            Picture         =   "ABMClientes.frx":0C6A
             Style           =   1  'Graphical
             TabIndex        =   81
             ToolTipText     =   "Nuevo Curso Clínico"
@@ -491,7 +607,7 @@ Begin VB.Form ABMClientes
             EndProperty
             Height          =   375
             Left            =   9840
-            Picture         =   "ABMClientes.frx":1C74
+            Picture         =   "ABMClientes.frx":1CAC
             Style           =   1  'Graphical
             TabIndex        =   80
             ToolTipText     =   "Quitar Curso Clínico"
@@ -546,7 +662,7 @@ Begin VB.Form ABMClientes
             EndProperty
             Height          =   375
             Left            =   9480
-            Picture         =   "ABMClientes.frx":2CB6
+            Picture         =   "ABMClientes.frx":2CEE
             Style           =   1  'Graphical
             TabIndex        =   120
             ToolTipText     =   "Agregar Curso Clínico"
@@ -565,7 +681,7 @@ Begin VB.Form ABMClientes
             CalendarBackColor=   12648384
             CalendarForeColor=   0
             CalendarTitleBackColor=   12648384
-            Format          =   61210625
+            Format          =   110034945
             UpDown          =   -1  'True
             CurrentDate     =   40063
          End
@@ -592,7 +708,7 @@ Begin VB.Form ABMClientes
             CalendarTitleBackColor=   12648384
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   61210625
+            Format          =   110034945
             CurrentDate     =   40063
          End
          Begin VB.TextBox txtDescTra 
@@ -702,9 +818,9 @@ Begin VB.Form ABMClientes
       End
       Begin VB.Frame Frame1 
          Height          =   315
-         Left            =   600
+         Left            =   -74400
          TabIndex        =   62
-         Top             =   5895
+         Top             =   5935
          Visible         =   0   'False
          Width           =   375
          Begin VB.TextBox txtRelac 
@@ -862,10 +978,10 @@ Begin VB.Form ABMClientes
       End
       Begin VB.TextBox txtHC 
          Height          =   285
-         Left            =   240
+         Left            =   -74760
          MultiLine       =   -1  'True
          TabIndex        =   61
-         Top             =   5895
+         Top             =   5935
          Visible         =   0   'False
          Width           =   375
       End
@@ -884,7 +1000,7 @@ Begin VB.Form ABMClientes
          Height          =   2175
          Left            =   -74880
          TabIndex        =   52
-         Top             =   360
+         Top             =   400
          Width           =   10695
          Begin VB.TextBox txtMedCodigo 
             Height          =   285
@@ -906,7 +1022,7 @@ Begin VB.Form ABMClientes
             EndProperty
             Height          =   375
             Left            =   10200
-            Picture         =   "ABMClientes.frx":3040
+            Picture         =   "ABMClientes.frx":3078
             Style           =   1  'Graphical
             TabIndex        =   54
             ToolTipText     =   "Nueva Medicación"
@@ -925,7 +1041,7 @@ Begin VB.Form ABMClientes
             EndProperty
             Height          =   375
             Left            =   10200
-            Picture         =   "ABMClientes.frx":4082
+            Picture         =   "ABMClientes.frx":40BA
             Style           =   1  'Graphical
             TabIndex        =   53
             ToolTipText     =   "Quitar Medicación"
@@ -998,7 +1114,7 @@ Begin VB.Form ABMClientes
             EndProperty
             Height          =   375
             Left            =   10200
-            Picture         =   "ABMClientes.frx":50C4
+            Picture         =   "ABMClientes.frx":50FC
             Style           =   1  'Graphical
             TabIndex        =   128
             ToolTipText     =   "Agregar Medicación"
@@ -1017,7 +1133,7 @@ Begin VB.Form ABMClientes
             CalendarBackColor=   12648384
             CalendarForeColor=   0
             CalendarTitleBackColor=   12648384
-            Format          =   61210625
+            Format          =   110034945
             UpDown          =   -1  'True
             CurrentDate     =   40063
          End
@@ -1063,30 +1179,30 @@ Begin VB.Form ABMClientes
          Left            =   -64440
          MultiLine       =   -1  'True
          TabIndex        =   51
-         Top             =   6360
+         Top             =   6400
          Visible         =   0   'False
          Width           =   255
       End
       Begin VB.ComboBox cboIva 
          Height          =   315
-         ItemData        =   "ABMClientes.frx":544E
+         ItemData        =   "ABMClientes.frx":5486
          Left            =   -67800
-         List            =   "ABMClientes.frx":5450
+         List            =   "ABMClientes.frx":5488
          Style           =   2  'Dropdown List
          TabIndex        =   49
-         Top             =   5400
+         Top             =   5440
          Visible         =   0   'False
          Width           =   3495
       End
       Begin VB.ComboBox cboPais 
          Enabled         =   0   'False
          Height          =   315
-         ItemData        =   "ABMClientes.frx":5452
+         ItemData        =   "ABMClientes.frx":548A
          Left            =   -67800
-         List            =   "ABMClientes.frx":5454
+         List            =   "ABMClientes.frx":548C
          Style           =   2  'Dropdown List
          TabIndex        =   48
-         Top             =   5040
+         Top             =   5080
          Visible         =   0   'False
          Width           =   3375
       End
@@ -1105,7 +1221,7 @@ Begin VB.Form ABMClientes
          Height          =   6255
          Left            =   -74760
          TabIndex        =   30
-         Top             =   375
+         Top             =   415
          Width           =   10455
          Begin VB.TextBox txtID 
             Height          =   315
@@ -1181,9 +1297,9 @@ Begin VB.Form ABMClientes
          End
          Begin VB.ComboBox cboLocalidad 
             Height          =   315
-            ItemData        =   "ABMClientes.frx":5456
+            ItemData        =   "ABMClientes.frx":548E
             Left            =   2610
-            List            =   "ABMClientes.frx":5458
+            List            =   "ABMClientes.frx":5490
             Style           =   2  'Dropdown List
             TabIndex        =   6
             Top             =   2550
@@ -1191,9 +1307,9 @@ Begin VB.Form ABMClientes
          End
          Begin VB.ComboBox cboProvincia 
             Height          =   315
-            ItemData        =   "ABMClientes.frx":545A
+            ItemData        =   "ABMClientes.frx":5492
             Left            =   2610
-            List            =   "ABMClientes.frx":545C
+            List            =   "ABMClientes.frx":5494
             Style           =   2  'Dropdown List
             TabIndex        =   5
             Top             =   2115
@@ -1237,7 +1353,7 @@ Begin VB.Form ABMClientes
          Begin VB.CommandButton cmdBuscaOS 
             Height          =   315
             Left            =   6600
-            Picture         =   "ABMClientes.frx":545E
+            Picture         =   "ABMClientes.frx":5496
             Style           =   1  'Graphical
             TabIndex        =   31
             ToolTipText     =   "Buscar Obras Sociales"
@@ -1280,7 +1396,7 @@ Begin VB.Form ABMClientes
             _ExtentY        =   556
             _Version        =   393216
             CheckBox        =   -1  'True
-            Format          =   61210625
+            Format          =   110034945
             CurrentDate     =   40071
          End
          Begin MSComCtl2.DTPicker DTFechaNac 
@@ -1293,7 +1409,7 @@ Begin VB.Form ABMClientes
             _ExtentY        =   556
             _Version        =   393216
             CheckBox        =   -1  'True
-            Format          =   61210625
+            Format          =   110034945
             CurrentDate     =   40071
          End
          Begin VB.Image Image1 
@@ -1477,7 +1593,7 @@ Begin VB.Form ABMClientes
          MaxLength       =   250
          MultiLine       =   -1  'True
          TabIndex        =   29
-         Top             =   5795
+         Top             =   5835
          Visible         =   0   'False
          Width           =   855
       End
@@ -1486,7 +1602,7 @@ Begin VB.Form ABMClientes
          Left            =   -65070
          MaxLength       =   50
          TabIndex        =   23
-         Top             =   5330
+         Top             =   5370
          Visible         =   0   'False
          Width           =   855
       End
@@ -1495,7 +1611,7 @@ Begin VB.Form ABMClientes
          Left            =   -65160
          MaxLength       =   10
          TabIndex        =   22
-         Top             =   4100
+         Top             =   4140
          Visible         =   0   'False
          Width           =   1005
       End
@@ -1503,7 +1619,7 @@ Begin VB.Form ABMClientes
          Height          =   315
          Left            =   -65520
          TabIndex        =   24
-         Top             =   4715
+         Top             =   4755
          Visible         =   0   'False
          Width           =   1395
          _ExtentX        =   2461
@@ -1518,7 +1634,7 @@ Begin VB.Form ABMClientes
          Height          =   4245
          Left            =   -74880
          TabIndex        =   60
-         Top             =   2505
+         Top             =   2545
          Width           =   10680
          _ExtentX        =   18838
          _ExtentY        =   7488
@@ -1544,9 +1660,9 @@ Begin VB.Form ABMClientes
       End
       Begin MSFlexGridLib.MSFlexGrid grdCClinico 
          Height          =   3165
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   87
-         Top             =   4065
+         Top             =   4105
          Width           =   10680
          _ExtentX        =   18838
          _ExtentY        =   5583
@@ -1577,7 +1693,7 @@ Begin VB.Form ABMClientes
          Index           =   9
          Left            =   -69360
          TabIndex        =   50
-         Top             =   6020
+         Top             =   6060
          Visible         =   0   'False
          Width           =   975
       End
@@ -1588,7 +1704,7 @@ Begin VB.Form ABMClientes
          Index           =   7
          Left            =   -65760
          TabIndex        =   28
-         Top             =   5375
+         Top             =   5415
          Visible         =   0   'False
          Width           =   480
       End
@@ -1599,7 +1715,7 @@ Begin VB.Form ABMClientes
          Index           =   10
          Left            =   -65520
          TabIndex        =   27
-         Top             =   5060
+         Top             =   5100
          Visible         =   0   'False
          Width           =   660
       End
@@ -1610,7 +1726,7 @@ Begin VB.Form ABMClientes
          Index           =   11
          Left            =   -65040
          TabIndex        =   26
-         Top             =   4460
+         Top             =   4500
          Visible         =   0   'False
          Width           =   870
       End
@@ -1621,7 +1737,7 @@ Begin VB.Form ABMClientes
          Index           =   12
          Left            =   -66120
          TabIndex        =   25
-         Top             =   5795
+         Top             =   5835
          Visible         =   0   'False
          Width           =   960
       End
@@ -1638,7 +1754,7 @@ Begin VB.Form ABMClientes
    Begin VB.CommandButton cmdAyuda 
       Height          =   315
       Left            =   5880
-      Picture         =   "ABMClientes.frx":5E60
+      Picture         =   "ABMClientes.frx":5E98
       Style           =   1  'Graphical
       TabIndex        =   19
       Top             =   7380
@@ -1649,7 +1765,7 @@ Begin VB.Form ABMClientes
       Caption         =   "&Cerrar"
       Height          =   585
       Left            =   9885
-      Picture         =   "ABMClientes.frx":5FAA
+      Picture         =   "ABMClientes.frx":5FE2
       Style           =   1  'Graphical
       TabIndex        =   18
       Top             =   7335
@@ -1659,7 +1775,7 @@ Begin VB.Form ABMClientes
       Caption         =   "&Aceptar"
       Height          =   585
       Left            =   8835
-      Picture         =   "ABMClientes.frx":62B4
+      Picture         =   "ABMClientes.frx":62EC
       Style           =   1  'Graphical
       TabIndex        =   17
       Top             =   7335
@@ -1683,6 +1799,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+
 
 Option Explicit
 
@@ -2517,6 +2634,7 @@ Private Function LimpiarCMedica()
     txtMedIndica.Text = ""
     txtMedCodigo.Text = ""
 End Function
+
 Private Sub cmdAyuda_Click()
     Call WinHelp(Me.hWnd, App.Path & "\help\AYUDA.HLP", cdlHelpContext, 12)
 End Sub
@@ -3163,6 +3281,53 @@ Private Sub configurogrilla()
         GrdCMedica.CellBackColor = &H808080    'GRIS OSCURO
         GrdCMedica.CellFontBold = True
     Next
+
+End Sub
+
+Private Sub GenWord_Click()
+Dim direcc As String
+Dim NomCli As String
+'consultar bd para NomCli
+'Declara la variable.
+Dim objWD As Word.Application
+'Crea una nueva instancia de Word
+Set objWD = CreateObject("Word.Application")
+'Agrega un nuevo documento en blanco
+objWD.Documents.Add
+'Agrega Texto.
+objWD.Selection.TypeText "TEXTO"
+'Guarda el documento
+direcc = "D:\ws\hc\Documentos\mydoc"
+'objWD.ActiveDocument.SaveAs FileName:=direcc + NomCli + ".doc"
+objWD.ActiveDocument.SaveAs FileName:="D:\ws\hc\Documentos\mydoc.doc"
+'abre el documento
+ With objWD
+        .Documents.Open App.Path & "\Documentos\Mydoc.doc" 'abrimos "mydoc"
+        .Visible = True 'hacemos visible Word
+    End With
+'Salir de Word.
+'objWD.Quit
+'Quitarlo de memoria
+'Set objWD = Nothing
+'O puedes abrir uno ya existente
+'Private Sub GenWord_Click()
+'Declara la variable.
+'Dim objWD As Word.Application
+'Declara variable para el documento
+'Dim objDoc As Word.Document
+'Crea una nueva instancia de Word
+'Set objWD = CreateObject("Word.Application")
+'Indica el documento a abrir.
+'Set objDoc = objWD.Documents.Open(FileName:="D:\ws\hc\Documentos\mydoc.doc")
+'Agrega Texto.
+'objWD.Selection.TypeText "Este es el nuevo texto"
+'Guarda el documento
+'objWD.ActiveDocument.Save
+'Salir de Word.
+'objWD.Quit
+'Quítalos de memoria
+'Set objDoc = Nothing
+'Set objWD = Nothing
 
 End Sub
 
