@@ -39,24 +39,24 @@ Begin VB.Form ABMClientes
       _ExtentY        =   12832
       _Version        =   393216
       Tabs            =   6
-      Tab             =   5
+      Tab             =   2
       TabsPerRow      =   6
       TabHeight       =   520
       TabCaption(0)   =   "&Datos del Paciente"
       TabPicture(0)   =   "ABMClientes.frx":0BC2
       Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "cboIva"
-      Tab(0).Control(1)=   "cboPais"
-      Tab(0).Control(2)=   "Frame3"
-      Tab(0).Control(3)=   "txtObserva"
-      Tab(0).Control(4)=   "txtMail"
-      Tab(0).Control(5)=   "txtIngresosBrutos"
-      Tab(0).Control(6)=   "txtCuit"
-      Tab(0).Control(7)=   "Label1(9)"
-      Tab(0).Control(8)=   "Label1(7)"
-      Tab(0).Control(9)=   "Label1(10)"
-      Tab(0).Control(10)=   "Label1(11)"
-      Tab(0).Control(11)=   "Label1(12)"
+      Tab(0).Control(0)=   "Label1(12)"
+      Tab(0).Control(1)=   "Label1(11)"
+      Tab(0).Control(2)=   "Label1(10)"
+      Tab(0).Control(3)=   "Label1(7)"
+      Tab(0).Control(4)=   "Label1(9)"
+      Tab(0).Control(5)=   "txtCuit"
+      Tab(0).Control(6)=   "txtIngresosBrutos"
+      Tab(0).Control(7)=   "txtMail"
+      Tab(0).Control(8)=   "txtObserva"
+      Tab(0).Control(9)=   "Frame3"
+      Tab(0).Control(10)=   "cboPais"
+      Tab(0).Control(11)=   "cboIva"
       Tab(0).ControlCount=   12
       TabCaption(1)   =   "&Anamnesis"
       TabPicture(1)   =   "ABMClientes.frx":0BDE
@@ -65,32 +65,38 @@ Begin VB.Form ABMClientes
       Tab(1).ControlCount=   1
       TabCaption(2)   =   "&Historia Clinica"
       TabPicture(2)   =   "ABMClientes.frx":0BFA
-      Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "Frame6"
-      Tab(2).Control(1)=   "cboTratamiento"
-      Tab(2).Control(2)=   "Frame2"
-      Tab(2).Control(3)=   "Frame1"
-      Tab(2).Control(4)=   "txtHC"
-      Tab(2).Control(5)=   "grdCClinico"
+      Tab(2).ControlEnabled=   -1  'True
+      Tab(2).Control(0)=   "grdCClinico"
+      Tab(2).Control(0).Enabled=   0   'False
+      Tab(2).Control(1)=   "txtHC"
+      Tab(2).Control(1).Enabled=   0   'False
+      Tab(2).Control(2)=   "Frame1"
+      Tab(2).Control(2).Enabled=   0   'False
+      Tab(2).Control(3)=   "Frame2"
+      Tab(2).Control(3).Enabled=   0   'False
+      Tab(2).Control(4)=   "cboTratamiento"
+      Tab(2).Control(4).Enabled=   0   'False
+      Tab(2).Control(5)=   "Frame6"
+      Tab(2).Control(5).Enabled=   0   'False
       Tab(2).ControlCount=   6
       TabCaption(3)   =   "Medicamentos"
       TabPicture(3)   =   "ABMClientes.frx":0C16
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "Frame4"
+      Tab(3).Control(0)=   "GrdCMedica"
       Tab(3).Control(1)=   "txtMedica"
-      Tab(3).Control(2)=   "GrdCMedica"
+      Tab(3).Control(2)=   "Frame4"
       Tab(3).ControlCount=   3
       TabCaption(4)   =   "Pedidos"
       TabPicture(4)   =   "ABMClientes.frx":0C32
       Tab(4).ControlEnabled=   0   'False
-      Tab(4).Control(0)=   "cmdRealizado"
-      Tab(4).Control(1)=   "cmdCancelarPedido"
-      Tab(4).Control(2)=   "Command2"
-      Tab(4).Control(3)=   "Frame7"
+      Tab(4).Control(0)=   "Frame7"
+      Tab(4).Control(1)=   "Command2"
+      Tab(4).Control(2)=   "cmdCancelarPedido"
+      Tab(4).Control(3)=   "cmdRealizado"
       Tab(4).ControlCount=   4
       TabCaption(5)   =   "Imágenes"
       TabPicture(5)   =   "ABMClientes.frx":0C4E
-      Tab(5).ControlEnabled=   -1  'True
+      Tab(5).ControlEnabled=   0   'False
       Tab(5).Control(0)=   "ImagenesRealizadas"
       Tab(5).Control(0).Enabled=   0   'False
       Tab(5).ControlCount=   1
@@ -98,7 +104,7 @@ Begin VB.Form ABMClientes
          Caption         =   "Imágenes realizadas"
          ForeColor       =   &H00FF0000&
          Height          =   6495
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   144
          Top             =   480
          Width           =   10575
@@ -176,7 +182,7 @@ Begin VB.Form ABMClientes
          EndProperty
          ForeColor       =   &H000000FF&
          Height          =   2175
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   134
          Top             =   400
          Width           =   10695
@@ -212,7 +218,7 @@ Begin VB.Form ABMClientes
             Strikethrough   =   0   'False
          EndProperty
          Height          =   315
-         Left            =   -74760
+         Left            =   240
          Style           =   2  'Dropdown List
          TabIndex        =   132
          Top             =   5440
@@ -271,7 +277,7 @@ Begin VB.Form ABMClientes
             _ExtentY        =   556
             _Version        =   393216
             CheckBox        =   -1  'True
-            Format          =   110100481
+            Format          =   54525953
             CurrentDate     =   40070
          End
          Begin VB.TextBox txtcualca 
@@ -515,7 +521,7 @@ Begin VB.Form ABMClientes
          EndProperty
          ForeColor       =   &H00004000&
          Height          =   1455
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   79
          Top             =   2560
          Width           =   10695
@@ -650,7 +656,7 @@ Begin VB.Form ABMClientes
             CalendarBackColor=   12648384
             CalendarForeColor=   0
             CalendarTitleBackColor=   12648384
-            Format          =   110100481
+            Format          =   54525953
             UpDown          =   -1  'True
             CurrentDate     =   40063
          End
@@ -677,7 +683,7 @@ Begin VB.Form ABMClientes
             CalendarTitleBackColor=   12648384
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110100481
+            Format          =   54525953
             CurrentDate     =   40063
          End
          Begin VB.TextBox txtDescTra 
@@ -787,7 +793,7 @@ Begin VB.Form ABMClientes
       End
       Begin VB.Frame Frame1 
          Height          =   315
-         Left            =   -74400
+         Left            =   600
          TabIndex        =   62
          Top             =   5935
          Visible         =   0   'False
@@ -947,7 +953,7 @@ Begin VB.Form ABMClientes
       End
       Begin VB.TextBox txtHC 
          Height          =   285
-         Left            =   -74760
+         Left            =   240
          MultiLine       =   -1  'True
          TabIndex        =   61
          Top             =   5935
@@ -1102,7 +1108,7 @@ Begin VB.Form ABMClientes
             CalendarBackColor=   12648384
             CalendarForeColor=   0
             CalendarTitleBackColor=   12648384
-            Format          =   110100481
+            Format          =   54525953
             UpDown          =   -1  'True
             CurrentDate     =   40063
          End
@@ -1365,7 +1371,7 @@ Begin VB.Form ABMClientes
             _ExtentY        =   556
             _Version        =   393216
             CheckBox        =   -1  'True
-            Format          =   110100481
+            Format          =   54525953
             CurrentDate     =   40071
          End
          Begin MSComCtl2.DTPicker DTFechaNac 
@@ -1378,7 +1384,7 @@ Begin VB.Form ABMClientes
             _ExtentY        =   556
             _Version        =   393216
             CheckBox        =   -1  'True
-            Format          =   110100481
+            Format          =   54525953
             CurrentDate     =   40071
          End
          Begin VB.Image Image1 
@@ -1629,7 +1635,7 @@ Begin VB.Form ABMClientes
       End
       Begin MSFlexGridLib.MSFlexGrid grdCClinico 
          Height          =   3165
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   87
          Top             =   4105
          Width           =   10680
