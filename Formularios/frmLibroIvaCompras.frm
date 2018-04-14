@@ -1,8 +1,7 @@
 VERSION 5.00
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "Comdlg32.ocx"
 Object = "{00025600-0000-0000-C000-000000000046}#5.2#0"; "Crystl32.OCX"
 Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.3#0"; "COMCTL32.OCX"
-Object = "{5F09B5DF-6F4D-11D2-8355-4854E82A9183}#15.0#0"; "FECHA32.OCX"
 Begin VB.Form frmLibroIvaCompras 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Libro IVA Compras"
@@ -171,17 +170,14 @@ Begin VB.Form frmLibroIvaCompras
          _Version        =   327682
          Appearance      =   1
       End
-      Begin FechaCtl.Fecha FechaDesde 
+      Begin VB.PictureBox FechaDesde 
          Height          =   300
          Left            =   1575
+         ScaleHeight     =   240
+         ScaleWidth      =   1095
          TabIndex        =   0
          Top             =   270
          Width           =   1155
-         _ExtentX        =   2037
-         _ExtentY        =   529
-         Separador       =   "/"
-         Text            =   ""
-         MensajeErrMin   =   "La fecha ingresada no alcanza el mínimo permitido"
       End
       Begin VB.Label Label4 
          AutoSize        =   -1  'True

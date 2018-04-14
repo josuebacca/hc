@@ -1,7 +1,6 @@
 VERSION 5.00
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "Comdlg32.ocx"
 Object = "{00025600-0000-0000-C000-000000000046}#5.2#0"; "Crystl32.OCX"
-Object = "{5F09B5DF-6F4D-11D2-8355-4854E82A9183}#15.0#0"; "Fecha32.ocx"
 Begin VB.Form frmCtaCteCliente 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Cta-Cte Clientes"
@@ -194,29 +193,23 @@ Begin VB.Form frmCtaCteCliente
          Top             =   345
          Width           =   4575
       End
-      Begin FechaCtl.Fecha FechaHasta 
+      Begin VB.PictureBox FechaHasta 
          Height          =   285
          Left            =   4095
+         ScaleHeight     =   225
+         ScaleWidth      =   1125
          TabIndex        =   3
          Top             =   690
          Width           =   1185
-         _ExtentX        =   2090
-         _ExtentY        =   503
-         Separador       =   "/"
-         Text            =   ""
-         MensajeErrMin   =   "La fecha ingresada no alcanza el mínimo permitido"
       End
-      Begin FechaCtl.Fecha FechaDesde 
+      Begin VB.PictureBox FechaDesde 
          Height          =   330
          Left            =   1620
+         ScaleHeight     =   270
+         ScaleWidth      =   1110
          TabIndex        =   2
          Top             =   690
          Width           =   1170
-         _ExtentX        =   2064
-         _ExtentY        =   582
-         Separador       =   "/"
-         Text            =   ""
-         MensajeErrMin   =   "La fecha ingresada no alcanza el mínimo permitido"
       End
       Begin VB.Label lblFechaHasta 
          AutoSize        =   -1  'True
@@ -303,171 +296,171 @@ End Sub
 
 Private Sub BuscarCtaCTeClientes()
        
-    SQL = "DELETE FROM CTA_CTE_CLIENTE"
-    DBConn.Execute SQL
+    sql = "DELETE FROM CTA_CTE_CLIENTE"
+    DBConn.Execute sql
     
     If optPendiente.Value = True Or optSaldos.Value = True Then
         
         'FACTURAS PENDIENTES
-        SQL = "INSERT INTO CTA_CTE_CLIENTE (CLI_CODIGO,TCO_CODIGO,COM_NUMERO,COM_SUCURSAL,"
-        SQL = SQL & " COM_FECHA,COM_IMPORTE,COM_IMP_DEBE,COM_IMP_HABER,CTA_CTE_DH,COM_NUMEROTXT)"
-        SQL = SQL & " SELECT F.CLI_CODIGO,F.TCO_CODIGO,F.FCL_NUMERO,F.FCL_SUCURSAL,"
-        SQL = SQL & " F.FCL_FECHA,F.FCL_TOTAL,F.FCL_SALDO,0 AS HABER,'D' AS DEBE,FCL_NUMEROTXT"
-        SQL = SQL & " FROM SALDO_FACTURAS_CLIENTE_V F"
-        SQL = SQL & " WHERE"
-        SQL = SQL & " F.EST_CODIGO=3"
-        SQL = SQL & " AND F.FCL_SALDO > 0"
+        sql = "INSERT INTO CTA_CTE_CLIENTE (CLI_CODIGO,TCO_CODIGO,COM_NUMERO,COM_SUCURSAL,"
+        sql = sql & " COM_FECHA,COM_IMPORTE,COM_IMP_DEBE,COM_IMP_HABER,CTA_CTE_DH,COM_NUMEROTXT)"
+        sql = sql & " SELECT F.CLI_CODIGO,F.TCO_CODIGO,F.FCL_NUMERO,F.FCL_SUCURSAL,"
+        sql = sql & " F.FCL_FECHA,F.FCL_TOTAL,F.FCL_SALDO,0 AS HABER,'D' AS DEBE,FCL_NUMEROTXT"
+        sql = sql & " FROM SALDO_FACTURAS_CLIENTE_V F"
+        sql = sql & " WHERE"
+        sql = sql & " F.EST_CODIGO=3"
+        sql = sql & " AND F.FCL_SALDO > 0"
         If txtCliente.Text <> "" Then
-            SQL = SQL & " AND F.CLI_CODIGO=" & XN(txtCliente.Text)
+            sql = sql & " AND F.CLI_CODIGO=" & XN(txtCliente.Text)
         End If
         If FechaDesde.Text <> "" Then
-            SQL = SQL & " AND F.FCL_FECHA>=" & XDQ(FechaDesde.Text)
+            sql = sql & " AND F.FCL_FECHA>=" & XDQ(FechaDesde.Text)
         End If
         If FechaHasta.Text <> "" Then
-            SQL = SQL & " AND F.FCL_FECHA<=" & XDQ(FechaHasta.Text)
+            sql = sql & " AND F.FCL_FECHA<=" & XDQ(FechaHasta.Text)
         End If
-        DBConn.Execute SQL
+        DBConn.Execute sql
 
         'NOTA DEBITOS CLIENTE PENDIENTES
-        SQL = "INSERT INTO CTA_CTE_CLIENTE (CLI_CODIGO,TCO_CODIGO,COM_NUMERO,COM_SUCURSAL,"
-        SQL = SQL & " COM_FECHA,COM_IMPORTE,COM_IMP_DEBE,COM_IMP_HABER,CTA_CTE_DH,"
-        SQL = SQL & " COM_NUMEROTXT)"
-        SQL = SQL & " SELECT DISTINCT N.CLI_CODIGO,N.TCO_CODIGO,N.NDC_NUMERO,N.NDC_SUCURSAL,"
-        SQL = SQL & " N.NDC_FECHA,N.NDC_TOTAL,N.NDC_SALDO,0 AS HABER,'D' AS DEBE,N.NDC_NUMEROTXT"
-        SQL = SQL & " FROM NOTA_DEBITO_CLIENTE N"
-        SQL = SQL & " WHERE N.EST_CODIGO=3"
-        SQL = SQL & " AND N.NDC_SALDO > 0"
+        sql = "INSERT INTO CTA_CTE_CLIENTE (CLI_CODIGO,TCO_CODIGO,COM_NUMERO,COM_SUCURSAL,"
+        sql = sql & " COM_FECHA,COM_IMPORTE,COM_IMP_DEBE,COM_IMP_HABER,CTA_CTE_DH,"
+        sql = sql & " COM_NUMEROTXT)"
+        sql = sql & " SELECT DISTINCT N.CLI_CODIGO,N.TCO_CODIGO,N.NDC_NUMERO,N.NDC_SUCURSAL,"
+        sql = sql & " N.NDC_FECHA,N.NDC_TOTAL,N.NDC_SALDO,0 AS HABER,'D' AS DEBE,N.NDC_NUMEROTXT"
+        sql = sql & " FROM NOTA_DEBITO_CLIENTE N"
+        sql = sql & " WHERE N.EST_CODIGO=3"
+        sql = sql & " AND N.NDC_SALDO > 0"
         If txtCliente.Text <> "" Then
-            SQL = SQL & " AND N.CLI_CODIGO=" & XN(txtCliente.Text)
+            sql = sql & " AND N.CLI_CODIGO=" & XN(txtCliente.Text)
         End If
         If FechaDesde.Text <> "" Then
-            SQL = SQL & " AND N.NDC_FECHA>=" & XDQ(FechaDesde.Text)
+            sql = sql & " AND N.NDC_FECHA>=" & XDQ(FechaDesde.Text)
         End If
         If FechaHasta.Text <> "" Then
-            SQL = SQL & " AND N.NDC_FECHA<=" & XDQ(FechaHasta.Text)
+            sql = sql & " AND N.NDC_FECHA<=" & XDQ(FechaHasta.Text)
         End If
-        DBConn.Execute SQL
+        DBConn.Execute sql
         
         'NOTA CREDITO CLIENTE PENDIENTES
-        SQL = "INSERT INTO CTA_CTE_CLIENTE (CLI_CODIGO,TCO_CODIGO,COM_NUMERO,COM_SUCURSAL,"
-        SQL = SQL & " COM_FECHA,COM_IMPORTE,COM_IMP_DEBE,COM_IMP_HABER,CTA_CTE_DH,"
-        SQL = SQL & " COM_NUMEROTXT)"
-        SQL = SQL & " SELECT DISTINCT N.CLI_CODIGO,N.TCO_CODIGO,N.NCC_NUMERO,N.NCC_SUCURSAL,"
-        SQL = SQL & " N.NCC_FECHA,N.NCC_TOTAL,0 AS DEBE,NCC_SALDO,'C' AS CREDITO,N.NCC_NUMEROTXT"
-        SQL = SQL & " FROM NOTA_CREDITO_CLIENTE N"
-        SQL = SQL & " WHERE N.EST_CODIGO=3"
-        SQL = SQL & " AND N.NCC_SALDO > 0"
+        sql = "INSERT INTO CTA_CTE_CLIENTE (CLI_CODIGO,TCO_CODIGO,COM_NUMERO,COM_SUCURSAL,"
+        sql = sql & " COM_FECHA,COM_IMPORTE,COM_IMP_DEBE,COM_IMP_HABER,CTA_CTE_DH,"
+        sql = sql & " COM_NUMEROTXT)"
+        sql = sql & " SELECT DISTINCT N.CLI_CODIGO,N.TCO_CODIGO,N.NCC_NUMERO,N.NCC_SUCURSAL,"
+        sql = sql & " N.NCC_FECHA,N.NCC_TOTAL,0 AS DEBE,NCC_SALDO,'C' AS CREDITO,N.NCC_NUMEROTXT"
+        sql = sql & " FROM NOTA_CREDITO_CLIENTE N"
+        sql = sql & " WHERE N.EST_CODIGO=3"
+        sql = sql & " AND N.NCC_SALDO > 0"
         If txtCliente.Text <> "" Then
-            SQL = SQL & " AND N.CLI_CODIGO=" & XN(txtCliente.Text)
+            sql = sql & " AND N.CLI_CODIGO=" & XN(txtCliente.Text)
         End If
         If FechaDesde.Text <> "" Then
-            SQL = SQL & " AND N.NCC_FECHA>=" & XDQ(FechaDesde.Text)
+            sql = sql & " AND N.NCC_FECHA>=" & XDQ(FechaDesde.Text)
         End If
         If FechaHasta.Text <> "" Then
-            SQL = SQL & " AND N.NCC_FECHA<=" & XDQ(FechaHasta.Text)
+            sql = sql & " AND N.NCC_FECHA<=" & XDQ(FechaHasta.Text)
         End If
-        DBConn.Execute SQL
+        DBConn.Execute sql
         
         'TODOS LOS RECIBOS CON SALDOS
-        SQL = "INSERT INTO CTA_CTE_CLIENTE (CLI_CODIGO,TCO_CODIGO,COM_NUMERO,COM_SUCURSAL,"
-        SQL = SQL & " COM_FECHA,COM_IMPORTE,COM_IMP_DEBE,COM_IMP_HABER,CTA_CTE_DH,"
-        SQL = SQL & " COM_NUMEROTXT)"
-        SQL = SQL & " SELECT R.CLI_CODIGO,R.TCO_CODIGO,R.REC_NUMERO,R.REC_SUCURSAL,R.REC_FECHA,"
-        SQL = SQL & " S.REC_SALDO AS TOTAL,0 AS DEBE,S.REC_SALDO AS HABER,'C' AS CREDITO,R.REC_NUMEROTXT"
-        SQL = SQL & " FROM RECIBO_CLIENTE R , RECIBO_CLIENTE_SALDO S"
-        SQL = SQL & " WHERE R.EST_CODIGO=3"
-        SQL = SQL & " AND R.TCO_CODIGO=S.TCO_CODIGO"
-        SQL = SQL & " AND R.REC_SUCURSAL=S.REC_SUCURSAL"
-        SQL = SQL & " AND R.REC_NUMERO=S.REC_NUMERO"
-        SQL = SQL & " AND S.REC_SALDO > 0"
+        sql = "INSERT INTO CTA_CTE_CLIENTE (CLI_CODIGO,TCO_CODIGO,COM_NUMERO,COM_SUCURSAL,"
+        sql = sql & " COM_FECHA,COM_IMPORTE,COM_IMP_DEBE,COM_IMP_HABER,CTA_CTE_DH,"
+        sql = sql & " COM_NUMEROTXT)"
+        sql = sql & " SELECT R.CLI_CODIGO,R.TCO_CODIGO,R.REC_NUMERO,R.REC_SUCURSAL,R.REC_FECHA,"
+        sql = sql & " S.REC_SALDO AS TOTAL,0 AS DEBE,S.REC_SALDO AS HABER,'C' AS CREDITO,R.REC_NUMEROTXT"
+        sql = sql & " FROM RECIBO_CLIENTE R , RECIBO_CLIENTE_SALDO S"
+        sql = sql & " WHERE R.EST_CODIGO=3"
+        sql = sql & " AND R.TCO_CODIGO=S.TCO_CODIGO"
+        sql = sql & " AND R.REC_SUCURSAL=S.REC_SUCURSAL"
+        sql = sql & " AND R.REC_NUMERO=S.REC_NUMERO"
+        sql = sql & " AND S.REC_SALDO > 0"
         If txtCliente.Text <> "" Then
-            SQL = SQL & " AND R.CLI_CODIGO=" & XN(txtCliente.Text)
+            sql = sql & " AND R.CLI_CODIGO=" & XN(txtCliente.Text)
         End If
         If FechaDesde.Text <> "" Then
-            SQL = SQL & " AND R.REC_FECHA >= " & XDQ(FechaDesde.Text)
+            sql = sql & " AND R.REC_FECHA >= " & XDQ(FechaDesde.Text)
         End If
         If FechaHasta.Text <> "" Then
-            SQL = SQL & " AND R.REC_FECHA <= " & XDQ(FechaHasta.Text)
+            sql = sql & " AND R.REC_FECHA <= " & XDQ(FechaHasta.Text)
         End If
-        DBConn.Execute SQL
+        DBConn.Execute sql
     End If
     
     If optTodo.Value = True Or optSaldosHistoricos.Value = True Then
         'TODAS LAS FACTURAS
-        SQL = "INSERT INTO CTA_CTE_CLIENTE (CLI_CODIGO,TCO_CODIGO,COM_NUMERO,COM_SUCURSAL,"
-        SQL = SQL & " COM_FECHA,COM_IMPORTE,COM_IMP_DEBE,COM_IMP_HABER,CTA_CTE_DH,COM_NUMEROTXT)"
-        SQL = SQL & " SELECT F.CLI_CODIGO,F.TCO_CODIGO,F.FCL_NUMERO,F.FCL_SUCURSAL,"
-        SQL = SQL & " F.FCL_FECHA,F.FCL_TOTAL,F.FCL_TOTAL,0 AS HABER,'D' AS DEBE,FCL_NUMEROTXT"
-        SQL = SQL & " FROM FACTURA_CLIENTE F"
-        SQL = SQL & " WHERE F.EST_CODIGO=3"
-        SQL = SQL & " AND FPG_CODIGO=2"
+        sql = "INSERT INTO CTA_CTE_CLIENTE (CLI_CODIGO,TCO_CODIGO,COM_NUMERO,COM_SUCURSAL,"
+        sql = sql & " COM_FECHA,COM_IMPORTE,COM_IMP_DEBE,COM_IMP_HABER,CTA_CTE_DH,COM_NUMEROTXT)"
+        sql = sql & " SELECT F.CLI_CODIGO,F.TCO_CODIGO,F.FCL_NUMERO,F.FCL_SUCURSAL,"
+        sql = sql & " F.FCL_FECHA,F.FCL_TOTAL,F.FCL_TOTAL,0 AS HABER,'D' AS DEBE,FCL_NUMEROTXT"
+        sql = sql & " FROM FACTURA_CLIENTE F"
+        sql = sql & " WHERE F.EST_CODIGO=3"
+        sql = sql & " AND FPG_CODIGO=2"
         If txtCliente.Text <> "" Then
-            SQL = SQL & " AND F.CLI_CODIGO=" & XN(txtCliente.Text)
+            sql = sql & " AND F.CLI_CODIGO=" & XN(txtCliente.Text)
         End If
         If FechaDesde.Text <> "" Then
-            SQL = SQL & " AND F.FCL_FECHA >= " & XDQ(FechaDesde.Text)
+            sql = sql & " AND F.FCL_FECHA >= " & XDQ(FechaDesde.Text)
         End If
         If FechaHasta.Text <> "" Then
-            SQL = SQL & " AND F.FCL_FECHA <= " & XDQ(FechaHasta.Text)
+            sql = sql & " AND F.FCL_FECHA <= " & XDQ(FechaHasta.Text)
         End If
-        DBConn.Execute SQL
+        DBConn.Execute sql
     
         'TODAS LAS NOTAS DEBITOS CLIENTE
-        SQL = "INSERT INTO CTA_CTE_CLIENTE (CLI_CODIGO,TCO_CODIGO,COM_NUMERO,COM_SUCURSAL,"
-        SQL = SQL & " COM_FECHA,COM_IMPORTE,COM_IMP_DEBE,COM_IMP_HABER,CTA_CTE_DH,"
-        SQL = SQL & " COM_NUMEROTXT)"
-        SQL = SQL & " SELECT DISTINCT N.CLI_CODIGO,N.TCO_CODIGO,N.NDC_NUMERO,N.NDC_SUCURSAL,"
-        SQL = SQL & " N.NDC_FECHA,N.NDC_TOTAL,N.NDC_TOTAL,0 AS HABER,'D' AS DEBE,N.NDC_NUMEROTXT"
-        SQL = SQL & " FROM NOTA_DEBITO_CLIENTE N"
-        SQL = SQL & " WHERE N.EST_CODIGO=3"
+        sql = "INSERT INTO CTA_CTE_CLIENTE (CLI_CODIGO,TCO_CODIGO,COM_NUMERO,COM_SUCURSAL,"
+        sql = sql & " COM_FECHA,COM_IMPORTE,COM_IMP_DEBE,COM_IMP_HABER,CTA_CTE_DH,"
+        sql = sql & " COM_NUMEROTXT)"
+        sql = sql & " SELECT DISTINCT N.CLI_CODIGO,N.TCO_CODIGO,N.NDC_NUMERO,N.NDC_SUCURSAL,"
+        sql = sql & " N.NDC_FECHA,N.NDC_TOTAL,N.NDC_TOTAL,0 AS HABER,'D' AS DEBE,N.NDC_NUMEROTXT"
+        sql = sql & " FROM NOTA_DEBITO_CLIENTE N"
+        sql = sql & " WHERE N.EST_CODIGO=3"
         If txtCliente.Text <> "" Then
-            SQL = SQL & " AND N.CLI_CODIGO=" & XN(txtCliente.Text)
+            sql = sql & " AND N.CLI_CODIGO=" & XN(txtCliente.Text)
         End If
         If FechaDesde.Text <> "" Then
-            SQL = SQL & " AND N.NDC_FECHA >= " & XDQ(FechaDesde.Text)
+            sql = sql & " AND N.NDC_FECHA >= " & XDQ(FechaDesde.Text)
         End If
         If FechaHasta.Text <> "" Then
-            SQL = SQL & " AND N.NDC_FECHA <= " & XDQ(FechaHasta.Text)
+            sql = sql & " AND N.NDC_FECHA <= " & XDQ(FechaHasta.Text)
         End If
-        DBConn.Execute SQL
+        DBConn.Execute sql
         
         'TODAS LAS NOTAS CREDITO CLIENTE
-        SQL = "INSERT INTO CTA_CTE_CLIENTE (CLI_CODIGO,TCO_CODIGO,COM_NUMERO,COM_SUCURSAL,"
-        SQL = SQL & " COM_FECHA,COM_IMPORTE,COM_IMP_DEBE,COM_IMP_HABER,CTA_CTE_DH,"
-        SQL = SQL & " COM_NUMEROTXT)"
-        SQL = SQL & " SELECT DISTINCT N.CLI_CODIGO,N.TCO_CODIGO,N.NCC_NUMERO,N.NCC_SUCURSAL,"
-        SQL = SQL & " N.NCC_FECHA,N.NCC_TOTAL,0 AS DEBE,NCC_TOTAL,'C' AS CREDITO,N.NCC_NUMEROTXT"
-        SQL = SQL & " FROM NOTA_CREDITO_CLIENTE N"
-        SQL = SQL & " WHERE N.EST_CODIGO=3"
+        sql = "INSERT INTO CTA_CTE_CLIENTE (CLI_CODIGO,TCO_CODIGO,COM_NUMERO,COM_SUCURSAL,"
+        sql = sql & " COM_FECHA,COM_IMPORTE,COM_IMP_DEBE,COM_IMP_HABER,CTA_CTE_DH,"
+        sql = sql & " COM_NUMEROTXT)"
+        sql = sql & " SELECT DISTINCT N.CLI_CODIGO,N.TCO_CODIGO,N.NCC_NUMERO,N.NCC_SUCURSAL,"
+        sql = sql & " N.NCC_FECHA,N.NCC_TOTAL,0 AS DEBE,NCC_TOTAL,'C' AS CREDITO,N.NCC_NUMEROTXT"
+        sql = sql & " FROM NOTA_CREDITO_CLIENTE N"
+        sql = sql & " WHERE N.EST_CODIGO=3"
         If txtCliente.Text <> "" Then
-            SQL = SQL & " AND N.CLI_CODIGO=" & XN(txtCliente.Text)
+            sql = sql & " AND N.CLI_CODIGO=" & XN(txtCliente.Text)
         End If
         If FechaDesde.Text <> "" Then
-            SQL = SQL & " AND N.NCC_FECHA >= " & XDQ(FechaDesde.Text)
+            sql = sql & " AND N.NCC_FECHA >= " & XDQ(FechaDesde.Text)
         End If
         If FechaHasta.Text <> "" Then
-            SQL = SQL & " AND N.NCC_FECHA <= " & XDQ(FechaHasta.Text)
+            sql = sql & " AND N.NCC_FECHA <= " & XDQ(FechaHasta.Text)
         End If
-        DBConn.Execute SQL
+        DBConn.Execute sql
         
         'TODOS LOS RECIBOS
-        SQL = "INSERT INTO CTA_CTE_CLIENTE (CLI_CODIGO,TCO_CODIGO,COM_NUMERO,COM_SUCURSAL,"
-        SQL = SQL & " COM_FECHA,COM_IMPORTE,COM_IMP_DEBE,COM_IMP_HABER,CTA_CTE_DH,"
-        SQL = SQL & " COM_NUMEROTXT)"
-        SQL = SQL & " SELECT DISTINCT R.CLI_CODIGO,R.TCO_CODIGO,R.REC_NUMERO,R.REC_SUCURSAL,"
-        SQL = SQL & " R.REC_FECHA,R.REC_TOTAL,0 AS DEBE,REC_TOTAL,'C' AS CREDITO,R.REC_NUMEROTXT"
-        SQL = SQL & " FROM RECIBO_CLIENTE R"
-        SQL = SQL & " WHERE R.EST_CODIGO=3"
+        sql = "INSERT INTO CTA_CTE_CLIENTE (CLI_CODIGO,TCO_CODIGO,COM_NUMERO,COM_SUCURSAL,"
+        sql = sql & " COM_FECHA,COM_IMPORTE,COM_IMP_DEBE,COM_IMP_HABER,CTA_CTE_DH,"
+        sql = sql & " COM_NUMEROTXT)"
+        sql = sql & " SELECT DISTINCT R.CLI_CODIGO,R.TCO_CODIGO,R.REC_NUMERO,R.REC_SUCURSAL,"
+        sql = sql & " R.REC_FECHA,R.REC_TOTAL,0 AS DEBE,REC_TOTAL,'C' AS CREDITO,R.REC_NUMEROTXT"
+        sql = sql & " FROM RECIBO_CLIENTE R"
+        sql = sql & " WHERE R.EST_CODIGO=3"
         If txtCliente.Text <> "" Then
-            SQL = SQL & " AND R.CLI_CODIGO=" & XN(txtCliente.Text)
+            sql = sql & " AND R.CLI_CODIGO=" & XN(txtCliente.Text)
         End If
         If FechaDesde.Text <> "" Then
-            SQL = SQL & " AND R.REC_FECHA >= " & XDQ(FechaDesde.Text)
+            sql = sql & " AND R.REC_FECHA >= " & XDQ(FechaDesde.Text)
         End If
         If FechaHasta.Text <> "" Then
-            SQL = SQL & " AND R.REC_FECHA <= " & XDQ(FechaHasta.Text)
+            sql = sql & " AND R.REC_FECHA <= " & XDQ(FechaHasta.Text)
         End If
-        DBConn.Execute SQL
+        DBConn.Execute sql
         
         'TODOS LOS RECIBOS CON SALDOS
 '        sql = " SELECT R.CLI_CODIGO,R.TCO_CODIGO,R.REC_NUMERO,R.REC_SUCURSAL,"
@@ -527,9 +520,9 @@ End Sub
 
 Private Sub BuscaSaldosDetalle()
     'CONFIGURO EL SALDO
-    SQL = "SELECT * FROM CTA_CTE_CLIENTE"
-    SQL = SQL & " ORDER BY CLI_CODIGO,COM_FECHA"
-    rec.Open SQL, DBConn, adOpenStatic, adLockOptimistic
+    sql = "SELECT * FROM CTA_CTE_CLIENTE"
+    sql = sql & " ORDER BY CLI_CODIGO,COM_FECHA"
+    rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
     
     If rec.EOF = False Then
         Cliente = rec!CLI_CODIGO
@@ -541,14 +534,14 @@ Private Sub BuscaSaldosDetalle()
             Else
                 Saldo = Saldo - CDbl(Chk0(rec!COM_IMP_HABER))
             End If
-            SQL = "UPDATE CTA_CTE_CLIENTE SET CTA_CTA_SALDO=" & XN(CStr(Saldo))
-            SQL = SQL & " ,CTA_CTE_ORDEN=" & XN(CStr(Orden))
-            SQL = SQL & " ,COM_NUMEROTXT=" & XS(Format(rec!COM_NUMERO, "00000000"))
-            SQL = SQL & " WHERE CLI_CODIGO=" & XN(rec!CLI_CODIGO)
-            SQL = SQL & " AND TCO_CODIGO=" & XN(rec!TCO_CODIGO)
-            SQL = SQL & " AND COM_NUMERO=" & XN(rec!COM_NUMERO)
-            SQL = SQL & " AND COM_SUCURSAL=" & XN(rec!COM_SUCURSAL)
-            DBConn.Execute SQL
+            sql = "UPDATE CTA_CTE_CLIENTE SET CTA_CTA_SALDO=" & XN(CStr(Saldo))
+            sql = sql & " ,CTA_CTE_ORDEN=" & XN(CStr(Orden))
+            sql = sql & " ,COM_NUMEROTXT=" & XS(Format(rec!COM_NUMERO, "00000000"))
+            sql = sql & " WHERE CLI_CODIGO=" & XN(rec!CLI_CODIGO)
+            sql = sql & " AND TCO_CODIGO=" & XN(rec!TCO_CODIGO)
+            sql = sql & " AND COM_NUMERO=" & XN(rec!COM_NUMERO)
+            sql = sql & " AND COM_SUCURSAL=" & XN(rec!COM_SUCURSAL)
+            DBConn.Execute sql
             
             Orden = Orden + 1
             rec.MoveNext
@@ -567,31 +560,31 @@ End Sub
 
 Private Sub BuscaSaldosGeneral()
     'CONFIGURO EL SALDO
-    SQL = "SELECT SUM(COM_IMP_DEBE) AS DEBE ,SUM(COM_IMP_HABER)AS HABER "
-    SQL = SQL & " ,CLI_CODIGO"
-    SQL = SQL & " FROM CTA_CTE_CLIENTE"
-    SQL = SQL & " GROUP BY CLI_CODIGO"
-    SQL = SQL & " ORDER BY CLI_CODIGO"
-    rec.Open SQL, DBConn, adOpenStatic, adLockOptimistic
+    sql = "SELECT SUM(COM_IMP_DEBE) AS DEBE ,SUM(COM_IMP_HABER)AS HABER "
+    sql = sql & " ,CLI_CODIGO"
+    sql = sql & " FROM CTA_CTE_CLIENTE"
+    sql = sql & " GROUP BY CLI_CODIGO"
+    sql = sql & " ORDER BY CLI_CODIGO"
+    rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
     
     If rec.EOF = False Then
         Saldo = 0
         Do While rec.EOF = False
              Saldo = CDbl(rec!DEBE) - CDbl(rec!HABER)
-             SQL = "DELETE FROM CTA_CTE_CLIENTE"
-             SQL = SQL & " WHERE CLI_CODIGO=" & XN(rec!CLI_CODIGO)
-             DBConn.Execute SQL
+             sql = "DELETE FROM CTA_CTE_CLIENTE"
+             sql = sql & " WHERE CLI_CODIGO=" & XN(rec!CLI_CODIGO)
+             DBConn.Execute sql
              
             'If Saldo > 0 Then
-                SQL = "INSERT INTO CTA_CTE_CLIENTE (CLI_CODIGO,TCO_CODIGO,COM_NUMERO,"
-                SQL = SQL & "COM_SUCURSAL,CTA_CTE_SALDOFINAL)"
-                SQL = SQL & " VALUES ("
-                SQL = SQL & XN(rec!CLI_CODIGO) & ","
-                SQL = SQL & XN("1") & ","
-                SQL = SQL & XN("1") & ","
-                SQL = SQL & XN("1") & ","
-                SQL = SQL & XN(CStr(Saldo)) & ")"
-                DBConn.Execute SQL
+                sql = "INSERT INTO CTA_CTE_CLIENTE (CLI_CODIGO,TCO_CODIGO,COM_NUMERO,"
+                sql = sql & "COM_SUCURSAL,CTA_CTE_SALDOFINAL)"
+                sql = sql & " VALUES ("
+                sql = sql & XN(rec!CLI_CODIGO) & ","
+                sql = sql & XN("1") & ","
+                sql = sql & XN("1") & ","
+                sql = sql & XN("1") & ","
+                sql = sql & XN(CStr(Saldo)) & ")"
+                DBConn.Execute sql
             'End If
             Saldo = 0
             rec.MoveNext
@@ -653,7 +646,7 @@ CLAVOSE:
     MsgBox Err.Description, vbCritical, TIT_MSGBOX
 End Sub
 
-Private Sub cmdNuevo_Click()
+Private Sub CmdNuevo_Click()
     txtCliente.Text = ""
     lblEstado.Caption = ""
     FechaDesde.Text = ""
@@ -661,14 +654,14 @@ Private Sub cmdNuevo_Click()
     optSaldos.Value = True
 End Sub
 
-Private Sub cmdSalir_Click()
+Private Sub CmdSalir_Click()
     Set frmCtaCteCliente = Nothing
     Unload Me
 End Sub
 
 Private Sub Form_KeyPress(KeyAscii As Integer)
     If KeyAscii = vbKeyReturn Then MySendKeys Chr(9)
-    If KeyAscii = vbKeyEscape Then cmdSalir_Click
+    If KeyAscii = vbKeyEscape Then CmdSalir_Click
 End Sub
 
 Private Sub Form_Load()
@@ -703,14 +696,14 @@ End Sub
 Private Sub txtCliente_LostFocus()
     If txtCliente.Text <> "" Then
         Set rec = New ADODB.Recordset
-        SQL = "SELECT CLI_CODIGO, CLI_RAZSOC"
-        SQL = SQL & " FROM CLIENTE"
-        SQL = SQL & " WHERE "
+        sql = "SELECT CLI_CODIGO, CLI_RAZSOC"
+        sql = sql & " FROM CLIENTE"
+        sql = sql & " WHERE "
         If txtCliente.Text <> "" Then
-            SQL = SQL & " CLI_CODIGO=" & XN(txtCliente)
+            sql = sql & " CLI_CODIGO=" & XN(txtCliente)
         End If
         If rec.State = 1 Then rec.Close
-        rec.Open SQL, DBConn, adOpenStatic, adLockOptimistic
+        rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
         If rec.EOF = False Then
             txtDesCli.Text = Trim(rec!CLI_RAZSOC)
         Else
@@ -744,12 +737,12 @@ End Sub
 Private Sub txtDesCli_LostFocus()
     If txtCliente.Text = "" And txtDesCli.Text <> "" Then
         Set rec = New ADODB.Recordset
-        SQL = "SELECT CLI_CODIGO, CLI_RAZSOC"
-        SQL = SQL & " FROM CLIENTE"
-        SQL = SQL & " WHERE "
-        SQL = SQL & " CLI_RAZSOC LIKE '" & Trim(txtDesCli) & "%'"
+        sql = "SELECT CLI_CODIGO, CLI_RAZSOC"
+        sql = sql & " FROM CLIENTE"
+        sql = sql & " WHERE "
+        sql = sql & " CLI_RAZSOC LIKE '" & Trim(txtDesCli) & "%'"
         If rec.State = 1 Then rec.Close
-        rec.Open SQL, DBConn, adOpenStatic, adLockOptimistic
+        rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
         If rec.EOF = False Then
             If rec.RecordCount > 1 Then
                 BuscarClientes "", "CADENA", Trim(txtDesCli.Text)
@@ -768,15 +761,15 @@ Private Sub txtDesCli_LostFocus()
 End Sub
 
 Private Function BuscoCliente(Cli As String) As String
-    SQL = "SELECT CLI_CODIGO, CLI_RAZSOC"
-    SQL = SQL & " FROM CLIENTE"
-    SQL = SQL & " WHERE "
+    sql = "SELECT CLI_CODIGO, CLI_RAZSOC"
+    sql = sql & " FROM CLIENTE"
+    sql = sql & " WHERE "
     If txtCliente.Text <> "" Then
-        SQL = SQL & " CLI_CODIGO=" & XN(Cli)
+        sql = sql & " CLI_CODIGO=" & XN(Cli)
     Else
-        SQL = SQL & " CLI_RAZSOC LIKE '" & Cli & "%'"
+        sql = sql & " CLI_RAZSOC LIKE '" & Cli & "%'"
     End If
-    BuscoCliente = SQL
+    BuscoCliente = sql
 End Function
 
 Public Sub BuscarClientes(Txt As String, mQuien As String, Optional mCadena As String)
@@ -795,7 +788,7 @@ Public Sub BuscarClientes(Txt As String, mQuien As String, Optional mCadena As S
         End If
         
         hSQL = "Nombre, Código"
-        .SQL = cSQL
+        .sql = cSQL
         .Headers = hSQL
         .Field = "CLI_RAZSOC"
         campo1 = .Field
