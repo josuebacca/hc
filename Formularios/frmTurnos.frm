@@ -426,7 +426,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   54525954
+         StartOfWeek     =   105840642
          CurrentDate     =   40049
       End
    End
@@ -560,6 +560,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+
 Option Explicit
 Dim i As Integer
 Dim J As Integer
@@ -635,7 +636,7 @@ Private Function ImprimirTurno()
             
     Rep.SelectionFormula = " {TURNOS.TUR_FECHA}= " & XDQ(MViewFecha.Value)
     Rep.SelectionFormula = Rep.SelectionFormula & " AND {TURNOS.VEN_CODIGO}= " & cboDoctor.ItemData(cboDoctor.ListIndex)
-    Rep.SelectionFormula = Rep.SelectionFormula & " AND {TURNOS.CLI_CODIGO}= " & XN(txtCodigo.Text)
+    Rep.SelectionFormula = Rep.SelectionFormula & " AND {TURNOS.CLI_CODIGO}= " & XN(txtcodigo.Text)
     'Rep.SelectionFormula = Rep.SelectionFormula & " AND {TURNOS.TUR_HORAD}= #" & TRIM(cboDesde.Text) & "#"
     
     Rep.WindowState = crptMaximized
@@ -697,7 +698,7 @@ Private Sub cmdAgregar_Click()
             sql = sql & Left(Trim(grdGrilla.TextMatrix(i + nFilaD, 0)), 5) & "#,#"
             sql = sql & Right(Trim(grdGrilla.TextMatrix(i + nFilaD, 0)), 5) & "#,"
             sql = sql & cboDoctor.ItemData(cboDoctor.ListIndex) & ","
-            sql = sql & XN(txtCodigo) & ","
+            sql = sql & XN(txtcodigo) & ","
             sql = sql & XS(txtMotivo) & ","
             sql = sql & 0 & ","
             sql = sql & XS(txtOSocial.Text) & ","
@@ -719,7 +720,7 @@ Private Sub cmdAgregar_Click()
             grdGrilla.TextMatrix(i + nFilaD, 3) = txtOSocial.Text
             grdGrilla.TextMatrix(i + nFilaD, 4) = txtMotivo.Text
             grdGrilla.TextMatrix(i + nFilaD, 5) = cboDoctor.ItemData(cboDoctor.ListIndex)
-            grdGrilla.TextMatrix(i + nFilaD, 6) = txtCodigo.Text
+            grdGrilla.TextMatrix(i + nFilaD, 6) = txtcodigo.Text
             grdGrilla.TextMatrix(i + nFilaD, 7) = 0
             grdGrilla.TextMatrix(i + nFilaD, 8) = txtBuscaCliente.Text
             
@@ -736,7 +737,7 @@ Private Sub cmdAgregar_Click()
             End If
             ' aca hago el update
             sql = "UPDATE TURNOS SET "
-            sql = sql & " CLI_CODIGO =" & XN(txtCodigo.Text) 'CAMBIAR CUANDO CARGUEMOS DNI
+            sql = sql & " CLI_CODIGO =" & XN(txtcodigo.Text) 'CAMBIAR CUANDO CARGUEMOS DNI
             sql = sql & " ,TUR_MOTIVO =" & XS(txtMotivo.Text)
             sql = sql & " ,TUR_OSOCIAL =" & XS(txtOSocial.Text)
             sql = sql & " ,TUR_FECALTA =" & XDQ(Date)
@@ -753,7 +754,7 @@ Private Sub cmdAgregar_Click()
             grdGrilla.TextMatrix(i + nFilaD, 3) = txtOSocial.Text
             grdGrilla.TextMatrix(i + nFilaD, 4) = txtMotivo.Text
             grdGrilla.TextMatrix(i + nFilaD, 5) = cboDoctor.ItemData(cboDoctor.ListIndex)
-            grdGrilla.TextMatrix(i + nFilaD, 6) = txtCodigo.Text
+            grdGrilla.TextMatrix(i + nFilaD, 6) = txtcodigo.Text
             grdGrilla.TextMatrix(i + nFilaD, 7) = 0
             grdGrilla.TextMatrix(i + nFilaD, 8) = txtBuscaCliente.Text
             'BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
@@ -792,7 +793,7 @@ Private Sub LimpiarTurno()
     
     txtBuscaCliente.Text = ""
     txtBuscaCliente.ToolTipText = ""
-    txtCodigo.Text = ""
+    txtcodigo.Text = ""
     txtTelefono.Text = ""
     txtOSocial.Text = ""
     txtBuscarCliDescri.Text = ""
@@ -1234,7 +1235,7 @@ Private Sub grdGrilla_Click()
         If grdGrilla.TextMatrix(grdGrilla.RowSel, 1) <> "" Then
             txtBuscaCliente.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 8)
             'txtBuscaCliente_LostFocus
-            txtCodigo.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 6)
+            txtcodigo.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 6)
             txtBuscarCliDescri.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 1)
             txtTelefono.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 2)
             txtOSocial.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 3)
@@ -1245,7 +1246,7 @@ Private Sub grdGrilla_Click()
             If txtBuscaCliente.Text <> "" Then
                 MViewFecha.Value = Date
                 txtBuscaCliente.Text = ""
-                txtCodigo.Text = ""
+                txtcodigo.Text = ""
                 txtBuscarCliDescri.Text = ""
                 txtTelefono.Text = ""
                 txtOSocial.Text = ""
@@ -1350,7 +1351,7 @@ End Function
 Private Sub txtBuscaCliente_Change()
     If txtBuscaCliente.Text = "" Then
         txtBuscarCliDescri.Text = ""
-        txtCodigo.Text = ""
+        txtcodigo.Text = ""
         txtTelefono.Text = ""
         txtOSocial.Text = ""
     End If
@@ -1395,7 +1396,7 @@ Private Sub txtBuscaCliente_LostFocus()
         If rec.EOF = False Then
             'txtBuscaCliente.Text = rec!CLI_NRODOC
             txtBuscarCliDescri.Text = rec!CLI_RAZSOC
-            txtCodigo.Text = rec!CLI_CODIGO
+            txtcodigo.Text = rec!CLI_CODIGO
             txtTelefono.Text = ChkNull(rec!CLI_TELEFONO)
             txtOSocial.Text = BuscarOSocial(rec!CLI_CODIGO)
             'txtMotivo.SetFocus
@@ -1411,7 +1412,7 @@ End Sub
 Private Sub txtBuscarCliDescri_Change()
     If txtBuscarCliDescri.Text = "" Then
         txtBuscaCliente.Text = ""
-        txtCodigo.Text = ""
+        txtcodigo.Text = ""
         txtTelefono.Text = ""
         txtOSocial.Text = ""
     End If
@@ -1463,7 +1464,7 @@ Private Sub txtBuscarCliDescri_LostFocus()
                 End If
                 'txtBuscaCliente.Text = rec!CLI_NRODOC
                 txtBuscarCliDescri.Text = rec!CLI_RAZSOC
-                txtCodigo.Text = rec!CLI_CODIGO
+                txtcodigo.Text = rec!CLI_CODIGO
                 txtTelefono.Text = ChkNull(rec!CLI_TELEFONO)
             End If
             ActivoGrid = 0

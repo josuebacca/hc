@@ -59,7 +59,7 @@ Begin VB.Form frmBuscarTurnos
          _ExtentY        =   556
          _Version        =   393216
          CheckBox        =   -1  'True
-         Format          =   60489729
+         Format          =   110034945
          CurrentDate     =   40073
       End
       Begin VB.TextBox txtcodigo 
@@ -198,7 +198,7 @@ Begin VB.Form frmBuscarTurnos
          _ExtentY        =   556
          _Version        =   393216
          CheckBox        =   -1  'True
-         Format          =   60489729
+         Format          =   110034945
          CurrentDate     =   40073
       End
       Begin VB.Label lbl 
@@ -305,7 +305,7 @@ Private Sub CmdBuscAprox_Click()
     sql = sql & " WHERE T.CLI_CODIGO = C.CLI_CODIGO"
     sql = sql & " AND T.VEN_CODIGO = V.VEN_CODIGO"
     If txtCliente.Text <> "" Then
-        sql = sql & " AND T.CLI_CODIGO = " & XN(txtcodigo)
+        sql = sql & " AND T.CLI_CODIGO = " & XN(txtCodigo)
     End If
     If cboDoctor.ListIndex <> -1 Then
         sql = sql & " AND T.VEN_CODIGO = " & cboDoctor.ItemData(cboDoctor.ListIndex)
@@ -377,7 +377,7 @@ Private Sub CmdNuevo_Click()
     GrdModulos.Rows = 1
 End Sub
 
-Private Sub CmdSalir_Click()
+Private Sub cmdSalir_Click()
     If MsgBox("Seguro que desea Salir", vbQuestion + vbYesNo, TIT_MSGBOX) = vbYes Then
         Set frmBuscarTurnos = Nothing
         'Set rec = Nothing
@@ -526,7 +526,7 @@ End Sub
 Private Sub txtCliente_Change()
     If txtCliente.Text = "" Then
         txtDesCli.Text = ""
-        txtcodigo.Text = ""
+        txtCodigo.Text = ""
     End If
 End Sub
 
@@ -557,7 +557,7 @@ Private Sub txtCliente_LostFocus()
         rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
         If rec.EOF = False Then
             txtDesCli.Text = rec!CLI_RAZSOC
-            txtcodigo.Text = rec!CLI_CODIGO
+            txtCodigo.Text = rec!CLI_CODIGO
         Else
             MsgBox "El Paciente no existe", vbExclamation, TIT_MSGBOX
             txtCliente.SetFocus
@@ -568,7 +568,7 @@ End Sub
 Private Sub txtDesCli_Change()
     If txtDesCli.Text = "" Then
         txtCliente.Text = ""
-        txtcodigo.Text = ""
+        txtCodigo.Text = ""
     End If
 End Sub
 
@@ -606,7 +606,7 @@ Private Sub txtDesCli_LostFocus()
             Else
                 txtCliente.Text = rec!CLI_DNI
                 txtDesCli.Text = rec!CLI_RAZSOC
-                txtcodigo.Text = rec!CLI_CODIGO
+                txtCodigo.Text = rec!CLI_CODIGO
             End If
         Else
             MsgBox "No se encontro el Paciente", vbExclamation, TIT_MSGBOX
