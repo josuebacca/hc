@@ -59,7 +59,7 @@ Begin VB.Form frmBuscarTurnos
          _ExtentY        =   556
          _Version        =   393216
          CheckBox        =   -1  'True
-         Format          =   110034945
+         Format          =   110428161
          CurrentDate     =   40073
       End
       Begin VB.TextBox txtcodigo 
@@ -198,7 +198,7 @@ Begin VB.Form frmBuscarTurnos
          _ExtentY        =   556
          _Version        =   393216
          CheckBox        =   -1  'True
-         Format          =   110034945
+         Format          =   110428161
          CurrentDate     =   40073
       End
       Begin VB.Label lbl 

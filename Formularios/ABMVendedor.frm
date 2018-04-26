@@ -2,7 +2,7 @@ VERSION 5.00
 Begin VB.Form ABMVendedor 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Datos del Personal..."
-   ClientHeight    =   4770
+   ClientHeight    =   5445
    ClientLeft      =   2700
    ClientTop       =   2625
    ClientWidth     =   4530
@@ -21,9 +21,16 @@ Begin VB.Form ABMVendedor
    LockControls    =   -1  'True
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   4770
+   ScaleHeight     =   5445
    ScaleWidth      =   4530
    ShowInTaskbar   =   0   'False
+   Begin VB.TextBox txtConsul 
+      Height          =   315
+      Left            =   1080
+      TabIndex        =   25
+      Top             =   1320
+      Width           =   720
+   End
    Begin VB.ComboBox cboprofesion 
       Height          =   315
       ItemData        =   "ABMVendedor.frx":000C
@@ -39,7 +46,7 @@ Begin VB.Form ABMVendedor
       Height          =   285
       Left            =   1065
       TabIndex        =   10
-      Top             =   3960
+      Top             =   4680
       Width           =   1140
    End
    Begin VB.TextBox txtDomicilio 
@@ -47,7 +54,7 @@ Begin VB.Form ABMVendedor
       Left            =   1065
       MaxLength       =   50
       TabIndex        =   6
-      Top             =   2475
+      Top             =   2715
       Width           =   3375
    End
    Begin VB.TextBox txtMail 
@@ -55,7 +62,7 @@ Begin VB.Form ABMVendedor
       Left            =   1065
       MaxLength       =   50
       TabIndex        =   9
-      Top             =   3585
+      Top             =   4065
       Width           =   3375
    End
    Begin VB.TextBox txtFax 
@@ -63,7 +70,7 @@ Begin VB.Form ABMVendedor
       Left            =   1065
       MaxLength       =   30
       TabIndex        =   8
-      Top             =   3255
+      Top             =   3615
       Width           =   3375
    End
    Begin VB.TextBox txtTelefono 
@@ -71,7 +78,7 @@ Begin VB.Form ABMVendedor
       Left            =   1065
       MaxLength       =   30
       TabIndex        =   7
-      Top             =   2925
+      Top             =   3165
       Width           =   3375
    End
    Begin VB.ComboBox cboLocalidad 
@@ -81,7 +88,7 @@ Begin VB.Form ABMVendedor
       List            =   "ABMVendedor.frx":0012
       Style           =   2  'Dropdown List
       TabIndex        =   5
-      Top             =   2130
+      Top             =   2370
       Width           =   3375
    End
    Begin VB.ComboBox cboProvincia 
@@ -91,7 +98,7 @@ Begin VB.Form ABMVendedor
       List            =   "ABMVendedor.frx":0016
       Style           =   2  'Dropdown List
       TabIndex        =   4
-      Top             =   1785
+      Top             =   2025
       Width           =   3375
    End
    Begin VB.ComboBox cboPais 
@@ -101,7 +108,7 @@ Begin VB.Form ABMVendedor
       List            =   "ABMVendedor.frx":001A
       Style           =   2  'Dropdown List
       TabIndex        =   3
-      Top             =   1440
+      Top             =   1680
       Width           =   3375
    End
    Begin VB.CommandButton cmdAyuda 
@@ -110,7 +117,7 @@ Begin VB.Form ABMVendedor
       Picture         =   "ABMVendedor.frx":001C
       Style           =   1  'Graphical
       TabIndex        =   15
-      Top             =   4335
+      Top             =   4935
       Visible         =   0   'False
       Width           =   330
    End
@@ -134,7 +141,7 @@ Begin VB.Form ABMVendedor
       Height          =   345
       Left            =   3150
       TabIndex        =   12
-      Top             =   4335
+      Top             =   4935
       Width           =   1300
    End
    Begin VB.CommandButton cmdAceptar 
@@ -142,8 +149,16 @@ Begin VB.Form ABMVendedor
       Height          =   345
       Left            =   1800
       TabIndex        =   11
-      Top             =   4335
+      Top             =   4935
       Width           =   1300
+   End
+   Begin VB.Label Label2 
+      Caption         =   "Consultorio:"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   24
+      Top             =   1320
+      Width           =   855
    End
    Begin VB.Label Label1 
       AutoSize        =   -1  'True
@@ -162,7 +177,7 @@ Begin VB.Form ABMVendedor
       Index           =   8
       Left            =   135
       TabIndex        =   22
-      Top             =   2520
+      Top             =   2760
       Width           =   660
    End
    Begin VB.Label Label1 
@@ -172,7 +187,7 @@ Begin VB.Form ABMVendedor
       Index           =   7
       Left            =   135
       TabIndex        =   21
-      Top             =   3630
+      Top             =   4110
       Width           =   480
    End
    Begin VB.Label Label1 
@@ -182,7 +197,7 @@ Begin VB.Form ABMVendedor
       Index           =   6
       Left            =   135
       TabIndex        =   20
-      Top             =   3300
+      Top             =   3660
       Width           =   330
    End
    Begin VB.Label Label1 
@@ -192,7 +207,7 @@ Begin VB.Form ABMVendedor
       Index           =   5
       Left            =   135
       TabIndex        =   19
-      Top             =   2970
+      Top             =   3210
       Width           =   690
    End
    Begin VB.Label Label1 
@@ -202,7 +217,7 @@ Begin VB.Form ABMVendedor
       Index           =   4
       Left            =   135
       TabIndex        =   18
-      Top             =   2175
+      Top             =   2415
       Width           =   720
    End
    Begin VB.Label Label1 
@@ -212,7 +227,7 @@ Begin VB.Form ABMVendedor
       Index           =   3
       Left            =   135
       TabIndex        =   17
-      Top             =   1830
+      Top             =   2070
       Width           =   705
    End
    Begin VB.Label Label1 
@@ -222,7 +237,7 @@ Begin VB.Form ABMVendedor
       Index           =   2
       Left            =   135
       TabIndex        =   16
-      Top             =   1485
+      Top             =   1725
       Width           =   345
    End
    Begin VB.Label Label1 
@@ -526,7 +541,13 @@ Private Sub chkVenEstado_Click()
 End Sub
 
 Private Sub cmdAceptar_Click()
-
+    'sql = "SELECT VEN_CONSULTORIO FROM VENDEDOR"
+    'sql = sql & " WHERE VEN_CODIGO = "
+    'sql = sql & cboDocCon.ItemData(cboDocCon.ListIndex)
+    'rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
+    'txtConsultorio.Text = rec!VEN_CONSULTORIO
+    'txtProfesion.Text = rec!PR_CODIGO
+    'rec.Close
     Dim cSQL As String
     
     If Validar(vMode) = True Then
@@ -541,7 +562,7 @@ Private Sub cmdAceptar_Click()
             
                 cSQL = "INSERT INTO " & cTabla
                 cSQL = cSQL & "     (VEN_CODIGO, VEN_NOMBRE, VEN_DOMICI, VEN_TELEFONO,"
-                cSQL = cSQL & " VEN_MAIL, VEN_FAX, LOC_CODIGO, PRO_CODIGO, PAI_CODIGO,PR_CODIGO,VEN_ESTADO) "
+                cSQL = cSQL & " VEN_MAIL, VEN_FAX, LOC_CODIGO, PRO_CODIGO, PAI_CODIGO,PR_CODIGO,VEN_ESTADO,VEN_CONSULTORIO) "
                 cSQL = cSQL & " VALUES "
                 cSQL = cSQL & "     (" & XN(txtID.Text) & ", " & XS(txtNombre.Text) & ", "
                 cSQL = cSQL & XS(txtDomicilio.Text) & ", " & XS(txtTelefono.Text) & ", "
@@ -555,6 +576,7 @@ Private Sub cmdAceptar_Click()
                 Else
                     cSQL = cSQL & "'N')"
                 End If
+            cSQL = cSQL & XN(txtConsul.Text)
                 
             Case 2 'editar
                 
@@ -573,6 +595,7 @@ Private Sub cmdAceptar_Click()
                 Else
                     cSQL = cSQL & " ,VEN_ESTADO = 'N'"
                 End If
+                cSQL = cSQL & " ,VEN_CONSULTORIO=" & XN(txtConsul.Text)
                 cSQL = cSQL & " WHERE VEN_CODIGO  = " & XN(txtID.Text)
             
             Case 4 'eliminar

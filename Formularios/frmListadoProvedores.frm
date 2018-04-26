@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "Comdlg32.ocx"
 Object = "{00025600-0000-0000-C000-000000000046}#5.2#0"; "Crystl32.OCX"
 Begin VB.Form frmListadoProvedores 
    BorderStyle     =   1  'Fixed Single
@@ -431,7 +431,7 @@ Private Sub CmdNuevo_Click()
     cboBuscaTipoProv.SetFocus
 End Sub
 
-Private Sub CmdSalir_Click()
+Private Sub cmdSalir_Click()
     Set frmListadoProvedores = Nothing
     Unload Me
 End Sub
