@@ -232,13 +232,13 @@ Begin VB.Form frmhistoriaclinica
       Height          =   8775
       Left            =   0
       TabIndex        =   1
-      Top             =   1200
+      Top             =   1080
       Width           =   16575
       _ExtentX        =   29236
       _ExtentY        =   15478
       _Version        =   393216
-      Tabs            =   4
-      TabsPerRow      =   4
+      Tabs            =   5
+      TabsPerRow      =   5
       TabHeight       =   520
       TabCaption(0)   =   "Curso Clinico"
       TabPicture(0)   =   "frmhistoriaclinica.frx":0000
@@ -254,10 +254,15 @@ Begin VB.Form frmhistoriaclinica
       TabPicture(1)   =   "frmhistoriaclinica.frx":001C
       Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "Frame2"
+      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).Control(1)=   "cmdEliminarEco"
+      Tab(1).Control(1).Enabled=   0   'False
       Tab(1).Control(2)=   "cmdAgregarEco"
+      Tab(1).Control(2).Enabled=   0   'False
       Tab(1).Control(3)=   "cmdVer"
+      Tab(1).Control(3).Enabled=   0   'False
       Tab(1).Control(4)=   "cmdVerEstudio"
+      Tab(1).Control(4).Enabled=   0   'False
       Tab(1).ControlCount=   5
       TabCaption(2)   =   "Laboratorio"
       TabPicture(2)   =   "frmhistoriaclinica.frx":0038
@@ -267,24 +272,371 @@ Begin VB.Form frmhistoriaclinica
       TabPicture(3)   =   "frmhistoriaclinica.frx":0054
       Tab(3).ControlEnabled=   0   'False
       Tab(3).Control(0)=   "Label8"
+      Tab(3).Control(0).Enabled=   0   'False
       Tab(3).Control(1)=   "optTipoEst"
+      Tab(3).Control(1).Enabled=   0   'False
       Tab(3).Control(2)=   "optFechaGine"
+      Tab(3).Control(2).Enabled=   0   'False
       Tab(3).Control(3)=   "cboTipoEstGine"
+      Tab(3).Control(3).Enabled=   0   'False
       Tab(3).Control(4)=   "Frame3"
+      Tab(3).Control(4).Enabled=   0   'False
       Tab(3).Control(5)=   "cmdAgregarEstGine"
+      Tab(3).Control(5).Enabled=   0   'False
       Tab(3).Control(6)=   "cmdEliminarEstGine"
+      Tab(3).Control(6).Enabled=   0   'False
       Tab(3).Control(7)=   "cmdImprimirEstGine"
+      Tab(3).Control(7).Enabled=   0   'False
       Tab(3).ControlCount=   8
+      TabCaption(4)   =   "Pedidos"
+      TabPicture(4)   =   "frmhistoriaclinica.frx":0070
+      Tab(4).ControlEnabled=   0   'False
+      Tab(4).Control(0)=   "Frame8"
+      Tab(4).Control(0).Enabled=   0   'False
+      Tab(4).Control(1)=   "Frame9"
+      Tab(4).Control(1).Enabled=   0   'False
+      Tab(4).ControlCount=   2
+      Begin VB.Frame Frame9 
+         Caption         =   "Pedidos anteriores"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   8175
+         Left            =   -66720
+         TabIndex        =   97
+         Top             =   480
+         Width           =   8055
+         Begin VB.ComboBox Combo4 
+            BackColor       =   &H00C0FFC0&
+            BeginProperty Font 
+               Name            =   "Verdana"
+               Size            =   8.25
+               Charset         =   0
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   315
+            Left            =   2055
+            Style           =   2  'Dropdown List
+            TabIndex        =   99
+            Top             =   375
+            Width           =   3975
+         End
+         Begin VB.CommandButton Command5 
+            Caption         =   "Filtro"
+            Height          =   735
+            Left            =   6360
+            TabIndex        =   98
+            Top             =   360
+            Width           =   855
+         End
+         Begin MSComCtl2.DTPicker DTPicker4 
+            Height          =   315
+            Left            =   2025
+            TabIndex        =   100
+            Top             =   735
+            Width           =   1455
+            _ExtentX        =   2566
+            _ExtentY        =   556
+            _Version        =   393216
+            CheckBox        =   -1  'True
+            DateIsNull      =   -1  'True
+            Format          =   54460417
+            CurrentDate     =   41098
+         End
+         Begin MSComCtl2.DTPicker DTPicker5 
+            Height          =   315
+            Left            =   4575
+            TabIndex        =   101
+            Top             =   735
+            Width           =   1455
+            _ExtentX        =   2566
+            _ExtentY        =   556
+            _Version        =   393216
+            CheckBox        =   -1  'True
+            DateIsNull      =   -1  'True
+            Format          =   54460417
+            CurrentDate     =   41098
+         End
+         Begin MSFlexGridLib.MSFlexGrid MSFlexGrid2 
+            Height          =   6375
+            Left            =   120
+            TabIndex        =   102
+            Top             =   1200
+            Width           =   7860
+            _ExtentX        =   13864
+            _ExtentY        =   11245
+            _Version        =   393216
+            Cols            =   3
+            FixedCols       =   0
+            RowHeightMin    =   280
+            BackColorSel    =   16761024
+            AllowBigSelection=   -1  'True
+            FocusRect       =   0
+            SelectionMode   =   1
+            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+               Name            =   "Tahoma"
+               Size            =   9
+               Charset         =   0
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+         End
+         Begin VB.Label Label27 
+            AutoSize        =   -1  'True
+            Caption         =   "Doctor:"
+            Height          =   195
+            Left            =   1290
+            TabIndex        =   105
+            Top             =   435
+            Width           =   540
+         End
+         Begin VB.Label Label2 
+            AutoSize        =   -1  'True
+            Caption         =   "Fecha Hasta:"
+            Height          =   195
+            Index           =   2
+            Left            =   3600
+            TabIndex        =   104
+            Top             =   795
+            Width           =   960
+         End
+         Begin VB.Label Label26 
+            AutoSize        =   -1  'True
+            Caption         =   "Fecha Desde:"
+            Height          =   195
+            Left            =   840
+            TabIndex        =   103
+            Top             =   795
+            Width           =   990
+         End
+      End
+      Begin VB.Frame Frame8 
+         Caption         =   "Pedido Medico"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   8175
+         Left            =   -74880
+         TabIndex        =   81
+         Top             =   480
+         Width           =   8055
+         Begin VB.ComboBox Combo5 
+            BackColor       =   &H00C0FFC0&
+            Enabled         =   0   'False
+            BeginProperty Font 
+               Name            =   "Verdana"
+               Size            =   8.25
+               Charset         =   0
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   315
+            ItemData        =   "frmhistoriaclinica.frx":008C
+            Left            =   1305
+            List            =   "frmhistoriaclinica.frx":008E
+            Style           =   2  'Dropdown List
+            TabIndex        =   107
+            Top             =   1920
+            Width           =   2220
+         End
+         Begin VB.CommandButton Command6 
+            Caption         =   "Imprimir"
+            Height          =   375
+            Left            =   4560
+            TabIndex        =   106
+            Top             =   7680
+            Width           =   1095
+         End
+         Begin VB.CommandButton Command4 
+            Caption         =   "Aceptar"
+            Height          =   375
+            Left            =   5640
+            TabIndex        =   90
+            Top             =   7680
+            Width           =   1095
+         End
+         Begin VB.TextBox Text6 
+            Enabled         =   0   'False
+            Height          =   315
+            Left            =   1305
+            TabIndex        =   88
+            Top             =   1440
+            Width           =   6375
+         End
+         Begin VB.TextBox Text5 
+            Height          =   5115
+            Left            =   1320
+            MultiLine       =   -1  'True
+            TabIndex        =   87
+            Top             =   2400
+            Width           =   6375
+         End
+         Begin VB.CommandButton Command3 
+            Caption         =   "Cancelar"
+            Height          =   375
+            Left            =   6720
+            TabIndex        =   86
+            Top             =   7680
+            Width           =   1095
+         End
+         Begin VB.ComboBox Combo3 
+            BackColor       =   &H00C0FFC0&
+            Enabled         =   0   'False
+            BeginProperty Font 
+               Name            =   "Verdana"
+               Size            =   8.25
+               Charset         =   0
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   315
+            ItemData        =   "frmhistoriaclinica.frx":0090
+            Left            =   1305
+            List            =   "frmhistoriaclinica.frx":0092
+            Style           =   2  'Dropdown List
+            TabIndex        =   85
+            Top             =   1080
+            Width           =   2220
+         End
+         Begin VB.TextBox Text4 
+            Height          =   315
+            Left            =   2880
+            TabIndex        =   84
+            Top             =   600
+            Visible         =   0   'False
+            Width           =   495
+         End
+         Begin VB.TextBox Text3 
+            Enabled         =   0   'False
+            Height          =   315
+            Left            =   7200
+            TabIndex        =   83
+            Top             =   1080
+            Width           =   495
+         End
+         Begin VB.TextBox Text2 
+            Enabled         =   0   'False
+            Height          =   315
+            Left            =   4560
+            TabIndex        =   82
+            Top             =   1080
+            Width           =   1575
+         End
+         Begin MSComCtl2.DTPicker DTPicker3 
+            Height          =   315
+            Left            =   1305
+            TabIndex        =   89
+            Top             =   600
+            Width           =   1455
+            _ExtentX        =   2566
+            _ExtentY        =   556
+            _Version        =   393216
+            CheckBox        =   -1  'True
+            DateIsNull      =   -1  'True
+            Format          =   54460417
+            CurrentDate     =   41098
+         End
+         Begin VB.Label Label21 
+            AutoSize        =   -1  'True
+            Caption         =   "Especialidad:"
+            Height          =   195
+            Left            =   240
+            TabIndex        =   108
+            Top             =   1920
+            Width           =   945
+         End
+         Begin VB.Label Label25 
+            AutoSize        =   -1  'True
+            Caption         =   "Motivo:"
+            Height          =   195
+            Left            =   600
+            TabIndex        =   96
+            Top             =   1560
+            Width           =   525
+         End
+         Begin VB.Label Label24 
+            AutoSize        =   -1  'True
+            Caption         =   "Fecha:"
+            Height          =   195
+            Left            =   600
+            TabIndex        =   95
+            Top             =   600
+            Width           =   495
+         End
+         Begin VB.Label Label23 
+            AutoSize        =   -1  'True
+            Caption         =   "Pedido:"
+            Height          =   195
+            Left            =   480
+            TabIndex        =   94
+            Top             =   2400
+            Width           =   540
+         End
+         Begin VB.Label Label22 
+            AutoSize        =   -1  'True
+            Caption         =   "Doctor:"
+            Height          =   195
+            Left            =   600
+            TabIndex        =   93
+            Top             =   1200
+            Width           =   540
+         End
+         Begin VB.Label Label20 
+            Caption         =   "Profesión:"
+            Height          =   375
+            Left            =   3720
+            TabIndex        =   92
+            Top             =   1080
+            Width           =   975
+         End
+         Begin VB.Label Label19 
+            Caption         =   "Consultorio:"
+            Height          =   255
+            Left            =   6240
+            TabIndex        =   91
+            Top             =   1080
+            Width           =   975
+         End
+      End
       Begin VB.Frame Frame6 
          Height          =   1095
          Left            =   120
          TabIndex        =   53
-         Top             =   7560
+         Top             =   7500
          Width           =   8055
+         Begin VB.CommandButton cmdSiguiente 
+            Caption         =   "&Siguiente Paciente"
+            Height          =   855
+            Left            =   480
+            TabIndex        =   80
+            Top             =   120
+            Width           =   1215
+         End
          Begin VB.CommandButton cmdLabora 
             Caption         =   "&Laboratorio"
             Height          =   855
-            Left            =   4800
+            Left            =   4080
             TabIndex        =   58
             Top             =   120
             Width           =   1215
@@ -292,7 +644,7 @@ Begin VB.Form frmhistoriaclinica
          Begin VB.CommandButton cmdEcogra 
             Caption         =   "&Ecografias"
             Height          =   855
-            Left            =   3600
+            Left            =   2880
             TabIndex        =   57
             Top             =   120
             Width           =   1215
@@ -300,7 +652,7 @@ Begin VB.Form frmhistoriaclinica
          Begin VB.CommandButton cmdGineco 
             Caption         =   "&Ginecologia"
             Height          =   855
-            Left            =   6000
+            Left            =   5280
             Style           =   1  'Graphical
             TabIndex        =   56
             Top             =   120
@@ -309,7 +661,7 @@ Begin VB.Form frmhistoriaclinica
          Begin VB.CommandButton cmdImag 
             Caption         =   "&Imagenes"
             Height          =   855
-            Left            =   2400
+            Left            =   1680
             TabIndex        =   55
             Top             =   120
             Width           =   1215
@@ -317,7 +669,7 @@ Begin VB.Form frmhistoriaclinica
          Begin VB.CommandButton cmdPedidos 
             Caption         =   "&Pedidos"
             Height          =   855
-            Left            =   1200
+            Left            =   6480
             TabIndex        =   54
             Top             =   120
             Width           =   1215
@@ -337,7 +689,7 @@ Begin VB.Form frmhistoriaclinica
          Height          =   7095
          Left            =   120
          TabIndex        =   42
-         Top             =   480
+         Top             =   420
          Width           =   8055
          Begin VB.TextBox txtProfesion 
             Enabled         =   0   'False
@@ -374,7 +726,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110624769
+            Format          =   54460417
             CurrentDate     =   43205
          End
          Begin VB.ComboBox cboDocCon 
@@ -389,9 +741,9 @@ Begin VB.Form frmhistoriaclinica
                Strikethrough   =   0   'False
             EndProperty
             Height          =   315
-            ItemData        =   "frmhistoriaclinica.frx":0070
+            ItemData        =   "frmhistoriaclinica.frx":0094
             Left            =   1305
-            List            =   "frmhistoriaclinica.frx":0072
+            List            =   "frmhistoriaclinica.frx":0096
             Style           =   2  'Dropdown List
             TabIndex        =   51
             Top             =   1080
@@ -431,7 +783,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110624769
+            Format          =   54460417
             CurrentDate     =   41098
          End
          Begin VB.CommandButton cmdAceptar 
@@ -517,7 +869,7 @@ Begin VB.Form frmhistoriaclinica
          Height          =   8175
          Left            =   8280
          TabIndex        =   35
-         Top             =   480
+         Top             =   420
          Width           =   8055
          Begin VB.CommandButton cmdFiltro 
             Caption         =   "Filtro"
@@ -556,7 +908,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110624769
+            Format          =   54460417
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHasta 
@@ -570,7 +922,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110624769
+            Format          =   54460417
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdConsultas 
@@ -633,7 +985,7 @@ Begin VB.Form frmhistoriaclinica
          Height          =   375
          Left            =   -57480
          TabIndex        =   22
-         Top             =   8760
+         Top             =   9060
          Width           =   1455
       End
       Begin VB.CommandButton cmdEliminarEstGine 
@@ -641,7 +993,7 @@ Begin VB.Form frmhistoriaclinica
          Height          =   375
          Left            =   -59400
          TabIndex        =   21
-         Top             =   8760
+         Top             =   9060
          Width           =   1575
       End
       Begin VB.CommandButton cmdAgregarEstGine 
@@ -649,7 +1001,7 @@ Begin VB.Form frmhistoriaclinica
          Height          =   375
          Left            =   -61080
          TabIndex        =   20
-         Top             =   8760
+         Top             =   9060
          Width           =   1335
       End
       Begin VB.Frame Frame3 
@@ -657,7 +1009,7 @@ Begin VB.Form frmhistoriaclinica
          Height          =   7095
          Left            =   -74880
          TabIndex        =   18
-         Top             =   1680
+         Top             =   1980
          Width           =   19095
          Begin MSFlexGridLib.MSFlexGrid MSFlexGrid3 
             Height          =   6615
@@ -675,7 +1027,7 @@ Begin VB.Form frmhistoriaclinica
          Left            =   -73320
          TabIndex        =   17
          Text            =   "Combo2"
-         Top             =   1080
+         Top             =   1380
          Width           =   2775
       End
       Begin VB.OptionButton optFechaGine 
@@ -683,7 +1035,7 @@ Begin VB.Form frmhistoriaclinica
          Height          =   375
          Left            =   -68400
          TabIndex        =   16
-         Top             =   600
+         Top             =   900
          Width           =   2055
       End
       Begin VB.OptionButton optTipoEst 
@@ -691,7 +1043,7 @@ Begin VB.Form frmhistoriaclinica
          Height          =   375
          Left            =   -73320
          TabIndex        =   15
-         Top             =   600
+         Top             =   900
          Value           =   -1  'True
          Width           =   2175
       End
@@ -700,7 +1052,7 @@ Begin VB.Form frmhistoriaclinica
          Height          =   375
          Left            =   -60360
          TabIndex        =   13
-         Top             =   8280
+         Top             =   8580
          Width           =   1335
       End
       Begin VB.CommandButton cmdVer 
@@ -708,7 +1060,7 @@ Begin VB.Form frmhistoriaclinica
          Height          =   375
          Left            =   -61800
          TabIndex        =   12
-         Top             =   8280
+         Top             =   8580
          Width           =   1215
       End
       Begin VB.CommandButton cmdAgregarEco 
@@ -716,7 +1068,7 @@ Begin VB.Form frmhistoriaclinica
          Height          =   375
          Left            =   -58800
          TabIndex        =   11
-         Top             =   8760
+         Top             =   9060
          Width           =   1455
       End
       Begin VB.CommandButton cmdEliminarEco 
@@ -724,7 +1076,7 @@ Begin VB.Form frmhistoriaclinica
          Height          =   375
          Left            =   -57000
          TabIndex        =   10
-         Top             =   8760
+         Top             =   9060
          Width           =   1215
       End
       Begin VB.Frame Frame2 
@@ -732,7 +1084,7 @@ Begin VB.Form frmhistoriaclinica
          Height          =   8055
          Left            =   -74880
          TabIndex        =   2
-         Top             =   480
+         Top             =   780
          Width           =   16215
          Begin VB.Frame Frame7 
             Caption         =   "Ecografia"
@@ -760,7 +1112,7 @@ Begin VB.Form frmhistoriaclinica
             Begin VB.CommandButton cmdAbrir 
                Height          =   495
                Left            =   7680
-               Picture         =   "frmhistoriaclinica.frx":0074
+               Picture         =   "frmhistoriaclinica.frx":0098
                Style           =   1  'Graphical
                TabIndex        =   75
                ToolTipText     =   "Abrir desde un archivo existente"
@@ -828,7 +1180,7 @@ Begin VB.Form frmhistoriaclinica
                _Version        =   393216
                CheckBox        =   -1  'True
                DateIsNull      =   -1  'True
-               Format          =   110624769
+               Format          =   54460417
                CurrentDate     =   41098
             End
             Begin VB.Label Label17 
@@ -948,7 +1300,7 @@ Begin VB.Form frmhistoriaclinica
          Height          =   375
          Left            =   -74760
          TabIndex        =   14
-         Top             =   600
+         Top             =   900
          Width           =   1095
       End
    End
@@ -958,7 +1310,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-
+Dim Rec2 As New ADODB.Recordset
 
 Private Function validarcclinico() As Boolean
     If txtBuscaCliente.Text = "" Then
@@ -1034,8 +1386,10 @@ sql = "SELECT PR_CODIGO, VEN_CONSULTORIO FROM VENDEDOR"
     sql = sql & " WHERE VEN_CODIGO = "
     sql = sql & cboDocCon.ItemData(cboDocCon.ListIndex)
     rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
-    txtConsultorio.Text = rec!VEN_CONSULTORIO
-    pro = rec!PR_CODIGO
+    If rec.EOF = False Then
+        txtConsultorio.Text = rec!VEN_CONSULTORIO
+        pro = rec!PR_CODIGO
+    End If
     rec.Close
     
     sql = "SELECT PR_DESCRI FROM PROFESION"
@@ -1095,7 +1449,7 @@ Private Sub cmdAceptar_Click()
         sql = "SELECT MAX(CCL_NUMERO) as ultimo FROM CCLINICO"
         rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
         If rec.EOF = False Then
-            Num = rec!ultimo + 1 ' guardo el proxuimo turno
+            Num = rec!Ultimo + 1 ' guardo el proxuimo turno
         Else
             Num = 1
         End If
@@ -1182,6 +1536,11 @@ Private Sub CmdNuevo_Click()
     grdConsultas.Rows = 1
     txtBuscaCliente.Text = ""
     txtBuscaCliente_LostFocus
+    tabhc.Tab = 0
+End Sub
+
+Private Sub cmdPedidos_Click()
+    tabhc.Tab = 4
 End Sub
 
 Private Sub cmdSalir_Click()
@@ -1192,11 +1551,41 @@ Private Sub Command7_Click()
 
 End Sub
 
+Private Sub cmdSiguiente_Click()
+'llamada aplicacion que de pacientes
+    Dim actual As Integer '1 paciente actuial 0 no es paciente actual
+    actual = 0
+    'Buscar en turno el proximo paciente
+    sql = "SELECT * FROM TURNOS"
+    sql = sql & " WHERE VEN_CODIGO = " & cboDocCon.ItemData(cboDocCon.ListIndex)
+    sql = sql & " AND TUR_FECHA = " & XDQ(Fecha.Value)
+    sql = sql & " ORDER BY TUR_HORAD ASC "
+    Rec2.Open sql, DBConn, adOpenStatic, adLockOptimistic
+    If Rec2.EOF = False Then
+        Do While Rec2.EOF = False
+            If Rec2!CLI_CODIGO = txtCodigo Then
+                'PACIENTE ACTUAL
+                actual = 1
+            End If
+            If actual = 1 And Rec2!CLI_CODIGO <> txtCodigo Then
+                txtCodigo = Rec2!CLI_CODIGO
+                txtCodigo_LostFocus
+                Rec2.Close
+                Exit Sub
+            End If
+            Rec2.MoveNext
+        Loop
+    End If
+    Rec2.Close
+
+End Sub
+
 Private Sub Form_Load()
     preparogrillas
     cargocombos
     Fecha.Value = Date
     FechaProx.Value = ""
+    tabhc.Tab = 0
 End Sub
 Private Function preparogrillas()
     ' Grilla de Curso Clinico - Consulta de Historia Clinica
@@ -1222,7 +1611,8 @@ Private Function preparogrillas()
 End Function
 Private Function cargocombos()
     sql = "SELECT * FROM VENDEDOR"
-    sql = sql & " WHERE PR_CODIGO =1"
+    'cargar doctores que no sea la secretaria
+    sql = sql & " WHERE PR_CODIGO > 1"
     sql = sql & " ORDER BY VEN_CODIGO"
     rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
     If rec.EOF = False Then
@@ -1241,13 +1631,19 @@ Private Function cargocombos()
 End Function
 
 Private Sub grdConsultas_Click()
-    Fecha.Value = grdConsultas.TextMatrix(grdConsultas.RowSel, 0)
-    BuscaCodigoProxItemData grdConsultas.TextMatrix(grdConsultas.RowSel, 5), cboDocCon
-    'cboDocCon.ListIndex = grdConsultas.TextMatrix(grdConsultas.RowSel, 5)
-    txtMotivo = grdConsultas.TextMatrix(grdConsultas.RowSel, 2)
-    txtIndicaciones = grdConsultas.TextMatrix(grdConsultas.RowSel, 3)
-    FechaProx.Value = grdConsultas.TextMatrix(grdConsultas.RowSel, 4)
-    txtnrocon.Text = grdConsultas.TextMatrix(grdConsultas.RowSel, 6)
+    If grdConsultas.Rows > 1 Then
+        Fecha.Value = grdConsultas.TextMatrix(grdConsultas.RowSel, 0)
+        BuscaCodigoProxItemData grdConsultas.TextMatrix(grdConsultas.RowSel, 5), cboDocCon
+        'cboDocCon.ListIndex = grdConsultas.TextMatrix(grdConsultas.RowSel, 5)
+        txtMotivo = grdConsultas.TextMatrix(grdConsultas.RowSel, 2)
+        txtIndicaciones = grdConsultas.TextMatrix(grdConsultas.RowSel, 3)
+        FechaProx.Value = grdConsultas.TextMatrix(grdConsultas.RowSel, 4)
+        txtnrocon.Text = grdConsultas.TextMatrix(grdConsultas.RowSel, 6)
+    End If
+End Sub
+
+Private Sub tabhc_DblClick()
+
 End Sub
 
 Private Sub txtBuscaCliente_Change()
@@ -1479,3 +1875,28 @@ Private Function CargarConsultasAnteriores()
     End If
     Rec1.Close
 End Function
+
+Private Sub txtCodigo_LostFocus()
+    If txtCodigo.Text <> "" Then
+        Set rec = New ADODB.Recordset
+        sql = "SELECT CLI_CODIGO, CLI_RAZSOC,CLI_NRODOC,CLI_TELEFONO"
+        sql = sql & " FROM CLIENTE"
+        sql = sql & " WHERE "
+        sql = sql & " CLI_CODIGO=" & XN(txtCodigo)
+        rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
+        If rec.EOF = False Then
+            txtBuscaCliente.Text = IIf(IsNull(rec!CLI_NRODOC), rec!CLI_CODIGO, rec!CLI_NRODOC)
+            txtBuscarCliDescri.Text = rec!CLI_RAZSOC
+            txtCodigo.Text = rec!CLI_CODIGO
+            txtTelefono.Text = ChkNull(rec!CLI_TELEFONO)
+            txtOSocial.Text = BuscarOSocial(rec!CLI_CODIGO)
+            CargarConsultasAnteriores
+            'txtMotivo.SetFocus
+            'ActivoGrid = 1
+        Else
+            MsgBox "El Paciente no existe", vbExclamation, TIT_MSGBOX
+            txtBuscaCliente.SetFocus
+        End If
+        rec.Close
+    End If
+End Sub

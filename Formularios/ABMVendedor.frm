@@ -18,7 +18,6 @@ Begin VB.Form ABMVendedor
    Icon            =   "ABMVendedor.frx":0000
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
-   LockControls    =   -1  'True
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   5445
@@ -26,15 +25,15 @@ Begin VB.Form ABMVendedor
    ShowInTaskbar   =   0   'False
    Begin VB.TextBox txtConsul 
       Height          =   315
-      Left            =   1080
-      TabIndex        =   25
+      Left            =   1065
+      TabIndex        =   3
       Top             =   1320
       Width           =   720
    End
    Begin VB.ComboBox cboprofesion 
       Height          =   315
       ItemData        =   "ABMVendedor.frx":000C
-      Left            =   1050
+      Left            =   1065
       List            =   "ABMVendedor.frx":000E
       Style           =   2  'Dropdown List
       TabIndex        =   2
@@ -45,7 +44,7 @@ Begin VB.Form ABMVendedor
       Caption         =   "Dar de Baja"
       Height          =   285
       Left            =   1065
-      TabIndex        =   10
+      TabIndex        =   11
       Top             =   4680
       Width           =   1140
    End
@@ -53,7 +52,7 @@ Begin VB.Form ABMVendedor
       Height          =   315
       Left            =   1065
       MaxLength       =   50
-      TabIndex        =   6
+      TabIndex        =   7
       Top             =   2715
       Width           =   3375
    End
@@ -61,7 +60,7 @@ Begin VB.Form ABMVendedor
       Height          =   315
       Left            =   1065
       MaxLength       =   50
-      TabIndex        =   9
+      TabIndex        =   10
       Top             =   4065
       Width           =   3375
    End
@@ -69,7 +68,7 @@ Begin VB.Form ABMVendedor
       Height          =   315
       Left            =   1065
       MaxLength       =   30
-      TabIndex        =   8
+      TabIndex        =   9
       Top             =   3615
       Width           =   3375
    End
@@ -77,7 +76,7 @@ Begin VB.Form ABMVendedor
       Height          =   315
       Left            =   1065
       MaxLength       =   30
-      TabIndex        =   7
+      TabIndex        =   8
       Top             =   3165
       Width           =   3375
    End
@@ -87,7 +86,7 @@ Begin VB.Form ABMVendedor
       Left            =   1065
       List            =   "ABMVendedor.frx":0012
       Style           =   2  'Dropdown List
-      TabIndex        =   5
+      TabIndex        =   6
       Top             =   2370
       Width           =   3375
    End
@@ -97,7 +96,7 @@ Begin VB.Form ABMVendedor
       Left            =   1065
       List            =   "ABMVendedor.frx":0016
       Style           =   2  'Dropdown List
-      TabIndex        =   4
+      TabIndex        =   5
       Top             =   2025
       Width           =   3375
    End
@@ -107,7 +106,7 @@ Begin VB.Form ABMVendedor
       Left            =   1065
       List            =   "ABMVendedor.frx":001A
       Style           =   2  'Dropdown List
-      TabIndex        =   3
+      TabIndex        =   4
       Top             =   1680
       Width           =   3375
    End
@@ -116,7 +115,7 @@ Begin VB.Form ABMVendedor
       Left            =   240
       Picture         =   "ABMVendedor.frx":001C
       Style           =   1  'Graphical
-      TabIndex        =   15
+      TabIndex        =   16
       Top             =   4935
       Visible         =   0   'False
       Width           =   330
@@ -140,7 +139,7 @@ Begin VB.Form ABMVendedor
       Caption         =   "&Cerrar"
       Height          =   345
       Left            =   3150
-      TabIndex        =   12
+      TabIndex        =   13
       Top             =   4935
       Width           =   1300
    End
@@ -148,7 +147,7 @@ Begin VB.Form ABMVendedor
       Caption         =   "&Aceptar"
       Height          =   345
       Left            =   1800
-      TabIndex        =   11
+      TabIndex        =   12
       Top             =   4935
       Width           =   1300
    End
@@ -156,7 +155,7 @@ Begin VB.Form ABMVendedor
       Caption         =   "Consultorio:"
       Height          =   255
       Left            =   120
-      TabIndex        =   24
+      TabIndex        =   25
       Top             =   1320
       Width           =   855
    End
@@ -166,7 +165,7 @@ Begin VB.Form ABMVendedor
       Height          =   195
       Index           =   9
       Left            =   120
-      TabIndex        =   23
+      TabIndex        =   24
       Top             =   1005
       Width           =   810
    End
@@ -176,7 +175,7 @@ Begin VB.Form ABMVendedor
       Height          =   195
       Index           =   8
       Left            =   135
-      TabIndex        =   22
+      TabIndex        =   23
       Top             =   2760
       Width           =   660
    End
@@ -186,7 +185,7 @@ Begin VB.Form ABMVendedor
       Height          =   195
       Index           =   7
       Left            =   135
-      TabIndex        =   21
+      TabIndex        =   22
       Top             =   4110
       Width           =   480
    End
@@ -196,7 +195,7 @@ Begin VB.Form ABMVendedor
       Height          =   195
       Index           =   6
       Left            =   135
-      TabIndex        =   20
+      TabIndex        =   21
       Top             =   3660
       Width           =   330
    End
@@ -206,7 +205,7 @@ Begin VB.Form ABMVendedor
       Height          =   195
       Index           =   5
       Left            =   135
-      TabIndex        =   19
+      TabIndex        =   20
       Top             =   3210
       Width           =   690
    End
@@ -216,7 +215,7 @@ Begin VB.Form ABMVendedor
       Height          =   195
       Index           =   4
       Left            =   135
-      TabIndex        =   18
+      TabIndex        =   19
       Top             =   2415
       Width           =   720
    End
@@ -226,7 +225,7 @@ Begin VB.Form ABMVendedor
       Height          =   195
       Index           =   3
       Left            =   135
-      TabIndex        =   17
+      TabIndex        =   18
       Top             =   2070
       Width           =   705
    End
@@ -236,7 +235,7 @@ Begin VB.Form ABMVendedor
       Height          =   195
       Index           =   2
       Left            =   135
-      TabIndex        =   16
+      TabIndex        =   17
       Top             =   1725
       Width           =   345
    End
@@ -246,7 +245,7 @@ Begin VB.Form ABMVendedor
       Height          =   195
       Index           =   1
       Left            =   135
-      TabIndex        =   14
+      TabIndex        =   15
       Top             =   675
       Width           =   615
    End
@@ -256,7 +255,7 @@ Begin VB.Form ABMVendedor
       Height          =   195
       Index           =   0
       Left            =   135
-      TabIndex        =   13
+      TabIndex        =   14
       Top             =   315
       Width           =   270
    End
@@ -701,7 +700,7 @@ Private Sub Form_Load()
                 Call BuscaCodigoProxItemData(CInt(rec!LOC_CODIGO), cboLocalidad)
                 
                 Call BuscaCodigoProxItemData(CInt(rec!PR_CODIGO), cboprofesion)
-                
+                txtConsul.Text = ChkNull(rec!VEN_CONSULTORIO)
                 txtDomicilio.Text = ChkNull(rec!VEN_DOMICI)
                 txtTelefono.Text = ChkNull(rec!VEN_TELEFONO)
                 txtFax.Text = ChkNull(rec!VEN_FAX)
@@ -735,6 +734,10 @@ Private Sub CargoCboProfesion()
        cboprofesion.ListIndex = cboprofesion.ListIndex + 1
     End If
     rec.Close
+End Sub
+
+Private Sub txtConsul_Change()
+    cmdAceptar.Enabled = True
 End Sub
 
 Private Sub txtDomicilio_Change()

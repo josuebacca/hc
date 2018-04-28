@@ -77,27 +77,27 @@ Begin VB.Form ABMClientes
       TabCaption(2)   =   "&Historia Clinica"
       TabPicture(2)   =   "ABMClientes.frx":0BFA
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "Frame6"
-      Tab(2).Control(1)=   "cboTratamiento"
-      Tab(2).Control(2)=   "Frame2"
-      Tab(2).Control(3)=   "Frame1"
-      Tab(2).Control(4)=   "txtHC"
-      Tab(2).Control(5)=   "grdCClinico"
+      Tab(2).Control(0)=   "grdCClinico"
+      Tab(2).Control(1)=   "txtHC"
+      Tab(2).Control(2)=   "Frame1"
+      Tab(2).Control(3)=   "Frame2"
+      Tab(2).Control(4)=   "cboTratamiento"
+      Tab(2).Control(5)=   "Frame6"
       Tab(2).ControlCount=   6
       TabCaption(3)   =   "Medicamentos"
       TabPicture(3)   =   "ABMClientes.frx":0C16
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "GrdCMedica"
+      Tab(3).Control(0)=   "Frame4"
       Tab(3).Control(1)=   "txtMedica"
-      Tab(3).Control(2)=   "Frame4"
+      Tab(3).Control(2)=   "GrdCMedica"
       Tab(3).ControlCount=   3
       TabCaption(4)   =   "Pedidos"
       TabPicture(4)   =   "ABMClientes.frx":0C32
       Tab(4).ControlEnabled=   0   'False
-      Tab(4).Control(0)=   "Frame7"
-      Tab(4).Control(1)=   "Command2"
-      Tab(4).Control(2)=   "cmdCancelarPedido"
-      Tab(4).Control(3)=   "cmdRealizado"
+      Tab(4).Control(0)=   "cmdRealizado"
+      Tab(4).Control(1)=   "cmdCancelarPedido"
+      Tab(4).Control(2)=   "Command2"
+      Tab(4).Control(3)=   "Frame7"
       Tab(4).ControlCount=   4
       TabCaption(5)   =   "Imágenes"
       TabPicture(5)   =   "ABMClientes.frx":0C4E
@@ -281,7 +281,7 @@ Begin VB.Form ABMClientes
             _ExtentY        =   556
             _Version        =   393216
             CheckBox        =   -1  'True
-            Format          =   54591489
+            Format          =   54984705
             CurrentDate     =   40070
          End
          Begin VB.TextBox txtcualca 
@@ -660,7 +660,7 @@ Begin VB.Form ABMClientes
             CalendarBackColor=   12648384
             CalendarForeColor=   0
             CalendarTitleBackColor=   12648384
-            Format          =   54591489
+            Format          =   54984705
             UpDown          =   -1  'True
             CurrentDate     =   40063
          End
@@ -687,7 +687,7 @@ Begin VB.Form ABMClientes
             CalendarTitleBackColor=   12648384
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   54591489
+            Format          =   54984705
             CurrentDate     =   40063
          End
          Begin VB.TextBox txtDescTra 
@@ -1112,7 +1112,7 @@ Begin VB.Form ABMClientes
             CalendarBackColor=   12648384
             CalendarForeColor=   0
             CalendarTitleBackColor=   12648384
-            Format          =   54591489
+            Format          =   54984705
             UpDown          =   -1  'True
             CurrentDate     =   40063
          End
@@ -1375,7 +1375,7 @@ Begin VB.Form ABMClientes
             _ExtentY        =   556
             _Version        =   393216
             CheckBox        =   -1  'True
-            Format          =   54591489
+            Format          =   54984705
             CurrentDate     =   40071
          End
          Begin MSComCtl2.DTPicker DTFechaNac 
@@ -1388,7 +1388,7 @@ Begin VB.Form ABMClientes
             _ExtentY        =   556
             _Version        =   393216
             CheckBox        =   -1  'True
-            Format          =   54591489
+            Format          =   54984705
             CurrentDate     =   40071
          End
          Begin VB.Image Image1 
@@ -2749,7 +2749,7 @@ HayErrorCMedica:
     MsgBox Err.Description, vbCritical, TIT_MSGBOX
 End Sub
 
-Private Sub cmdNuevo_Click()
+Private Sub CmdNuevo_Click()
     LimpiarCClinico
 End Sub
 
@@ -3020,14 +3020,14 @@ Private Sub Form_Load()
     
     Pais = ""
     Provincia = ""
-    TabClientes.Tab = 0
+    'TabClientes.Tab = 0
     
     If vMode <> 1 Then
         If vFieldID <> "0" Then
             If gPaciente <> 0 Then
                 vMode = 2
                 DesacCtrl txtID
-                TabClientes.Tab = 2
+                'TabClientes.Tab = 2
                 
                 Call BuscaCodigoProxItemData(frmTurnos.cboDoctor.ItemData(frmTurnos.cboDoctor.ListIndex), cboDoctor)
                 txtIdTra.Text = 1
@@ -3181,7 +3181,7 @@ Private Sub LlenarComboTratamiento()
 End Sub
 Private Sub LlenarComboDoctor()
     sql = "SELECT * FROM VENDEDOR"
-    sql = sql & " WHERE PR_CODIGO =1"
+    sql = sql & " WHERE PR_CODIGO > 1"
     sql = sql & " ORDER BY VEN_CODIGO"
     rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
     If rec.EOF = False Then

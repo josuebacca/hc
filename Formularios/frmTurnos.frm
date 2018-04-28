@@ -426,7 +426,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   20971522
+         StartOfWeek     =   54460418
          CurrentDate     =   40049
       End
    End
@@ -824,7 +824,7 @@ Private Sub cmdCortar_Click()
     sNameDoctorCopy = cboDoctor.Text
 End Sub
 
-Private Sub cmdNuevo_Click()
+Private Sub CmdNuevo_Click()
     LimpiarTurno
     MViewFecha.Value = Date
     'If User <> 99 Then
@@ -1135,7 +1135,7 @@ End Sub
 
 Private Sub LlenarComboDoctor()
     sql = "SELECT * FROM VENDEDOR"
-    sql = sql & " WHERE PR_CODIGO =1"
+    sql = sql & " WHERE PR_CODIGO > 1"
     sql = sql & " ORDER BY VEN_CODIGO"
     rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
     If rec.EOF = False Then
