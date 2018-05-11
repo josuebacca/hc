@@ -72,6 +72,7 @@ Begin VB.Form frmEntradaProductos
       _ExtentY        =   10478
       _Version        =   393216
       Tabs            =   2
+      Tab             =   1
       TabsPerRow      =   4
       TabHeight       =   529
       ForeColor       =   -2147483630
@@ -86,7 +87,7 @@ Begin VB.Form frmEntradaProductos
       EndProperty
       TabCaption(0)   =   "&Datos"
       TabPicture(0)   =   "frmEntradaProductos.frx":19AA
-      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).ControlEnabled=   0   'False
       Tab(0).Control(0)=   "Label6"
       Tab(0).Control(0).Enabled=   0   'False
       Tab(0).Control(1)=   "FrameGeneral"
@@ -100,14 +101,17 @@ Begin VB.Form frmEntradaProductos
       Tab(0).ControlCount=   5
       TabCaption(1)   =   "&Buscar"
       TabPicture(1)   =   "frmEntradaProductos.frx":19C6
-      Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "frameVer"
+      Tab(1).ControlEnabled=   -1  'True
+      Tab(1).Control(0)=   "GRDGrilla"
+      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).Control(1)=   "Frame4"
-      Tab(1).Control(2)=   "GRDGrilla"
+      Tab(1).Control(1).Enabled=   0   'False
+      Tab(1).Control(2)=   "frameVer"
+      Tab(1).Control(2).Enabled=   0   'False
       Tab(1).ControlCount=   3
       Begin VB.TextBox txtObservaciones 
          Height          =   465
-         Left            =   1275
+         Left            =   -73725
          MaxLength       =   199
          MultiLine       =   -1  'True
          ScrollBars      =   2  'Vertical
@@ -127,7 +131,7 @@ Begin VB.Form frmEntradaProductos
             Strikethrough   =   0   'False
          EndProperty
          Height          =   540
-         Left            =   -74910
+         Left            =   90
          TabIndex        =   48
          Top             =   6480
          Width           =   9090
@@ -181,7 +185,7 @@ Begin VB.Form frmEntradaProductos
             Strikethrough   =   0   'False
          EndProperty
          Height          =   1440
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   22
          Top             =   345
          Width           =   9045
@@ -304,7 +308,7 @@ Begin VB.Form frmEntradaProductos
       End
       Begin MSFlexGridLib.MSFlexGrid GRDGrilla 
          Height          =   3960
-         Left            =   -74895
+         Left            =   105
          TabIndex        =   20
          Top             =   1830
          Width           =   9105
@@ -340,7 +344,7 @@ Begin VB.Form frmEntradaProductos
             Strikethrough   =   0   'False
          EndProperty
          Height          =   3765
-         Left            =   90
+         Left            =   -74910
          TabIndex        =   27
          Top             =   1605
          Width           =   9105
@@ -536,7 +540,7 @@ Begin VB.Form frmEntradaProductos
             Strikethrough   =   0   'False
          EndProperty
          Height          =   345
-         Left            =   45
+         Left            =   -74955
          TabIndex        =   45
          Top             =   5565
          Visible         =   0   'False
@@ -633,7 +637,7 @@ Begin VB.Form frmEntradaProductos
             Strikethrough   =   0   'False
          EndProperty
          Height          =   1260
-         Left            =   90
+         Left            =   -74910
          TabIndex        =   35
          Top             =   360
          Width           =   9105
@@ -786,7 +790,7 @@ Begin VB.Form frmEntradaProductos
          AutoSize        =   -1  'True
          Caption         =   "Observaciones:"
          Height          =   195
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   52
          Top             =   5400
          Width           =   1125
@@ -854,7 +858,7 @@ End Sub
 
 Private Sub cmdAsignar_Click()
     If txtcodigo.Text <> "" Then
-        GrdModulos.Highlight = flexHighlightAlways
+        GrdModulos.HighLight = flexHighlightAlways
         If txtCantidad <> "" Then
             If txtNumero.Text = "" Then
                 For i = 1 To GrdModulos.Rows - 1
@@ -874,7 +878,7 @@ Private Sub cmdAsignar_Click()
                     End If
                 Next
             End If
-            GrdModulos.AddItem Trim(txtcodigo.Text) & Chr(9) & Trim(txtDescri.Text) _
+            GrdModulos.AddItem Trim(txtcodigo.Text) & Chr(9) & Trim(txtdescri.Text) _
                             & Chr(9) & Trim(txtCantidad.Text) & Chr(9) & "" & Chr(9) & Trim(txtCodInt.Text)
              
             'txtIngNuevo_Click
@@ -894,7 +898,7 @@ Private Sub cmdBorrar_Click()
     If txtNumero.Text <> "" Then
         If GrdModulos.Rows <> 1 Then
             If MsgBox("¿Seguro desea Anular el Movimineto de Producto Nro: " & XN(txtNumero.Text) & "? ", vbQuestion + vbYesNo + vbDefaultButton2, TIT_MSGBOX) = vbYes Then
-                lblEstado.Caption = "Anulando..."
+                lblestado.Caption = "Anulando..."
                 Screen.MousePointer = vbHourglass
                 On Error GoTo HayError1
                 DBConn.BeginTrans
@@ -921,21 +925,21 @@ Private Sub cmdBorrar_Click()
                 Next
                 DBConn.CommitTrans
             End If
-            lblEstado.Caption = ""
+            lblestado.Caption = ""
             Screen.MousePointer = vbNormal
             CmdNuevo_Click
         End If
     End If
   Exit Sub
 HayError1:
-    lblEstado.Caption = ""
+    lblestado.Caption = ""
     Screen.MousePointer = vbNormal
     DBConn.RollbackTrans
     MsgBox Err.Description, vbCritical, TIT_MSGBOX
 End Sub
 
 Private Sub CmdBuscAprox_Click()
-    lblEstado.Caption = "Buscando..."
+    lblestado.Caption = "Buscando..."
     Screen.MousePointer = vbHourglass
     
     Set rec = New ADODB.Recordset
@@ -948,28 +952,28 @@ Private Sub CmdBuscAprox_Click()
     If cboMovimiento1.List(cboMovimiento1.ListIndex) <> "(Todos)" Then
         sql = sql & " AND E.ESP_CODIGO=" & XN(cboMovimiento1.ItemData(cboMovimiento1.ListIndex))
     End If
-    If FechaDesde.Text <> "" Then sql = sql & " AND E.EPR_FECHA>=" & XDQ(FechaDesde)
+    If FechaDesde.valu <> "" Then sql = sql & " AND E.EPR_FECHA>=" & XDQ(FechaDesde)
     If FechaHasta.Text <> "" Then sql = sql & " AND E.EPR_FECHA<=" & XDQ(FechaHasta)
     sql = sql & " ORDER BY E.EPR_CODIGO"
     
     rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
       
     If rec.EOF = False Then
-        grdGrilla.Rows = 1
+        GRDGrilla.Rows = 1
         Do While rec.EOF = False
-            grdGrilla.AddItem Format(rec!EPR_CODIGO, "00000000") & Chr(9) & rec!EPR_FECHA & Chr(9) & _
+            GRDGrilla.AddItem Format(rec!EPR_CODIGO, "00000000") & Chr(9) & rec!EPR_FECHA & Chr(9) & _
                               Trim(rec!VEN_NOMBRE)
             rec.MoveNext
         Loop
-        grdGrilla.Col = 0
-        grdGrilla.SetFocus
+        GRDGrilla.Col = 0
+        GRDGrilla.SetFocus
     Else
-        lblEstado.Caption = ""
+        lblestado.Caption = ""
         Screen.MousePointer = vbNormal
-        grdGrilla.Rows = 1
+        GRDGrilla.Rows = 1
         MsgBox "No se encontraron datos...", vbExclamation, TIT_MSGBOX
     End If
-    lblEstado.Caption = ""
+    lblestado.Caption = ""
     Screen.MousePointer = vbNormal
     rec.Close
 End Sub
@@ -987,7 +991,7 @@ Private Sub cmdGrabar_Click()
         If MsgBox("¿Confirma Movomineto de Mercadería?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
         
         Screen.MousePointer = vbHourglass
-        lblEstado.Caption = "Guardando ..."
+        lblestado.Caption = "Guardando ..."
         DBConn.BeginTrans
         
         sql = "SELECT EPR_FECHA FROM ENTRADA_PRODUCTO"
@@ -1037,13 +1041,13 @@ Private Sub cmdGrabar_Click()
         End If
         rec.Close
         Screen.MousePointer = vbNormal
-        lblEstado.Caption = ""
+        lblestado.Caption = ""
         DBConn.CommitTrans
         CmdNuevo_Click
     Exit Sub
          
 HayError2:
-         lblEstado.Caption = ""
+         lblestado.Caption = ""
          DBConn.RollbackTrans
          If rec.State = 1 Then rec.Close
          Screen.MousePointer = vbNormal
@@ -1081,11 +1085,11 @@ Private Sub CmdNuevo_Click()
     txtcodigo.Text = ""
     txtCodCliente.Text = ""
     GrdModulos.Rows = 1
-    GrdModulos.Highlight = flexHighlightNever
+    GrdModulos.HighLight = flexHighlightNever
     Call BuscoEstado(1, lblEstadoRecepcion)
     tabDatos.Tab = 0
     BuscoNumeroRecepcion
-    CmdBorrar.Enabled = False
+    cmdBorrar.Enabled = False
     cmdGrabar.Enabled = True
     FrameGeneral.Enabled = True
     FrameProducto.Enabled = True
@@ -1095,23 +1099,23 @@ End Sub
 Private Sub cmdQuitar_Click()
     If GrdModulos.Rows <> 1 Then
         If MsgBox("¿Seguro desea Eliminar el Producto: " & Trim(GrdModulos.TextMatrix(GrdModulos.RowSel, 1)) & "? ", vbQuestion + vbYesNo, TIT_MSGBOX) = vbYes Then
-            lblEstado.Caption = "Borrando..."
+            lblestado.Caption = "Borrando..."
             Screen.MousePointer = vbHourglass
             If GrdModulos.Rows = 2 Then
-                GrdModulos.Highlight = flexHighlightNever
+                GrdModulos.HighLight = flexHighlightNever
                 GrdModulos.Rows = 1
                 txtcodigo.SetFocus
             Else
                 GrdModulos.RemoveItem (GrdModulos.RowSel)
                 txtcodigo.SetFocus
             End If
-            lblEstado.Caption = ""
+            lblestado.Caption = ""
             Screen.MousePointer = vbNormal
         End If
     End If
 End Sub
 
-Private Sub CmdSalir_Click()
+Private Sub cmdSalir_Click()
     If MsgBox("Seguro que desea Salir", vbQuestion + vbYesNo, TIT_MSGBOX) = vbYes Then
         Set frmEntradaProductos = Nothing
         Unload Me
@@ -1120,7 +1124,7 @@ End Sub
 
 Private Sub cndBuscarCliente_Click()
     frmBuscar.TipoBusqueda = 1
-    frmBuscar.TxtDescriB = ""
+    frmBuscar.txtDescriB = ""
     frmBuscar.Show vbModal
     If frmBuscar.grdBuscar.Text <> "" Then
         frmBuscar.grdBuscar.Col = 0
@@ -1140,14 +1144,14 @@ End Sub
 
 Private Sub Form_KeyPress(KeyAscii As Integer)
     If KeyAscii = vbKeyReturn Then MySendKeys Chr(9)
-    If KeyAscii = vbKeyEscape Then CmdSalir_Click
+    If KeyAscii = vbKeyEscape Then cmdSalir_Click
 End Sub
 
 Private Sub Form_Load()
     Set rec = New ADODB.Recordset
     Set Rec1 = New ADODB.Recordset
     Set Rec2 = New ADODB.Recordset
-    lblEstado.Caption = ""
+    lblestado.Caption = ""
     
     'Call Centrar_pantalla(Me)
     Me.Left = 0
@@ -1161,8 +1165,8 @@ Private Sub Form_Load()
     CargoComboEstadoProducto
     tabDatos.Tab = 0
     cmdAsignar.Enabled = False
-    CmdBorrar.Enabled = False
-    GrdModulos.Highlight = flexHighlightNever
+    cmdBorrar.Enabled = False
+    GrdModulos.HighLight = flexHighlightNever
     'BUSCO NUMERO DE RECEPCION DE MERCADERIA
     BuscoNumeroRecepcion
     Call BuscoEstado(1, lblEstadoRecepcion)
@@ -1218,19 +1222,19 @@ Private Sub preparogrilla()
     '"" para cuando no lo recupero de la base
     GrdModulos.Rows = 1
     'GRILLA PARA LA BUSQUEDA
-    grdGrilla.FormatString = "^Numero|^Fecha|<Vendedor"
-    grdGrilla.ColWidth(0) = 1200 'NUMERO
-    grdGrilla.ColWidth(1) = 1300 'FECHA
-    grdGrilla.ColWidth(2) = 5000 'EMPLEADO
-    grdGrilla.Rows = 1
-    grdGrilla.Highlight = flexHighlightWithFocus
-    grdGrilla.BorderStyle = flexBorderNone
-    grdGrilla.row = 0
-    For i = 0 To grdGrilla.Cols - 1
-        grdGrilla.Col = i
-        grdGrilla.CellForeColor = &HFFFFFF 'FUENTE COLOR BLANCO
-        grdGrilla.CellBackColor = &H808080    'GRIS OSCURO
-        grdGrilla.CellFontBold = True
+    GRDGrilla.FormatString = "^Numero|^Fecha|<Vendedor"
+    GRDGrilla.ColWidth(0) = 1200 'NUMERO
+    GRDGrilla.ColWidth(1) = 1300 'FECHA
+    GRDGrilla.ColWidth(2) = 5000 'EMPLEADO
+    GRDGrilla.Rows = 1
+    GRDGrilla.HighLight = flexHighlightWithFocus
+    GRDGrilla.BorderStyle = flexBorderNone
+    GRDGrilla.row = 0
+    For i = 0 To GRDGrilla.Cols - 1
+        GRDGrilla.Col = i
+        GRDGrilla.CellForeColor = &HFFFFFF 'FUENTE COLOR BLANCO
+        GRDGrilla.CellBackColor = &H808080    'GRIS OSCURO
+        GRDGrilla.CellFontBold = True
     Next
 End Sub
 
@@ -1254,25 +1258,25 @@ Private Sub cargocboEmpl()
 End Sub
 
 Private Sub grdGrilla_Click()
-    If grdGrilla.MouseRow = 0 Then
-        grdGrilla.Col = grdGrilla.MouseCol
-        grdGrilla.ColSel = grdGrilla.MouseCol
+    If GRDGrilla.MouseRow = 0 Then
+        GRDGrilla.Col = GRDGrilla.MouseCol
+        GRDGrilla.ColSel = GRDGrilla.MouseCol
         
         If txtOrden.Text = "A" Then
-            grdGrilla.Sort = 2
+            GRDGrilla.Sort = 2
             txtOrden.Text = "B"
         Else
-            grdGrilla.Sort = 1
+            GRDGrilla.Sort = 1
             txtOrden.Text = "A"
         End If
     End If
 End Sub
 
 Private Sub GRDGrilla_DblClick()
-    If grdGrilla.Rows > 1 Then
+    If GRDGrilla.Rows > 1 Then
         CmdNuevo_Click
-        txtNumero.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 0)
-        Fecha.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 1)
+        txtNumero.Text = GRDGrilla.TextMatrix(GRDGrilla.RowSel, 0)
+        Fecha.Text = GRDGrilla.TextMatrix(GRDGrilla.RowSel, 1)
         txtNumero_LostFocus
         tabDatos.Tab = 0
     End If
@@ -1285,12 +1289,12 @@ End Sub
 Private Sub tabDatos_Click(PreviousTab As Integer)
     If tabDatos.Tab = 1 Then
       cmdGrabar.Enabled = False
-      CmdBorrar.Enabled = False
+      cmdBorrar.Enabled = False
       LimpiarBusqueda
       If Me.Visible = True Then cboEmpleado1.SetFocus
     Else
       cmdGrabar.Enabled = True
-      CmdBorrar.Enabled = True
+      cmdBorrar.Enabled = True
     End If
 End Sub
 
@@ -1300,7 +1304,7 @@ Private Sub LimpiarBusqueda()
     FechaDesde.Text = ""
     FechaHasta.Text = ""
     frameVer.Enabled = False
-    grdGrilla.Rows = 1
+    GRDGrilla.Rows = 1
 End Sub
 
 Private Sub txtCantidad_GotFocus()
@@ -1327,7 +1331,7 @@ Private Sub txtCliRazSoc_LostFocus()
         If rec.EOF = False Then
             If rec.RecordCount > 1 Then
                 frmBuscar.TipoBusqueda = 1
-                frmBuscar.TxtDescriB.Text = txtCliRazSoc.Text
+                frmBuscar.txtDescriB.Text = txtCliRazSoc.Text
                 frmBuscar.Show vbModal
                 If frmBuscar.grdBuscar.Text <> "" Then
                     frmBuscar.grdBuscar.Col = 0
@@ -1399,7 +1403,7 @@ End Function
 Private Sub txtcodigo_Change()
     If txtcodigo.Text = "" Then
         txtcodigo.Text = ""
-        txtDescri.Text = ""
+        txtdescri.Text = ""
         txtCantidad.Text = ""
         txtCodInt.Text = ""
         cmdAsignar.Enabled = False
@@ -1437,7 +1441,7 @@ Private Sub TxtCodigo_LostFocus()
         sql = sql & " ORDER BY P.PTO_CODIGO"
         rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
         If rec.EOF = False Then
-            txtDescri.Text = Trim(rec!PTO_DESCRI)
+            txtdescri.Text = Trim(rec!PTO_DESCRI)
             txtCodInt.Text = rec!PTO_CODIGO
         Else
             MsgBox "El Código no existe", vbExclamation, TIT_MSGBOX
@@ -1465,19 +1469,19 @@ Private Sub CargocboStock()
 End Sub
 
 Private Sub txtdescri_Change()
-    If txtDescri.Text = "" Then
+    If txtdescri.Text = "" Then
         txtcodigo.Text = ""
     End If
 End Sub
 
 Private Sub txtdescri_GotFocus()
-    SelecTexto txtDescri
+    SelecTexto txtdescri
 End Sub
 
 Private Sub txtdescri_KeyDown(KeyCode As Integer, Shift As Integer)
     If KeyCode = vbKeyF1 Then
         BuscarProducto "CODIGO"
-        txtDescri.SetFocus
+        txtdescri.SetFocus
     End If
 End Sub
 
@@ -1486,30 +1490,30 @@ Private Sub txtDescri_KeyPress(KeyAscii As Integer)
 End Sub
 
 Private Sub txtDescri_LostFocus()
-   If txtcodigo.Text = "" And txtDescri.Text <> "" Then
+   If txtcodigo.Text = "" And txtdescri.Text <> "" Then
         Set Rec1 = New ADODB.Recordset
         Screen.MousePointer = vbHourglass
         sql = "SELECT PTO_CODIGO, PTO_DESCRI, PTO_CODBARRAS"
         sql = sql & " FROM PRODUCTO"
-        sql = sql & " WHERE PTO_DESCRI LIKE '" & txtDescri.Text & "%'"
+        sql = sql & " WHERE PTO_DESCRI LIKE '" & txtdescri.Text & "%'"
         Rec1.Open sql, DBConn, adOpenStatic, adLockOptimistic
         If Rec1.EOF = False Then
             If Rec1.RecordCount > 1 Then
                 'grdGrilla.SetFocus
-                BuscarProducto "CADENA", Trim(txtDescri.Text)
-                txtDescri.SetFocus
+                BuscarProducto "CADENA", Trim(txtdescri.Text)
+                txtdescri.SetFocus
             Else
                 txtcodigo.Text = Trim(Rec1!PTO_CODBARRAS)
-                txtDescri.Text = Trim(Rec1!PTO_DESCRI)
+                txtdescri.Text = Trim(Rec1!PTO_DESCRI)
                 txtCodInt.Text = Trim(Rec1!PTO_CODIGO)
             End If
         Else
                 MsgBox "No se ha encontrado el Producto", vbExclamation, TIT_MSGBOX
-                txtDescri.Text = ""
+                txtdescri.Text = ""
         End If
         Rec1.Close
         Screen.MousePointer = vbNormal
-    ElseIf txtcodigo.Text = "" And txtDescri.Text = "" Then
+    ElseIf txtcodigo.Text = "" And txtdescri.Text = "" Then
         cmdAsignar.Enabled = False
     End If
 End Sub
@@ -1543,9 +1547,9 @@ Private Sub txtNumero_LostFocus()
             Call BuscoEstado(CInt(Rec1!EST_CODIGO), lblEstadoRecepcion)
             txtObservaciones.Text = ChkNull(Rec1!EPR_OBSERVACIONES)
             If Rec1!EST_CODIGO = 2 Then
-               CmdBorrar.Enabled = False
+               cmdBorrar.Enabled = False
             Else
-               CmdBorrar.Enabled = True
+               cmdBorrar.Enabled = True
             End If
             cmdGrabar.Enabled = False
             FrameGeneral.Enabled = False
@@ -1568,11 +1572,11 @@ Private Sub CargoGrilla(Campo As Integer)
     sql = sql & " WHERE P.PTO_CODIGO = D.PTO_CODIGO AND D.EPR_CODIGO = E.EPR_CODIGO"
     sql = sql & " AND E.EPR_CODIGO = " & Campo & " ORDER BY E.EPR_CODIGO"
         
-    lblEstado.Caption = "Buscando..."
+    lblestado.Caption = "Buscando..."
     rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
     If rec.EOF = False Then
         GrdModulos.Rows = 1
-        GrdModulos.Highlight = flexHighlightAlways
+        GrdModulos.HighLight = flexHighlightAlways
         Do While Not rec.EOF
            GrdModulos.AddItem IIf(IsNull(rec!PTO_CODBARRAS), rec!PTO_CODIGO, rec!PTO_CODBARRAS) & Chr(9) & Trim(rec!PTO_DESCRI) _
                               & Chr(9) & rec!DEP_CANTIDAD & Chr(9) & "X" & Chr(9) & rec!PTO_CODIGO
@@ -1581,13 +1585,13 @@ Private Sub CargoGrilla(Campo As Integer)
         Loop
         rec.MoveFirst
     Else
-        lblEstado.Caption = ""
+        lblestado.Caption = ""
         MsgBox "No hay coincidencias en la busqueda.", vbOKOnly + vbCritical, TIT_MSGBOX
         Me.txtNumero.SetFocus
     End If
     rec.Close
     Screen.MousePointer = vbNormal
-    lblEstado.Caption = ""
+    lblestado.Caption = ""
     
 End Sub
 
