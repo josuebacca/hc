@@ -12,7 +12,7 @@ Public gObraS  As Integer
 
 
 'Constante para el titulo de los msgbox
-Global Const TIT_MSGBOX  As String * 4 = "CORE"
+Global Const TIT_MSGBOX  As String * 5 = "DIGOR"
 
 'Public Boton_Grabar As Boolean
 

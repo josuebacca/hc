@@ -4,7 +4,7 @@ Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "MSFLXGRD.OCX"
 Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form frmTurnos 
    BorderStyle     =   1  'Fixed Single
-   Caption         =   "CORE - Turnos de Pacientes"
+   Caption         =   "DIGOR - Turnos de Pacientes"
    ClientHeight    =   8910
    ClientLeft      =   45
    ClientTop       =   435
@@ -426,7 +426,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   109510658
+         StartOfWeek     =   54591490
          CurrentDate     =   40049
       End
    End
@@ -1181,7 +1181,10 @@ Private Sub LlenarComboHoras()
     
 End Sub
 Private Function configurogrilla()
-
+    Dim z As Integer
+    Dim minutos As Integer
+    Dim minutos_sig As Integer
+    Dim cont As Integer
     grdGrilla.FormatString = "^Horas|<Paciente|<Telefono|<Obra Social|<Motivo|>Doctor|>Cod Pac|>Asistio|DNI"
     grdGrilla.ColWidth(0) = 1400 'HORAS
     grdGrilla.ColWidth(1) = 2700 'PACIENTE
@@ -1209,7 +1212,7 @@ Private Function configurogrilla()
         hHasta = Hour(rec!HS_HASTA)
     End If
     rec.Close
-    grdGrilla.Rows = (hHasta - hDesde) * 2 + 1
+    grdGrilla.Rows = (hHasta - hDesde) * 12 + 1
     
     For i = 1 To grdGrilla.Rows - 1
         grdGrilla.Col = 0
@@ -1220,12 +1223,29 @@ Private Function configurogrilla()
     Next
     
     J = hDesde
-    For i = 1 To grdGrilla.Rows - 2
-        grdGrilla.TextMatrix(i, 0) = Format(J, "00") & ":00 a " & Format(J, "00") & ":30 "
-        grdGrilla.TextMatrix(i + 1, 0) = Format(J, "00") & ":30 a " & Format(J + 1, "00") & ":00 "
-        i = i + 1
+    cont = 1
+    'For i = 1 To grdGrilla.Rows - 1
+    Do While cont < grdGrilla.Rows
+        minutos = 0
+        For z = 0 To 11
+            'minutos = minutos * z
+            'minutos_sig = minutos + 5
+            If cont < grdGrilla.Rows Then
+                If (minutos + 5) = 60 Then
+                    grdGrilla.TextMatrix(cont, 0) = Format(J, "00") & ":" & Format(minutos, "00") & " a " & Format(J + 1, "00") & ":" & Format(0, "00")
+                Else
+                    grdGrilla.TextMatrix(cont, 0) = Format(J, "00") & ":" & Format(minutos, "00") & " a " & Format(J, "00") & ":" & Format(minutos + 5, "00")
+                End If
+            End If
+            'grdGrilla.TextMatrix(i, 0) = Format(J, "00") & ":" & Format(minutos, "00") & Format(J, "00") & ":" & Format(minutos_sig, "00")
+            'grdGrilla.TextMatrix(i + 1, 0) = Format(J, "00") & ":30 a " & Format(J + 1, "00") & ":00 "
+            'z = z + 1
+            cont = cont + 1
+            minutos = minutos + 5
+        Next
+        'i = i + 1
         J = J + 1
-    Next
+    Loop
 '   GRDGrilla.TextMatrix(I, 0) = Hour(I)
     
 End Function

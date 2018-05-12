@@ -15,7 +15,7 @@ Dim Pos     As Integer
 Dim Largo   As Integer
 Dim ValVar  As String
 Dim NomVar  As String
-Open "C:\WINDOWS\CORE.INI" For Input As #1
+Open "C:\WINDOWS\DIGOR.INI" For Input As #1
 Do While Not EOF(1)
     Line Input #1, ValVar
     Largo = Len(ValVar)

@@ -5,7 +5,7 @@ Begin VB.MDIForm Menu
    ClientHeight    =   5655
    ClientLeft      =   105
    ClientTop       =   2085
-   ClientWidth     =   11400
+   ClientWidth     =   10755
    Icon            =   "Menu.frx":0000
    LinkTopic       =   "MDIForm1"
    OLEDropMode     =   1  'Manual
@@ -17,8 +17,8 @@ Begin VB.MDIForm Menu
       Left            =   0
       TabIndex        =   1
       Top             =   0
-      Width           =   11400
-      _ExtentX        =   20108
+      Width           =   10755
+      _ExtentX        =   18971
       _ExtentY        =   741
       ButtonWidth     =   609
       ButtonHeight    =   582
@@ -102,10 +102,10 @@ Begin VB.MDIForm Menu
       Height          =   735
       Left            =   0
       ScaleHeight     =   735
-      ScaleWidth      =   11400
+      ScaleWidth      =   10755
       TabIndex        =   2
       Top             =   420
-      Width           =   11400
+      Width           =   10755
       Begin VB.PictureBox Picture2 
          Appearance      =   0  'Flat
          BackColor       =   &H000080FF&
@@ -192,8 +192,8 @@ Begin VB.MDIForm Menu
       Left            =   0
       TabIndex        =   0
       Top             =   5340
-      Width           =   11400
-      _ExtentX        =   20108
+      Width           =   10755
+      _ExtentX        =   18971
       _ExtentY        =   556
       SimpleText      =   "Listo."
       _Version        =   327682
@@ -239,7 +239,7 @@ Begin VB.MDIForm Menu
             Bevel           =   2
             Object.Width           =   1587
             MinWidth        =   1587
-            TextSave        =   "19:53"
+            TextSave        =   "19:19"
             Key             =   ""
             Object.Tag             =   ""
          EndProperty
@@ -249,7 +249,7 @@ Begin VB.MDIForm Menu
             Bevel           =   2
             Object.Width           =   1940
             MinWidth        =   1940
-            TextSave        =   "11/05/2018"
+            TextSave        =   "12/05/2018"
             Key             =   ""
             Object.Tag             =   ""
          EndProperty
@@ -512,7 +512,7 @@ Private Sub MDIForm_Load()
     'End If
     
     TituloPrincipal = TIT_MSGBOX '"Sistema de Gestión y Administración"
-    Me.Caption = "CORE - Consultorios Odontológicos de Rehabilitación y Estética"
+    Me.Caption = "DIGOR"
     
     Me.Show
     inicio
@@ -711,7 +711,7 @@ End Sub
 Private Sub mnuconectar_Click()
     'FrmInicio.Show vbModal
     inicio
-    Me.Caption = "CORE - Consultorios Odontológicos de Rehabilitación y Estética"
+    Me.Caption = "DIGOR"
     Me.mnuconectar.Enabled = False
 End Sub
 
