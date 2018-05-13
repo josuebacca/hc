@@ -1,7 +1,7 @@
 VERSION 5.00
-Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "tabctl32.ocx"
-Object = "{5F09B5DF-6F4D-11D2-8355-4854E82A9183}#15.0#0"; "Fecha32.ocx"
+Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Object = "{C932BA88-4374-101B-A56C-00AA003668DC}#1.1#0"; "MSMASK32.OCX"
+Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form frmParametros 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Parametros"
@@ -159,6 +159,19 @@ Begin VB.Form frmParametros
          TabIndex        =   37
          Top             =   1830
          Width           =   4560
+         Begin MSComCtl2.DTPicker fechaInicio 
+            Height          =   315
+            Left            =   1335
+            TabIndex        =   7
+            Top             =   1252
+            Width           =   1455
+            _ExtentX        =   2566
+            _ExtentY        =   556
+            _Version        =   393216
+            CheckBox        =   -1  'True
+            Format          =   21037057
+            CurrentDate     =   43233
+         End
          Begin VB.TextBox txtIva 
             Alignment       =   1  'Right Justify
             Height          =   315
@@ -182,18 +195,6 @@ Begin VB.Form frmParametros
             TabIndex        =   6
             Top             =   915
             Width           =   3150
-         End
-         Begin FechaCtl.Fecha fechaInicio 
-            Height          =   315
-            Left            =   1335
-            TabIndex        =   7
-            Top             =   1260
-            Width           =   1170
-            _ExtentX        =   2064
-            _ExtentY        =   556
-            Separador       =   "/"
-            Text            =   ""
-            MensajeErrMin   =   "La fecha ingresada no alcanza el mínimo permitido"
          End
          Begin MSMask.MaskEdBox txtCuit 
             Height          =   315
@@ -650,7 +651,7 @@ Private Sub cmdGrabar_Click()
     sql = sql & " ,CUIT=" & XS(txtCuit.Text)
     sql = sql & " ,ING_BRUTOS=" & XS(txtIngBrutos.Text)
     sql = sql & " ,IVA_CODIGO=" & cboIva.ItemData(cboIva.ListIndex)
-    sql = sql & " ,INICIO_ACTIVIDAD=" & XDQ(fechaInicio.Text)
+    sql = sql & " ,INICIO_ACTIVIDAD=" & XDQ(fechaInicio.Value)
     sql = sql & " ,NRO_REMITO=" & XN(txtNroRemito.Text)
     sql = sql & " ,FACTURA_C=" & XN(txtNroFacturaA.Text)
     sql = sql & " ,FACTURA_B=" & XN(txtNroFacturaB.Text)
@@ -751,7 +752,7 @@ End Sub
 
 Private Sub Form_Load()
     Set rec = New ADODB.Recordset
-    tabDatos.Tab = 0
+    TabDatos.Tab = 0
     'cargo combo iva
     LlenarComboIva
     'busco datos
@@ -771,7 +772,7 @@ Private Sub BuscarDatos()
         txtCuit.Text = IIf(IsNull(rec!cuit), "", rec!cuit)
         txtIngBrutos.Text = IIf(IsNull(rec!ING_BRUTOS), "", rec!ING_BRUTOS)
         Call BuscaCodigoProxItemData(IIf(IsNull(rec!IVA_CODIGO), 1, rec!IVA_CODIGO), cboIva)
-        fechaInicio.Text = IIf(IsNull(rec!INICIO_ACTIVIDAD), "", rec!INICIO_ACTIVIDAD)
+        fechaInicio.Value = IIf(IsNull(rec!INICIO_ACTIVIDAD), "", rec!INICIO_ACTIVIDAD)
         txtIva.Text = IIf(IsNull(rec!iva), "", Format(rec!iva, "0.00"))
         txtSucursal.Text = IIf(IsNull(rec!Sucursal), 1, rec!Sucursal)
         txtNroRemito.Text = IIf(IsNull(rec!NRO_REMITO), 1, rec!NRO_REMITO)

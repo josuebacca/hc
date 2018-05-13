@@ -18,10 +18,20 @@ Begin VB.Form frmTurnos
    ScaleHeight     =   8910
    ScaleWidth      =   13155
    StartUpPosition =   2  'CenterScreen
+   Begin VB.CommandButton cmdImpTurno 
+      Height          =   375
+      Left            =   11160
+      Picture         =   "frmTurnos.frx":030A
+      Style           =   1  'Graphical
+      TabIndex        =   30
+      ToolTipText     =   "ImprimirTurno"
+      Top             =   50
+      Width           =   495
+   End
    Begin VB.CommandButton cmdCortar 
       Height          =   375
       Left            =   12120
-      Picture         =   "frmTurnos.frx":030A
+      Picture         =   "frmTurnos.frx":5F1C
       Style           =   1  'Graphical
       TabIndex        =   32
       ToolTipText     =   "Cortar Turnos"
@@ -31,9 +41,9 @@ Begin VB.Form frmTurnos
    Begin VB.CommandButton cmdCopiar 
       Height          =   375
       Left            =   11640
-      Picture         =   "frmTurnos.frx":0694
+      Picture         =   "frmTurnos.frx":62A6
       Style           =   1  'Graphical
-      TabIndex        =   30
+      TabIndex        =   31
       ToolTipText     =   "Copiar Turnos"
       Top             =   50
       Width           =   495
@@ -68,7 +78,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Salir"
       Height          =   735
       Left            =   2040
-      Picture         =   "frmTurnos.frx":0A1E
+      Picture         =   "frmTurnos.frx":6630
       Style           =   1  'Graphical
       TabIndex        =   10
       Top             =   8040
@@ -78,9 +88,10 @@ Begin VB.Form frmTurnos
       Caption         =   "&Reporte"
       Height          =   735
       Left            =   1080
-      Picture         =   "frmTurnos.frx":1A60
+      Picture         =   "frmTurnos.frx":7672
       Style           =   1  'Graphical
       TabIndex        =   20
+      ToolTipText     =   "Listado de Turnos del dia por Doctor"
       Top             =   8040
       Width           =   975
    End
@@ -88,7 +99,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Nuevo"
       Height          =   735
       Left            =   120
-      Picture         =   "frmTurnos.frx":272A
+      Picture         =   "frmTurnos.frx":833C
       Style           =   1  'Graphical
       TabIndex        =   21
       Top             =   8040
@@ -98,7 +109,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Buscar Turnos"
       Height          =   735
       Left            =   2040
-      Picture         =   "frmTurnos.frx":376C
+      Picture         =   "frmTurnos.frx":937E
       Style           =   1  'Graphical
       TabIndex        =   18
       Top             =   7320
@@ -108,7 +119,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Quitar"
       Height          =   735
       Left            =   1080
-      Picture         =   "frmTurnos.frx":3AF6
+      Picture         =   "frmTurnos.frx":9708
       Style           =   1  'Graphical
       TabIndex        =   9
       Top             =   7320
@@ -426,7 +437,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   54591490
+         StartOfWeek     =   54329346
          CurrentDate     =   40049
       End
    End
@@ -468,7 +479,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Agregar"
       Height          =   735
       Left            =   120
-      Picture         =   "frmTurnos.frx":4B38
+      Picture         =   "frmTurnos.frx":A74A
       Style           =   1  'Graphical
       TabIndex        =   7
       Top             =   7320
@@ -489,9 +500,9 @@ Begin VB.Form frmTurnos
    Begin VB.CommandButton cmdPegar 
       Height          =   375
       Left            =   12600
-      Picture         =   "frmTurnos.frx":4EC2
+      Picture         =   "frmTurnos.frx":AAD4
       Style           =   1  'Graphical
-      TabIndex        =   31
+      TabIndex        =   33
       ToolTipText     =   "Pegar Turnos"
       Top             =   50
       Width           =   495
@@ -500,7 +511,7 @@ Begin VB.Form frmTurnos
       Caption         =   "Label7"
       Height          =   255
       Left            =   8880
-      TabIndex        =   33
+      TabIndex        =   34
       Top             =   360
       Visible         =   0   'False
       Width           =   1455
@@ -631,13 +642,23 @@ Private Function ValidarTurno() As Boolean
     ValidarTurno = True
 End Function
 Private Function ImprimirTurno()
+    Dim sHoraD As Date
+    sHoraD = cboDesde.Text
+    sHoraD = Mid(sHoraD, 1, 1)
+    
+    If sHoraD = "0" Then
+        sHoraD = Mid(cboDesde.Text, 2, 4)
+    Else
+        sHoraD = Mid(cboDesde.Text, 1, 5)
+    End If
+    
     Rep.SelectionFormula = ""
     Rep.Formulas(0) = ""
             
     Rep.SelectionFormula = " {TURNOS.TUR_FECHA}= " & XDQ(MViewFecha.Value)
     Rep.SelectionFormula = Rep.SelectionFormula & " AND {TURNOS.VEN_CODIGO}= " & cboDoctor.ItemData(cboDoctor.ListIndex)
     Rep.SelectionFormula = Rep.SelectionFormula & " AND {TURNOS.CLI_CODIGO}= " & XN(txtCodigo.Text)
-    'Rep.SelectionFormula = Rep.SelectionFormula & " AND {TURNOS.TUR_HORAD}= #" & TRIM(cboDesde.Text) & "#"
+    Rep.SelectionFormula = Rep.SelectionFormula & " AND {TURNOS.TUR_DESDE}= 1" '& grdGrilla.RowSel
     
     Rep.WindowState = crptMaximized
     Rep.WindowBorderStyle = crptNoBorder
@@ -645,6 +666,7 @@ Private Function ImprimirTurno()
     'Rep.Connect = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=" & SERVIDOR & ";"
     Rep.WindowTitle = "Impresion del Turno"
     Rep.ReportFileName = DirReport & "rptTurno.rpt"
+    
     Rep.Action = 1
 End Function
 Private Sub cmdAgregar_Click()
@@ -692,7 +714,7 @@ Private Sub cmdAgregar_Click()
             'If User <> 99 Then
                 sql = sql & " TUR_USER, "
             'End If
-            sql = sql & " TUR_FECALTA)"
+            sql = sql & " TUR_FECALTA, TUR_DESDE)"
             sql = sql & " VALUES ("
             sql = sql & XDQ(MViewFecha.Value) & ",#"
             sql = sql & Left(Trim(grdGrilla.TextMatrix(i + nFilaD, 0)), 5) & "#,#"
@@ -705,7 +727,13 @@ Private Sub cmdAgregar_Click()
             'If User <> 99 Then
                 sql = sql & User & ","
             'End If
-            sql = sql & XDQ(Date) & ")"
+            sql = sql & XDQ(Date) & ","
+            If i = 1 Then
+                sql = sql & 1 & ")"
+            Else
+                sql = sql & 0 & ")"
+            End If
+            
             
             'ACTUALIZO LA GRILLA
             grdGrilla.row = nFilaD + i
@@ -768,8 +796,8 @@ Private Sub cmdAgregar_Click()
         cboDesde.ListIndex = cboDesde.ListIndex + 1
     Next
     cboDesde.Text = sHoraDAux
-    'If MsgBox("¿Imprime el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
-    'ImprimirTurno
+    If MsgBox("¿Imprime el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+    ImprimirTurno
     
     LimpiarTurno
             
@@ -822,6 +850,10 @@ Private Sub cmdCortar_Click()
     dFechaCopy = MViewFecha.Value
     nDoctorCopy = cboDoctor.ItemData(cboDoctor.ListIndex)
     sNameDoctorCopy = cboDoctor.Text
+End Sub
+
+Private Sub cmdImpTurno_Click()
+    ImprimirTurno
 End Sub
 
 Private Sub CmdNuevo_Click()
@@ -994,17 +1026,19 @@ Private Sub cmdReport_Click()
     i = 1
     
     For i = 1 To grdGrilla.Rows - 1
-        sql = "INSERT INTO TMP_TURNOS "
-        sql = sql & " (TMP_HORA,TMP_FECHA,TMP_DOCTOR,TMP_PACIENTE,TMP_TELEFONO,TMP_OSOCIAL,TMP_MOTIVO)"
-        sql = sql & " VALUES ( "
-        sql = sql & XS(grdGrilla.TextMatrix(i, 0)) & ","
-        sql = sql & XDQ(MViewFecha.Value) & ","
-        sql = sql & XS(cboDoctor.Text) & ","
-        sql = sql & XS(grdGrilla.TextMatrix(i, 1)) & ","
-        sql = sql & XS(grdGrilla.TextMatrix(i, 2)) & ","
-        sql = sql & XS(grdGrilla.TextMatrix(i, 3)) & ","
-        sql = sql & XS(grdGrilla.TextMatrix(i, 4)) & ")"
-        DBConn.Execute sql
+        If grdGrilla.TextMatrix(i, 1) <> "" Then
+            sql = "INSERT INTO TMP_TURNOS "
+            sql = sql & " (TMP_HORA,TMP_FECHA,TMP_DOCTOR,TMP_PACIENTE,TMP_TELEFONO,TMP_OSOCIAL,TMP_MOTIVO)"
+            sql = sql & " VALUES ( "
+            sql = sql & XS(grdGrilla.TextMatrix(i, 0)) & ","
+            sql = sql & XDQ(MViewFecha.Value) & ","
+            sql = sql & XS(cboDoctor.Text) & ","
+            sql = sql & XS(grdGrilla.TextMatrix(i, 1)) & ","
+            sql = sql & XS(grdGrilla.TextMatrix(i, 2)) & ","
+            sql = sql & XS(grdGrilla.TextMatrix(i, 3)) & ","
+            sql = sql & XS(grdGrilla.TextMatrix(i, 4)) & ")"
+            DBConn.Execute sql
+        End If
     Next
           
 
@@ -1029,6 +1063,10 @@ Private Sub cmdSalir_Click()
         'Set Rec2 = Nothing
         Unload Me
     End If
+End Sub
+
+Private Sub Command1_Click()
+
 End Sub
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
@@ -1110,6 +1148,7 @@ Private Sub BuscarTurnos(day As Date, Doc As Integer)
                     Else
                         grdGrilla.TextMatrix(i, 8) = ChkNull(rec!CLI_NRODOC) '
                     End If
+                    grdGrilla.TextMatrix(i, 9) = ChkNull(rec!TUR_DESDE)
                     Select Case rec!TUR_ASISTIO
                     Case 0
                         sColor = &H80000008
@@ -1155,27 +1194,41 @@ Private Sub LlenarComboDoctor()
 End Sub
 Private Sub LlenarComboHoras()
     Dim cItems As Integer
+    Dim cont As Integer
+    Dim minutos As Integer
+    Dim z As Integer
     rec.Open "SELECT HS_DESDE,HS_HASTA FROM PARAMETROS", DBConn, adOpenStatic, adLockOptimistic
     If rec.EOF = False Then
         hDesde = Hour(rec!HS_DESDE)
         hHasta = Hour(rec!HS_HASTA)
     End If
     rec.Close
-    cItems = (hHasta - hDesde) * 2 + 1
+    cItems = (hHasta - hDesde) * 12 + 1
     i = 0
-    For J = hDesde To hHasta
-        cboDesde.AddItem Format(J, "00") & ":00"
-        cboDesde.ItemData(cboDesde.NewIndex) = i
-        cboDesde.AddItem Format(J, "00") & ":30"
-        cboDesde.ItemData(cboDesde.NewIndex) = i + 0.5
-        
-        cbohasta.AddItem Format(J, "00") & ":00"
-        cbohasta.ItemData(cbohasta.NewIndex) = i
-        cbohasta.AddItem Format(J, "00") & ":30"
-        cbohasta.ItemData(cbohasta.NewIndex) = i + 0.5
-        
-        i = i + 1
-    Next
+    
+    cont = 1
+    J = hDesde
+    Do While cont < cItems
+        minutos = 0
+        For z = 0 To 11
+            If cont < cItems Then
+                If (minutos + 5) > 60 Then
+                    'cboDesde.AddItem Format(J, "00") & ":" & Format(minutos, "00") & " a " & Format(J + 1, "00") & ":" & Format(0, "00")
+                    Exit For
+                Else
+                    cboDesde.AddItem Format(J, "00") & ":" & Format(minutos, "00")
+                    cboDesde.ItemData(cboDesde.NewIndex) = cont
+                    cbohasta.AddItem Format(J, "00") & ":" & Format(minutos, "00")
+                    cbohasta.ItemData(cbohasta.NewIndex) = cont
+                End If
+            End If
+            cont = cont + 1
+            minutos = minutos + 5
+        Next
+        J = J + 1
+    Loop
+    cbohasta.AddItem Format(hHasta, "00") & ":" & Format(0, "00")
+
     cboDesde.ListIndex = -1
     cbohasta.ListIndex = -1
     
@@ -1185,7 +1238,7 @@ Private Function configurogrilla()
     Dim minutos As Integer
     Dim minutos_sig As Integer
     Dim cont As Integer
-    grdGrilla.FormatString = "^Horas|<Paciente|<Telefono|<Obra Social|<Motivo|>Doctor|>Cod Pac|>Asistio|DNI"
+    grdGrilla.FormatString = "^Horas|<Paciente|<Telefono|<Obra Social|<Motivo|>Doctor|>Cod Pac|>Asistio|DNI|TUR_DESDE"
     grdGrilla.ColWidth(0) = 1400 'HORAS
     grdGrilla.ColWidth(1) = 2700 'PACIENTE
     grdGrilla.ColWidth(2) = 1500 'TELEFONO
@@ -1195,8 +1248,9 @@ Private Function configurogrilla()
     grdGrilla.ColWidth(6) = 0 'Codigo Paciente
     grdGrilla.ColWidth(7) = 0 'Asistio
     grdGrilla.ColWidth(8) = 0 'DNI
+    grdGrilla.ColWidth(9) = 0 'TUR_DESDE
     
-    grdGrilla.Cols = 9
+    grdGrilla.Cols = 10
     grdGrilla.BorderStyle = flexBorderNone
     grdGrilla.row = 0
     For i = 0 To grdGrilla.Cols - 1
@@ -1224,12 +1278,9 @@ Private Function configurogrilla()
     
     J = hDesde
     cont = 1
-    'For i = 1 To grdGrilla.Rows - 1
     Do While cont < grdGrilla.Rows
         minutos = 0
         For z = 0 To 11
-            'minutos = minutos * z
-            'minutos_sig = minutos + 5
             If cont < grdGrilla.Rows Then
                 If (minutos + 5) = 60 Then
                     grdGrilla.TextMatrix(cont, 0) = Format(J, "00") & ":" & Format(minutos, "00") & " a " & Format(J + 1, "00") & ":" & Format(0, "00")
@@ -1237,16 +1288,12 @@ Private Function configurogrilla()
                     grdGrilla.TextMatrix(cont, 0) = Format(J, "00") & ":" & Format(minutos, "00") & " a " & Format(J, "00") & ":" & Format(minutos + 5, "00")
                 End If
             End If
-            'grdGrilla.TextMatrix(i, 0) = Format(J, "00") & ":" & Format(minutos, "00") & Format(J, "00") & ":" & Format(minutos_sig, "00")
-            'grdGrilla.TextMatrix(i + 1, 0) = Format(J, "00") & ":30 a " & Format(J + 1, "00") & ":00 "
-            'z = z + 1
             cont = cont + 1
             minutos = minutos + 5
         Next
-        'i = i + 1
         J = J + 1
     Loop
-'   GRDGrilla.TextMatrix(I, 0) = Hour(I)
+
     
 End Function
 
