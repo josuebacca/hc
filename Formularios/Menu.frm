@@ -9,6 +9,7 @@ Begin VB.MDIForm Menu
    Icon            =   "Menu.frx":0000
    LinkTopic       =   "MDIForm1"
    OLEDropMode     =   1  'Manual
+   Picture         =   "Menu.frx":08CA
    StartUpPosition =   1  'CenterOwner
    WindowState     =   2  'Maximized
    Begin ComctlLib.Toolbar tbrPrincipal 
@@ -28,60 +29,50 @@ Begin VB.MDIForm Menu
       BeginProperty Buttons {0713E452-850A-101B-AFC0-4210102A8DA7} 
          NumButtons      =   10
          BeginProperty Button1 {0713F354-850A-101B-AFC0-4210102A8DA7} 
-            Key             =   ""
             Object.Tag             =   ""
             Style           =   3
             MixedState      =   -1  'True
          EndProperty
          BeginProperty Button2 {0713F354-850A-101B-AFC0-4210102A8DA7} 
-            Key             =   ""
             Object.ToolTipText     =   "Salir"
             Object.Tag             =   ""
             ImageIndex      =   1
             Object.Width           =   1e-4
          EndProperty
          BeginProperty Button3 {0713F354-850A-101B-AFC0-4210102A8DA7} 
-            Key             =   ""
             Object.ToolTipText     =   "Turnos"
             Object.Tag             =   ""
             ImageIndex      =   2
          EndProperty
          BeginProperty Button4 {0713F354-850A-101B-AFC0-4210102A8DA7} 
-            Key             =   ""
             Object.ToolTipText     =   "Pacientes"
             Object.Tag             =   ""
             ImageIndex      =   3
          EndProperty
          BeginProperty Button5 {0713F354-850A-101B-AFC0-4210102A8DA7} 
-            Key             =   ""
             Object.Tag             =   ""
             Style           =   3
          EndProperty
          BeginProperty Button6 {0713F354-850A-101B-AFC0-4210102A8DA7} 
-            Key             =   ""
             Object.ToolTipText     =   "Tratamientos"
             Object.Tag             =   ""
             ImageIndex      =   4
          EndProperty
          BeginProperty Button7 {0713F354-850A-101B-AFC0-4210102A8DA7} 
-            Key             =   ""
             Object.ToolTipText     =   "Medicamentos"
             Object.Tag             =   ""
             ImageIndex      =   5
          EndProperty
          BeginProperty Button8 {0713F354-850A-101B-AFC0-4210102A8DA7} 
-            Key             =   ""
             Object.Tag             =   ""
             Style           =   3
          EndProperty
          BeginProperty Button9 {0713F354-850A-101B-AFC0-4210102A8DA7} 
-            Key             =   ""
             Object.ToolTipText     =   "Cumpleaños"
             Object.Tag             =   ""
             ImageIndex      =   6
          EndProperty
          BeginProperty Button10 {0713F354-850A-101B-AFC0-4210102A8DA7} 
-            Key             =   ""
             Object.ToolTipText     =   "Control"
             Object.Tag             =   ""
             ImageIndex      =   7
@@ -132,7 +123,7 @@ Begin VB.MDIForm Menu
          Appearance      =   0  'Flat
          Height          =   615
          Left            =   12720
-         Picture         =   "Menu.frx":08CA
+         Picture         =   "Menu.frx":9252
          Style           =   1  'Graphical
          TabIndex        =   6
          Top             =   240
@@ -142,7 +133,7 @@ Begin VB.MDIForm Menu
       Begin VB.CommandButton cmdActLetrero 
          Height          =   495
          Left            =   2520
-         Picture         =   "Menu.frx":21E8
+         Picture         =   "Menu.frx":AB70
          Style           =   1  'Graphical
          TabIndex        =   5
          ToolTipText     =   "Actualizar Letrero"
@@ -203,13 +194,11 @@ Begin VB.MDIForm Menu
             Bevel           =   2
             Object.Width           =   6526
             MinWidth        =   6526
-            Key             =   ""
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel2 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
             Object.Width           =   7673
             MinWidth        =   7673
-            Key             =   ""
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel3 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
@@ -219,7 +208,6 @@ Begin VB.MDIForm Menu
             Object.Width           =   1587
             MinWidth        =   1587
             TextSave        =   "NÚM"
-            Key             =   ""
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel4 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
@@ -230,7 +218,6 @@ Begin VB.MDIForm Menu
             Object.Width           =   1587
             MinWidth        =   1587
             TextSave        =   "MAYÚS"
-            Key             =   ""
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel5 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
@@ -239,8 +226,7 @@ Begin VB.MDIForm Menu
             Bevel           =   2
             Object.Width           =   1587
             MinWidth        =   1587
-            TextSave        =   "19:19"
-            Key             =   ""
+            TextSave        =   "20:35"
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel6 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
@@ -249,8 +235,7 @@ Begin VB.MDIForm Menu
             Bevel           =   2
             Object.Width           =   1940
             MinWidth        =   1940
-            TextSave        =   "12/05/2018"
-            Key             =   ""
+            TextSave        =   "13/05/2018"
             Object.Tag             =   ""
          EndProperty
       EndProperty
@@ -277,31 +262,31 @@ Begin VB.MDIForm Menu
       BeginProperty Images {0713E8C2-850A-101B-AFC0-4210102A8DA7} 
          NumListImages   =   7
          BeginProperty ListImage1 {0713E8C3-850A-101B-AFC0-4210102A8DA7} 
-            Picture         =   "Menu.frx":2AB2
+            Picture         =   "Menu.frx":B43A
             Key             =   ""
          EndProperty
          BeginProperty ListImage2 {0713E8C3-850A-101B-AFC0-4210102A8DA7} 
-            Picture         =   "Menu.frx":2C8C
+            Picture         =   "Menu.frx":B614
             Key             =   ""
          EndProperty
          BeginProperty ListImage3 {0713E8C3-850A-101B-AFC0-4210102A8DA7} 
-            Picture         =   "Menu.frx":2FA6
+            Picture         =   "Menu.frx":B92E
             Key             =   ""
          EndProperty
          BeginProperty ListImage4 {0713E8C3-850A-101B-AFC0-4210102A8DA7} 
-            Picture         =   "Menu.frx":32C0
+            Picture         =   "Menu.frx":BC48
             Key             =   ""
          EndProperty
          BeginProperty ListImage5 {0713E8C3-850A-101B-AFC0-4210102A8DA7} 
-            Picture         =   "Menu.frx":35DA
+            Picture         =   "Menu.frx":BF62
             Key             =   ""
          EndProperty
          BeginProperty ListImage6 {0713E8C3-850A-101B-AFC0-4210102A8DA7} 
-            Picture         =   "Menu.frx":38F4
+            Picture         =   "Menu.frx":C27C
             Key             =   ""
          EndProperty
          BeginProperty ListImage7 {0713E8C3-850A-101B-AFC0-4210102A8DA7} 
-            Picture         =   "Menu.frx":3C0E
+            Picture         =   "Menu.frx":C596
             Key             =   ""
          EndProperty
       EndProperty

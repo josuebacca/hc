@@ -571,11 +571,11 @@ Private Sub cmdAceptar_Click()
                 cSQL = cSQL & cboPais.ItemData(cboPais.ListIndex) & ","
                 cSQL = cSQL & cboprofesion.ItemData(cboprofesion.ListIndex) & ","
                 If chkVenEstado.Value = Checked Then
-                    cSQL = cSQL & "'S')"
+                    cSQL = cSQL & "'S'" & ","
                 Else
-                    cSQL = cSQL & "'N')"
+                    cSQL = cSQL & "'N'" & ","
                 End If
-            cSQL = cSQL & XN(txtConsul.Text)
+            cSQL = cSQL & XN(txtConsul.Text) & ")"
                 
             Case 2 'editar
                 
