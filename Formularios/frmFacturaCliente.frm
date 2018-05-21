@@ -1,8 +1,8 @@
 VERSION 5.00
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "MSFLXGRD.OCX"
-Object = "{5F09B5DF-6F4D-11D2-8355-4854E82A9183}#15.0#0"; "Fecha32.ocx"
 Object = "{C932BA88-4374-101B-A56C-00AA003668DC}#1.1#0"; "MSMASK32.OCX"
+Object = "{5F09B5DF-6F4D-11D2-8355-4854E82A9183}#15.0#0"; "Fecha32.ocx"
 Begin VB.Form frmFacturaCliente 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Factura de Clientes..."
@@ -420,9 +420,7 @@ Begin VB.Form frmFacturaCliente
       TabPicture(1)   =   "frmFacturaCliente.frx":002E
       Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "GrdModulos"
-      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).Control(1)=   "frameBuscar"
-      Tab(1).Control(1).Enabled=   0   'False
       Tab(1).ControlCount=   2
       Begin VB.Frame FrameCliente 
          Caption         =   "Cliente..."
@@ -1486,7 +1484,7 @@ Private Sub cmdGrabar_Click()
     'cmdImprimir_Click
     Screen.MousePointer = vbNormal
     lblEstado.Caption = ""
-    cmdNuevo_Click
+    CmdNuevo_Click
     Exit Sub
     
 HayErrorFactura:
@@ -1651,7 +1649,7 @@ Private Sub LIMPIOGRILLA()
     Next
 End Sub
 
-Private Sub cmdNuevo_Click()
+Private Sub CmdNuevo_Click()
    LIMPIOGRILLA
    mFoco = False
    cmdImprimir.Enabled = False
@@ -2005,7 +2003,7 @@ Private Sub GrdModulos_dblClick()
         Screen.MousePointer = vbHourglass
         'CABEZA FACTURA
         'tengo que limpiar
-        cmdNuevo_Click
+        CmdNuevo_Click
         Call BuscaCodigoProxItemData(CInt(GrdModulos.TextMatrix(GrdModulos.RowSel, 7)), cboFactura)
         txtNroSucursal.Text = Left(GrdModulos.TextMatrix(GrdModulos.RowSel, 1), 4)
         txtNroFactura.Text = Right(GrdModulos.TextMatrix(GrdModulos.RowSel, 1), 8)
