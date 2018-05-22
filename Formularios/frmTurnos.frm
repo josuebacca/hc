@@ -140,16 +140,6 @@ Begin VB.Form frmTurnos
       Top             =   8280
       Width           =   975
    End
-   Begin VB.CommandButton cmdQuitar 
-      Caption         =   "&Quitar"
-      Height          =   735
-      Left            =   1200
-      Picture         =   "frmTurnos.frx":9708
-      Style           =   1  'Graphical
-      TabIndex        =   10
-      Top             =   8280
-      Width           =   975
-   End
    Begin VB.Frame Frame2 
       Caption         =   "Doctor"
       BeginProperty Font 
@@ -504,7 +494,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   109379586
+         StartOfWeek     =   54525954
          CurrentDate     =   40049
       End
    End
@@ -557,7 +547,7 @@ Begin VB.Form frmTurnos
       Enabled         =   0   'False
       Height          =   375
       Left            =   12600
-      Picture         =   "frmTurnos.frx":A74A
+      Picture         =   "frmTurnos.frx":9708
       Style           =   1  'Graphical
       TabIndex        =   34
       ToolTipText     =   "Pegar Turnos"
@@ -568,9 +558,19 @@ Begin VB.Form frmTurnos
       Caption         =   "&Agregar"
       Height          =   735
       Left            =   240
-      Picture         =   "frmTurnos.frx":C444
+      Picture         =   "frmTurnos.frx":B402
       Style           =   1  'Graphical
       TabIndex        =   8
+      Top             =   8280
+      Width           =   975
+   End
+   Begin VB.CommandButton cmdQuitar 
+      Caption         =   "&Quitar"
+      Height          =   735
+      Left            =   1200
+      Picture         =   "frmTurnos.frx":B78C
+      Style           =   1  'Graphical
+      TabIndex        =   10
       Top             =   8280
       Width           =   975
    End
@@ -899,6 +899,8 @@ Private Sub cmdAgregar_Click()
             ' aca hago el update
             sql = "UPDATE TURNOS SET "
             sql = sql & " CLI_CODIGO =" & XN(txtCodigo.Text) 'CAMBIAR CUANDO CARGUEMOS DNI
+            sql = sql & " ,TUR_HORAD = " & "#" & cboDesde.Text & "#"
+            sql = sql & " ,TUR_HORAH = " & "#" & cbohasta.Text & "#"
             sql = sql & " ,TUR_MOTIVO =" & XS(txtMotivo.Text)
             sql = sql & " ,TUR_OSOCIAL =" & XS(txtOSocial.Text)
             sql = sql & " ,TUR_FECALTA =" & XDQ(Date)
@@ -923,12 +925,12 @@ Private Sub cmdAgregar_Click()
     cboDesde.Text = sHoraDAux
     BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
     
-    If MsgBox("¿Imprime el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+    If MsgBox("¿Imprime el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then
+        LimpiarTurno
+        Exit Sub
+    End If
     ImprimirTurno
-    
     LimpiarTurno
-    
-    
             
     Exit Sub
     
@@ -1132,25 +1134,31 @@ Private Sub cmdQuitar_Click()
         
         DBConn.Execute sql
     
-        'LIMPIO LA GRILLA
-        grdGrilla.TextMatrix(grdGrilla.RowSel, 0) = ""
-        grdGrilla.TextMatrix(grdGrilla.RowSel, 1) = ""
-        grdGrilla.TextMatrix(grdGrilla.RowSel, 2) = ""
-        grdGrilla.TextMatrix(grdGrilla.RowSel, 3) = ""
-        grdGrilla.TextMatrix(grdGrilla.RowSel, 4) = ""
-        grdGrilla.TextMatrix(grdGrilla.RowSel, 5) = ""
-        grdGrilla.TextMatrix(grdGrilla.RowSel, 6) = ""
-        grdGrilla.TextMatrix(grdGrilla.RowSel, 7) = ""
-        grdGrilla.TextMatrix(grdGrilla.RowSel, 8) = ""
-        LimpiarTurno
-        
-        grdGrilla.row = grdGrilla.RowSel
-        For J = 1 To grdGrilla.Cols - 1
-            grdGrilla.Col = J
-            grdGrilla.CellForeColor = &H80000008          'FUENTE COLOR BLANCO
-            grdGrilla.CellBackColor = &HC0FFC0       'ROSA
-            grdGrilla.CellFontBold = True
-        Next
+        If grdGrilla.Rows = 2 Then
+            grdGrilla.Rows = 1
+        Else
+            grdGrilla.RemoveItem (grdGrilla.RowSel)
+        End If
+    
+'        'LIMPIO LA GRILLA
+'        grdGrilla.TextMatrix(grdGrilla.RowSel, 0) = ""
+'        grdGrilla.TextMatrix(grdGrilla.RowSel, 1) = ""
+'        grdGrilla.TextMatrix(grdGrilla.RowSel, 2) = ""
+'        grdGrilla.TextMatrix(grdGrilla.RowSel, 3) = ""
+'        grdGrilla.TextMatrix(grdGrilla.RowSel, 4) = ""
+'        grdGrilla.TextMatrix(grdGrilla.RowSel, 5) = ""
+'        grdGrilla.TextMatrix(grdGrilla.RowSel, 6) = ""
+'        grdGrilla.TextMatrix(grdGrilla.RowSel, 7) = ""
+'        grdGrilla.TextMatrix(grdGrilla.RowSel, 8) = ""
+'        LimpiarTurno
+'
+'        grdGrilla.row = grdGrilla.RowSel
+'        For J = 1 To grdGrilla.Cols - 1
+'            grdGrilla.Col = J
+'            grdGrilla.CellForeColor = &H80000008          'FUENTE COLOR BLANCO
+'            grdGrilla.CellBackColor = &HC0FFC0       'ROSA
+'            grdGrilla.CellFontBold = True
+'        Next
     End If
 End Sub
 
