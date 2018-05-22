@@ -504,7 +504,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   20840450
+         StartOfWeek     =   109379586
          CurrentDate     =   40049
       End
    End
@@ -717,6 +717,48 @@ Private Sub cbohasta_LostFocus()
         End If
     End If
 End Sub
+Private Function ValidarHorarioTurno() As Boolean
+If cbohasta.Text <= cboDesde.Text Then
+    MsgBox "La hora HASTA debe ser mayor que la hora DESDE", vbCritical, TIT_MSGBOX
+Else
+    If ValidarRangoTurno = False Then
+        MsgBox "El horario ingresado para el turno no esta disponible, por favor ingrese otro.", vbCritical, TIT_MSGBOX
+        ValidarHorarioTurno = False
+    Else
+        ValidarHorarioTurno = True
+    End If
+End If
+End Function
+Private Function ValidarRangoTurno() As Boolean
+Dim i As Integer
+Dim turdesde As Date
+Dim turhasta As Date
+Dim hasta As Date
+Dim desde As Date
+hasta = cbohasta.Text
+desde = cboDesde.Text
+If grdGrilla.Rows < 2 Then
+    ValidarRangoTurno = True
+Else
+   For i = 1 To grdGrilla.Rows - 1
+   turdesde = Format(Left(grdGrilla.TextMatrix(i, 0), 5), "hh:mm")
+   turhasta = Format(Right(grdGrilla.TextMatrix(i, 0), 5), "hh:mm")
+   'si la hora hasta es menor o igual a la desde, lo agrego
+   If hasta <= turdesde Then
+        ValidarRangoTurno = True
+        Exit For
+    End If
+    'comparo si esta en un rango ya ocupado
+   If (desde > turdesde And desde < turhasta Or hasta > turdesde And hasta <= turhasta) Or (desde < turdesde And hasta >= turhasta) Then
+        ValidarRangoTurno = False
+        Exit For
+    Else
+    'se puede cargar
+    ValidarRangoTurno = True
+   End If
+   Next
+End If
+End Function
 Private Function ValidarTurno() As Boolean
     If MViewFecha.Value < Date Then
 '        MsgBox "No puede agregar un turno para ese dia", vbCritical, TIT_MSGBOX
@@ -786,6 +828,7 @@ Private Sub cmdAgregar_Click()
     Dim sHoraDAux As String
     'Validar los campos requeridos
     If ValidarTurno = False Then Exit Sub
+    If ValidarHorarioTurno = False Then Exit Sub
     If MsgBox("¿Confirma el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
     'agregar teniendo en cuentas loc combos de horas
     On Error GoTo HayErrorTurno
@@ -1090,6 +1133,7 @@ Private Sub cmdQuitar_Click()
         DBConn.Execute sql
     
         'LIMPIO LA GRILLA
+        grdGrilla.TextMatrix(grdGrilla.RowSel, 0) = ""
         grdGrilla.TextMatrix(grdGrilla.RowSel, 1) = ""
         grdGrilla.TextMatrix(grdGrilla.RowSel, 2) = ""
         grdGrilla.TextMatrix(grdGrilla.RowSel, 3) = ""
