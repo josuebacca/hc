@@ -244,18 +244,18 @@ Begin VB.Form frmhistoriaclinica
       TabCaption(0)   =   "Curso Clinico"
       TabPicture(0)   =   "frmhistoriaclinica.frx":0000
       Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "Frame6"
+      Tab(0).Control(0)=   "Frame4"
       Tab(0).Control(1)=   "Frame5"
-      Tab(0).Control(2)=   "Frame4"
+      Tab(0).Control(2)=   "Frame6"
       Tab(0).ControlCount=   3
       TabCaption(1)   =   "Ecografias"
       TabPicture(1)   =   "frmhistoriaclinica.frx":001C
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "Frame2"
-      Tab(1).Control(1)=   "cmdEliminarEco"
+      Tab(1).Control(0)=   "cmdVerEstudio"
+      Tab(1).Control(1)=   "cmdVer"
       Tab(1).Control(2)=   "cmdAgregarEco"
-      Tab(1).Control(3)=   "cmdVer"
-      Tab(1).Control(4)=   "cmdVerEstudio"
+      Tab(1).Control(3)=   "cmdEliminarEco"
+      Tab(1).Control(4)=   "Frame2"
       Tab(1).ControlCount=   5
       TabCaption(2)   =   "Laboratorio"
       TabPicture(2)   =   "frmhistoriaclinica.frx":0038
@@ -264,14 +264,14 @@ Begin VB.Form frmhistoriaclinica
       TabCaption(3)   =   "Ginecologia"
       TabPicture(3)   =   "frmhistoriaclinica.frx":0054
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "Label8"
-      Tab(3).Control(1)=   "optTipoEst"
-      Tab(3).Control(2)=   "optFechaGine"
-      Tab(3).Control(3)=   "cboTipoEstGine"
-      Tab(3).Control(4)=   "Frame3"
-      Tab(3).Control(5)=   "cmdAgregarEstGine"
-      Tab(3).Control(6)=   "cmdEliminarEstGine"
-      Tab(3).Control(7)=   "cmdImprimirEstGine"
+      Tab(3).Control(0)=   "cmdImprimirEstGine"
+      Tab(3).Control(1)=   "cmdEliminarEstGine"
+      Tab(3).Control(2)=   "cmdAgregarEstGine"
+      Tab(3).Control(3)=   "Frame3"
+      Tab(3).Control(4)=   "cboTipoEstGine"
+      Tab(3).Control(5)=   "optFechaGine"
+      Tab(3).Control(6)=   "optTipoEst"
+      Tab(3).Control(7)=   "Label8"
       Tab(3).ControlCount=   8
       TabCaption(4)   =   "Pedidos"
       TabPicture(4)   =   "frmhistoriaclinica.frx":0070
@@ -1458,7 +1458,7 @@ Private Sub cmdAceptar_Click()
         sql = "SELECT MAX(CCL_NUMERO) as ultimo FROM CCLINICO"
         rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
         If rec.EOF = False Then
-            Num = rec!Ultimo + 1 ' guardo el proxuimo turno
+            Num = Chk0(rec!Ultimo) + 1 ' guardo el proxuimo turno
         Else
             Num = 1
         End If
@@ -1475,7 +1475,7 @@ Private Sub cmdAceptar_Click()
         sql = sql & cboDocCon.ItemData(cboDocCon.ListIndex) & ","
         sql = sql & XS(txtMotivo.Text) & ","
         sql = sql & XS(txtIndicaciones.Text) & ","
-        sql = sql & XDQ(FechaProx.Value) & ")"
+        sql = sql & XDQ(ChkNull(FechaProx.Value)) & ")"
         DBConn.Execute sql
     Else
         If MsgBox("¿Desea Modificar la Consulta Medica?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub

@@ -494,7 +494,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   54525954
+         StartOfWeek     =   20840450
          CurrentDate     =   40049
       End
    End
@@ -721,6 +721,7 @@ Private Function ValidarHorarioTurno() As Boolean
 If cbohasta.Text <= cboDesde.Text Then
     MsgBox "La hora HASTA debe ser mayor que la hora DESDE", vbCritical, TIT_MSGBOX
 Else
+
     If ValidarRangoTurno = False Then
         MsgBox "El horario ingresado para el turno no esta disponible, por favor ingrese otro.", vbCritical, TIT_MSGBOX
         ValidarHorarioTurno = False
@@ -828,7 +829,7 @@ Private Sub cmdAgregar_Click()
     Dim sHoraDAux As String
     'Validar los campos requeridos
     If ValidarTurno = False Then Exit Sub
-    If ValidarHorarioTurno = False Then Exit Sub
+    'If ValidarHorarioTurno = False Then Exit Sub
     If MsgBox("¿Confirma el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
     'agregar teniendo en cuentas loc combos de horas
     On Error GoTo HayErrorTurno
@@ -1174,7 +1175,7 @@ Private Sub cmdReport_Click()
     For i = 1 To grdGrilla.Rows - 1
         If grdGrilla.TextMatrix(i, 1) <> "" Then
             sql = "INSERT INTO TMP_TURNOS "
-            sql = sql & " (TMP_HORA,TMP_FECHA,TMP_DOCTOR,TMP_PACIENTE,TMP_TELEFONO,TMP_OSOCIAL,TMP_MOTIVO)"
+            sql = sql & " (TMP_HORA,TMP_FECHA,TMP_DOCTOR,TMP_PACIENTE,TMP_TELEFONO,TMP_OSOCIAL,TMP_MOTIVO,TMP_IMPORTE)"
             sql = sql & " VALUES ( "
             sql = sql & XS(grdGrilla.TextMatrix(i, 0)) & ","
             sql = sql & XDQ(MViewFecha.Value) & ","
@@ -1182,7 +1183,8 @@ Private Sub cmdReport_Click()
             sql = sql & XS(grdGrilla.TextMatrix(i, 1)) & ","
             sql = sql & XS(grdGrilla.TextMatrix(i, 2)) & ","
             sql = sql & XS(grdGrilla.TextMatrix(i, 3)) & ","
-            sql = sql & XS(grdGrilla.TextMatrix(i, 4)) & ")"
+            sql = sql & XS(grdGrilla.TextMatrix(i, 4)) & ","
+            sql = sql & XS(grdGrilla.TextMatrix(i, 10)) & ")"
             DBConn.Execute sql
         End If
     Next
