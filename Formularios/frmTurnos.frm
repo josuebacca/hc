@@ -349,7 +349,7 @@ Begin VB.Form frmTurnos
          Top             =   4200
          Width           =   1395
       End
-      Begin VB.Label Label7 
+      Begin VB.Label lblimporte 
          Alignment       =   1  'Right Justify
          AutoSize        =   -1  'True
          BackColor       =   &H00C0C0FF&
@@ -494,7 +494,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   20840450
+         StartOfWeek     =   54591490
          CurrentDate     =   40049
       End
    End
@@ -574,7 +574,7 @@ Begin VB.Form frmTurnos
       Top             =   8280
       Width           =   975
    End
-   Begin VB.Label Label10 
+   Begin VB.Label lbltotal 
       Alignment       =   1  'Right Justify
       AutoSize        =   -1  'True
       BackColor       =   &H00C0C0FF&
@@ -966,6 +966,12 @@ Private Sub LimpiarTurno()
     cmdCopiar.Enabled = False
     cmdCortar.Enabled = False
     cmdPegar.Enabled = False
+    If User = 1 Then
+        cmdAgregar.Enabled = True
+    Else
+        cmdAgregar.Enabled = False
+    End If
+    
 End Sub
 
 Private Sub cmdCopiar_Click()
@@ -1250,6 +1256,20 @@ Private Sub Form_Load()
     LlenarComboHoras
     BuscarTurnos Date, cboDoctor.ItemData(cboDoctor.ListIndex)
     ActivoGrid = 1
+    If User = 1 Then
+        cmdAgregar.Enabled = True
+        cmdAgregar.Enabled = True
+        lblimporte.Visible = True
+        txtimporte.Visible = True
+        lbltotal.Visible = True
+        txtTotal.Visible = True
+    Else
+        cmdAgregar.Enabled = False
+        lblimporte.Visible = False
+        txtimporte.Visible = False
+        lbltotal.Visible = False
+        txtTotal.Visible = False
+    End If
 End Sub
 Private Sub LimpiarGrilla()
     For i = 1 To grdGrilla.Rows - 1
@@ -1403,8 +1423,12 @@ Private Function configurogrilla()
     grdGrilla.ColWidth(7) = 0 'Asistio
     grdGrilla.ColWidth(8) = 0 'DNI
     grdGrilla.ColWidth(9) = 0 'TUR_DESDE
-    grdGrilla.ColWidth(10) = 1500 'Importe
-    
+    If User = 1 Then
+        grdGrilla.ColWidth(10) = 1500 'Importe
+    Else
+        'oculto la columna de importe para los doctores
+        grdGrilla.ColWidth(10) = 0 'Importe
+    End If
     
     grdGrilla.Cols = 11
     grdGrilla.BorderStyle = flexBorderNone
@@ -1470,7 +1494,11 @@ Private Sub grdGrilla_Click()
                 txtMotivo.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 4)
                 BuscaDescriProx Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5), cboDesde
                 BuscaDescriProx Right(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5), cbohasta
-                txtimporte.Text = Valido_Importe(grdGrilla.TextMatrix(grdGrilla.RowSel, 10))
+                If User = 1 Then
+                    txtimporte.Text = Valido_Importe(grdGrilla.TextMatrix(grdGrilla.RowSel, 10))
+                Else
+                    txtimporte.Text = "0,00"
+                End If
                 cmdImpTurno.Enabled = True
                 cmdPegar.Enabled = True
                 cmdCortar.Enabled = True

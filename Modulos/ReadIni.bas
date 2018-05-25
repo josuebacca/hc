@@ -8,6 +8,7 @@ Public Impresora    As String   'PARA SABER QUE IMPRESORA USA PARA LA FACTURA Y 
 Public DirBkp    As String
 Public Ayuda As String
 Public User As String
+Public Doc As String
 
 
 Public Sub LeoIni()
@@ -43,8 +44,13 @@ Do While Not EOF(1)
                 DirBkp = ValVar
            Case "AYUDA"
                 Ayuda = ValVar
+           
            Case "USR"
                 User = ValVar
+           
+           Case "DOCTOR"
+                Doc = ValVar
+                
         End Select
     End If
 Loop

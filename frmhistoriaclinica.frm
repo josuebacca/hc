@@ -278,8 +278,8 @@ Begin VB.Form frmhistoriaclinica
       TabCaption(4)   =   "Pedidos"
       TabPicture(4)   =   "frmhistoriaclinica.frx":0070
       Tab(4).ControlEnabled=   0   'False
-      Tab(4).Control(0)=   "Frame9"
-      Tab(4).Control(1)=   "Frame8"
+      Tab(4).Control(0)=   "Frame8"
+      Tab(4).Control(1)=   "Frame9"
       Tab(4).ControlCount=   2
       Begin VB.Frame Frame9 
          Caption         =   "Pedidos anteriores"
@@ -334,7 +334,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   108396545
+            Format          =   54525953
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHastaPedido 
@@ -348,7 +348,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   108396545
+            Format          =   54525953
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdPedidos 
@@ -537,7 +537,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   108396545
+            Format          =   54525953
             CurrentDate     =   41098
          End
          Begin VB.Label Label24 
@@ -709,28 +709,8 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   108396545
+            Format          =   54525953
             CurrentDate     =   43205
-         End
-         Begin VB.ComboBox cboDocCon 
-            BackColor       =   &H00C0FFC0&
-            BeginProperty Font 
-               Name            =   "Verdana"
-               Size            =   8.25
-               Charset         =   0
-               Weight          =   700
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            Height          =   315
-            ItemData        =   "frmhistoriaclinica.frx":0094
-            Left            =   1305
-            List            =   "frmhistoriaclinica.frx":0096
-            Style           =   2  'Dropdown List
-            TabIndex        =   49
-            Top             =   1080
-            Width           =   2220
          End
          Begin VB.CommandButton cmdCancelar 
             Caption         =   "Cancelar"
@@ -766,7 +746,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   108396545
+            Format          =   54525953
             CurrentDate     =   41098
          End
          Begin VB.CommandButton cmdAceptar 
@@ -776,6 +756,27 @@ Begin VB.Form frmhistoriaclinica
             TabIndex        =   48
             Top             =   6360
             Width           =   1095
+         End
+         Begin VB.ComboBox cboDocCon 
+            BackColor       =   &H00C0FFC0&
+            BeginProperty Font 
+               Name            =   "Verdana"
+               Size            =   8.25
+               Charset         =   0
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   315
+            ItemData        =   "frmhistoriaclinica.frx":0094
+            Left            =   1305
+            List            =   "frmhistoriaclinica.frx":0096
+            Locked          =   -1  'True
+            Style           =   2  'Dropdown List
+            TabIndex        =   49
+            Top             =   1080
+            Width           =   2220
          End
          Begin VB.Label Label18 
             Caption         =   "Consultorio:"
@@ -891,7 +892,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   108396545
+            Format          =   54525953
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHasta 
@@ -905,7 +906,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   108396545
+            Format          =   54525953
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdConsultas 
@@ -1163,7 +1164,7 @@ Begin VB.Form frmhistoriaclinica
                _Version        =   393216
                CheckBox        =   -1  'True
                DateIsNull      =   -1  'True
-               Format          =   108396545
+               Format          =   54525953
                CurrentDate     =   41098
             End
             Begin VB.Label Label17 
@@ -1294,16 +1295,20 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Dim Rec2 As New ADODB.Recordset
-Private Function BuscarProxPaciente(codven, dia) As Integer
-Dim CodPac As Integer
-sql = " SELECT C.CLI_NRODOC FROM TURNOS T ,CLIENTE C "
-    sql = sql & " WHERE (T.CLI_CODIGO = C.CLI_CODIGO)"
+Private Function BuscarProxPaciente(codven, DIA) As Integer
+    Dim CodPac As Integer
+    CodPac = 0
+    sql = " SELECT TOP 1 C.CLI_CODIGO "
+    sql = sql & " FROM TURNOS T, CLIENTE C "
+    sql = sql & " WHERE T.CLI_CODIGO = C.CLI_CODIGO"
     sql = sql & " AND T.VEN_CODIGO = " & codven
-    sql = sql & " AND T.TUR_FECHA = " & dia
-    sql = sql & " HAVING MIN(T.TUR_HORAD)"
-    rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
-    CodPac = rec!CLI_NRODOC
-    rec.Close
+    sql = sql & " AND T.TUR_FECHA = " & DIA
+    sql = sql & " ORDER BY  T.TUR_HORAD ASC"
+    Rec2.Open sql, DBConn, adOpenStatic, adLockOptimistic
+    If Rec2.EOF = False Then
+        CodPac = Rec2!CLI_CODIGO
+    End If
+    Rec2.Close
     BuscarProxPaciente = CodPac
 End Function
 
@@ -1347,7 +1352,7 @@ Private Function ImprimirTurno()
             
     Rep.SelectionFormula = " {TURNOS.TUR_FECHA}= " & XDQ(MViewFecha.Value)
     Rep.SelectionFormula = Rep.SelectionFormula & " AND {TURNOS.VEN_CODIGO}= " & cboDoctor.ItemData(cboDoctor.ListIndex)
-    Rep.SelectionFormula = Rep.SelectionFormula & " AND {TURNOS.CLI_CODIGO}= " & XN(txtCodigo.Text)
+    Rep.SelectionFormula = Rep.SelectionFormula & " AND {TURNOS.CLI_CODIGO}= " & XN(txtcodigo.Text)
     'Rep.SelectionFormula = Rep.SelectionFormula & " AND {TURNOS.TUR_HORAD}= #" & TRIM(cboDesde.Text) & "#"
     
     Rep.WindowState = crptMaximized
@@ -1376,10 +1381,11 @@ sql = "SELECT PR_CODIGO, VEN_CONSULTORIO FROM VENDEDOR"
 End Sub
 
 Private Sub cboDocCon_Click()
-Dim pro As String
-LimpiarConsulta
-LimpiarPedido
-sql = "SELECT VEN_CODIGO,PR_CODIGO, VEN_CONSULTORIO FROM VENDEDOR"
+    Dim pro As String
+    LimpiarConsulta
+    LimpiarPedido
+    
+    sql = "SELECT VEN_CODIGO,PR_CODIGO, VEN_CONSULTORIO FROM VENDEDOR"
     sql = sql & " WHERE VEN_CODIGO = "
     sql = sql & cboDocCon.ItemData(cboDocCon.ListIndex)
     rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
@@ -1396,16 +1402,16 @@ sql = "SELECT VEN_CODIGO,PR_CODIGO, VEN_CONSULTORIO FROM VENDEDOR"
     sql = sql & " WHERE PR_CODIGO ="
     sql = sql & pro
     rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
-    txtProfesion.Text = rec!PR_DESCRI
-    txtProfesionPedido = rec!PR_DESCRI
+    If rec.EOF = False Then
+        txtProfesion.Text = rec!PR_DESCRI
+        txtProfesionPedido = rec!PR_DESCRI
+    End If
     rec.Close
+    
     BuscaCodigoProxItemData cboDocCon.ItemData(cboDocCon.ListIndex), cboDocPedido
-    CodCli = BuscarProxPaciente(codven, XDQ(Fecha.Value))
-    'CodCli = 26394554
-    txtBuscaCliente.Text = ChkNull(CodCli)
-    txtBuscaCliente_LostFocus
-    'Item = cboDocCon.ListIndex
-    'cboDocPedido.ItemData = Item
+    
+    
+    
 
 End Sub
 
@@ -1490,7 +1496,7 @@ Private Sub cmdAceptar_Click()
         sql = sql & " VALUES ("
         sql = sql & Num & ","
         sql = sql & XDQ(Fecha.Value) & ","
-        sql = sql & XN(txtBuscaCliente.Text) & ","
+        sql = sql & XN(txtcodigo.Text) & ","
         sql = sql & cboDocCon.ItemData(cboDocCon.ListIndex) & ","
         sql = sql & XS(txtMotivo.Text) & ","
         sql = sql & XS(txtIndicaciones.Text) & ","
@@ -1500,7 +1506,7 @@ Private Sub cmdAceptar_Click()
         If MsgBox("¿Desea Modificar la Consulta Medica?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
         sql = "UPDATE CCLINICO SET "
         sql = sql & " CCL_FECHA = " & XDQ(Fecha.Value)
-        sql = sql & " ,CLI_CODIGO=" & XN(txtBuscaCliente.Text)
+        sql = sql & " ,CLI_CODIGO=" & XN(txtcodigo.Text)
         sql = sql & " ,VEN_CODIGO=" & cboDocCon.ItemData(cboDocCon.ListIndex)
         sql = sql & " ,CCL_MOTIVO=" & XS(txtMotivo.Text)
         sql = sql & " ,CCL_INDICA=" & XS(txtIndicaciones.Text)
@@ -1566,7 +1572,7 @@ Private Sub cmdAceptarPedido_Click()
         sql = sql & Num & ","
         sql = sql & XDQ(FechaPed.Value) & ","
         sql = sql & cboEspecPedido.ItemData(cboEspecPedido.ListIndex) & ","
-        sql = sql & XN(txtBuscaCliente.Text) & ","
+        sql = sql & XN(txtcodigo.Text) & ","
         sql = sql & XS(txtMotivoPedido.Text) & ","
         sql = sql & XS(txtDescPedido.Text) & ")"
         'sql = sql & cboDocPedido.ItemData(cboDocPedido.ListIndex) & ")"
@@ -1575,7 +1581,7 @@ Private Sub cmdAceptarPedido_Click()
         If MsgBox("¿Desea Modificar el Pedido?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
         sql = "UPDATE PEDIDO SET "
         sql = sql & " PED_FECHA = " & XDQ(FechaPed.Value)
-        sql = sql & " ,CLI_CODIGO=" & XN(txtBuscaCliente.Text)
+        sql = sql & " ,CLI_CODIGO=" & XN(txtcodigo.Text)
         sql = sql & " ,ESP_CODIGO=" & cboEspecPedido.ItemData(cboEspecPedido.ListIndex)
         sql = sql & " ,PED_MOTIVO=" & XS(txtMotivoPedido.Text)
         sql = sql & " ,PED_DESCRI=" & XS(txtDescPedido.Text)
@@ -1600,7 +1606,7 @@ Private Function LimpiarPedido()
     txtDescPedido = ""
     txtnroPedido = ""
     FechaPed.Value = Date
-    cboEspecPedido.ListIndex = 0
+    'cboEspecPedido.ListIndex = 0
 End Function
 Private Function validarPedido() As Boolean
     validarPedido = True
@@ -1671,6 +1677,7 @@ End Function
 Private Sub cmdCancelar_Click()
     'If MsgBox("¿Seguro desea Cancelarla Consulta Medica?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
     LimpiarConsulta
+    BuscaCodigoProxItemData Int(Doc), cboDocCon
 End Sub
 
 Private Sub cmdCancelarPedido_Click()
@@ -1742,12 +1749,12 @@ Private Sub cmdSiguiente_Click()
         Rec2.Open sql, DBConn, adOpenStatic, adLockOptimistic
         If Rec2.EOF = False Then
             Do While Rec2.EOF = False
-                If Rec2!CLI_CODIGO = txtCodigo Then
+                If Rec2!CLI_CODIGO = txtcodigo Then
                     'PACIENTE ACTUAL
                     actual = 1
                 End If
-                If actual = 1 And Rec2!CLI_CODIGO <> txtCodigo Then
-                    txtCodigo = Rec2!CLI_CODIGO
+                If actual = 1 And Rec2!CLI_CODIGO <> txtcodigo Then
+                    txtcodigo = Rec2!CLI_CODIGO
                     TxtCodigo_LostFocus
                     Rec2.Close
                     Exit Sub
@@ -1762,12 +1769,36 @@ Private Sub cmdSiguiente_Click()
 
 End Sub
 
+Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+    If KeyAscii = vbKeyReturn Then MySendKeys Chr(9)
+End Sub
+
+Private Sub Form_KeyPress(KeyAscii As Integer)
+    If KeyAscii = vbKeyReturn Then MySendKeys Chr(9)
+'    If KeyAscii = 13 Then
+'        KeyAscii = 0
+'        SendKeys "{TAB}"
+'    End If
+End Sub
+
 Private Sub Form_Load()
     preparogrillas
     cargocombos
     Fecha.Value = Date
     FechaProx.Value = ""
     tabhc.Tab = 0
+    CodCli = BuscarProxPaciente(Int(Doc), XDQ(Fecha.Value))
+    If cocli <> 0 Then
+        txtBuscaCliente.Text = ChkNull(CodCli)
+        txtcodigo.Text = ChkNull(CodCli)
+        txtBuscaCliente_LostFocus
+    End If
+    'ESTO LO HAGO PARA HABILITAR EL ACEPTAR DE LA CONSULTA MEDICA
+    If cboDocCon.ItemData(cboDocCon.ListIndex) = Int(Doc) Then
+        cmdAceptar.Enabled = True
+    Else
+        cmdAceptar.Enabled = False
+    End If
 End Sub
 Private Function preparogrillas()
     ' Grilla de Curso Clinico - Consulta de Historia Clinica
@@ -1839,7 +1870,8 @@ Private Function cargocombos()
         Loop
     End If
     rec.Close
-            
+    'pone el doctor por defecto que esta guardado en el archivo de configuracion C:/Windows/DIGOR.ini
+    BuscaCodigoProxItemData Int(Doc), cboDocCon
             
     sql = "SELECT * FROM ESPECIALIDAD"
     sql = sql & " WHERE ESP_CODIGO > 0"
@@ -1865,11 +1897,17 @@ Private Sub grdConsultas_Click()
         txtIndicaciones = grdConsultas.TextMatrix(grdConsultas.RowSel, 3)
         FechaProx.Value = grdConsultas.TextMatrix(grdConsultas.RowSel, 4)
         txtnrocon.Text = grdConsultas.TextMatrix(grdConsultas.RowSel, 6)
+         'ESTO LO HAGO PARA HABILITAR EL ACEPTAR DE LA CONSULTA MEDICA
+        If cboDocCon.ItemData(cboDocCon.ListIndex) = Int(Doc) Then
+            cmdAceptar.Enabled = True
+        Else
+            cmdAceptar.Enabled = False
+        End If
     End If
 End Sub
 
 Private Sub grdPedidos_Click()
-If grdPedidos.Rows > 1 Then
+    If grdPedidos.Rows > 1 Then
         FechaPed.Value = grdPedidos.TextMatrix(grdPedidos.RowSel, 0)
         BuscaCodigoProxItemData grdPedidos.TextMatrix(grdPedidos.RowSel, 5), cboDocPedido
         'cboDocCon.ListIndex = grdConsultas.TextMatrix(grdConsultas.RowSel, 5)
@@ -1877,25 +1915,32 @@ If grdPedidos.Rows > 1 Then
         txtDescPedido = grdPedidos.TextMatrix(grdPedidos.RowSel, 1)
         txtnroPedido.Text = grdPedidos.TextMatrix(grdPedidos.RowSel, 3)
         BuscaCodigoProxItemData grdPedidos.TextMatrix(grdPedidos.RowSel, 6), cboEspecPedido
+        
+        'ESTO LO HAGO PARA HABILITAR EL ACEPTAR DE LA CONSULTA MEDICA
+        If cboDocCon.ItemData(cboDocCon.ListIndex) = Int(Doc) Then
+            cmdAceptar.Enabled = True
+        Else
+            cmdAceptar.Enabled = False
+        End If
     End If
 End Sub
 
 Private Sub txtBuscaCliente_Change()
-grdConsultas.Rows = 1
-grdPedidos.Rows = 1
-    If txtBuscaCliente.Text = "" Then
-        txtBuscarCliDescri.Text = ""
-        txtCodigo.Text = ""
-        txtTelefono.Text = ""
-        txtOSocial.Text = ""
-    End If
-    If Len(Trim(txtBuscaCliente.Text)) < 7 Then
-        txtBuscaCliente.ToolTipText = "Numero de Paciente"
-    Else
-        txtBuscaCliente.ToolTipText = "DNI"
-    End If
-LimpiarConsulta
-LimpiarPedido
+    grdConsultas.Rows = 1
+    grdPedidos.Rows = 1
+        If txtBuscaCliente.Text = "" Then
+            txtBuscarCliDescri.Text = ""
+            txtcodigo.Text = ""
+            txtTelefono.Text = ""
+            txtOSocial.Text = ""
+        End If
+        If Len(Trim(txtBuscaCliente.Text)) < 7 Then
+            txtBuscaCliente.ToolTipText = "Numero de Paciente"
+        Else
+            txtBuscaCliente.ToolTipText = "DNI"
+        End If
+    LimpiarConsulta
+    LimpiarPedido
 End Sub
 
 Private Sub txtBuscaCliente_GotFocus()
@@ -1920,7 +1965,7 @@ Private Sub txtBuscaCliente_LostFocus()
         sql = sql & " WHERE "
         If txtBuscaCliente.Text <> "" Then
             If Len(Trim(txtBuscaCliente.Text)) < 7 Then
-                sql = sql & " CLI_CODIGO=" & XN(txtBuscaCliente)
+                sql = sql & " CLI_CODIGO=" & XN(txtcodigo)
             Else
                 sql = sql & " CLI_NRODOC=" & XN(txtBuscaCliente)
             End If
@@ -1932,7 +1977,7 @@ Private Sub txtBuscaCliente_LostFocus()
         If rec.EOF = False Then
             'txtBuscaCliente.Text = rec!CLI_NRODOC
             txtBuscarCliDescri.Text = rec!CLI_RAZSOC
-            txtCodigo.Text = rec!CLI_CODIGO
+            txtcodigo.Text = rec!CLI_CODIGO
             txtTelefono.Text = ChkNull(rec!CLI_TELEFONO)
             txtOSocial.Text = BuscarOSocial(rec!CLI_CODIGO)
             CargarConsultasAnteriores
@@ -1950,7 +1995,7 @@ End Sub
 Private Sub txtBuscarCliDescri_Change()
     If txtBuscarCliDescri.Text = "" Then
         txtBuscaCliente.Text = ""
-        txtCodigo.Text = ""
+        txtcodigo.Text = ""
         txtTelefono.Text = ""
         txtOSocial.Text = ""
     End If
@@ -2002,7 +2047,7 @@ Private Sub txtBuscarCliDescri_LostFocus()
                 End If
                 'txtBuscaCliente.Text = rec!CLI_NRODOC
                 txtBuscarCliDescri.Text = rec!CLI_RAZSOC
-                txtCodigo.Text = rec!CLI_CODIGO
+                txtcodigo.Text = rec!CLI_CODIGO
                 txtTelefono.Text = ChkNull(rec!CLI_TELEFONO)
             End If
             'ActivoGrid = 0
@@ -2047,11 +2092,12 @@ Public Sub BuscarClientes(Txt As String, mQuien As String, Optional mCadena As S
         ' utilizar la coleccion de datos devueltos
         If .ResultFields.Count > 0 Then
             If Txt = "txtcodCli" Then
-                'txtcodCli.Text = .ResultFields(2)
+                txtcodigo.Text = .ResultFields(2)
                 'txtCodCli_LostFocus
             Else
                 If .ResultFields(3) = "" Then
                     txtBuscaCliente.Text = .ResultFields(2)
+                    txtcodigo.Text = .ResultFields(2)
                 Else
                     txtBuscaCliente.Text = .ResultFields(3)
                 End If
@@ -2093,7 +2139,7 @@ Private Function CargarConsultasAnteriores()
     sql = sql & " WHERE CC.CLI_CODIGO = C.CLI_NRODOC"
     sql = sql & " AND CC.VEN_CODIGO = V.VEN_CODIGO"
     If txtBuscaCliente.Text <> "" Then
-        sql = sql & " AND CC.CLI_CODIGO = " & XN(txtBuscaCliente)
+        sql = sql & " AND CC.CLI_CODIGO = " & XN(txtcodigo)
     End If
     If cboDocAnt.ListIndex > 0 Then
         sql = sql & " AND CC.VEN_CODIGO = " & cboDocAnt.ItemData(cboDocAnt.ListIndex)
@@ -2117,17 +2163,17 @@ Private Function CargarConsultasAnteriores()
 End Function
 
 Private Sub TxtCodigo_LostFocus()
-    If txtCodigo.Text <> "" Then
+    If txtcodigo.Text <> "" Then
         Set rec = New ADODB.Recordset
         sql = "SELECT CLI_CODIGO, CLI_RAZSOC,CLI_NRODOC,CLI_TELEFONO"
         sql = sql & " FROM CLIENTE"
         sql = sql & " WHERE "
-        sql = sql & " CLI_CODIGO=" & XN(txtCodigo)
+        sql = sql & " CLI_CODIGO=" & XN(txtcodigo)
         rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
         If rec.EOF = False Then
             txtBuscaCliente.Text = IIf(IsNull(rec!CLI_NRODOC), rec!CLI_CODIGO, rec!CLI_NRODOC)
             txtBuscarCliDescri.Text = rec!CLI_RAZSOC
-            txtCodigo.Text = rec!CLI_CODIGO
+            txtcodigo.Text = rec!CLI_CODIGO
             txtTelefono.Text = ChkNull(rec!CLI_TELEFONO)
             txtOSocial.Text = BuscarOSocial(rec!CLI_CODIGO)
             CargarConsultasAnteriores
