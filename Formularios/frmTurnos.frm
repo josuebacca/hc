@@ -8,7 +8,7 @@ Begin VB.Form frmTurnos
    ClientHeight    =   9060
    ClientLeft      =   45
    ClientTop       =   435
-   ClientWidth     =   15015
+   ClientWidth     =   15750
    ForeColor       =   &H00000000&
    Icon            =   "frmTurnos.frx":0000
    KeyPreview      =   -1  'True
@@ -16,7 +16,7 @@ Begin VB.Form frmTurnos
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   9060
-   ScaleWidth      =   15015
+   ScaleWidth      =   15750
    StartUpPosition =   2  'CenterScreen
    Begin VB.TextBox txtTotal 
       Alignment       =   1  'Right Justify
@@ -494,7 +494,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   54591490
+         StartOfWeek     =   22020098
          CurrentDate     =   40049
       End
    End
@@ -504,8 +504,8 @@ Begin VB.Form frmTurnos
       TabIndex        =   9
       ToolTipText     =   "Doble Click para ver la Historia Clinica del Paciente"
       Top             =   525
-      Width           =   11805
-      _ExtentX        =   20823
+      Width           =   12525
+      _ExtentX        =   22093
       _ExtentY        =   13626
       _Version        =   393216
       Rows            =   25
@@ -791,6 +791,12 @@ Private Function ValidarTurno() As Boolean
         ValidarTurno = False
         Exit Function
     End If
+    If cboDesde.Text >= cbohasta.Text Then
+        MsgBox "La hora HASTA debe ser mayor a la hora DESDE", vbCritical, TIT_MSGBOX
+        cboDesde.SetFocus
+        ValidarTurno = False
+        Exit Function
+    End If
     
     ValidarTurno = True
 End Function
@@ -899,7 +905,7 @@ Private Sub cmdAgregar_Click()
             End If
             ' aca hago el update
             sql = "UPDATE TURNOS SET "
-            sql = sql & " CLI_CODIGO =" & XN(txtCodigo.Text) 'CAMBIAR CUANDO CARGUEMOS DNI
+            sql = sql & " CLI_CODIGO = " & XN(txtCodigo.Text) 'CAMBIAR CUANDO CARGUEMOS DNI
             sql = sql & " ,TUR_HORAD = " & "#" & cboDesde.Text & "#"
             sql = sql & " ,TUR_HORAH = " & "#" & cbohasta.Text & "#"
             sql = sql & " ,TUR_MOTIVO =" & XS(txtMotivo.Text)
@@ -1016,7 +1022,7 @@ Private Sub cmdPegar_Click()
     Dim DIA As Integer
     Dim sDiaTurno As String
     DIA = Weekday(dFechaCopy, vbMonday)
-    sDiaTurno = "Turnos del dia " & WeekdayName(DIA, False) & " " & day(dFechaCopy) & " de " & MonthName(Month(dFechaCopy), False) & " de " & Year(dFechaCopy)
+    sDiaTurno = "Turnos del dia " & WeekdayName(DIA, False) & " " & Day(dFechaCopy) & " de " & MonthName(Month(dFechaCopy), False) & " de " & Year(dFechaCopy)
 
     If sAction = "CORTAR" Then
         For i = 1 To grdGrilla.Rows - 1
@@ -1116,57 +1122,73 @@ Private Sub cmdQuitar_Click()
     'Controlar que se pueda eliminar el turno
     'Borrar de la Grilla
     'Borrar de la BD
-    If grdGrilla.TextMatrix(grdGrilla.RowSel, 1) <> "" Then
-        If MsgBox("¿Confirma Eiminar el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+    If txtCodigo.Text <> "" Then
+        If grdGrilla.TextMatrix(grdGrilla.RowSel, 1) <> "" Then
+            If MsgBox("¿Confirma Eiminar el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+                
+            sql = "DELETE FROM TURNOS WHERE"
+            sql = sql & " TUR_FECHA = " & XDQ(MViewFecha.Value)
+            sql = sql & " AND TUR_HORAD = #" & Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5) & "#"
+            sql = sql & " AND VEN_CODIGO = " & cboDoctor.ItemData(cboDoctor.ListIndex)
+            sql = sql & " AND CLI_CODIGO = " & grdGrilla.TextMatrix(grdGrilla.RowSel, 8)
+            DBConn.Execute sql
             
-        sql = "DELETE FROM TURNOS WHERE"
-        sql = sql & " TUR_FECHA = " & XDQ(MViewFecha.Value)
-        sql = sql & " AND TUR_HORAD = #" & Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5) & "#"
-        sql = sql & " AND VEN_CODIGO = " & cboDoctor.ItemData(cboDoctor.ListIndex)
-        sql = sql & " AND CLI_CODIGO = " & grdGrilla.TextMatrix(grdGrilla.RowSel, 6)
-        DBConn.Execute sql
+            'ESTO LO HAGO PARA AUDITAR LO TURNOS BORRADOS
+            'ver si hay algun turno borrado igual
+            'sql = "SELECT * FROM DEL_TURNOS"
+            'sql = sql & " WHERE TUR_FECHA = " & XDQ(MViewFecha.Value)
+            'sql = sql & " AND TUR_HORAD = " & "#" & cboDesde.Text & "#"
+            'sql = sql & " AND VEN_CODIGO = " & cboDoctor.ItemData(cboDoctor.ListIndex)
+            'sql = sql & " AND CLI_CODIGO = " & XN(txtCodigo.Text)
+            'Rec2.Open sql, DBConn, adOpenStatic, adLockOptimistic
+            'si no hay agrego
+            'If Rec2.EOF = True Then
+             '   sql = "INSERT INTO DEL_TURNOS"
+              '  sql = sql & " (TUR_FECHA, TUR_HORAD,"
+               ' sql = sql & " VEN_CODIGO,CLI_CODIGO,"
+               ' sql = sql & " TUR_USER,TUR_FECBAJA)"
+               ' sql = sql & " VALUES ("
+               ' sql = sql & XDQ(MViewFecha.Value) & ",#"
+               ' sql = sql & Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5) & "#,"
+               ' sql = sql & cboDoctor.ItemData(cboDoctor.ListIndex) & ","
+               ' sql = sql & grdGrilla.TextMatrix(grdGrilla.RowSel, 8) & ","
+               ' sql = sql & User & ","
+                'sql = sql & XDQ(Date) & ")"
+                'DBConn.Execute sql
+            'Else
+            'si hay no hago nada
+            'End If
         
-        'ESTO LO HAGO PARA AUDITAR LO TURNOS BORRADOS
-        sql = "INSERT INTO DEL_TURNOS"
-        sql = sql & " (TUR_FECHA, TUR_HORAD,"
-        sql = sql & " VEN_CODIGO,CLI_CODIGO,"
-        sql = sql & " TUR_USER,TUR_FECBAJA)"
-        sql = sql & " VALUES ("
-        sql = sql & XDQ(MViewFecha.Value) & ",#"
-        sql = sql & Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5) & "#,"
-        sql = sql & cboDoctor.ItemData(cboDoctor.ListIndex) & ","
-        sql = sql & grdGrilla.TextMatrix(grdGrilla.RowSel, 6) & ","
-        sql = sql & User & ","
-        sql = sql & XDQ(Date) & ")"
+            If grdGrilla.Rows = 2 Then
+                grdGrilla.Rows = 1
+            Else
+                grdGrilla.RemoveItem (grdGrilla.RowSel)
+            End If
         
-        DBConn.Execute sql
-    
-        If grdGrilla.Rows = 2 Then
-            grdGrilla.Rows = 1
-        Else
-            grdGrilla.RemoveItem (grdGrilla.RowSel)
+    '        'LIMPIO LA GRILLA
+    '        grdGrilla.TextMatrix(grdGrilla.RowSel, 0) = ""
+    '        grdGrilla.TextMatrix(grdGrilla.RowSel, 1) = ""
+    '        grdGrilla.TextMatrix(grdGrilla.RowSel, 2) = ""
+    '        grdGrilla.TextMatrix(grdGrilla.RowSel, 3) = ""
+    '        grdGrilla.TextMatrix(grdGrilla.RowSel, 4) = ""
+    '        grdGrilla.TextMatrix(grdGrilla.RowSel, 5) = ""
+    '        grdGrilla.TextMatrix(grdGrilla.RowSel, 6) = ""
+    '        grdGrilla.TextMatrix(grdGrilla.RowSel, 7) = ""
+    '        grdGrilla.TextMatrix(grdGrilla.RowSel, 8) = ""
+    '        LimpiarTurno
+    '
+    '        grdGrilla.row = grdGrilla.RowSel
+    '        For J = 1 To grdGrilla.Cols - 1
+    '            grdGrilla.Col = J
+    '            grdGrilla.CellForeColor = &H80000008          'FUENTE COLOR BLANCO
+    '            grdGrilla.CellBackColor = &HC0FFC0       'ROSA
+    '            grdGrilla.CellFontBold = True
+    '        Next
         End If
-    
-'        'LIMPIO LA GRILLA
-'        grdGrilla.TextMatrix(grdGrilla.RowSel, 0) = ""
-'        grdGrilla.TextMatrix(grdGrilla.RowSel, 1) = ""
-'        grdGrilla.TextMatrix(grdGrilla.RowSel, 2) = ""
-'        grdGrilla.TextMatrix(grdGrilla.RowSel, 3) = ""
-'        grdGrilla.TextMatrix(grdGrilla.RowSel, 4) = ""
-'        grdGrilla.TextMatrix(grdGrilla.RowSel, 5) = ""
-'        grdGrilla.TextMatrix(grdGrilla.RowSel, 6) = ""
-'        grdGrilla.TextMatrix(grdGrilla.RowSel, 7) = ""
-'        grdGrilla.TextMatrix(grdGrilla.RowSel, 8) = ""
-'        LimpiarTurno
-'
-'        grdGrilla.row = grdGrilla.RowSel
-'        For J = 1 To grdGrilla.Cols - 1
-'            grdGrilla.Col = J
-'            grdGrilla.CellForeColor = &H80000008          'FUENTE COLOR BLANCO
-'            grdGrilla.CellBackColor = &HC0FFC0       'ROSA
-'            grdGrilla.CellFontBold = True
-'        Next
-    End If
+    LimpiarTurno
+Else
+    MsgBox "Seleccione un turno", vbExclamation, TIT_MSGBOX
+End If
 End Sub
 
 Private Sub cmdReport_Click()
@@ -1286,14 +1308,16 @@ Private Sub LimpiarGrilla()
         Next
     Next
 End Sub
-Private Sub BuscarTurnos(day As Date, Doc As Integer)
+Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
     Dim sColor As String
     Dim total As Double
-    sql = "SELECT T.*,V.VEN_NOMBRE,C.CLI_RAZSOC,C.CLI_NRODOC,C.CLI_TELEFONO"
+    Dim Años As Integer
+    Dim edad As Integer
+    sql = "SELECT T.*,V.VEN_NOMBRE,C.CLI_RAZSOC,C.CLI_NRODOC,C.CLI_TELEFONO,C.CLI_CELULAR,C.CLI_CUMPLE"
     sql = sql & " FROM TURNOS T, VENDEDOR V, CLIENTE C"
     sql = sql & " WHERE T.CLI_CODIGO = C.CLI_CODIGO"
     sql = sql & " AND T.VEN_CODIGO = V.VEN_CODIGO"
-    sql = sql & " AND T.TUR_FECHA = " & XDQ(day)
+    sql = sql & " AND T.TUR_FECHA = " & XDQ(Fecha)
     sql = sql & " AND T.VEN_CODIGO = " & Doc
     sql = sql & " ORDER BY T.TUR_HORAD"
     rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
@@ -1309,8 +1333,20 @@ Private Sub BuscarTurnos(day As Date, Doc As Integer)
                     Case 2
                         sColor = &HFF&
                     End Select
+                    
+'calculo edad de paciente
+If Not (IsNull(rec!CLI_CUMPLE)) Then
+    If rec.EOF = False Then
+            Años = Year(Date) - Year(rec!CLI_CUMPLE)
+            If Month(Fecha) < Month(rec!CLI_CUMPLE) Then Años = Años - 1 'todavía no ha llegado el mes de su cumple
+            If Month(Now) = Month(rec!CLI_CUMPLE) And Day(Fecha) < Day(rec!CLI_CUMPLE) Then Años = Años - 1 'es el mes pero no ha llegado el día de su cumple
+            edad = Años
+    End If
+Else
 
-            grdGrilla.AddItem Format(rec!TUR_HORAD, "hh:mm") & " a " & Format(rec!TUR_HORAH, "hh:mm") & Chr(9) & rec!CLI_RAZSOC & Chr(9) & ChkNull(rec!CLI_TELEFONO) & Chr(9) & BuscarOSocial(rec!CLI_CODIGO) & Chr(9) & ChkNull(rec!TUR_MOTIVO) & Chr(9) & _
+End If
+
+                grdGrilla.AddItem Format(rec!TUR_HORAD, "hh:mm") & " a " & Format(rec!TUR_HORAH, "hh:mm") & Chr(9) & rec!CLI_RAZSOC & Chr(9) & edad & Chr(9) & ChkNull(rec!CLI_TELEFONO) & Chr(9) & ChkNull(rec!CLI_CELULAR) & Chr(9) & BuscarOSocial(rec!CLI_CODIGO) & Chr(9) & ChkNull(rec!TUR_MOTIVO) & Chr(9) & _
                                 rec!VEN_CODIGO & Chr(9) & rec!CLI_CODIGO & Chr(9) & rec!TUR_ASISTIO & Chr(9) & ChkNull(rec!CLI_NRODOC) & Chr(9) & ChkNull(rec!TUR_DESDE) & Chr(9) & Format(Chk0(rec!TUR_IMPORTE), "#,##0.00")
             
             total = total + Chk0(rec!TUR_IMPORTE)
@@ -1412,25 +1448,27 @@ Private Function configurogrilla()
     Dim minutos As Integer
     Dim minutos_sig As Integer
     Dim cont As Integer
-    grdGrilla.FormatString = "^Horas|<Paciente|<Telefono|<Obra Social|<Motivo|>Doctor|>Cod Pac|>Asistio|DNI|TUR_DESDE|Importe"
+    grdGrilla.FormatString = "^Horas|<Paciente|<Edad|<Telefono|<Celular|<Obra Social|<Motivo|>Doctor|>Cod Pac|>Asistio|DNI|TUR_DESDE|Importe"
     grdGrilla.ColWidth(0) = 1400 'HORAS
-    grdGrilla.ColWidth(1) = 2700 'PACIENTE
-    grdGrilla.ColWidth(2) = 1500 'TELEFONO
-    grdGrilla.ColWidth(3) = 2300 'O SOCIAL
-    grdGrilla.ColWidth(4) = 2000 'MOTIVO
-    grdGrilla.ColWidth(5) = 0 'DOCTOR
-    grdGrilla.ColWidth(6) = 0 'Codigo Paciente
-    grdGrilla.ColWidth(7) = 0 'Asistio
-    grdGrilla.ColWidth(8) = 0 'DNI
-    grdGrilla.ColWidth(9) = 0 'TUR_DESDE
+    grdGrilla.ColWidth(1) = 2500 'PACIENTE
+    grdGrilla.ColWidth(2) = 700 'EDAD
+    grdGrilla.ColWidth(3) = 1300 'TELEFONO
+    grdGrilla.ColWidth(4) = 1600 'CELULAR
+    grdGrilla.ColWidth(5) = 1800 'O SOCIAL
+    grdGrilla.ColWidth(6) = 2000 'MOTIVO
+    grdGrilla.ColWidth(7) = 0 'DOCTOR
+    grdGrilla.ColWidth(8) = 0 'Codigo Paciente
+    grdGrilla.ColWidth(9) = 0 'Asistio
+    grdGrilla.ColWidth(10) = 0 'DNI
+    grdGrilla.ColWidth(11) = 0 'TUR_DESDE
     If User = 1 Then
-        grdGrilla.ColWidth(10) = 1500 'Importe
+        grdGrilla.ColWidth(12) = 1200 'Importe
     Else
         'oculto la columna de importe para los doctores
-        grdGrilla.ColWidth(10) = 0 'Importe
+        grdGrilla.ColWidth(12) = 0 'Importe
     End If
     
-    grdGrilla.Cols = 11
+    grdGrilla.Cols = 13
     grdGrilla.BorderStyle = flexBorderNone
     grdGrilla.row = 0
     For i = 0 To grdGrilla.Cols - 1
@@ -1485,17 +1523,17 @@ End Function
 Private Sub grdGrilla_Click()
     If grdGrilla.Rows > 1 Then
             If grdGrilla.TextMatrix(grdGrilla.RowSel, 1) <> "" Then
-                txtBuscaCliente.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 8)
+                txtBuscaCliente.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 10)
                 'txtBuscaCliente_LostFocus
-                txtCodigo.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 6)
+                txtCodigo.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 8)
                 txtBuscarCliDescri.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 1)
-                txtTelefono.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 2)
-                txtOSocial.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 3)
-                txtMotivo.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 4)
+                txtTelefono.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 3)
+                txtOSocial.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 5)
+                txtMotivo.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 6)
                 BuscaDescriProx Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5), cboDesde
                 BuscaDescriProx Right(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5), cbohasta
                 If User = 1 Then
-                    txtimporte.Text = Valido_Importe(grdGrilla.TextMatrix(grdGrilla.RowSel, 10))
+                    txtimporte.Text = Valido_Importe(grdGrilla.TextMatrix(grdGrilla.RowSel, 12))
                 Else
                     txtimporte.Text = "0,00"
                 End If
@@ -1596,7 +1634,7 @@ End Sub
 Private Sub configurodia(Fecha As Date)
     Dim DIA As Integer
     DIA = Weekday(Fecha, vbMonday)
-    lbldiaTurno.Caption = "Turnos del dia " & WeekdayName(DIA, False) & " " & day(Fecha) & " de " & MonthName(Month(Fecha), False) & " de " & Year(Fecha)
+    lbldiaTurno.Caption = "Turnos del dia " & WeekdayName(DIA, False) & " " & Day(Fecha) & " de " & MonthName(Month(Fecha), False) & " de " & Year(Fecha)
 End Sub
 Private Function BuscarOSocial(CodCli As Integer) As String
 Set Rec1 = New ADODB.Recordset

@@ -508,7 +508,7 @@ Public Function FechaSQL(ByRef pFecha As String) As String
     Else
         'si es una fecha valida
         If IsDate(CDate(pFecha)) Then
-            FechaSQL = "'" & Format(Month(pFecha), "00") & "/" & Format(day(pFecha), "00") & "/" & Format(Year(pFecha), "0000") & "'"
+            FechaSQL = "'" & Format(Month(pFecha), "00") & "/" & Format(Day(pFecha), "00") & "/" & Format(Year(pFecha), "0000") & "'"
         End If
     End If
 End Function
@@ -1977,7 +1977,7 @@ Calculo_Edad = Int(DateDiff("m", CVDate(Fec_Nac), FecAct) / 12)
 'PD: Esto no lo hago contando los dias y luego dividiendo por 365
 'porque no se como tratar los años bisiestos asi que por las dudas lo hago a mano
 
-If Month(FecAct) = Month(Fec_Nac) And day(FecAct) < day(Fec_Nac) Then Calculo_Edad = Calculo_Edad - 1
+If Month(FecAct) = Month(Fec_Nac) And Day(FecAct) < Day(Fec_Nac) Then Calculo_Edad = Calculo_Edad - 1
 
 'Si tiene menos de un año devuelvo un decimal que indica la edad en meses
 If Calculo_Edad = 0 Then

@@ -146,7 +146,7 @@ Begin VB.Form ABMClientes
          Top             =   4140
          Width           =   4000
       End
-      Begin VB.TextBox txtFax 
+      Begin VB.TextBox txtCel 
          Height          =   315
          Left            =   2610
          MaxLength       =   30
@@ -220,7 +220,7 @@ Begin VB.Form ABMClientes
          _ExtentY        =   556
          _Version        =   393216
          CheckBox        =   -1  'True
-         Format          =   54329345
+         Format          =   43450369
          CurrentDate     =   40071
       End
       Begin MSComCtl2.DTPicker DTFechaNac 
@@ -233,7 +233,7 @@ Begin VB.Form ABMClientes
          _ExtentY        =   556
          _Version        =   393216
          CheckBox        =   -1  'True
-         Format          =   54329345
+         Format          =   43450369
          CurrentDate     =   40071
       End
       Begin VB.Label Label1 
@@ -478,27 +478,27 @@ Begin VB.Form ABMClientes
       TabCaption(2)   =   "&Historia Clinica"
       TabPicture(2)   =   "ABMClientes.frx":1C18
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "grdCClinico"
-      Tab(2).Control(1)=   "txtHC"
-      Tab(2).Control(2)=   "Frame1"
-      Tab(2).Control(3)=   "Frame2"
-      Tab(2).Control(4)=   "cboTratamiento"
-      Tab(2).Control(5)=   "Frame6"
+      Tab(2).Control(0)=   "Frame6"
+      Tab(2).Control(1)=   "cboTratamiento"
+      Tab(2).Control(2)=   "Frame2"
+      Tab(2).Control(3)=   "Frame1"
+      Tab(2).Control(4)=   "txtHC"
+      Tab(2).Control(5)=   "grdCClinico"
       Tab(2).ControlCount=   6
       TabCaption(3)   =   "Medicamentos"
       TabPicture(3)   =   "ABMClientes.frx":1C34
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "Frame4"
+      Tab(3).Control(0)=   "GrdCMedica"
       Tab(3).Control(1)=   "txtMedica"
-      Tab(3).Control(2)=   "GrdCMedica"
+      Tab(3).Control(2)=   "Frame4"
       Tab(3).ControlCount=   3
       TabCaption(4)   =   "Pedidos"
       TabPicture(4)   =   "ABMClientes.frx":1C50
       Tab(4).ControlEnabled=   0   'False
-      Tab(4).Control(0)=   "cmdRealizado"
-      Tab(4).Control(1)=   "cmdCancelarPedido"
-      Tab(4).Control(2)=   "Command2"
-      Tab(4).Control(3)=   "Frame7"
+      Tab(4).Control(0)=   "Frame7"
+      Tab(4).Control(1)=   "Command2"
+      Tab(4).Control(2)=   "cmdCancelarPedido"
+      Tab(4).Control(3)=   "cmdRealizado"
       Tab(4).ControlCount=   4
       TabCaption(5)   =   "Imágenes"
       TabPicture(5)   =   "ABMClientes.frx":1C6C
@@ -682,7 +682,7 @@ Begin VB.Form ABMClientes
             _ExtentY        =   556
             _Version        =   393216
             CheckBox        =   -1  'True
-            Format          =   54329345
+            Format          =   43450369
             CurrentDate     =   40070
          End
          Begin VB.TextBox txtcualca 
@@ -1061,7 +1061,7 @@ Begin VB.Form ABMClientes
             CalendarBackColor=   12648384
             CalendarForeColor=   0
             CalendarTitleBackColor=   12648384
-            Format          =   54329345
+            Format          =   43450369
             UpDown          =   -1  'True
             CurrentDate     =   40063
          End
@@ -1088,7 +1088,7 @@ Begin VB.Form ABMClientes
             CalendarTitleBackColor=   12648384
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   54329345
+            Format          =   43450369
             CurrentDate     =   40063
          End
          Begin VB.TextBox txtDescTra 
@@ -1513,7 +1513,7 @@ Begin VB.Form ABMClientes
             CalendarBackColor=   12648384
             CalendarForeColor=   0
             CalendarTitleBackColor=   12648384
-            Format          =   54329345
+            Format          =   43450369
             UpDown          =   -1  'True
             CurrentDate     =   40063
          End
@@ -1890,7 +1890,7 @@ Function SetMode(pMode As Integer)
             AcCtrlx cboLocalidad
             AcCtrlx txtDomicilio
             AcCtrlx txtTelefono
-            AcCtrlx txtFax
+            AcCtrlx txtCel
             AcCtrlx txtCodPostal
             AcCtrlx txtMail
             AcCtrlx txtObserva
@@ -1954,7 +1954,7 @@ Function SetMode(pMode As Integer)
             DesacCtrlx cboLocalidad
             DesacCtrlx txtDomicilio
             DesacCtrlx txtTelefono
-            DesacCtrlx txtFax
+            DesacCtrlx txtCel
             DesacCtrlx txtCodPostal
             DesacCtrlx txtMail
             DesacCtrlx txtObserva
@@ -2205,7 +2205,7 @@ Private Sub cmdAceptar_Click()
                     cSQL = cSQL & " CLI_CUMPLE, "
                 End If
                 cSQL = cSQL & " IVA_CODIGO, CLI_NRODOC,"
-                cSQL = cSQL & " CLI_TELEFONO, CLI_MAIL, CLI_FAX, CLI_CODPOS,"
+                cSQL = cSQL & " CLI_TELEFONO, CLI_MAIL, CLI_CELULAR, CLI_CODPOS,"
                 cSQL = cSQL & " LOC_CODIGO, PRO_CODIGO, PAI_CODIGO, CLI_OBSERVA, "
                 cSQL = cSQL & " CLI_EDAD, CLI_OCUPACION, "
                 
@@ -2231,7 +2231,7 @@ Private Sub cmdAceptar_Click()
                 cSQL = cSQL & cboIva.ItemData(cboIva.ListIndex) & ", "
                 cSQL = cSQL & XN(txtNroDoc.Text) & ", "
                 cSQL = cSQL & XS(txtTelefono.Text) & ", "
-                cSQL = cSQL & XS(txtMail.Text) & ", " & XS(txtFax.Text) & ", "
+                cSQL = cSQL & XS(txtMail.Text) & ", " & XS(txtCel.Text) & ", "
                 cSQL = cSQL & XS(txtCodPostal.Text) & ", "
                 cSQL = cSQL & cboLocalidad.ItemData(cboLocalidad.ListIndex) & ", "
                 cSQL = cSQL & cboProvincia.ItemData(cboProvincia.ListIndex) & ", "
@@ -2276,7 +2276,7 @@ Private Sub cmdAceptar_Click()
                 cSQL = cSQL & " ,IVA_CODIGO=" & cboIva.ItemData(cboIva.ListIndex)
                 cSQL = cSQL & " ,CLI_TELEFONO=" & XS(txtTelefono.Text)
                 cSQL = cSQL & " ,CLI_MAIL=" & XS(txtMail.Text)
-                cSQL = cSQL & " ,CLI_FAX=" & XS(txtFax.Text)
+                cSQL = cSQL & " ,CLI_CELULAR=" & XS(txtCel.Text)
                 cSQL = cSQL & " ,CLI_CODPOS=" & XS(txtCodPostal.Text)
                 cSQL = cSQL & " ,LOC_CODIGO=" & cboLocalidad.ItemData(cboLocalidad.ListIndex)
                 cSQL = cSQL & " ,PRO_CODIGO=" & cboProvincia.ItemData(cboProvincia.ListIndex)
@@ -2787,7 +2787,7 @@ Private Sub Command1_Click()
     If rec.EOF = False Then
         Do While rec.EOF = False
             sql = "INSERT INTO CLIENTE (CLI_CODIGO,CLI_RAZSOC,"
-            sql = sql & " CLI_DOMICI,CLI_TELEFONO,CLI_FAX,CLI_MAIL,CLI_CUMPLE,"
+            sql = sql & " CLI_DOMICI,CLI_TELEFONO,CLI_CELULAR,CLI_MAIL,CLI_CUMPLE,"
             sql = sql & " IVA_CODIGO,PAI_CODIGO,PRO_CODIGO,LOC_CODIGO,CLI_NRODOC) VALUES ("
             sql = sql & X & ","
             sql = sql & "'" & Trim(rec!apellido) & " " & Trim(rec!Nombre) & "',"
@@ -3060,7 +3060,7 @@ Private Sub Form_Load()
                 txtDNI.Text = ChkNull(rec!CLI_DNI)
                 txtDomicilio.Text = ChkNull(rec!CLI_DOMICI)
                 txtTelefono.Text = ChkNull(rec!CLI_TELEFONO)
-                txtFax.Text = ChkNull(rec!CLI_FAX)
+                txtCel.Text = ChkNull(rec!CLI_CELULAR)
                 txtCodPostal.Text = ChkNull(rec!CLI_CODPOS)
                 txtMail.Text = ChkNull(rec!CLI_MAIL)
                 txtObserva.Text = Trim(ChkNull(rec!CLI_OBSERVA))
@@ -3436,7 +3436,7 @@ Private Sub txtBuscarOSNombre_LostFocus()
             'preguntar si quiere agregarlo y abrir abm de tratamientos
             'MsgBox "Tratamiento inexistente", vbExclamation, TIT_MSGBOX
                 gObraS = 1
-                ABMObraSocial.txtdescri.Text = txtBuscarOSNombre.Text
+                ABMObraSocial.txtDescri.Text = txtBuscarOSNombre.Text
                 ABMObraSocial.Show vbModal
                 txtBuscarOSNombre.SetFocus
             Else
@@ -3580,7 +3580,7 @@ Private Sub txtDescTra_LostFocus()
             'preguntar si quiere agregarlo y abrir abm de tratamientos
             'MsgBox "Tratamiento inexistente", vbExclamation, TIT_MSGBOX
                 gTrata = 1
-                ABMTratamiento.txtdescri.Text = txtDescTra.Text
+                ABMTratamiento.txtDescri.Text = txtDescTra.Text
                 ABMTratamiento.Show vbModal
                 txtDescTra.SetFocus
             Else
@@ -3640,15 +3640,15 @@ Private Sub txtEstCom_Change()
     cmdAceptar.Enabled = True
 End Sub
 
-Private Sub txtFax_Change()
+Private Sub txtCel_Change()
     cmdAceptar.Enabled = True
 End Sub
 
-Private Sub txtFax_GotFocus()
-    SelecTexto txtFax
+Private Sub txtCel_GotFocus()
+    SelecTexto txtCel
 End Sub
 
-Private Sub txtFax_KeyPress(KeyAscii As Integer)
+Private Sub txtCel_KeyPress(KeyAscii As Integer)
     KeyAscii = CarTexto(KeyAscii)
 End Sub
 
