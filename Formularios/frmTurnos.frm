@@ -494,7 +494,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   22020098
+         StartOfWeek     =   20971522
          CurrentDate     =   40049
       End
    End
@@ -1192,6 +1192,8 @@ End If
 End Sub
 
 Private Sub cmdReport_Click()
+    Dim ultimoimporte As Double
+    Dim ultimoid As Integer
     'If txtCodCliente.Text = "" Or GrillaAplicar.Rows = 1 Then Exit Sub
     Screen.MousePointer = vbHourglass
     'lblEstado.Caption = "Buscando Recibo..."
@@ -1203,8 +1205,9 @@ Private Sub cmdReport_Click()
     For i = 1 To grdGrilla.Rows - 1
         If grdGrilla.TextMatrix(i, 1) <> "" Then
             sql = "INSERT INTO TMP_TURNOS "
-            sql = sql & " (TMP_HORA,TMP_FECHA,TMP_DOCTOR,TMP_PACIENTE,TMP_TELEFONO,TMP_OSOCIAL,TMP_MOTIVO,TMP_IMPORTE)"
+            sql = sql & " (TMP_ID,TMP_HORA,TMP_FECHA,TMP_DOCTOR,TMP_PACIENTE,TMP_EDAD,TMP_TELEFONO,TMP_CELULAR,TMP_OSOCIAL,TMP_MOTIVO,TMP_IMPORTE)"
             sql = sql & " VALUES ( "
+            sql = sql & i & ","
             sql = sql & XS(grdGrilla.TextMatrix(i, 0)) & ","
             sql = sql & XDQ(MViewFecha.Value) & ","
             sql = sql & XS(cboDoctor.Text) & ","
@@ -1212,11 +1215,20 @@ Private Sub cmdReport_Click()
             sql = sql & XS(grdGrilla.TextMatrix(i, 2)) & ","
             sql = sql & XS(grdGrilla.TextMatrix(i, 3)) & ","
             sql = sql & XS(grdGrilla.TextMatrix(i, 4)) & ","
-            sql = sql & XS(grdGrilla.TextMatrix(i, 10)) & ")"
+            sql = sql & XS(grdGrilla.TextMatrix(i, 5)) & ","
+            sql = sql & XS(grdGrilla.TextMatrix(i, 6)) & ","
+            sql = sql & XN(grdGrilla.TextMatrix(i, 12)) & ")"
             DBConn.Execute sql
         End If
     Next
-          
+    ultimoimporte = XN(grdGrilla.TextMatrix(grdGrilla.Rows - 1, 12))
+    ultimoid = grdGrilla.Rows - 1
+    
+    'actualizo tabla para solucionar lo del ultimo registro
+    sql = "UPDATE TMP_TURNOS"
+    sql = sql & " SET TMP_IMPORTE=" & ultimoimporte
+    sql = sql & " WHERE TMP_ID=" & ultimoid
+    DBConn.Execute sql
 
     Rep.WindowState = crptMaximized
     Rep.WindowBorderStyle = crptNoBorder
