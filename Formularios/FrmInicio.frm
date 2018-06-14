@@ -151,7 +151,8 @@ Public Sub Conexion()
     'DBConn.ConnectionTimeout = 0       'Default msado10.hlp => 15
     'DBConn.CommandTimeout = 0          'Default msado10.hlp => 30
     'DBConn.Open DBConn.ConnectionString, TxtUsuario, TxtClave
-    DBConn.ConnectionString = "Provider=Microsoft.Jet.OLEDB.3.51; Data Source=" & SERVIDOR & ";"
+    'DBConn.ConnectionString = "Provider=Microsoft.Jet.OLEDB.3.51; Data Source=" & SERVIDOR & ";"
+    DBConn.ConnectionString = "Provider=MSDASQL.1;Persist Security Info=False;Data Source=" & SERVIDOR
     DBConn.Open
 '    ME CONECTO !
 '    Set DBConn = New ADODB.Connection
@@ -256,7 +257,7 @@ Private Sub cmdAceptar_Click()
         MsgBox sql, vbCritical, "Error:"
         If CUANTAS_VECES = 3 Then
             'si ya pifió 3 veces salgo del Sistema
-            CmdSalir_Click
+            cmdSalir_Click
         Else
             TxtClave.SelStart = 0
             TxtClave.SelLength = Len(TxtClave)
@@ -282,7 +283,7 @@ Private Sub CmdAceptar_GotFocus()
     cmdAceptar.FontBold = True
 End Sub
 
-Private Sub CmdSalir_Click()
+Private Sub cmdSalir_Click()
     End
 End Sub
 
@@ -291,7 +292,7 @@ Private Sub CmdSalir_GotFocus()
 End Sub
 
 Private Sub Form_KeyPress(KeyAscii As Integer)
-    If KeyAscii = vbKeyEscape Then CmdSalir_Click
+    If KeyAscii = vbKeyEscape Then cmdSalir_Click
     If KeyAscii = 13 Then
         MySendKeys Chr(9)
     End If
