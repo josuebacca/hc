@@ -56,6 +56,14 @@ Begin VB.Form frmhistoriaclinica
       TabIndex        =   0
       Top             =   120
       Width           =   16455
+      Begin VB.TextBox txthorad 
+         Height          =   285
+         Left            =   3960
+         TabIndex        =   109
+         Top             =   0
+         Visible         =   0   'False
+         Width           =   855
+      End
       Begin VB.TextBox txtCodigo 
          Height          =   285
          Left            =   3240
@@ -238,15 +246,17 @@ Begin VB.Form frmhistoriaclinica
       _ExtentY        =   15478
       _Version        =   393216
       Tabs            =   5
-      Tab             =   4
       TabsPerRow      =   5
       TabHeight       =   520
       TabCaption(0)   =   "Curso Clinico"
       TabPicture(0)   =   "frmhistoriaclinica.frx":0000
-      Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "Frame6"
+      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).Control(0)=   "Frame4"
+      Tab(0).Control(0).Enabled=   0   'False
       Tab(0).Control(1)=   "Frame5"
-      Tab(0).Control(2)=   "Frame4"
+      Tab(0).Control(1).Enabled=   0   'False
+      Tab(0).Control(2)=   "Frame6"
+      Tab(0).Control(2).Enabled=   0   'False
       Tab(0).ControlCount=   3
       TabCaption(1)   =   "Ecografias"
       TabPicture(1)   =   "frmhistoriaclinica.frx":001C
@@ -275,11 +285,9 @@ Begin VB.Form frmhistoriaclinica
       Tab(3).ControlCount=   8
       TabCaption(4)   =   "Pedidos"
       TabPicture(4)   =   "frmhistoriaclinica.frx":0070
-      Tab(4).ControlEnabled=   -1  'True
-      Tab(4).Control(0)=   "Frame8"
-      Tab(4).Control(0).Enabled=   0   'False
-      Tab(4).Control(1)=   "Frame9"
-      Tab(4).Control(1).Enabled=   0   'False
+      Tab(4).ControlEnabled=   0   'False
+      Tab(4).Control(0)=   "Frame9"
+      Tab(4).Control(1)=   "Frame8"
       Tab(4).ControlCount=   2
       Begin VB.Frame Frame9 
          Caption         =   "Pedidos anteriores"
@@ -293,7 +301,7 @@ Begin VB.Form frmhistoriaclinica
             Strikethrough   =   0   'False
          EndProperty
          Height          =   8175
-         Left            =   8280
+         Left            =   -66720
          TabIndex        =   90
          Top             =   480
          Width           =   8055
@@ -334,7 +342,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   94633985
+            Format          =   54394881
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHastaPedido 
@@ -348,7 +356,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   94633985
+            Format          =   54394881
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdPedidos 
@@ -418,7 +426,7 @@ Begin VB.Form frmhistoriaclinica
             Strikethrough   =   0   'False
          EndProperty
          Height          =   8175
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   81
          Top             =   480
          Width           =   8055
@@ -537,7 +545,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   94633985
+            Format          =   54394881
             CurrentDate     =   41098
          End
          Begin VB.Label Label24 
@@ -604,7 +612,7 @@ Begin VB.Form frmhistoriaclinica
       End
       Begin VB.Frame Frame6 
          Height          =   1095
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   54
          Top             =   7500
          Width           =   8055
@@ -670,7 +678,7 @@ Begin VB.Form frmhistoriaclinica
             Strikethrough   =   0   'False
          EndProperty
          Height          =   7095
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   42
          Top             =   420
          Width           =   8055
@@ -709,7 +717,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   94633985
+            Format          =   54394881
             CurrentDate     =   43205
          End
          Begin VB.CommandButton cmdCancelar 
@@ -746,7 +754,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   94633985
+            Format          =   54394881
             CurrentDate     =   41098
          End
          Begin VB.CommandButton cmdAceptar 
@@ -851,7 +859,7 @@ Begin VB.Form frmhistoriaclinica
             Strikethrough   =   0   'False
          EndProperty
          Height          =   8175
-         Left            =   -66720
+         Left            =   8280
          TabIndex        =   35
          Top             =   420
          Width           =   8055
@@ -892,7 +900,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   94633985
+            Format          =   54394881
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHasta 
@@ -906,7 +914,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   94633985
+            Format          =   54394881
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdConsultas 
@@ -1164,7 +1172,7 @@ Begin VB.Form frmhistoriaclinica
                _Version        =   393216
                CheckBox        =   -1  'True
                DateIsNull      =   -1  'True
-               Format          =   94633985
+               Format          =   54394881
                CurrentDate     =   41098
             End
             Begin VB.Label Label17 
@@ -1298,7 +1306,7 @@ Dim Rec2 As New ADODB.Recordset
 Private Function BuscarProxPaciente(codven, DIA) As Integer
     Dim CodPac As Integer
     CodPac = 0
-    sql = " SELECT TOP 1 C.CLI_CODIGO "
+    sql = " SELECT TOP 1 C.CLI_CODIGO ,T.TUR_HORAD "
     sql = sql & " FROM TURNOS T, CLIENTE C "
     sql = sql & " WHERE T.CLI_CODIGO = C.CLI_CODIGO"
     sql = sql & " AND T.VEN_CODIGO = " & codven
@@ -1307,6 +1315,7 @@ Private Function BuscarProxPaciente(codven, DIA) As Integer
     Rec2.Open sql, DBConn, adOpenStatic, adLockOptimistic
     If Rec2.EOF = False Then
         CodPac = Rec2!CLI_CODIGO
+        txthorad = Format(Rec2!TUR_HORAD, "hh:mm")
     End If
     Rec2.Close
     BuscarProxPaciente = CodPac
@@ -1740,8 +1749,22 @@ End Sub
 Private Sub cmdSiguiente_Click()
 'llamada aplicacion que de pacientes
     Dim actual As Integer '1 paciente actuial 0 no es paciente actual
+    Dim horaactual As String '1 paciente actuial 0 no es paciente actual
     If cboDocCon.ListIndex <> -1 Then
         actual = 0
+        'actualizo en BD que el paciente actual asistio
+        'Actualizo la Base de Datos
+        If MsgBox("¿Confirma la asistencia del paciente " & txtBuscarCliDescri & " ?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbYes Then
+            sql = "UPDATE TURNOS SET "
+            sql = sql & " TUR_ASISTIO = 1"
+            sql = sql & " WHERE "
+            sql = sql & " TUR_FECHA = " & XDQ(Date)
+            sql = sql & " AND TUR_HORAD = #" & txthorad & "#"
+            sql = sql & " AND VEN_CODIGO = " & XN(cboDocCon.ItemData(cboDocCon.ListIndex))
+            sql = sql & " AND CLI_CODIGO = " & XN(txtCodigo)
+            DBConn.Execute sql
+        End If
+        
         'Buscar en turno el proximo paciente
         sql = "SELECT * FROM TURNOS"
         sql = sql & " WHERE VEN_CODIGO = " & cboDocCon.ItemData(cboDocCon.ListIndex)
@@ -1756,9 +1779,16 @@ Private Sub cmdSiguiente_Click()
                 End If
                 If actual = 1 And Rec2!CLI_CODIGO <> txtCodigo Then
                     txtCodigo = Rec2!CLI_CODIGO
+                    txthorad = Format(Rec2!TUR_HORAD, "hh:mm")
                     TxtCodigo_LostFocus
                     Rec2.Close
                     Exit Sub
+                Else
+                    If actual = 1 And Rec2!CLI_CODIGO = txtCodigo And Format(Rec2!TUR_HORAD, "hh:mm") > txthorad Then
+                        txthorad = Format(Rec2!TUR_HORAD, "hh:mm")
+                        Rec2.Close
+                        Exit Sub
+                    End If
                 End If
                 Rec2.MoveNext
             Loop
@@ -1934,6 +1964,7 @@ Private Sub txtBuscaCliente_Change()
             txtCodigo.Text = ""
             txtTelefono.Text = ""
             txtOSocial.Text = ""
+            txthorad.Text = ""
         End If
         If Len(Trim(txtBuscaCliente.Text)) < 7 Then
             txtBuscaCliente.ToolTipText = "Numero de Paciente"

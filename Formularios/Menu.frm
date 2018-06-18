@@ -226,7 +226,7 @@ Begin VB.MDIForm Menu
             Bevel           =   2
             Object.Width           =   1587
             MinWidth        =   1587
-            TextSave        =   "20:35"
+            TextSave        =   "18:54"
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel6 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
@@ -235,7 +235,7 @@ Begin VB.MDIForm Menu
             Bevel           =   2
             Object.Width           =   1940
             MinWidth        =   1940
-            TextSave        =   "13/05/2018"
+            TextSave        =   "18/06/2018"
             Object.Tag             =   ""
          EndProperty
       EndProperty
@@ -582,7 +582,8 @@ Dim DSN_DEF As String
     'DBConn.ConnectionTimeout = 30       'Default msado10.hlp => 15
     
     ' lee un path
-    DBConn.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=" & SERVIDOR & ";"
+    'DBConn.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=" & SERVIDOR & ";"
+    DBConn.ConnectionString = "Provider=MSDASQL.1;Persist Security Info=False;Data Source=" & SERVIDOR
     DBConn.Open
     
     
@@ -1189,7 +1190,7 @@ Dim nHayCumple As Integer '1 hay 0 no hay
     If rec.EOF = False Then
         Do While rec.EOF = False
             'CALCULAR Y GUARDAR NUEVA EDAD DEL PACIENTE
-            If day(Chk0(rec!CLI_CUMPLE)) = day(hoy) And Month(Chk0(rec!CLI_CUMPLE)) = Month(hoy) Then
+            If Day(Chk0(rec!CLI_CUMPLE)) = Day(hoy) And Month(Chk0(rec!CLI_CUMPLE)) = Month(hoy) Then
                 nHayCumple = 1
             End If
             rec.MoveNext
@@ -1253,7 +1254,7 @@ Private Function configuroLetrero(Fecha As Date) As String
         If Doc = 0 Then
             Doc = rec!VEN_CODIGO
         End If
-        Letrero = "Turnos del día " & WeekdayName(DIA, False) & " " & day(Fecha) & " de " & MonthName(Month(Fecha), False) & " de " & Year(Fecha) & " del Dr: " & rec!VEN_NOMBRE & ": "
+        Letrero = "Turnos del día " & WeekdayName(DIA, False) & " " & Day(Fecha) & " de " & MonthName(Month(Fecha), False) & " de " & Year(Fecha) & " del Dr: " & rec!VEN_NOMBRE & ": "
         Do While rec.EOF = False
             If Doc <> rec!VEN_CODIGO Then
                 Letrero = Letrero & ". Turnos del Dr: " & rec!VEN_NOMBRE & ": "

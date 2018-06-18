@@ -8,7 +8,7 @@ Begin VB.Form frmTurnos
    ClientHeight    =   9060
    ClientLeft      =   45
    ClientTop       =   435
-   ClientWidth     =   15750
+   ClientWidth     =   15960
    ForeColor       =   &H00000000&
    Icon            =   "frmTurnos.frx":0000
    KeyPreview      =   -1  'True
@@ -16,7 +16,7 @@ Begin VB.Form frmTurnos
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   9060
-   ScaleWidth      =   15750
+   ScaleWidth      =   15960
    StartUpPosition =   2  'CenterScreen
    Begin VB.TextBox txtTotal 
       Alignment       =   1  'Right Justify
@@ -32,7 +32,7 @@ Begin VB.Form frmTurnos
       EndProperty
       ForeColor       =   &H80000005&
       Height          =   400
-      Left            =   13080
+      Left            =   14160
       Locked          =   -1  'True
       MaxLength       =   50
       TabIndex        =   36
@@ -43,7 +43,7 @@ Begin VB.Form frmTurnos
    Begin VB.CommandButton cmdImpTurno 
       Enabled         =   0   'False
       Height          =   375
-      Left            =   11160
+      Left            =   13920
       Picture         =   "frmTurnos.frx":030A
       Style           =   1  'Graphical
       TabIndex        =   31
@@ -54,7 +54,7 @@ Begin VB.Form frmTurnos
    Begin VB.CommandButton cmdCortar 
       Enabled         =   0   'False
       Height          =   375
-      Left            =   12120
+      Left            =   14880
       Picture         =   "frmTurnos.frx":5F1C
       Style           =   1  'Graphical
       TabIndex        =   33
@@ -65,7 +65,7 @@ Begin VB.Form frmTurnos
    Begin VB.CommandButton cmdCopiar 
       Enabled         =   0   'False
       Height          =   375
-      Left            =   11640
+      Left            =   14400
       Picture         =   "frmTurnos.frx":62A6
       Style           =   1  'Graphical
       TabIndex        =   32
@@ -96,7 +96,6 @@ Begin VB.Form frmTurnos
       ScaleWidth      =   345
       TabIndex        =   23
       Top             =   450
-      Visible         =   0   'False
       Width           =   375
    End
    Begin VB.CommandButton cmdSalir 
@@ -494,19 +493,19 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   20971522
+         StartOfWeek     =   20840450
          CurrentDate     =   40049
       End
    End
    Begin MSFlexGridLib.MSFlexGrid grdGrilla 
-      Height          =   7725
+      Height          =   7605
       Left            =   3120
       TabIndex        =   9
       ToolTipText     =   "Doble Click para ver la Historia Clinica del Paciente"
-      Top             =   525
-      Width           =   12525
-      _ExtentX        =   22093
-      _ExtentY        =   13626
+      Top             =   645
+      Width           =   12765
+      _ExtentX        =   22516
+      _ExtentY        =   13414
       _Version        =   393216
       Rows            =   25
       Cols            =   6
@@ -546,7 +545,7 @@ Begin VB.Form frmTurnos
    Begin VB.CommandButton cmdPegar 
       Enabled         =   0   'False
       Height          =   375
-      Left            =   12600
+      Left            =   15360
       Picture         =   "frmTurnos.frx":9708
       Style           =   1  'Graphical
       TabIndex        =   34
@@ -589,8 +588,8 @@ Begin VB.Form frmTurnos
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   400
-      Left            =   11580
+      Height          =   405
+      Left            =   12660
       TabIndex        =   39
       Top             =   8400
       Width           =   1500
@@ -642,7 +641,6 @@ Begin VB.Form frmTurnos
       Left            =   4080
       TabIndex        =   24
       Top             =   450
-      Visible         =   0   'False
       Width           =   1080
    End
    Begin VB.Label lbldiaTurno 
@@ -672,7 +670,7 @@ Begin VB.Form frmTurnos
       Height          =   375
       Left            =   3120
       Top             =   45
-      Width           =   9885
+      Width           =   10725
    End
 End
 Attribute VB_Name = "frmTurnos"
@@ -1321,7 +1319,8 @@ Private Sub LimpiarGrilla()
     Next
 End Sub
 Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
-    Dim sColor As String
+    Dim foreColor As String
+    Dim backColor As String
     Dim total As Double
     Dim Años As Integer
     Dim edad As Integer
@@ -1337,30 +1336,31 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
     If rec.EOF = False Then
         i = 1
         Do While rec.EOF = False
-                    Select Case rec!TUR_ASISTIO
-                    Case 0
-                        sColor = &H80000008
-                    Case 1
-                        sColor = &HC000&
-                    Case 2
-                        sColor = &HFF&
-                    End Select
+            Select Case rec!TUR_ASISTIO
+            Case 0
+                backColor = &HC0C0FF
+                foreColor = &H80000008
+            Case 1
+                backColor = &HC000&
+                foreColor = &HFFFFFF
+            Case 2
+                backColor = &HC0C0FF
+                foreColor = &H80000008
+            End Select
                     
-'calculo edad de paciente
-If Not (IsNull(rec!CLI_CUMPLE)) Then
-    If rec.EOF = False Then
-            Años = Year(Date) - Year(rec!CLI_CUMPLE)
-            If Month(Fecha) < Month(rec!CLI_CUMPLE) Then Años = Años - 1 'todavía no ha llegado el mes de su cumple
-            If Month(Now) = Month(rec!CLI_CUMPLE) And Day(Fecha) < Day(rec!CLI_CUMPLE) Then Años = Años - 1 'es el mes pero no ha llegado el día de su cumple
-            edad = Años
-    End If
-Else
-
-End If
-
-                grdGrilla.AddItem Format(rec!TUR_HORAD, "hh:mm") & " a " & Format(rec!TUR_HORAH, "hh:mm") & Chr(9) & rec!CLI_RAZSOC & Chr(9) & edad & Chr(9) & ChkNull(rec!CLI_TELEFONO) & Chr(9) & ChkNull(rec!CLI_CELULAR) & Chr(9) & BuscarOSocial(rec!CLI_CODIGO) & Chr(9) & ChkNull(rec!TUR_MOTIVO) & Chr(9) & _
-                                rec!VEN_CODIGO & Chr(9) & rec!CLI_CODIGO & Chr(9) & rec!TUR_ASISTIO & Chr(9) & ChkNull(rec!CLI_NRODOC) & Chr(9) & ChkNull(rec!TUR_DESDE) & Chr(9) & Format(Chk0(rec!TUR_IMPORTE), "#,##0.00")
-            
+            'calculo edad de paciente
+            If Not (IsNull(rec!CLI_CUMPLE)) Then
+                If rec.EOF = False Then
+                        Años = Year(Date) - Year(rec!CLI_CUMPLE)
+                        If Month(Fecha) < Month(rec!CLI_CUMPLE) Then Años = Años - 1 'todavía no ha llegado el mes de su cumple
+                        If Month(Now) = Month(rec!CLI_CUMPLE) And Day(Fecha) < Day(rec!CLI_CUMPLE) Then Años = Años - 1 'es el mes pero no ha llegado el día de su cumple
+                        edad = Años
+                End If
+            End If
+    
+            grdGrilla.AddItem Format(rec!TUR_HORAD, "hh:mm") & " a " & Format(rec!TUR_HORAH, "hh:mm") & Chr(9) & rec!CLI_RAZSOC & Chr(9) & edad & Chr(9) & ChkNull(rec!CLI_TELEFONO) & Chr(9) & ChkNull(rec!CLI_CELULAR) & Chr(9) & BuscarOSocial(rec!CLI_CODIGO) & Chr(9) & ChkNull(rec!TUR_MOTIVO) & Chr(9) & _
+                                    rec!VEN_CODIGO & Chr(9) & rec!CLI_CODIGO & Chr(9) & rec!TUR_ASISTIO & Chr(9) & ChkNull(rec!CLI_NRODOC) & Chr(9) & ChkNull(rec!TUR_DESDE) & Chr(9) & Format(Chk0(rec!TUR_IMPORTE), "#,##0.00")
+                
             total = total + Chk0(rec!TUR_IMPORTE)
             'COLOR DE COLUMNA 1
             grdGrilla.Col = 0
@@ -1374,8 +1374,8 @@ End If
             grdGrilla.row = i
             For J = 1 To grdGrilla.Cols - 1
                 grdGrilla.Col = J
-                grdGrilla.CellForeColor = sColor          'FUENTE COLOR NEGRO
-                grdGrilla.CellBackColor = &HC0C0FF      'ROSA
+                grdGrilla.CellForeColor = foreColor       'FUENTE COLOR NEGRO
+                grdGrilla.CellBackColor = backColor      'ROSA
                 grdGrilla.CellFontBold = True
             Next
             
@@ -1393,6 +1393,32 @@ End If
     End If
     'txtEdit.Visible = True
 End Sub
+Private Function cambiocolor(asistio As Integer)
+    Dim foreColor As String
+    Dim backColor As String
+    
+    Select Case asistio
+    Case 0
+        backColor = &HC0C0FF
+        foreColor = &H80000008
+    Case 1
+        backColor = &HC000&
+        foreColor = &HFFFFFF
+    Case 2
+        backColor = &HC0C0FF
+        foreColor = &H80000008
+    End Select
+    
+    grdGrilla.row = grdGrilla.RowSel
+    For J = 1 To grdGrilla.Cols - 1
+        grdGrilla.Col = J
+        grdGrilla.CellForeColor = foreColor       'FUENTE COLOR NEGRO
+        grdGrilla.CellBackColor = backColor      'ROSA
+        grdGrilla.CellFontBold = True
+    Next
+    
+End Function
+
 
 Private Sub LlenarComboDoctor()
     sql = "SELECT * FROM VENDEDOR"
@@ -1571,21 +1597,40 @@ Private Sub grdGrilla_Click()
 End Sub
 
 Private Sub GRDGrilla_DblClick()
+
+    Select Case grdGrilla.TextMatrix(grdGrilla.RowSel, 9)
+    Case 0
+        grdGrilla.TextMatrix(grdGrilla.RowSel, 9) = 1
+        cambiocolor 1
+    Case 1
+        grdGrilla.TextMatrix(grdGrilla.RowSel, 9) = 0
+        cambiocolor 0
+    End Select
+    
+    'Actualizo la Base de Datos
+    sql = "UPDATE TURNOS SET "
+    sql = sql & " TUR_ASISTIO =" & grdGrilla.TextMatrix(grdGrilla.RowSel, 9)
+    sql = sql & " WHERE "
+    sql = sql & " TUR_FECHA = " & XDQ(MViewFecha.Value)
+    sql = sql & " AND TUR_HORAD = #" & Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 7) & "#"
+    sql = sql & " AND VEN_CODIGO = " & XN(grdGrilla.TextMatrix(grdGrilla.RowSel, 7))
+    DBConn.Execute sql
+    
     ' tengo que marcar en la BD si asistio o no
-    'Dim nAsiste As Integer '0:Pen 1:SI y  2:NO
-    'If grdGrilla.TextMatrix(grdGrilla.RowSel, 1) <> "" Then
-            'vMode = 9
-            'gPaciente = grdGrilla.TextMatrix(grdGrilla.RowSel, 6)
-            'ABMClientes.Show vbModal
-            'gPaciente = 0
-'        txtBuscaCliente.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 8)
-'            txtBuscaCliente_LostFocus
-'            txtBuscarCliDescri.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 1)
-'            txtTelefono.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 2)
-'            txtOSocial.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 3)
-'            txtMotivo.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 4)
-'            BuscaDescriProx Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5), cboDesde
-'            BuscaDescriProx Right(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5), cbohasta
+'    Dim nAsiste As Integer '0:Pen 1:SI y  2:NO
+'    If grdGrilla.TextMatrix(grdGrilla.RowSel, 1) <> "" Then
+'        'vMode = 9
+'        gPaciente = grdGrilla.TextMatrix(grdGrilla.RowSel, 8)
+'        ABMClientes.Show vbModal
+'        gPaciente = 0
+'         txtBuscaCliente.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 8)
+'        txtBuscaCliente_LostFocus
+'        txtBuscarCliDescri.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 1)
+'        txtTelefono.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 2)
+'        txtOSocial.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 3)
+'        txtMotivo.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 4)
+'        BuscaDescriProx Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5), cboDesde
+'        BuscaDescriProx Right(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5), cbohasta
 '
 '        grdGrilla.row = grdGrilla.RowSel
 '        For J = 1 To grdGrilla.Cols - 1
@@ -1602,20 +1647,21 @@ Private Sub GRDGrilla_DblClick()
 '                    nAsiste = 0
 '                End If
 '            End If
-'            FUENTE COLOR BLANCO
+'            'FUENTE COLOR BLANCO
 '            grdGrilla.CellBackColor = &HC0FFC0       'ROSA
 '            grdGrilla.CellFontBold = True
 '        Next
-'    Actualizo la grilla
-'    grdGrilla.TextMatrix(grdGrilla.RowSel, 5) = nAsiste
-'    Actualizo BD
-'    sql = "UPDATE TURNOS SET "
-'    sql = sql & " TUR_ASISTIO =" & nAsiste
-'    sql = sql & " WHERE "
-'    sql = sql & " TUR_FECHA = " & XDQ(MViewFecha.Value)
-'    sql = sql & " AND TUR_HORAD = #" & Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 7) & "#"
-'    sql = sql & " AND VEN_CODIGO = " & XN(grdGrilla.TextMatrix(grdGrilla.RowSel, 5))
-'    DBConn.Execute sql
+'
+'        'Actualizo la grilla
+'        grdGrilla.TextMatrix(grdGrilla.RowSel, 9) = nAsiste
+'        'Actualizo BD
+'        sql = "UPDATE TURNOS SET "
+'        sql = sql & " TUR_ASISTIO =" & nAsiste
+'        sql = sql & " WHERE "
+'        sql = sql & " TUR_FECHA = " & XDQ(MViewFecha.Value)
+'        sql = sql & " AND TUR_HORAD = #" & Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 7) & "#"
+'        sql = sql & " AND VEN_CODIGO = " & XN(grdGrilla.TextMatrix(grdGrilla.RowSel, 5))
+'        DBConn.Execute sql
 '    Else
 ''        If txtBuscaCliente.Text <> "" Then
 ''            MViewFecha.Value = Date
@@ -1626,7 +1672,7 @@ Private Sub GRDGrilla_DblClick()
 ''            cboDesde.ListIndex = -1
 ''            cbohasta.ListIndex = -1
 ''        End If
-   ' End If
+'    End If
 End Sub
 
 Private Sub grdGrilla_KeyDown(KeyCode As Integer, Shift As Integer)
