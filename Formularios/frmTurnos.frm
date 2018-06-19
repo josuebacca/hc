@@ -190,6 +190,22 @@ Begin VB.Form frmTurnos
       TabIndex        =   13
       Top             =   3400
       Width           =   2895
+      Begin VB.OptionButton optNO 
+         Caption         =   "NO"
+         Height          =   315
+         Left            =   2040
+         TabIndex        =   41
+         Top             =   1560
+         Width           =   615
+      End
+      Begin VB.OptionButton optSI 
+         Caption         =   "SI"
+         Height          =   315
+         Left            =   1440
+         TabIndex        =   40
+         Top             =   1560
+         Width           =   615
+      End
       Begin VB.TextBox txtOSocial 
          BeginProperty Font 
             Name            =   "Tahoma"
@@ -388,7 +404,7 @@ Begin VB.Form frmTurnos
          Left            =   120
          TabIndex        =   30
          Top             =   1560
-         Width           =   1320
+         Width           =   1200
       End
       Begin VB.Label Label8 
          Alignment       =   1  'Right Justify
@@ -493,7 +509,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   20840450
+         StartOfWeek     =   110886914
          CurrentDate     =   40049
       End
    End
@@ -883,7 +899,11 @@ Private Sub cmdAgregar_Click()
             sql = sql & XN(txtCodigo) & ","
             sql = sql & XS(txtMotivo) & ","
             sql = sql & 0 & ","
-            sql = sql & XS(txtOSocial.Text) & ","
+            If optSI.Value = True Then
+                sql = sql & XS(txtOSocial.Text) & ","
+            Else
+                sql = sql & XS("Sin") & ","
+            End If
             'If User <> 99 Then
                 sql = sql & User & ","
             'End If
@@ -1358,7 +1378,7 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
                 End If
             End If
     
-            grdGrilla.AddItem Format(rec!TUR_HORAD, "hh:mm") & " a " & Format(rec!TUR_HORAH, "hh:mm") & Chr(9) & rec!CLI_RAZSOC & Chr(9) & edad & Chr(9) & ChkNull(rec!CLI_TELEFONO) & Chr(9) & ChkNull(rec!CLI_CELULAR) & Chr(9) & BuscarOSocial(rec!CLI_CODIGO) & Chr(9) & ChkNull(rec!TUR_MOTIVO) & Chr(9) & _
+            grdGrilla.AddItem Format(rec!TUR_HORAD, "hh:mm") & " a " & Format(rec!TUR_HORAH, "hh:mm") & Chr(9) & rec!CLI_RAZSOC & Chr(9) & edad & Chr(9) & ChkNull(rec!CLI_TELEFONO) & Chr(9) & ChkNull(rec!CLI_CELULAR) & Chr(9) & rec!TUR_OSOCIAL & Chr(9) & ChkNull(rec!TUR_MOTIVO) & Chr(9) & _
                                     rec!VEN_CODIGO & Chr(9) & rec!CLI_CODIGO & Chr(9) & rec!TUR_ASISTIO & Chr(9) & ChkNull(rec!CLI_NRODOC) & Chr(9) & ChkNull(rec!TUR_DESDE) & Chr(9) & Format(Chk0(rec!TUR_IMPORTE), "#,##0.00")
                 
             total = total + Chk0(rec!TUR_IMPORTE)
@@ -1566,7 +1586,12 @@ Private Sub grdGrilla_Click()
                 txtCodigo.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 8)
                 txtBuscarCliDescri.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 1)
                 txtTelefono.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 3)
-                txtOSocial.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 5)
+                txtOSocial.Text = BuscarOSocial(txtCodigo.Text) 'grdGrilla.TextMatrix(grdGrilla.RowSel, 5)
+                If grdGrilla.TextMatrix(grdGrilla.RowSel, 5) = "SIN" Then
+                    optNO.Value = True
+                Else
+                   optSI.Value = True
+                End If
                 txtMotivo.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 6)
                 BuscaDescriProx Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5), cboDesde
                 BuscaDescriProx Right(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5), cbohasta
@@ -1707,6 +1732,23 @@ Set Rec1 = New ADODB.Recordset
     End If
     Rec1.Close
 End Function
+
+Private Sub Option1_Click()
+    txtOSocial.Enabled = True
+End Sub
+
+Private Sub Option2_Click()
+    txtOSocial.Enabled = False
+End Sub
+
+Private Sub optNO_Click()
+    txtOSocial.Enabled = False
+End Sub
+
+Private Sub optSI_Click()
+    txtOSocial.Enabled = True
+End Sub
+
 Private Sub txtBuscaCliente_Change()
     If txtBuscaCliente.Text = "" Then
         txtBuscarCliDescri.Text = ""
@@ -1775,6 +1817,7 @@ Private Sub txtBuscarCliDescri_Change()
         txtTelefono.Text = ""
         txtOSocial.Text = ""
     End If
+        
 End Sub
 
 Private Sub txtBuscarCliDescri_GotFocus()
@@ -1902,3 +1945,5 @@ End Sub
 Private Sub txtMotivo_GotFocus()
     SelecTexto txtMotivo
 End Sub
+
+
