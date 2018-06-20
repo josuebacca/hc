@@ -509,7 +509,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   110886914
+         StartOfWeek     =   111017986
          CurrentDate     =   40049
       End
    End
@@ -990,6 +990,7 @@ Private Sub LimpiarTurno()
     cmdCopiar.Enabled = False
     cmdCortar.Enabled = False
     cmdPegar.Enabled = False
+    optSI.Enabled = True
     If User = 1 Then
         cmdAgregar.Enabled = True
     Else
@@ -1780,7 +1781,7 @@ End Sub
 Private Sub txtBuscaCliente_LostFocus()
     If txtBuscaCliente.Text <> "" Then
         Set rec = New ADODB.Recordset
-        sql = "SELECT CLI_CODIGO, CLI_RAZSOC,CLI_NRODOC,CLI_TELEFONO"
+        sql = "SELECT CLI_CODIGO, CLI_RAZSOC,CLI_NRODOC,CLI_TELEFONO,OS_NUMERO"
         sql = sql & " FROM CLIENTE"
         sql = sql & " WHERE "
         If txtBuscaCliente.Text <> "" Then
@@ -1800,6 +1801,12 @@ Private Sub txtBuscaCliente_LostFocus()
             txtCodigo.Text = rec!CLI_CODIGO
             txtTelefono.Text = ChkNull(rec!CLI_TELEFONO)
             txtOSocial.Text = BuscarOSocial(rec!CLI_CODIGO)
+            If IsNull(rec!OS_NUMERO) Then
+                optSI.Enabled = False
+                optNO.Value = True
+            Else
+                optSI.Value = True
+            End If
             'txtMotivo.SetFocus
             ActivoGrid = 1
         Else
