@@ -509,7 +509,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   111017986
+         StartOfWeek     =   54525954
          CurrentDate     =   40049
       End
    End
@@ -884,7 +884,7 @@ Private Sub cmdAgregar_Click()
         If Not rec.EOF = False Then
             sql = "INSERT INTO TURNOS"
             sql = sql & " (TUR_FECHA, TUR_HORAD,TUR_HORAH,"
-            sql = sql & " VEN_CODIGO,CLI_CODIGO,TUR_MOTIVO,TUR_ASISTIO,TUR_OSOCIAL,"
+            sql = sql & " VEN_CODIGO,CLI_CODIGO,TUR_MOTIVO,TUR_ASISTIO,TUR_OSOCIAL,TUR_CONMUTUAL,"
             'If User <> 99 Then
                 sql = sql & " TUR_USER, "
             'End If
@@ -901,8 +901,10 @@ Private Sub cmdAgregar_Click()
             sql = sql & 0 & ","
             If optSI.Value = True Then
                 sql = sql & XS(txtOSocial.Text) & ","
+                sql = sql & XN("1") & ","
             Else
-                sql = sql & XS("Sin") & ","
+                sql = sql & XS("PARTICULAR") & ","
+                sql = sql & XN("0") & ","
             End If
             'If User <> 99 Then
                 sql = sql & User & ","
@@ -914,6 +916,7 @@ Private Sub cmdAgregar_Click()
                 sql = sql & 0 & ","
             End If
             sql = sql & XN(txtimporte.Text) & ")"
+            
             
         Else
             
@@ -1588,7 +1591,7 @@ Private Sub grdGrilla_Click()
                 txtBuscarCliDescri.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 1)
                 txtTelefono.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 3)
                 txtOSocial.Text = BuscarOSocial(txtCodigo.Text) 'grdGrilla.TextMatrix(grdGrilla.RowSel, 5)
-                If grdGrilla.TextMatrix(grdGrilla.RowSel, 5) = "SIN" Then
+                If grdGrilla.TextMatrix(grdGrilla.RowSel, 5) = "PARTICULAR" Then
                     optNO.Value = True
                 Else
                    optSI.Value = True
