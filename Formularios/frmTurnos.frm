@@ -509,7 +509,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   54525954
+         StartOfWeek     =   111673346
          CurrentDate     =   40049
       End
    End
@@ -685,7 +685,7 @@ Begin VB.Form frmTurnos
       BorderStyle     =   6  'Inside Solid
       Height          =   375
       Left            =   3120
-      Top             =   45
+      Top             =   360
       Width           =   10725
    End
 End
@@ -884,7 +884,7 @@ Private Sub cmdAgregar_Click()
         If Not rec.EOF = False Then
             sql = "INSERT INTO TURNOS"
             sql = sql & " (TUR_FECHA, TUR_HORAD,TUR_HORAH,"
-            sql = sql & " VEN_CODIGO,CLI_CODIGO,TUR_MOTIVO,TUR_ASISTIO,TUR_OSOCIAL,TUR_CONMUTUAL,"
+            sql = sql & " VEN_CODIGO,CLI_CODIGO,TUR_MOTIVO,TUR_ASISTIO,TUR_OSOCIAL,TUR_TIENEMUTUAL,"
             'If User <> 99 Then
                 sql = sql & " TUR_USER, "
             'End If
@@ -899,11 +899,16 @@ Private Sub cmdAgregar_Click()
             sql = sql & XN(txtCodigo) & ","
             sql = sql & XS(txtMotivo) & ","
             sql = sql & 0 & ","
+            'veo si es particular o con  mutual el turno
             If optSI.Value = True Then
                 sql = sql & XS(txtOSocial.Text) & ","
-                sql = sql & XN("1") & ","
             Else
                 sql = sql & XS("PARTICULAR") & ","
+            End If
+            'veo si el paciente tiene o no mutuaL
+            If txtOSocial.Text <> "" Then
+                sql = sql & XN("1") & ","
+            Else
                 sql = sql & XN("0") & ","
             End If
             'If User <> 99 Then
@@ -930,17 +935,28 @@ Private Sub cmdAgregar_Click()
             sql = sql & " ,TUR_HORAD = " & "#" & cboDesde.Text & "#"
             sql = sql & " ,TUR_HORAH = " & "#" & cbohasta.Text & "#"
             sql = sql & " ,TUR_MOTIVO =" & XS(txtMotivo.Text)
-            sql = sql & " ,TUR_OSOCIAL =" & XS(txtOSocial.Text)
             sql = sql & " ,TUR_FECALTA =" & XDQ(Date)
             If User <> 99 Then
                 sql = sql & " ,TUR_USER =" & User
             End If
             sql = sql & " ,TUR_IMPORTE =" & XN(txtimporte.Text)
+            'veo si es particular o con  mutual el turno
+            If optSI.Value = True Then
+                sql = sql & " ,TUR_OSOCIAL =" & XS(txtOSocial.Text)
+            Else
+                sql = sql & " ,TUR_OSOCIAL =" & XS("PARTICULAR")
+            End If
+            'veo si el paciente tiene o no mutuaL
+            If txtOSocial.Text <> "" Then
+                sql = sql & ",TUR_TIENEMUTUAL = " & XN(1)
+            Else
+                sql = sql & ",TUR_TIENEMUTUAL = " & XN(0)
+            End If
             sql = sql & " WHERE "
             sql = sql & " TUR_FECHA = " & XDQ(MViewFecha.Value)
             sql = sql & " AND TUR_HORAD = #" & cboDesde.Text & "#"
             sql = sql & " AND VEN_CODIGO = " & cboDoctor.ItemData(cboDoctor.ListIndex)
-
+            
         End If
 
         
@@ -1346,7 +1362,7 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
     Dim foreColor As String
     Dim backColor As String
     Dim total As Double
-    Dim Años As Integer
+    Dim años As Integer
     Dim edad As Integer
     sql = "SELECT T.*,V.VEN_NOMBRE,C.CLI_RAZSOC,C.CLI_NRODOC,C.CLI_TELEFONO,C.CLI_CELULAR,C.CLI_CUMPLE"
     sql = sql & " FROM TURNOS T, VENDEDOR V, CLIENTE C"
@@ -1375,15 +1391,15 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
             'calculo edad de paciente
             If Not (IsNull(rec!CLI_CUMPLE)) Then
                 If rec.EOF = False Then
-                        Años = Year(Date) - Year(rec!CLI_CUMPLE)
-                        If Month(Fecha) < Month(rec!CLI_CUMPLE) Then Años = Años - 1 'todavía no ha llegado el mes de su cumple
-                        If Month(Now) = Month(rec!CLI_CUMPLE) And Day(Fecha) < Day(rec!CLI_CUMPLE) Then Años = Años - 1 'es el mes pero no ha llegado el día de su cumple
-                        edad = Años
+                        años = Year(Date) - Year(rec!CLI_CUMPLE)
+                        If Month(Fecha) < Month(rec!CLI_CUMPLE) Then años = años - 1 'todavía no ha llegado el mes de su cumple
+                        If Month(Now) = Month(rec!CLI_CUMPLE) And Day(Fecha) < Day(rec!CLI_CUMPLE) Then años = años - 1 'es el mes pero no ha llegado el día de su cumple
+                        edad = años
                 End If
             End If
     
             grdGrilla.AddItem Format(rec!TUR_HORAD, "hh:mm") & " a " & Format(rec!TUR_HORAH, "hh:mm") & Chr(9) & rec!CLI_RAZSOC & Chr(9) & edad & Chr(9) & ChkNull(rec!CLI_TELEFONO) & Chr(9) & ChkNull(rec!CLI_CELULAR) & Chr(9) & rec!TUR_OSOCIAL & Chr(9) & ChkNull(rec!TUR_MOTIVO) & Chr(9) & _
-                                    rec!VEN_CODIGO & Chr(9) & rec!CLI_CODIGO & Chr(9) & rec!TUR_ASISTIO & Chr(9) & ChkNull(rec!CLI_NRODOC) & Chr(9) & ChkNull(rec!TUR_DESDE) & Chr(9) & Format(Chk0(rec!TUR_IMPORTE), "#,##0.00")
+                                    rec!VEN_CODIGO & Chr(9) & rec!CLI_CODIGO & Chr(9) & rec!TUR_ASISTIO & Chr(9) & ChkNull(rec!CLI_NRODOC) & Chr(9) & ChkNull(rec!TUR_DESDE) & Chr(9) & rec!TUR_TIENEMUTUAL & Chr(9) & Format(Chk0(rec!TUR_IMPORTE), "#,##0.00")
                 
             total = total + Chk0(rec!TUR_IMPORTE)
             'COLOR DE COLUMNA 1
@@ -1510,7 +1526,7 @@ Private Function configurogrilla()
     Dim minutos As Integer
     Dim minutos_sig As Integer
     Dim cont As Integer
-    grdGrilla.FormatString = "^Horas|<Paciente|<Edad|<Telefono|<Celular|<Obra Social|<Motivo|>Doctor|>Cod Pac|>Asistio|DNI|TUR_DESDE|Importe"
+    grdGrilla.FormatString = "^Horas|<Paciente|<Edad|<Telefono|<Celular|<Obra Social|<Motivo|>Doctor|>Cod Pac|>Asistio|DNI|TUR_DESDE|TieneMutual|Importe"
     grdGrilla.ColWidth(0) = 1400 'HORAS
     grdGrilla.ColWidth(1) = 2500 'PACIENTE
     grdGrilla.ColWidth(2) = 700 'EDAD
@@ -1523,14 +1539,15 @@ Private Function configurogrilla()
     grdGrilla.ColWidth(9) = 0 'Asistio
     grdGrilla.ColWidth(10) = 0 'DNI
     grdGrilla.ColWidth(11) = 0 'TUR_DESDE
+    grdGrilla.ColWidth(12) = 0 'TUR_TIENEMUTUAL
     If User = 1 Then
-        grdGrilla.ColWidth(12) = 1200 'Importe
+        grdGrilla.ColWidth(13) = 1200 'Importe
     Else
         'oculto la columna de importe para los doctores
-        grdGrilla.ColWidth(12) = 0 'Importe
+        grdGrilla.ColWidth(13) = 0 'Importe
     End If
     
-    grdGrilla.Cols = 13
+    grdGrilla.Cols = 14
     grdGrilla.BorderStyle = flexBorderNone
     grdGrilla.row = 0
     For i = 0 To grdGrilla.Cols - 1
@@ -1583,6 +1600,8 @@ Private Function configurogrilla()
 End Function
 
 Private Sub grdGrilla_Click()
+    optNO.Enabled = True
+    optSI.Enabled = True
     If grdGrilla.Rows > 1 Then
             If grdGrilla.TextMatrix(grdGrilla.RowSel, 1) <> "" Then
                 txtBuscaCliente.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 10)
@@ -1594,13 +1613,21 @@ Private Sub grdGrilla_Click()
                 If grdGrilla.TextMatrix(grdGrilla.RowSel, 5) = "PARTICULAR" Then
                     optNO.Value = True
                 Else
-                   optSI.Value = True
+                    optSI.Value = True
+                End If
+                If grdGrilla.TextMatrix(grdGrilla.RowSel, 12) <> 1 Then 'si no tiene mutual el paciente
+                    optSI.Enabled = False
+                    optNO.Value = True
                 End If
                 txtMotivo.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 6)
                 BuscaDescriProx Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5), cboDesde
                 BuscaDescriProx Right(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5), cbohasta
+                If grdGrilla.TextMatrix(grdGrilla.RowSel, 12) = 0 Then
+                    optSI.Enabled = False
+                End If
+     
                 If User = 1 Then
-                    txtimporte.Text = Valido_Importe(grdGrilla.TextMatrix(grdGrilla.RowSel, 12))
+                    txtimporte.Text = Valido_Importe(grdGrilla.TextMatrix(grdGrilla.RowSel, 13))
                 Else
                     txtimporte.Text = "0,00"
                 End If
