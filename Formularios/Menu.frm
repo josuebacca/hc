@@ -214,7 +214,6 @@ Begin VB.MDIForm Menu
             Style           =   1
             Alignment       =   1
             Bevel           =   2
-            Enabled         =   0   'False
             Object.Width           =   1587
             MinWidth        =   1587
             TextSave        =   "MAYÚS"
@@ -226,7 +225,7 @@ Begin VB.MDIForm Menu
             Bevel           =   2
             Object.Width           =   1587
             MinWidth        =   1587
-            TextSave        =   "18:54"
+            TextSave        =   "19:06"
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel6 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
@@ -235,7 +234,7 @@ Begin VB.MDIForm Menu
             Bevel           =   2
             Object.Width           =   1940
             MinWidth        =   1940
-            TextSave        =   "18/06/2018"
+            TextSave        =   "22/06/2018"
             Object.Tag             =   ""
          EndProperty
       EndProperty

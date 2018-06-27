@@ -68,7 +68,7 @@ Begin VB.Form frmhistoriaclinica
          EndProperty
          ForeColor       =   &H80000002&
          Height          =   315
-         Left            =   8280
+         Left            =   7800
          Locked          =   -1  'True
          MaxLength       =   50
          TabIndex        =   26
@@ -136,7 +136,7 @@ Begin VB.Form frmhistoriaclinica
          TabIndex        =   25
          Tag             =   "Descripción"
          Top             =   360
-         Width           =   3795
+         Width           =   3435
       End
       Begin VB.TextBox txtTelefono 
          BeginProperty Font 
@@ -170,13 +170,13 @@ Begin VB.Form frmhistoriaclinica
          EndProperty
          ForeColor       =   &H80000002&
          Height          =   315
-         Left            =   10260
+         Left            =   9780
          Locked          =   -1  'True
          MaxLength       =   50
          TabIndex        =   23
          Tag             =   "Descripción"
          Top             =   360
-         Width           =   3315
+         Width           =   3795
       End
       Begin VB.Label Label31 
          Alignment       =   1  'Right Justify
@@ -194,7 +194,7 @@ Begin VB.Form frmhistoriaclinica
             Strikethrough   =   0   'False
          EndProperty
          Height          =   315
-         Left            =   7710
+         Left            =   7230
          TabIndex        =   113
          Top             =   360
          Width           =   570
@@ -279,7 +279,7 @@ Begin VB.Form frmhistoriaclinica
             Strikethrough   =   0   'False
          EndProperty
          Height          =   315
-         Left            =   8940
+         Left            =   8460
          TabIndex        =   28
          Top             =   360
          Width           =   1320
@@ -310,11 +310,11 @@ Begin VB.Form frmhistoriaclinica
       TabCaption(1)   =   "Ecografias"
       TabPicture(1)   =   "frmhistoriaclinica.frx":001C
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "cmdVerEstudio"
-      Tab(1).Control(1)=   "cmdVer"
+      Tab(1).Control(0)=   "Frame2"
+      Tab(1).Control(1)=   "cmdEliminarEco"
       Tab(1).Control(2)=   "cmdAgregarEco"
-      Tab(1).Control(3)=   "cmdEliminarEco"
-      Tab(1).Control(4)=   "Frame2"
+      Tab(1).Control(3)=   "cmdVer"
+      Tab(1).Control(4)=   "cmdVerEstudio"
       Tab(1).ControlCount=   5
       TabCaption(2)   =   "Laboratorio"
       TabPicture(2)   =   "frmhistoriaclinica.frx":0038
@@ -323,14 +323,14 @@ Begin VB.Form frmhistoriaclinica
       TabCaption(3)   =   "Ginecologia"
       TabPicture(3)   =   "frmhistoriaclinica.frx":0054
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "cmdImprimirEstGine"
-      Tab(3).Control(1)=   "cmdEliminarEstGine"
-      Tab(3).Control(2)=   "cmdAgregarEstGine"
-      Tab(3).Control(3)=   "Frame3"
-      Tab(3).Control(4)=   "cboTipoEstGine"
-      Tab(3).Control(5)=   "optFechaGine"
-      Tab(3).Control(6)=   "optTipoEst"
-      Tab(3).Control(7)=   "Label8"
+      Tab(3).Control(0)=   "Label8"
+      Tab(3).Control(1)=   "optTipoEst"
+      Tab(3).Control(2)=   "optFechaGine"
+      Tab(3).Control(3)=   "cboTipoEstGine"
+      Tab(3).Control(4)=   "Frame3"
+      Tab(3).Control(5)=   "cmdAgregarEstGine"
+      Tab(3).Control(6)=   "cmdEliminarEstGine"
+      Tab(3).Control(7)=   "cmdImprimirEstGine"
       Tab(3).ControlCount=   8
       TabCaption(4)   =   "Pedidos"
       TabPicture(4)   =   "frmhistoriaclinica.frx":0070
@@ -391,7 +391,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110559233
+            Format          =   20971521
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHastaPedido 
@@ -405,7 +405,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110559233
+            Format          =   20971521
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdPedidos 
@@ -594,7 +594,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110559233
+            Format          =   20971521
             CurrentDate     =   41098
          End
          Begin VB.Label Label24 
@@ -698,8 +698,8 @@ Begin VB.Form frmhistoriaclinica
             Top             =   120
             Width           =   1215
          End
-         Begin VB.CommandButton cmdImag 
-            Caption         =   "&Imagenes"
+         Begin VB.CommandButton cmdAnterior 
+            Caption         =   "&Anterior Paciente"
             Height          =   855
             Left            =   1680
             TabIndex        =   59
@@ -766,7 +766,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110559233
+            Format          =   20971521
             CurrentDate     =   43205
          End
          Begin VB.CommandButton cmdCancelar 
@@ -803,7 +803,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110559233
+            Format          =   20971521
             CurrentDate     =   41098
          End
          Begin VB.CommandButton cmdAceptar 
@@ -949,7 +949,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110559233
+            Format          =   20971521
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHasta 
@@ -963,7 +963,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110559233
+            Format          =   20971521
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdConsultas 
@@ -1221,7 +1221,7 @@ Begin VB.Form frmhistoriaclinica
                _Version        =   393216
                CheckBox        =   -1  'True
                DateIsNull      =   -1  'True
-               Format          =   110559233
+               Format          =   20971521
                CurrentDate     =   41098
             End
             Begin VB.Label Label17 
@@ -1363,13 +1363,13 @@ Attribute VB_Exposed = False
 Dim Rec2 As New ADODB.Recordset
 Dim edad As Integer
 Dim años As Integer
-Public NroAfil As Integer
+Public NroAfil As String
 Public TurOSocial As String
 
 Private Function BuscarProxPaciente(codven, DIA) As Integer
     Dim CodPac As Integer
     CodPac = 0
-    sql = " SELECT TOP 1 C.CLI_CODIGO,C.CLI_NROAFIL ,T.TUR_HORAD, T.TUR_OSOCIAL "
+    sql = " SELECT TOP 1 C.CLI_CODIGO,C.CLI_NROAFIL,CLI_CUMPLE, T.TUR_HORAD, T.TUR_OSOCIAL "
     sql = sql & " FROM TURNOS T, CLIENTE C "
     sql = sql & " WHERE T.CLI_CODIGO = C.CLI_CODIGO"
     sql = sql & " AND T.VEN_CODIGO = " & codven
@@ -1379,13 +1379,25 @@ Private Function BuscarProxPaciente(codven, DIA) As Integer
     If Rec2.EOF = False Then
         CodPac = Rec2!CLI_CODIGO
         txthorad = Format(Rec2!TUR_HORAD, "hh:mm")
-        NroAfil = Chk0(Rec2!CLI_NROAFIL)
-        TurOSocial = Rec2!TUR_OSOCIAL
+        NroAfil = ChkNull(Rec2!CLI_NROAFIL)
+        TurOSocial = ChkNull(Rec2!TUR_OSOCIAL)
+        Calculo_Edad IIf(IsNull(Rec2!CLI_CUMPLE), Date, Rec2!CLI_CUMPLE)
     End If
     Rec2.Close
     BuscarProxPaciente = CodPac
 End Function
-
+Private Function Calculo_Edad(cumple As Date)
+    'calculo de edad
+    If Not (IsNull(cumple)) Then
+        años = Year(Date) - Year(cumple)
+        If Month(Fecha) < Month(cumple) Then años = años - 1 'todavía no ha llegado el mes de su cumple
+        If Month(Now) = Month(cumple) And Day(Fecha) < Day(cumple) Then años = años - 1 'es el mes pero no ha llegado el día de su cumple
+        edad = años
+    Else
+        edad = 0
+    End If
+    txtEdad.Text = edad
+End Function
 Private Function validarcclinico() As Boolean
     If txtBuscaCliente.Text = "" Then
         MsgBox "No ha ingresado el paciente", vbCritical, TIT_MSGBOX
@@ -1443,6 +1455,10 @@ Private Sub cmdAgregar_Click()
 End Sub
 
 
+
+Private Sub b_Click()
+
+End Sub
 
 Private Sub cboDocCon_Change()
 sql = "SELECT PR_CODIGO, VEN_CONSULTORIO FROM VENDEDOR"
@@ -1565,7 +1581,7 @@ Private Sub cmdAceptar_Click()
         'NUEVA CONSULTA
         sql = "INSERT INTO CCLINICO"
         sql = sql & " (CCL_NUMERO,CCL_FECHA,"
-        sql = sql & " CLI_CODIGO,VEN_CODIGO,CCL_MOTIVO,CCL_INDICA,CCL_FECPC,CCL_CONMUTUAL)"
+        sql = sql & " CLI_CODIGO,VEN_CODIGO,CCL_MOTIVO,CCL_INDICA,CCL_FECPC)"
         sql = sql & " VALUES ("
         sql = sql & Num & ","
         sql = sql & XDQ(Fecha.Value) & ","
@@ -1573,12 +1589,12 @@ Private Sub cmdAceptar_Click()
         sql = sql & cboDocCon.ItemData(cboDocCon.ListIndex) & ","
         sql = sql & XS(txtMotivo.Text) & ","
         sql = sql & XS(txtIndicaciones.Text) & ","
-        sql = sql & XDQ(ChkNull(FechaProx.Value)) & ","
-        If optSI2 = True Then
-            sql = sql & XS("SI") & ")"
-        Else
-            sql = sql & XS("NO") & ")"
-        End If
+        sql = sql & XDQ(ChkNull(FechaProx.Value)) & ")"
+'        If optSI2 = True Then
+'            sql = sql & XS("SI") & ")"
+'        Else
+'            sql = sql & XS("NO") & ")"
+'        End If
         DBConn.Execute sql
     Else
         If MsgBox("¿Desea Modificar la Consulta Medica?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
@@ -1589,11 +1605,11 @@ Private Sub cmdAceptar_Click()
         sql = sql & " ,CCL_MOTIVO=" & XS(txtMotivo.Text)
         sql = sql & " ,CCL_INDICA=" & XS(txtIndicaciones.Text)
         sql = sql & " ,CCL_FECPC=" & XDQ(ChkNull(FechaProx.Value))
-        If optSI2 = True Then
-            sql = sql & " ,CCL_CONMUTUAL=" & XS("SI")
-        Else
-            sql = sql & " ,CCL_CONMUTUAL=" & XS("NO")
-        End If
+'        If optSI2 = True Then
+'            sql = sql & " ,CCL_CONMUTUAL=" & XS("SI")
+'        Else
+'            sql = sql & " ,CCL_CONMUTUAL=" & XS("NO")
+'        End If
         sql = sql & " WHERE CCL_NUMERO = " & txtnrocon.Text
         DBConn.Execute sql
     End If
@@ -1759,6 +1775,55 @@ Private Function CargarPedidosAnteriores()
 End Function
         
 
+Private Sub cmdAnterior_Click()
+''llamada aplicacion que de pacientes
+'    Dim actual As Integer '1 paciente actuial 0 no es paciente actual
+'    Dim horaactual As String '1 paciente actuial 0 no es paciente actual
+'    If cboDocCon.ListIndex <> -1 Then
+'        actual = 0
+'
+'        'Buscar en turno el anterior paciente
+'        sql = "SELECT T.*, C.CLI_NROAFIL FROM CLIENTE C,TURNOS T "
+'        sql = sql & " WHERE T.CLI_CODIGO = C.CLI_CODIGO AND "
+'        sql = sql & " T.VEN_CODIGO = " & cboDocCon.ItemData(cboDocCon.ListIndex)
+'        sql = sql & " AND T.TUR_FECHA = " & XDQ(Fecha.Value)
+'        sql = sql & " ORDER BY T.TUR_HORAD Desc "
+'        Rec2.Open sql, DBConn, adOpenStatic, adLockOptimistic
+'        If Rec2.EOF = False Then
+'            Do While Rec2.EOF = False
+'                If Rec2!CLI_CODIGO = txtCodigo Then
+'                    'PACIENTE ACTUAL
+'                    actual = 1
+'                End If
+'                If actual = 1 And Rec2!CLI_CODIGO <> txtCodigo Then
+'                    txtCodigo = Rec2!CLI_CODIGO
+'                    'txtMotivo.Text = Rec2!TUR_MOTIVO
+'                    txthorad = Format(Rec2!TUR_HORAD, "hh:mm")
+'                    TxtCodigo_LostFocus
+'                    If Rec2!TUR_OSOCIAL = "PARTICULAR" Or IsNull(Rec2!TUR_OSOCIAL) Then 'para turnos cargados antes
+'                        txtOSocial.Text = "PARTICULAR"
+'                    Else
+'                        txtOSocial.Text = Rec2!TUR_OSOCIAL & " - " & ChkNull(Rec2!CLI_NROAFIL)
+'                    End If
+'                    Rec2.Close
+'                    Exit Sub
+'                Else
+'                    If actual = 1 And Rec2!CLI_CODIGO = txtCodigo And Format(Rec2!TUR_HORAD, "hh:mm") > txthorad Then
+'                        txthorad = Format(Rec2!TUR_HORAD, "hh:mm")
+'                        Rec2.Close
+'                        Exit Sub
+'                    End If
+'                End If
+'                Rec2.MovePrevious
+'            Loop
+'        End If
+'        Rec2.Close
+'    Else
+'        MsgBox "Seleccione el Doctor", vbInformation, TIT_MSGBOX
+'    End If
+
+End Sub
+
 Private Sub cmdCancelar_Click()
     'If MsgBox("¿Seguro desea Cancelarla Consulta Medica?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
     LimpiarConsulta
@@ -1813,6 +1878,10 @@ Private Sub cmdPedidos_Click()
     tabhc.Tab = 4
 End Sub
 
+Private Sub cmdproximo_Click()
+
+End Sub
+
 Private Sub cmdSalir_Click()
     Unload Me
 End Sub
@@ -1849,19 +1918,19 @@ Private Sub cmdSiguiente_Click()
         Rec2.Open sql, DBConn, adOpenStatic, adLockOptimistic
         If Rec2.EOF = False Then
             Do While Rec2.EOF = False
-                If Rec2!T.CLI_CODIGO = txtCodigo Then
+                If Rec2!CLI_CODIGO = txtCodigo Then
                     'PACIENTE ACTUAL
                     actual = 1
                 End If
-                If actual = 1 And Rec2!T.CLI_CODIGO <> txtCodigo Then
-                    txtCodigo = Rec2!T.CLI_CODIGO
+                If actual = 1 And Rec2!CLI_CODIGO <> txtCodigo Then
+                    txtCodigo = Rec2!CLI_CODIGO
                     'txtMotivo.Text = Rec2!TUR_MOTIVO
-                    txthorad = Format(Rec2!T.TUR_HORAD, "hh:mm")
+                    txthorad = Format(Rec2!TUR_HORAD, "hh:mm")
                     TxtCodigo_LostFocus
-                    If Rec2!T.TUR_OSOCIAL = "PARTICULAR" Or IsNull(Rec2!T.TUR_OSOCIAL) Then 'para turnos cargados antes
+                    If Rec2!TUR_OSOCIAL = "PARTICULAR" Or IsNull(Rec2!TUR_OSOCIAL) Then 'para turnos cargados antes
                         txtOSocial.Text = "PARTICULAR"
                     Else
-                        txtOSocial.Text = Rec2!T.TUR_OSOCIAL & " - " & "Rec2!C.CLI_NROAFIL"
+                        txtOSocial.Text = Rec2!TUR_OSOCIAL & " - " & ChkNull(Rec2!CLI_NROAFIL)
         End If
                     Rec2.Close
                     Exit Sub
@@ -2019,13 +2088,13 @@ Private Sub grdConsultas_Click()
         Else
             cmdAceptar.Enabled = False
         End If
-        If grdConsultas.TextMatrix(grdConsultas.RowSel, 7) = "NO" Or IsNull(grdConsultas.TextMatrix(grdConsultas.RowSel, 7)) Then 'para turnos cargados antes
-                        optNO2.Value = True
-                        optSI2.Enabled = False
-                    Else
-                        optNO2.Enabled = False
-                        optSI2.Value = True
-        End If
+'        If grdConsultas.TextMatrix(grdConsultas.RowSel, 7) = "NO" Or IsNull(grdConsultas.TextMatrix(grdConsultas.RowSel, 7)) Then 'para turnos cargados antes
+'                        optNO2.Value = True
+'                        optSI2.Enabled = False
+'                    Else
+'                        optNO2.Enabled = False
+'                        optSI2.Value = True
+'        End If
         End If
     
 End Sub
@@ -2054,11 +2123,11 @@ Private Sub optSI_Click()
 End Sub
 
 Private Sub optNO2_Click()
-    txtNroAfil.Text = ""
+    'txtNroAfil.Text = ""
 End Sub
 
 Private Sub optSI2_Click()
-    txtNroAfil.Text = txtNAfil.Text
+    'txtNroAfil.Text = txtNAfil.Text
 End Sub
 
 Private Sub txtBuscaCliente_Change()
@@ -2070,6 +2139,7 @@ Private Sub txtBuscaCliente_Change()
             txtTelefono.Text = ""
             txtOSocial.Text = ""
             txthorad.Text = ""
+            txtEdad = ""
         End If
         If Len(Trim(txtBuscaCliente.Text)) < 7 Then
             txtBuscaCliente.ToolTipText = "Numero de Paciente"
@@ -2125,16 +2195,8 @@ Private Sub txtBuscaCliente_LostFocus()
             End If
             'txtNAfil.Text = ChkNull(rec!CLI_NROAFIL)
             'calculo de edad
-            If Not (IsNull(rec!CLI_CUMPLE)) Then
-                If rec.EOF = False Then
-                        años = Year(Date) - Year(rec!CLI_CUMPLE)
-                        If Month(Fecha) < Month(rec!CLI_CUMPLE) Then años = años - 1 'todavía no ha llegado el mes de su cumple
-                        If Month(Now) = Month(rec!CLI_CUMPLE) And Day(Fecha) < Day(rec!CLI_CUMPLE) Then años = años - 1 'es el mes pero no ha llegado el día de su cumple
-                        edad = años
-                End If
-            End If
-
-            txtEdad.Text = edad
+            Calculo_Edad Chk0(rec!CLI_CUMPLE)
+            
             CargarConsultasAnteriores
             CargarPedidosAnteriores
             'txtMotivo.SetFocus
@@ -2153,6 +2215,7 @@ Private Sub txtBuscarCliDescri_Change()
         txtCodigo.Text = ""
         txtTelefono.Text = ""
         txtOSocial.Text = ""
+        txtEdad = ""
     End If
 End Sub
 
@@ -2174,7 +2237,7 @@ End Sub
 Private Sub txtBuscarCliDescri_LostFocus()
     If txtBuscaCliente.Text = "" And txtBuscarCliDescri.Text <> "" Then
         Set rec = New ADODB.Recordset
-        sql = "SELECT CLI_CODIGO, CLI_RAZSOC,CLI_NRODOC,CLI_TELEFONO"
+        sql = "SELECT CLI_CODIGO, CLI_RAZSOC,CLI_NRODOC,CLI_TELEFONO,CLI_CUMPLE"
         sql = sql & " FROM CLIENTE"
         sql = sql & " WHERE "
         If txtBuscaCliente.Text <> "" Then
@@ -2204,6 +2267,7 @@ Private Sub txtBuscarCliDescri_LostFocus()
                 txtBuscarCliDescri.Text = rec!CLI_RAZSOC
                 txtCodigo.Text = rec!CLI_CODIGO
                 txtTelefono.Text = ChkNull(rec!CLI_TELEFONO)
+                Calculo_Edad ChkNull(rec!CLI_CUMPLE)
             End If
             'ActivoGrid = 0
         Else
@@ -2216,12 +2280,12 @@ End Sub
 Public Sub BuscarClientes(Txt As String, mQuien As String, Optional mCadena As String)
     Dim cSQL As String
     Dim hSQL As String
-    Dim B As CBusqueda
+    Dim b As CBusqueda
     Dim i, posicion As Integer
     Dim cadena As String
     
-    Set B = New CBusqueda
-    With B
+    Set b = New CBusqueda
+    With b
         cSQL = "SELECT CLI_RAZSOC, CLI_CODIGO,CLI_NRODOC"
         cSQL = cSQL & " FROM CLIENTE C"
         If mQuien = "CADENA" Then
@@ -2261,7 +2325,7 @@ Public Sub BuscarClientes(Txt As String, mQuien As String, Optional mCadena As S
         End If
     End With
     
-    Set B = Nothing
+    Set b = Nothing
 End Sub
 Private Function BuscarOSocial(CodCli As Integer) As String
     Set Rec1 = New ADODB.Recordset
@@ -2280,6 +2344,7 @@ Private Function LimpiarConsulta()
     Fecha.Value = Date
     txtMotivo = ""
     txtIndicaciones = ""
+    
     'cboDocCon.ListIndex = 0
     FechaProx.Value = ""
     txtnrocon = ""
@@ -2309,7 +2374,7 @@ Private Function CargarConsultasAnteriores()
     If Rec1.EOF = False Then
         Do While Rec1.EOF = False
             grdConsultas.AddItem Rec1!CCL_FECHA & Chr(9) & Rec1!VEN_NOMBRE & Chr(9) & Rec1!CCL_MOTIVO & Chr(9) & _
-                                 Rec1!CCL_INDICA & Chr(9) & Rec1!CCL_FECPC & Chr(9) & Rec1!VEN_CODIGO & Chr(9) & Rec1!CCL_NUMERO & Chr(9) & Rec1!CCL_CONMUTUAL
+                                 Rec1!CCL_INDICA & Chr(9) & Rec1!CCL_FECPC & Chr(9) & Rec1!VEN_CODIGO & Chr(9) & Rec1!CCL_NUMERO & Chr(9)
                                        
             Rec1.MoveNext
         Loop
@@ -2336,15 +2401,8 @@ Private Sub TxtCodigo_LostFocus()
             txtOSocial.Text = BuscarOSocial(rec!CLI_CODIGO)
             txtNAfil.Text = ChkNull(rec!CLI_NROAFIL)
             'calculo de edad
-            If Not (IsNull(rec!CLI_CUMPLE)) Then
-                If rec.EOF = False Then
-                        años = Year(Date) - Year(rec!CLI_CUMPLE)
-                        If Month(Fecha) < Month(rec!CLI_CUMPLE) Then años = años - 1 'todavía no ha llegado el mes de su cumple
-                        If Month(Now) = Month(rec!CLI_CUMPLE) And Day(Fecha) < Day(rec!CLI_CUMPLE) Then años = años - 1 'es el mes pero no ha llegado el día de su cumple
-                        edad = años
-                End If
-            End If
-            txtEdad.Text = edad
+            'BuscarProxPaciente
+            Calculo_Edad IIf(IsNull(rec!CLI_CUMPLE), Date, rec!CLI_CUMPLE)
             CargarConsultasAnteriores
             'txtMotivo.SetFocus
             'ActivoGrid = 1
