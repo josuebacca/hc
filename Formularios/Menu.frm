@@ -29,50 +29,60 @@ Begin VB.MDIForm Menu
       BeginProperty Buttons {0713E452-850A-101B-AFC0-4210102A8DA7} 
          NumButtons      =   10
          BeginProperty Button1 {0713F354-850A-101B-AFC0-4210102A8DA7} 
+            Key             =   ""
             Object.Tag             =   ""
             Style           =   3
             MixedState      =   -1  'True
          EndProperty
          BeginProperty Button2 {0713F354-850A-101B-AFC0-4210102A8DA7} 
+            Key             =   ""
             Object.ToolTipText     =   "Salir"
             Object.Tag             =   ""
             ImageIndex      =   1
             Object.Width           =   1e-4
          EndProperty
          BeginProperty Button3 {0713F354-850A-101B-AFC0-4210102A8DA7} 
+            Key             =   ""
             Object.ToolTipText     =   "Turnos"
             Object.Tag             =   ""
             ImageIndex      =   2
          EndProperty
          BeginProperty Button4 {0713F354-850A-101B-AFC0-4210102A8DA7} 
+            Key             =   ""
             Object.ToolTipText     =   "Pacientes"
             Object.Tag             =   ""
             ImageIndex      =   3
          EndProperty
          BeginProperty Button5 {0713F354-850A-101B-AFC0-4210102A8DA7} 
+            Key             =   ""
             Object.Tag             =   ""
             Style           =   3
          EndProperty
          BeginProperty Button6 {0713F354-850A-101B-AFC0-4210102A8DA7} 
+            Key             =   ""
             Object.ToolTipText     =   "Tratamientos"
             Object.Tag             =   ""
             ImageIndex      =   4
          EndProperty
          BeginProperty Button7 {0713F354-850A-101B-AFC0-4210102A8DA7} 
+            Key             =   ""
             Object.ToolTipText     =   "Medicamentos"
             Object.Tag             =   ""
             ImageIndex      =   5
          EndProperty
          BeginProperty Button8 {0713F354-850A-101B-AFC0-4210102A8DA7} 
+            Key             =   ""
             Object.Tag             =   ""
             Style           =   3
          EndProperty
          BeginProperty Button9 {0713F354-850A-101B-AFC0-4210102A8DA7} 
+            Key             =   ""
             Object.ToolTipText     =   "Cumpleaños"
             Object.Tag             =   ""
             ImageIndex      =   6
          EndProperty
          BeginProperty Button10 {0713F354-850A-101B-AFC0-4210102A8DA7} 
+            Key             =   ""
             Object.ToolTipText     =   "Control"
             Object.Tag             =   ""
             ImageIndex      =   7
@@ -194,11 +204,15 @@ Begin VB.MDIForm Menu
             Bevel           =   2
             Object.Width           =   6526
             MinWidth        =   6526
+            TextSave        =   ""
+            Key             =   ""
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel2 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
             Object.Width           =   7673
             MinWidth        =   7673
+            TextSave        =   ""
+            Key             =   ""
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel3 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
@@ -208,15 +222,18 @@ Begin VB.MDIForm Menu
             Object.Width           =   1587
             MinWidth        =   1587
             TextSave        =   "NÚM"
+            Key             =   ""
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel4 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
             Style           =   1
             Alignment       =   1
             Bevel           =   2
+            Enabled         =   0   'False
             Object.Width           =   1587
             MinWidth        =   1587
             TextSave        =   "MAYÚS"
+            Key             =   ""
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel5 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
@@ -225,7 +242,8 @@ Begin VB.MDIForm Menu
             Bevel           =   2
             Object.Width           =   1587
             MinWidth        =   1587
-            TextSave        =   "19:06"
+            TextSave        =   "18:55"
+            Key             =   ""
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel6 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
@@ -234,7 +252,8 @@ Begin VB.MDIForm Menu
             Bevel           =   2
             Object.Width           =   1940
             MinWidth        =   1940
-            TextSave        =   "22/06/2018"
+            TextSave        =   "30/06/2018"
+            Key             =   ""
             Object.Tag             =   ""
          EndProperty
       EndProperty
@@ -300,6 +319,9 @@ Begin VB.MDIForm Menu
       End
       Begin VB.Menu mnuRayaConectar 
          Caption         =   "-"
+      End
+      Begin VB.Menu mnuUsuario 
+         Caption         =   "Usuarios"
       End
       Begin VB.Menu mnuPermisos 
          Caption         =   "Permisos"
@@ -496,11 +518,12 @@ Private Sub MDIForm_Load()
     'End If
     
     TituloPrincipal = TIT_MSGBOX '"Sistema de Gestión y Administración"
-    Me.Caption = "DIGOR"
-    
+    Me.Caption = TituloPrincipal
+    'inicio
     Me.Show
-    inicio
-    'FrmInicio.Show vbModal
+    FrmInicio.Show vbModal
+    Me.Caption = TituloPrincipal & " - (Usuario " & UCase(mNomUser) & " conectado a " & UCase(SERVIDOR) & " - " & UCase(BASEDATO) & ")"
+
     sql = "SELECT RAZ_SOCIAL FROM PARAMETROS"
     rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
     'If rec.EOF = False Then
@@ -694,9 +717,9 @@ Private Sub mnuBkpArchivos_Click()
 End Sub
 
 Private Sub mnuconectar_Click()
-    'FrmInicio.Show vbModal
-    inicio
-    Me.Caption = "DIGOR"
+    FrmInicio.Show vbModal
+    'inicio
+    Me.Caption = TituloPrincipal & " - (Usuario " & UCase(mNomUser) & " conectado a " & UCase(SERVIDOR) & " - " & UCase(BASEDATO) & ")"
     Me.mnuconectar.Enabled = False
 End Sub
 
@@ -809,6 +832,7 @@ Private Sub mnudesconectar_Click()
         Me.mnudesconectar.Enabled = False
         
         Me.Caption = TituloPrincipal & " - (No conectado)"
+        FrmInicio.Show vbModal
     End If
 End Sub
 
@@ -1059,6 +1083,10 @@ Private Sub mnuTratamientos_Click()
     vABMTratamiento.Show
 End Sub
 
+Private Sub mnuUsuario_Click()
+    FrmUsuarios.Show vbModal
+End Sub
+
 Private Sub tbrPrincipal_ButtonClick(ByVal Button As ComctlLib.Button)
     Select Case Button.Index
         Case 2: Call mnuArcSal_Click
@@ -1238,6 +1266,22 @@ Private Function configuroLetrero(Fecha As Date) As String
     If User <> 99 Then
         Doc = XN(User)
     End If
+    
+    'BUSCO CODIGO DE DOCTOR POR NOMBRE DE USUARIO
+    sql = "SELECT VEN_CODIGO FROM VENDEDOR"
+    sql = sql & " WHERE PR_CODIGO > 1 "
+    If mNomUser = "A" Or mNomUser = "DIGOR" Then
+        sql = sql & " AND VEN_NOMBRE LIKE '" & "SILVANA" & "%'"
+    Else
+        sql = sql & " AND VEN_NOMBRE LIKE '" & mNomUser & "%'"
+    End If
+    rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
+    If rec.EOF = False Then
+        Doc = rec!VEN_CODIGO
+    End If
+    rec.Close
+        
+    
     'busco turnos
     sql = "SELECT T.*,V.VEN_NOMBRE,C.CLI_RAZSOC,C.CLI_DNI"
     sql = sql & " FROM TURNOS T, VENDEDOR V, CLIENTE C"

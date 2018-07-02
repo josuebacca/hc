@@ -310,11 +310,11 @@ Begin VB.Form frmhistoriaclinica
       TabCaption(1)   =   "Ecografias"
       TabPicture(1)   =   "frmhistoriaclinica.frx":001C
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "Frame2"
-      Tab(1).Control(1)=   "cmdEliminarEco"
+      Tab(1).Control(0)=   "cmdVerEstudio"
+      Tab(1).Control(1)=   "cmdVer"
       Tab(1).Control(2)=   "cmdAgregarEco"
-      Tab(1).Control(3)=   "cmdVer"
-      Tab(1).Control(4)=   "cmdVerEstudio"
+      Tab(1).Control(3)=   "cmdEliminarEco"
+      Tab(1).Control(4)=   "Frame2"
       Tab(1).ControlCount=   5
       TabCaption(2)   =   "Laboratorio"
       TabPicture(2)   =   "frmhistoriaclinica.frx":0038
@@ -323,14 +323,14 @@ Begin VB.Form frmhistoriaclinica
       TabCaption(3)   =   "Ginecologia"
       TabPicture(3)   =   "frmhistoriaclinica.frx":0054
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "Label8"
-      Tab(3).Control(1)=   "optTipoEst"
-      Tab(3).Control(2)=   "optFechaGine"
-      Tab(3).Control(3)=   "cboTipoEstGine"
-      Tab(3).Control(4)=   "Frame3"
-      Tab(3).Control(5)=   "cmdAgregarEstGine"
-      Tab(3).Control(6)=   "cmdEliminarEstGine"
-      Tab(3).Control(7)=   "cmdImprimirEstGine"
+      Tab(3).Control(0)=   "cmdImprimirEstGine"
+      Tab(3).Control(1)=   "cmdEliminarEstGine"
+      Tab(3).Control(2)=   "cmdAgregarEstGine"
+      Tab(3).Control(3)=   "Frame3"
+      Tab(3).Control(4)=   "cboTipoEstGine"
+      Tab(3).Control(5)=   "optFechaGine"
+      Tab(3).Control(6)=   "optTipoEst"
+      Tab(3).Control(7)=   "Label8"
       Tab(3).ControlCount=   8
       TabCaption(4)   =   "Pedidos"
       TabPicture(4)   =   "frmhistoriaclinica.frx":0070
@@ -391,7 +391,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   20971521
+            Format          =   54788097
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHastaPedido 
@@ -405,7 +405,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   20971521
+            Format          =   54788097
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdPedidos 
@@ -594,7 +594,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   20971521
+            Format          =   54788097
             CurrentDate     =   41098
          End
          Begin VB.Label Label24 
@@ -734,7 +734,7 @@ Begin VB.Form frmhistoriaclinica
          Begin VB.TextBox txtProfesion 
             Enabled         =   0   'False
             Height          =   315
-            Left            =   4560
+            Left            =   4680
             TabIndex        =   51
             Top             =   1080
             Width           =   1575
@@ -766,7 +766,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   20971521
+            Format          =   54788097
             CurrentDate     =   43205
          End
          Begin VB.CommandButton cmdCancelar 
@@ -803,7 +803,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   20971521
+            Format          =   54788097
             CurrentDate     =   41098
          End
          Begin VB.CommandButton cmdAceptar 
@@ -833,23 +833,23 @@ Begin VB.Form frmhistoriaclinica
             Style           =   2  'Dropdown List
             TabIndex        =   50
             Top             =   1080
-            Width           =   2220
+            Width           =   2580
          End
          Begin VB.Label Label18 
             Caption         =   "Consultorio:"
             Height          =   255
-            Left            =   6240
+            Left            =   6360
             TabIndex        =   80
             Top             =   1080
-            Width           =   975
+            Width           =   855
          End
          Begin VB.Label Label14 
             Caption         =   "Profesión:"
             Height          =   375
-            Left            =   3720
+            Left            =   3960
             TabIndex        =   79
             Top             =   1080
-            Width           =   975
+            Width           =   735
          End
          Begin VB.Label Label5 
             Caption         =   "Próxima Consulta:"
@@ -949,7 +949,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   20971521
+            Format          =   54788097
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHasta 
@@ -963,7 +963,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   20971521
+            Format          =   54788097
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdConsultas 
@@ -1221,7 +1221,7 @@ Begin VB.Form frmhistoriaclinica
                _Version        =   393216
                CheckBox        =   -1  'True
                DateIsNull      =   -1  'True
-               Format          =   20971521
+               Format          =   54788097
                CurrentDate     =   41098
             End
             Begin VB.Label Label17 
@@ -1480,10 +1480,10 @@ Private Sub cboDocCon_Click()
     sql = sql & cboDocCon.ItemData(cboDocCon.ListIndex)
     rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
     If rec.EOF = False Then
-        txtConsultorio.Text = rec!VEN_CONSULTORIO
-        pro = rec!PR_CODIGO
+        txtConsultorio.Text = Chk0(rec!VEN_CONSULTORIO)
+        pro = Chk0(rec!PR_CODIGO)
         'defino profesion y consultorio en pedido
-        txtConsultorioPedido.Text = rec!VEN_CONSULTORIO
+        txtConsultorioPedido.Text = Chk0(rec!VEN_CONSULTORIO)
     End If
     codven = rec!VEN_CODIGO
     rec.Close
@@ -1511,7 +1511,7 @@ sql = "SELECT PR_CODIGO, VEN_CONSULTORIO FROM VENDEDOR"
     sql = sql & cboDocPedido.ItemData(cboDocPedido.ListIndex)
     rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
     If rec.EOF = False Then
-        txtConsultorioPedido.Text = rec!VEN_CONSULTORIO
+        txtConsultorioPedido.Text = Chk0(rec!VEN_CONSULTORIO)
         pro = rec!PR_CODIGO
 
     End If
@@ -1951,6 +1951,12 @@ Private Sub cmdSiguiente_Click()
 
 End Sub
 
+Private Sub Form_Activate()
+    If txtCodigo <> "" Then
+        TxtCodigo_LostFocus
+    End If
+End Sub
+
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     If KeyAscii = vbKeyReturn Then MySendKeys Chr(9)
 End Sub
@@ -2041,13 +2047,13 @@ Private Function cargocombos()
         Do While rec.EOF = False
             cboDocCon.AddItem rec!VEN_NOMBRE
             cboDocCon.ItemData(cboDocCon.NewIndex) = rec!VEN_CODIGO
-            
-            cboDocAnt.AddItem rec!VEN_NOMBRE
-            cboDocAnt.ItemData(cboDocAnt.NewIndex) = rec!VEN_CODIGO
-            
+                                   
             cboDocPedido.AddItem rec!VEN_NOMBRE
             cboDocPedido.ItemData(cboDocPedido.NewIndex) = rec!VEN_CODIGO
             
+            cboDocAnt.AddItem rec!VEN_NOMBRE
+            cboDocAnt.ItemData(cboDocAnt.NewIndex) = rec!VEN_CODIGO
+                        
             cboDocPedidos.AddItem rec!VEN_NOMBRE
             cboDocPedidos.ItemData(cboDocPedidos.NewIndex) = rec!VEN_CODIGO
             
@@ -2055,8 +2061,25 @@ Private Function cargocombos()
         Loop
     End If
     rec.Close
+    
+    
+    'BUSCO CODIGO DE DOCTOR POR NOMBRE DE USUARIO
+    sql = "SELECT VEN_CODIGO FROM VENDEDOR"
+    sql = sql & " WHERE PR_CODIGO > 1 "
+    If mNomUser = "A" Or mNomUser = "DIGOR" Then
+        sql = sql & " AND VEN_NOMBRE LIKE '" & "SILVANA" & "%'"
+    Else
+        sql = sql & " AND VEN_NOMBRE LIKE '" & mNomUser & "%'"
+    End If
+    rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
+    If rec.EOF = False Then
+        Doc = rec!VEN_CODIGO
+    End If
+    rec.Close
+    
     'pone el doctor por defecto que esta guardado en el archivo de configuracion C:/Windows/DIGOR.ini
     BuscaCodigoProxItemData Int(Doc), cboDocCon
+         
             
     sql = "SELECT * FROM ESPECIALIDAD"
     sql = sql & " WHERE ESP_CODIGO > 0"
@@ -2280,12 +2303,12 @@ End Sub
 Public Sub BuscarClientes(Txt As String, mQuien As String, Optional mCadena As String)
     Dim cSQL As String
     Dim hSQL As String
-    Dim b As CBusqueda
+    Dim B As CBusqueda
     Dim i, posicion As Integer
     Dim cadena As String
     
-    Set b = New CBusqueda
-    With b
+    Set B = New CBusqueda
+    With B
         cSQL = "SELECT CLI_RAZSOC, CLI_CODIGO,CLI_NRODOC"
         cSQL = cSQL & " FROM CLIENTE C"
         If mQuien = "CADENA" Then
@@ -2325,7 +2348,7 @@ Public Sub BuscarClientes(Txt As String, mQuien As String, Optional mCadena As S
         End If
     End With
     
-    Set b = Nothing
+    Set B = Nothing
 End Sub
 Private Function BuscarOSocial(CodCli As Integer) As String
     Set Rec1 = New ADODB.Recordset

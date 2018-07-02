@@ -2,7 +2,7 @@ VERSION 5.00
 Begin VB.Form ABMVendedor 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Datos del Personal..."
-   ClientHeight    =   6225
+   ClientHeight    =   5910
    ClientLeft      =   2700
    ClientTop       =   2625
    ClientWidth     =   4530
@@ -20,12 +20,12 @@ Begin VB.Form ABMVendedor
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   6225
+   ScaleHeight     =   5910
    ScaleWidth      =   4530
    ShowInTaskbar   =   0   'False
    Begin VB.TextBox txtPorcentCom 
       Height          =   315
-      Left            =   1650
+      Left            =   1050
       MaxLength       =   50
       TabIndex        =   11
       Top             =   4545
@@ -164,20 +164,20 @@ Begin VB.Form ABMVendedor
       Caption         =   "%"
       Height          =   195
       Index           =   11
-      Left            =   2640
+      Left            =   1800
       TabIndex        =   28
       Top             =   4605
       Width           =   165
    End
    Begin VB.Label Label1 
       AutoSize        =   -1  'True
-      Caption         =   "Pocentaje Comisión:"
+      Caption         =   "Porcentaje:"
       Height          =   195
       Index           =   10
       Left            =   120
       TabIndex        =   27
       Top             =   4605
-      Width           =   1455
+      Width           =   840
    End
    Begin VB.Label Label2 
       Caption         =   "Consultorio:"
@@ -738,7 +738,7 @@ Private Sub Form_Load()
                 txtTelefono.Text = ChkNull(rec!VEN_TELEFONO)
                 txtFax.Text = ChkNull(rec!VEN_FAX)
                 txtMail.Text = ChkNull(rec!VEN_MAIL)
-                txtPorcentCom.Text = ChkNull(rec!VEN_PORCENTCOM)
+                txtPorcentCom.Text = Format(ChkNull(rec!VEN_PORCENTCOM), "#,##0.00")
                 
                 If ChkNull(rec!VEN_ESTADO) = "N" Or ChkNull(rec!VEN_ESTADO) = "" Then
                     chkVenEstado.Value = Unchecked

@@ -7,10 +7,10 @@ Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form ABMClientes 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Actualizacion de Pacientes..."
-   ClientHeight    =   7980
+   ClientHeight    =   7215
    ClientLeft      =   2700
    ClientTop       =   2625
-   ClientWidth     =   11385
+   ClientWidth     =   10635
    BeginProperty Font 
       Name            =   "Tahoma"
       Size            =   8.25
@@ -25,9 +25,9 @@ Begin VB.Form ABMClientes
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   7980
+   ScaleHeight     =   7215
    ScaleMode       =   0  'User
-   ScaleWidth      =   11385
+   ScaleWidth      =   10635
    StartUpPosition =   2  'CenterScreen
    Visible         =   0   'False
    Begin VB.Frame Frame3 
@@ -220,7 +220,7 @@ Begin VB.Form ABMClientes
          _ExtentY        =   556
          _Version        =   393216
          CheckBox        =   -1  'True
-         Format          =   43450369
+         Format          =   54722561
          CurrentDate     =   40071
       End
       Begin MSComCtl2.DTPicker DTFechaNac 
@@ -233,7 +233,7 @@ Begin VB.Form ABMClientes
          _ExtentY        =   556
          _Version        =   393216
          CheckBox        =   -1  'True
-         Format          =   43450369
+         Format          =   54722561
          CurrentDate     =   40071
       End
       Begin VB.Label Label1 
@@ -478,27 +478,27 @@ Begin VB.Form ABMClientes
       TabCaption(2)   =   "&Historia Clinica"
       TabPicture(2)   =   "ABMClientes.frx":1C18
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "Frame6"
-      Tab(2).Control(1)=   "cboTratamiento"
-      Tab(2).Control(2)=   "Frame2"
-      Tab(2).Control(3)=   "Frame1"
-      Tab(2).Control(4)=   "txtHC"
-      Tab(2).Control(5)=   "grdCClinico"
+      Tab(2).Control(0)=   "grdCClinico"
+      Tab(2).Control(1)=   "txtHC"
+      Tab(2).Control(2)=   "Frame1"
+      Tab(2).Control(3)=   "Frame2"
+      Tab(2).Control(4)=   "cboTratamiento"
+      Tab(2).Control(5)=   "Frame6"
       Tab(2).ControlCount=   6
       TabCaption(3)   =   "Medicamentos"
       TabPicture(3)   =   "ABMClientes.frx":1C34
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "GrdCMedica"
+      Tab(3).Control(0)=   "Frame4"
       Tab(3).Control(1)=   "txtMedica"
-      Tab(3).Control(2)=   "Frame4"
+      Tab(3).Control(2)=   "GrdCMedica"
       Tab(3).ControlCount=   3
       TabCaption(4)   =   "Pedidos"
       TabPicture(4)   =   "ABMClientes.frx":1C50
       Tab(4).ControlEnabled=   0   'False
-      Tab(4).Control(0)=   "Frame7"
-      Tab(4).Control(1)=   "Command2"
-      Tab(4).Control(2)=   "cmdCancelarPedido"
-      Tab(4).Control(3)=   "cmdRealizado"
+      Tab(4).Control(0)=   "cmdRealizado"
+      Tab(4).Control(1)=   "cmdCancelarPedido"
+      Tab(4).Control(2)=   "Command2"
+      Tab(4).Control(3)=   "Frame7"
       Tab(4).ControlCount=   4
       TabCaption(5)   =   "Imágenes"
       TabPicture(5)   =   "ABMClientes.frx":1C6C
@@ -682,7 +682,7 @@ Begin VB.Form ABMClientes
             _ExtentY        =   556
             _Version        =   393216
             CheckBox        =   -1  'True
-            Format          =   43450369
+            Format          =   54722561
             CurrentDate     =   40070
          End
          Begin VB.TextBox txtcualca 
@@ -1061,7 +1061,7 @@ Begin VB.Form ABMClientes
             CalendarBackColor=   12648384
             CalendarForeColor=   0
             CalendarTitleBackColor=   12648384
-            Format          =   43450369
+            Format          =   54722561
             UpDown          =   -1  'True
             CurrentDate     =   40063
          End
@@ -1088,7 +1088,7 @@ Begin VB.Form ABMClientes
             CalendarTitleBackColor=   12648384
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   43450369
+            Format          =   54722561
             CurrentDate     =   40063
          End
          Begin VB.TextBox txtDescTra 
@@ -1513,7 +1513,7 @@ Begin VB.Form ABMClientes
             CalendarBackColor=   12648384
             CalendarForeColor=   0
             CalendarTitleBackColor=   12648384
-            Format          =   43450369
+            Format          =   54722561
             UpDown          =   -1  'True
             CurrentDate     =   40063
          End
@@ -3809,12 +3809,12 @@ End Sub
 Public Sub BuscarTratamientos(Txt As String, mQuien As String, Optional mCadena As String)
     Dim cSQL As String
     Dim hSQL As String
-    Dim B As CBusqueda
+    Dim b As CBusqueda
     Dim i, posicion As Integer
     Dim cadena As String
         
-    Set B = New CBusqueda
-    With B
+    Set b = New CBusqueda
+    With b
         cSQL = "SELECT TR_CODNUE,TR_DESCRI, TR_CODIGO"
         cSQL = cSQL & " FROM TRATAMIENTO "
         If mQuien = "CADENA" Then
@@ -3853,18 +3853,18 @@ Public Sub BuscarTratamientos(Txt As String, mQuien As String, Optional mCadena 
         End If
     End With
     
-    Set B = Nothing
+    Set b = Nothing
     
 End Sub
 Public Sub BuscarOS(Txt As String, mQuien As String, Optional mCadena As String)
     Dim cSQL As String
     Dim hSQL As String
-    Dim B As CBusqueda
+    Dim b As CBusqueda
     Dim i, posicion As Integer
     Dim cadena As String
         
-    Set B = New CBusqueda
-    With B
+    Set b = New CBusqueda
+    With b
         cSQL = "SELECT OS_NOMBRE, OS_NUMERO"
         cSQL = cSQL & " FROM OBRA_SOCIAL "
         If mQuien = "CADENA" Then
@@ -3897,7 +3897,7 @@ Public Sub BuscarOS(Txt As String, mQuien As String, Optional mCadena As String)
         End If
     End With
     
-    Set B = Nothing
+    Set b = Nothing
     
 End Sub
 
