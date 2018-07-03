@@ -554,7 +554,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   54329346
+         StartOfWeek     =   107216898
          CurrentDate     =   40049
       End
    End
