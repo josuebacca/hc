@@ -56,7 +56,7 @@ Begin VB.Form frmhistoriaclinica
          Locked          =   -1  'True
          MaxLength       =   50
          TabIndex        =   16
-         Tag             =   "Descripción"
+         Tag             =   "DescripciÃ³n"
          Top             =   360
          Width           =   555
       End
@@ -118,7 +118,7 @@ Begin VB.Form frmhistoriaclinica
          Left            =   3720
          MaxLength       =   50
          TabIndex        =   15
-         Tag             =   "Descripción"
+         Tag             =   "DescripciÃ³n"
          Top             =   360
          Width           =   3435
       End
@@ -138,7 +138,7 @@ Begin VB.Form frmhistoriaclinica
          Locked          =   -1  'True
          MaxLength       =   50
          TabIndex        =   14
-         Tag             =   "Descripción"
+         Tag             =   "DescripciÃ³n"
          Top             =   360
          Width           =   1395
       End
@@ -158,7 +158,7 @@ Begin VB.Form frmhistoriaclinica
          Locked          =   -1  'True
          MaxLength       =   50
          TabIndex        =   13
-         Tag             =   "Descripción"
+         Tag             =   "DescripciÃ³n"
          Top             =   360
          Width           =   3795
       End
@@ -231,7 +231,7 @@ Begin VB.Form frmhistoriaclinica
          AutoSize        =   -1  'True
          BackColor       =   &H00C0C0FF&
          BorderStyle     =   1  'Fixed Single
-         Caption         =   "Teléfono:"
+         Caption         =   "TelÃ©fono:"
          BeginProperty Font 
             Name            =   "MS Sans Serif"
             Size            =   8.25
@@ -352,7 +352,7 @@ Begin VB.Form frmhistoriaclinica
       Tab(4).Control(1)=   "Frame8"
       Tab(4).ControlCount=   2
       Begin VB.Frame Frame7 
-         Caption         =   "Imágenes anteriores:"
+         Caption         =   "ImÃ¡genes anteriores:"
          BeginProperty Font 
             Name            =   "MS Sans Serif"
             Size            =   8.25
@@ -466,7 +466,7 @@ Begin VB.Form frmhistoriaclinica
             EndProperty
          End
          Begin VB.Label Label39 
-            Caption         =   "Imágen:"
+            Caption         =   "ImÃ¡gen:"
             Height          =   255
             Left            =   4320
             TabIndex        =   129
@@ -915,7 +915,7 @@ Begin VB.Form frmhistoriaclinica
          End
          Begin VB.Label Label23 
             AutoSize        =   -1  'True
-            Caption         =   "Descripción:"
+            Caption         =   "DescripciÃ³n:"
             Height          =   195
             Left            =   240
             TabIndex        =   67
@@ -932,7 +932,7 @@ Begin VB.Form frmhistoriaclinica
             Width           =   540
          End
          Begin VB.Label Label20 
-            Caption         =   "Profesión:"
+            Caption         =   "ProfesiÃ³n:"
             Height          =   375
             Left            =   3720
             TabIndex        =   65
@@ -1133,7 +1133,7 @@ Begin VB.Form frmhistoriaclinica
             Width           =   855
          End
          Begin VB.Label Label14 
-            Caption         =   "Profesión:"
+            Caption         =   "ProfesiÃ³n:"
             Height          =   375
             Left            =   3960
             TabIndex        =   57
@@ -1141,7 +1141,7 @@ Begin VB.Form frmhistoriaclinica
             Width           =   735
          End
          Begin VB.Label Label5 
-            Caption         =   "Próxima Consulta:"
+            Caption         =   "PrÃ³xima Consulta:"
             Height          =   375
             Left            =   360
             TabIndex        =   55
@@ -1392,7 +1392,7 @@ Begin VB.Form frmhistoriaclinica
          Width           =   1215
       End
       Begin VB.Frame Frame2 
-         Caption         =   "Imágen:"
+         Caption         =   "ImÃ¡gen:"
          BeginProperty Font 
             Name            =   "MS Sans Serif"
             Size            =   8.25
@@ -1512,7 +1512,7 @@ Begin VB.Form frmhistoriaclinica
          End
          Begin VB.Label Label38 
             AutoSize        =   -1  'True
-            Caption         =   "Imágen:"
+            Caption         =   "ImÃ¡gen:"
             Height          =   195
             Left            =   600
             TabIndex        =   127
@@ -1530,7 +1530,7 @@ Begin VB.Form frmhistoriaclinica
          End
          Begin VB.Label Label33 
             AutoSize        =   -1  'True
-            Caption         =   "Descripción:"
+            Caption         =   "DescripciÃ³n:"
             Height          =   195
             Left            =   240
             TabIndex        =   115
@@ -1547,7 +1547,7 @@ Begin VB.Form frmhistoriaclinica
             Width           =   540
          End
          Begin VB.Label Label15 
-            Caption         =   "Profesión:"
+            Caption         =   "ProfesiÃ³n:"
             Height          =   375
             Left            =   3960
             TabIndex        =   113
@@ -1598,7 +1598,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Dim Rec2 As New ADODB.Recordset
 Dim edad As Integer
-Dim años As Integer
+Dim aÃ±os As Integer
 Public NroAfil As String
 Public TurOSocial As String
 
@@ -1625,10 +1625,10 @@ End Function
 Private Function Calculo_Edad(cumple As Date)
     'calculo de edad
     If Not (IsNull(cumple)) Then
-        años = Year(Date) - Year(cumple)
-        If Month(Fecha) < Month(cumple) Then años = años - 1 'todavía no ha llegado el mes de su cumple
-        If Month(Now) = Month(cumple) And Day(Fecha) < Day(cumple) Then años = años - 1 'es el mes pero no ha llegado el día de su cumple
-        edad = años
+        aÃ±os = Year(Date) - Year(cumple)
+        If Month(Fecha) < Month(cumple) Then aÃ±os = aÃ±os - 1 'todavÃ­a no ha llegado el mes de su cumple
+        If Month(Now) = Month(cumple) And Day(Fecha) < Day(cumple) Then aÃ±os = aÃ±os - 1 'es el mes pero no ha llegado el dÃ­a de su cumple
+        edad = aÃ±os
     Else
         edad = 0
     End If
@@ -1662,7 +1662,7 @@ Private Function validarcclinico() As Boolean
     End If
 
     If txtIndicaciones.Text = "" Then
-        MsgBox "No ha ingresado la indicación", vbCritical, TIT_MSGBOX
+        MsgBox "No ha ingresado la indicaciÃ³n", vbCritical, TIT_MSGBOX
         txtMotivo.SetFocus
         validarcclinico = False
         Exit Function
@@ -1678,7 +1678,7 @@ Private Function validarImagen()
         Exit Function
     End If
     If txtImgDescri.Text = "" Then
-        MsgBox "No ha ingresado la descripción de la Imagen", vbCritical, TIT_MSGBOX
+        MsgBox "No ha ingresado la descripciÃ³n de la Imagen", vbCritical, TIT_MSGBOX
         txtMotivo.SetFocus
         validarImagen = False
         Exit Function
@@ -1691,7 +1691,7 @@ Private Function validarImagen()
         Exit Function
     End If
     If IsNull(FechaImg.Value) Then
-        MsgBox "No ha ingresado la fecha de la Imágen", vbCritical, TIT_MSGBOX
+        MsgBox "No ha ingresado la fecha de la ImÃ¡gen", vbCritical, TIT_MSGBOX
         FechaImg.SetFocus
         validarImagen = False
         Exit Function
@@ -1856,7 +1856,7 @@ Private Sub cmdAbrir_Click()
             'word.filePrintDefault
             On Error GoTo 0
         'Else
-        '    MsgBox "El Archivo seleccionado no es válido", vbExclamation, Me.Caption
+        '    MsgBox "El Archivo seleccionado no es vÃ¡lido", vbExclamation, Me.Caption
         'End If
         
     End If
@@ -1874,7 +1874,7 @@ Private Sub cmdAceptar_Click()
     'Validar los campos requeridos
     If validarcclinico = False Then Exit Sub
     If txtnrocon.Text = "" Then
-        If MsgBox("¿Desea cargar la Consulta Medica?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+        If MsgBox("Â¿Desea cargar la Consulta Medica?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
         'agregar teniendo en cuentas loc combos de horas
         'On Error GoTo HayErrorTurno
 
@@ -1907,7 +1907,7 @@ Private Sub cmdAceptar_Click()
 '        End If
         DBConn.Execute sql
     Else
-        If MsgBox("¿Desea Modificar la Consulta Medica?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+        If MsgBox("Â¿Desea Modificar la Consulta Medica?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
         sql = "UPDATE CCLINICO SET "
         sql = sql & " CCL_FECHA = " & XDQ(Fecha.Value)
         sql = sql & " ,CLI_CODIGO=" & XN(txtCodigo.Text)
@@ -1929,7 +1929,7 @@ Private Sub cmdAceptar_Click()
     'cboDesde.ListIndex = cboDesde.ListIndex + 1
     'Next
     'cboDesde.Text = sHoraDAux
-    'If MsgBox("¿Imprime el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+    'If MsgBox("Â¿Imprime el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
     'ImprimirTurno
     
     LimpiarConsulta
@@ -1959,7 +1959,7 @@ Private Sub cmdAceptarImg_Click()
     'Validar los campos requeridos
     If validarImagen = False Then Exit Sub
     If txtNroImg.Text = "" Then
-        If MsgBox("¿Desea cargar los Datos de la Imágen?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+        If MsgBox("Â¿Desea cargar los Datos de la ImÃ¡gen?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
         'agregar teniendo en cuentas loc combos de horas
         'On Error GoTo HayErrorTurno
 
@@ -1986,7 +1986,7 @@ Private Sub cmdAceptarImg_Click()
         sql = sql & XS(txtImgDescri.Text) & ")"
         DBConn.Execute sql
     Else
-        If MsgBox("¿Desea Modificar la Imagen?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+        If MsgBox("Â¿Desea Modificar la Imagen?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
         sql = "UPDATE IMAGEN SET "
         sql = sql & " IMG_FECHA = " & XDQ(FechaImg.Value)
         sql = sql & " ,CLI_CODIGO=" & XN(txtCodigo.Text)
@@ -2002,7 +2002,7 @@ Private Sub cmdAceptarImg_Click()
     'cboDesde.ListIndex = cboDesde.ListIndex + 1
     'Next
     'cboDesde.Text = sHoraDAux
-    'If MsgBox("¿Imprime el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+    'If MsgBox("Â¿Imprime el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
     'ImprimirTurno
     
     LimpiarImagen
@@ -2021,7 +2021,7 @@ Private Sub cmdAceptarPedido_Click()
     'Validar los campos requeridos
     If validarPedido = False Then Exit Sub
     If txtnroPedido.Text = "" Then
-        If MsgBox("¿Desea cargar el Pedido?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+        If MsgBox("Â¿Desea cargar el Pedido?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
         'agregar teniendo en cuentas loc combos de horas
         'On Error GoTo HayErrorTurno
 
@@ -2049,7 +2049,7 @@ Private Sub cmdAceptarPedido_Click()
         sql = sql & cboDocPedido.ItemData(cboDocPedido.ListIndex) & ")"
         DBConn.Execute sql
     Else
-        If MsgBox("¿Desea Modificar el Pedido?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+        If MsgBox("Â¿Desea Modificar el Pedido?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
         sql = "UPDATE PEDIDO SET "
         sql = sql & " PED_FECHA = " & XDQ(FechaPed.Value)
         sql = sql & " ,CLI_CODIGO=" & XN(txtCodigo.Text)
@@ -2066,7 +2066,7 @@ Private Sub cmdAceptarPedido_Click()
     'cboDesde.ListIndex = cboDesde.ListIndex + 1
     'Next
     'cboDesde.Text = sHoraDAux
-    'If MsgBox("¿Imprime el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+    'If MsgBox("Â¿Imprime el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
     'ImprimirTurno
     
     LimpiarPedido
@@ -2094,7 +2094,7 @@ Private Function validarPedido() As Boolean
         Exit Function
     End If
     If txtDescPedido.Text = "" Then
-        MsgBox "No ha ingresado la Descripción del pedido", vbCritical, TIT_MSGBOX
+        MsgBox "No ha ingresado la DescripciÃ³n del pedido", vbCritical, TIT_MSGBOX
         txtDescPedido.SetFocus
         validarPedido = False
         Exit Function
@@ -2197,7 +2197,7 @@ Private Sub cmdAnterior_Click()
 End Sub
 
 Private Sub cmdCancelar_Click()
-    'If MsgBox("¿Seguro desea Cancelarla Consulta Medica?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+    'If MsgBox("Â¿Seguro desea Cancelarla Consulta Medica?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
     LimpiarConsulta
     BuscaCodigoProxItemData Int(Doc), cboDocCon
 End Sub
@@ -2275,7 +2275,7 @@ Private Sub cmdSiguiente_Click()
         actual = 0
         'actualizo en BD que el paciente actual asistio
         'Actualizo la Base de Datos
-        If MsgBox("¿Confirma la asistencia del paciente " & txtBuscarCliDescri & " ?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbYes Then
+        If MsgBox("Â¿Confirma la asistencia del paciente " & txtBuscarCliDescri & " ?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbYes Then
             sql = "UPDATE TURNOS SET "
             sql = sql & " TUR_ASISTIO = 1"
             sql = sql & " WHERE "
@@ -2357,7 +2357,7 @@ Set word = CreateObject("word.Basic")
             'word.filePrintDefault
             On Error GoTo 0
         'Else
-        '    MsgBox "El Archivo seleccionado no es válido", vbExclamation, Me.Caption
+        '    MsgBox "El Archivo seleccionado no es vÃ¡lido", vbExclamation, Me.Caption
         'End If
         
     End If
@@ -2448,7 +2448,7 @@ Private Function preparogrillas()
         grdPedidos.HighLight = flexHighlightAlways
     
     ' Grilla de IMAGENES -
-    grdImagenes.FormatString = "Fecha|Doctor|Imágen|Descripcion|TipoIMG|CodMedico|IMG_CODIGO"
+    grdImagenes.FormatString = "Fecha|Doctor|ImÃ¡gen|Descripcion|TipoIMG|CodMedico|IMG_CODIGO"
     grdImagenes.ColWidth(0) = 1500  'Fecha
     grdImagenes.ColWidth(1) = 2500 'Doctor
     grdImagenes.ColWidth(2) = 3500 'Imagen
@@ -2784,7 +2784,7 @@ Public Sub BuscarClientes(Txt As String, mQuien As String, Optional mCadena As S
             cSQL = cSQL & " WHERE CLI_RAZSOC LIKE '" & Trim(mCadena) & "%'"
         End If
         
-        hSQL = "Nombre, Código, DNI"
+        hSQL = "Nombre, CÃ³digo, DNI"
         .sql = cSQL
         .Headers = hSQL
         .Field = "CLI_RAZSOC"
@@ -2906,7 +2906,7 @@ End Function
 
 Private Sub TxtCodigo_LostFocus()
     Dim edad As Integer
-    Dim años As Integer
+    Dim aÃ±os As Integer
     If txtCodigo.Text <> "" Then
         Set rec = New ADODB.Recordset
         sql = "SELECT CLI_CODIGO, CLI_RAZSOC,CLI_NRODOC,CLI_TELEFONO,CLI_NROAFIL,CLI_CUMPLE"
@@ -2919,8 +2919,9 @@ Private Sub TxtCodigo_LostFocus()
             txtBuscarCliDescri.Text = rec!CLI_RAZSOC
             txtCodigo.Text = rec!CLI_CODIGO
             txtTelefono.Text = ChkNull(rec!CLI_TELEFONO)
-            txtOSocial.Text = BuscarOSocial(rec!CLI_CODIGO)
+            'txtOSocial.Text = BuscarOSocial(rec!CLI_CODIGO)
             txtNAfil.Text = ChkNull(rec!CLI_NROAFIL)
+            txtOSocial.Text = BuscarOSocial(rec!CLI_CODIGO) & " - " & ChkNull(rec!CLI_NROAFIL)
             'calculo de edad
             'BuscarProxPaciente
             Calculo_Edad IIf(IsNull(rec!CLI_CUMPLE), Date, rec!CLI_CUMPLE)
