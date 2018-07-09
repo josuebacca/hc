@@ -554,7 +554,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   54329346
+         StartOfWeek     =   54460418
          CurrentDate     =   40049
       End
    End
@@ -1791,6 +1791,20 @@ Private Sub grdGrilla_Click()
 End Sub
 
 Private Sub GRDGrilla_DblClick()
+     'BUSCO CODIGO DE DOCTOR POR NOMBRE DE USUARIO logeado
+    sql = "SELECT VEN_CODIGO FROM VENDEDOR"
+    sql = sql & " WHERE PR_CODIGO > 1 "
+    If mNomUser = "A" Or mNomUser = "DIGOR" Then
+        sql = sql & " AND VEN_NOMBRE LIKE '" & "SILVANA" & "%'"
+    Else
+        sql = sql & " AND VEN_NOMBRE LIKE '" & mNomUser & "%'"
+    End If
+    rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
+    If rec.EOF = False Then
+        Doc = rec!VEN_CODIGO
+    End If
+    rec.Close
+    
     If Doc = cboDoctor.ItemData(cboDoctor.ListIndex) Then
         frmhistoriaclinica.txtCodigo = grdGrilla.TextMatrix(grdGrilla.RowSel, 9)
         frmhistoriaclinica.Show vbModal
