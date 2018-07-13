@@ -67,7 +67,7 @@ Begin VB.Form frmTurnos
       Locked          =   -1  'True
       MaxLength       =   50
       TabIndex        =   35
-      Tag             =   "Descripción"
+      Tag             =   "DescripciÃ³n"
       Top             =   8880
       Width           =   1500
    End
@@ -210,7 +210,7 @@ Begin VB.Form frmTurnos
          Left            =   120
          MaxLength       =   75
          TabIndex        =   5
-         Tag             =   "Descripción"
+         Tag             =   "DescripciÃ³n"
          Top             =   3660
          Width           =   2595
       End
@@ -245,7 +245,7 @@ Begin VB.Form frmTurnos
          Locked          =   -1  'True
          MaxLength       =   50
          TabIndex        =   27
-         Tag             =   "Descripción"
+         Tag             =   "DescripciÃ³n"
          Top             =   1920
          Width           =   2715
       End
@@ -272,7 +272,7 @@ Begin VB.Form frmTurnos
          Locked          =   -1  'True
          MaxLength       =   50
          TabIndex        =   26
-         Tag             =   "Descripción"
+         Tag             =   "DescripciÃ³n"
          Top             =   1080
          Width           =   1395
       End
@@ -290,7 +290,7 @@ Begin VB.Form frmTurnos
          Left            =   120
          MaxLength       =   50
          TabIndex        =   3
-         Tag             =   "Descripción"
+         Tag             =   "DescripciÃ³n"
          Top             =   735
          Width           =   2715
       End
@@ -345,7 +345,7 @@ Begin VB.Form frmTurnos
          MaxLength       =   100
          MultiLine       =   -1  'True
          TabIndex        =   4
-         Tag             =   "Descripción"
+         Tag             =   "DescripciÃ³n"
          Top             =   2640
          Width           =   2650
       End
@@ -383,7 +383,7 @@ Begin VB.Form frmTurnos
          Left            =   1440
          MaxLength       =   50
          TabIndex        =   8
-         Tag             =   "Descripción"
+         Tag             =   "DescripciÃ³n"
          Text            =   "0,00"
          Top             =   4935
          Width           =   1395
@@ -456,7 +456,7 @@ Begin VB.Form frmTurnos
          AutoSize        =   -1  'True
          BackColor       =   &H00C0C0FF&
          BorderStyle     =   1  'Fixed Single
-         Caption         =   "Teléfono:"
+         Caption         =   "TelÃ©fono:"
          BeginProperty Font 
             Name            =   "MS Sans Serif"
             Size            =   8.25
@@ -862,7 +862,7 @@ Private Function ValidarTurno() As Boolean
         Exit Function
     End If
     If cbohasta.ListIndex = -1 Then
-        MsgBox "No ha ingresado la hora de finalización del Turno", vbCritical, TIT_MSGBOX
+        MsgBox "No ha ingresado la hora de finalizaciÃ³n del Turno", vbCritical, TIT_MSGBOX
         cbohasta.SetFocus
         ValidarTurno = False
         Exit Function
@@ -912,7 +912,7 @@ Private Sub cmdAgregar_Click()
     'Validar los campos requeridos
     If ValidarTurno = False Then Exit Sub
     'If ValidarHorarioTurno = False Then Exit Sub
-    If MsgBox("¿Confirma el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+    If MsgBox("Â¿Confirma el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
     'agregar teniendo en cuentas loc combos de horas
     On Error GoTo HayErrorTurno
     
@@ -988,7 +988,7 @@ Private Sub cmdAgregar_Click()
             
         Else
             
-            If MsgBox("Ya hay un turno para ese horario ¿Confirma la Modificación del Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then
+            If MsgBox("Ya hay un turno para ese horario Â¿Confirma la ModificaciÃ³n del Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then
                 rec.Close
                 Exit Sub
             End If
@@ -1033,7 +1033,7 @@ Private Sub cmdAgregar_Click()
     cboDesde.Text = sHoraDAux
     BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
     
-    If MsgBox("¿Imprime el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then
+    If MsgBox("Â¿Imprime el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then
         LimpiarTurno
         Exit Sub
     End If
@@ -1103,7 +1103,7 @@ End Sub
 
 Private Sub cmdCopiar_Click()
     If MsgBox("Esta a punto de  Copiar los " & lbldiaTurno.Caption & " " & Chr(13) & " del Doctor: " & cboDoctor.Text & _
-    " ¿Confirma Copiar los Turnos?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+    " Â¿Confirma Copiar los Turnos?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
     
     sAction = "COPIAR"
     dFechaCopy = MViewFecha.Value
@@ -1113,7 +1113,7 @@ End Sub
 
 Private Sub cmdCortar_Click()
     If MsgBox("Esta a punto de Cortar los " & lbldiaTurno.Caption & " " & Chr(13) & " del Doctor: " & cboDoctor.Text & _
-    " ¿Confirma Cortar los Turnos?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+    " Â¿Confirma Cortar los Turnos?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
     
     sAction = "CORTAR"
     dFechaCopy = MViewFecha.Value
@@ -1169,8 +1169,8 @@ Private Sub cmdPegar_Click()
             End If
         Next
         If i < grdGrilla.Rows - 1 Then
-            If MsgBox("Hay Turnos previamente cargados en este dia que se eliminaran si realiza esta acción." & Chr(13) & _
-            " ¿Confirma eliminar estos Turnos?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+            If MsgBox("Hay Turnos previamente cargados en este dia que se eliminaran si realiza esta acciÃ³n." & Chr(13) & _
+            " Â¿Confirma eliminar estos Turnos?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
             
             sql = "DELETE FROM TURNOS WHERE TUR_FECHA = " & XDQ(MViewFecha.Value)
             sql = sql & " AND VEN_CODIGO =" & cboDoctor.ItemData(cboDoctor.ListIndex)
@@ -1179,7 +1179,7 @@ Private Sub cmdPegar_Click()
         End If
         
          If MsgBox("Esta a punto de Pegar los " & sDiaTurno & " " & Chr(13) & "previamente cortados del Doctor: " & sNameDoctorCopy & _
-        " " & Chr(13) & "¿Confirma Pegar los Turnos?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+        " " & Chr(13) & "Â¿Confirma Pegar los Turnos?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
         
         sql = "UPDATE TURNOS SET"
         sql = sql & " TUR_FECHA = " & XDQ(MViewFecha.Value)
@@ -1197,8 +1197,8 @@ Private Sub cmdPegar_Click()
                 End If
             Next
             If i < grdGrilla.Rows - 1 Then
-                If MsgBox("Hay Turnos previamente cargados en este dia que se eliminaran si realiza esta acción." & Chr(13) & _
-                " ¿Confirma eliminar estos Turnos?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+                If MsgBox("Hay Turnos previamente cargados en este dia que se eliminaran si realiza esta acciÃ³n." & Chr(13) & _
+                " Â¿Confirma eliminar estos Turnos?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
                 
                 sql = "DELETE FROM TURNOS WHERE TUR_FECHA = " & XDQ(MViewFecha.Value)
                 sql = sql & " AND VEN_CODIGO =" & cboDoctor.ItemData(cboDoctor.ListIndex)
@@ -1209,7 +1209,7 @@ Private Sub cmdPegar_Click()
             
         
              If MsgBox("Esta a punto de Pegar los " & sDiaTurno & " " & Chr(13) & "previamente copiados del Doctor: " & sNameDoctorCopy & _
-            " " & Chr(13) & "¿Confirma Pegar los Turnos?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+            " " & Chr(13) & "Â¿Confirma Pegar los Turnos?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
                         
             sql = "SELECT * FROM TURNOS WHERE TUR_FECHA = " & XDQ(dFechaCopy)
             sql = sql & "AND VEN_CODIGO = " & XN(nDoctorCopy)
@@ -1279,7 +1279,7 @@ Private Sub cmdQuitar_Click()
     'Borrar de la BD
     If txtCodigo.Text <> "" Then
         If grdGrilla.TextMatrix(grdGrilla.RowSel, 1) <> "" Then
-            If MsgBox("¿Confirma Eiminar el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+            If MsgBox("Â¿Confirma Eiminar el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
                 
             sql = "DELETE FROM TURNOS WHERE"
             sql = sql & " TUR_FECHA = " & XDQ(MViewFecha.Value)
@@ -1480,7 +1480,7 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
     Dim foreColor As String
     Dim backColor As String
     Dim total As Double
-    Dim años As Integer
+    Dim aÃ±os As Integer
     Dim edad As Integer
     sql = "SELECT T.*,V.VEN_NOMBRE,C.CLI_RAZSOC,C.CLI_NRODOC,C.CLI_TELEFONO,C.CLI_CELULAR,C.CLI_CUMPLE"
     sql = sql & " FROM TURNOS T, VENDEDOR V, CLIENTE C"
@@ -1509,10 +1509,10 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
             'calculo edad de paciente
             If Not (IsNull(rec!CLI_CUMPLE)) Then
                 If rec.EOF = False Then
-                    años = Year(Date) - Year(rec!CLI_CUMPLE)
-                    If Month(Fecha) < Month(rec!CLI_CUMPLE) Then años = años - 1 'todavía no ha llegado el mes de su cumple
-                    If Month(Now) = Month(rec!CLI_CUMPLE) And Day(Fecha) < Day(rec!CLI_CUMPLE) Then años = años - 1 'es el mes pero no ha llegado el día de su cumple
-                    edad = años
+                    aÃ±os = Year(Date) - Year(rec!CLI_CUMPLE)
+                    If Month(Fecha) < Month(rec!CLI_CUMPLE) Then aÃ±os = aÃ±os - 1 'todavÃ­a no ha llegado el mes de su cumple
+                    If Month(Now) = Month(rec!CLI_CUMPLE) And Day(Fecha) < Day(rec!CLI_CUMPLE) Then aÃ±os = aÃ±os - 1 'es el mes pero no ha llegado el dÃ­a de su cumple
+                    edad = aÃ±os
                 End If
             Else
                 edad = 0
@@ -1791,6 +1791,20 @@ Private Sub grdGrilla_Click()
 End Sub
 
 Private Sub GRDGrilla_DblClick()
+     'BUSCO CODIGO DE DOCTOR POR NOMBRE DE USUARIO logeado
+    sql = "SELECT VEN_CODIGO FROM VENDEDOR"
+    sql = sql & " WHERE PR_CODIGO > 1 "
+    If mNomUser = "A" Or mNomUser = "DIGOR" Then
+        sql = sql & " AND VEN_NOMBRE LIKE '" & "SILVANA" & "%'"
+    Else
+        sql = sql & " AND VEN_NOMBRE LIKE '" & mNomUser & "%'"
+    End If
+    rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
+    If rec.EOF = False Then
+        Doc = rec!VEN_CODIGO
+    End If
+    rec.Close
+    
     If Doc = cboDoctor.ItemData(cboDoctor.ListIndex) Then
         frmhistoriaclinica.txtCodigo = grdGrilla.TextMatrix(grdGrilla.RowSel, 9)
         frmhistoriaclinica.Show vbModal
@@ -1998,7 +2012,7 @@ Public Sub BuscarClientes(Txt As String, mQuien As String, Optional mCadena As S
             cSQL = cSQL & " WHERE CLI_RAZSOC LIKE '" & Trim(mCadena) & "%'"
         End If
         
-        hSQL = "Nombre, Código, DNI"
+        hSQL = "Nombre, CÃ³digo, DNI"
         .sql = cSQL
         .Headers = hSQL
         .Field = "CLI_RAZSOC"
