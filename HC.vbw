@@ -1,4 +1,4 @@
-GENERAL = 114, 331, 1322, 969, C
+GENERAL = 156, 401, 1364, 1039, 
 modConstantesDB = 0, 0, 0, 0, C
 modDllBusqueda = 0, 0, 0, 0, C
 modDllListaBaseABM = 0, 0, 0, 0, C
@@ -52,27 +52,19 @@ frmCalendario = 0, 0, 0, 0, C, 44, 58, 455, 396, C
 ABMObraSocial = 0, 0, 0, 0, C, 215, 101, 769, 502, C
 frmRestaurarBD = 0, 0, 0, 0, C, 88, 116, 499, 454, C
 MenuCore = 0, 0, 0, 0, C, 110, 145, 521, 483, C
-Menu = 337, 55, 1415, 708, C, 0, 0, 921, 552, C
+Menu = 337, 55, 1415, 708, , 0, 0, 921, 552, C
 ABMTratamiento = 0, 0, 0, 0, C, 22, 29, 723, 440, C
 ABMLabDentales = 0, 0, 0, 0, C, 44, 58, 455, 396, C
 ABMLabClinicos = 0, 0, 0, 0, C, 66, 87, 477, 425, C
 ABMGrupos = 0, 0, 0, 0, C, 88, 116, 499, 454, C
 ABMMedicamentos = 164, 252, 1341, 915, C, 110, 145, 807, 616, C
-frmTurnos = 91, 541, 1404, 1262, C, 154, 553, 1295, 1290, C
+frmTurnos = 282, 574, 1595, 1295, , 154, 553, 1295, 1290, C
 frmBuscarTurnos = 58, 114, 1154, 752, C, 377, 219, 1266, 885, C
 frmDatosClientes = 100, 100, 1274, 763, C, 44, 58, 790, 639, C
-frmCumpleaÃ±os = 88, 116, 776, 514, C, 66, 87, 762, 565, C
+frmCumpleaños = 0, 0, 0, 0, C, 0, 0, 0, 0, C
 frmCommunicator = 220, 290, 1428, 928, C, 88, 116, 499, 454, C
 frmControlVisitas = 176, 232, 862, 725, C, 110, 145, 895, 686, C
 ABMProfesion = 25, 25, 1202, 688, C, 407, 202, 818, 540, C
-<<<<<<< HEAD
-frmhistoriaclinica = 99, 109, 1315, 915, Z, 146, 92, 1436, 918, C
 Ecografía = 0, 0, 0, 0, C, 211, 305, 1388, 968, C
-frmEcografía = 75, 75, 1252, 738, C, 163, 91, 1340, 754, C
-=======
-frmhistoriaclinica = 99, 109, 1315, 915, , 146, 92, 1436, 918, C
-EcografÃ­a = 0, 0, 0, 0, C, 211, 305, 1388, 968, C
-frmEcografÃ­a = 75, 75, 1252, 738, C, 163, 91, 1340, 754, C
->>>>>>> 9b08788b2c68231b0fed277c9212d4d9e21481e1
-AgregarEstudioGinecologico = 137, 465, 1277, 1103, C, 50, 50, 1227, 713, C
 frmParametros = 176, 232, 1052, 870, C, 110, 145, 1250, 783, C
+frmhistoriaclinica = 194, 31, 1489, 890, , 219, 40, 1462, 891, C
