@@ -246,7 +246,7 @@ Option Explicit
 'parametros para la configuración de la ventana de datos
 Dim vFieldID As String
 Dim vStringSQL As String
-Dim vFormLlama As Form
+Dim Llama As Form
 Dim vMode As Integer
 Dim vListView As ListView
 Dim vDesFieldID As String

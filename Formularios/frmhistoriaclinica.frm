@@ -320,19 +320,12 @@ Begin VB.Form frmhistoriaclinica
       TabPicture(1)   =   "frmhistoriaclinica.frx":001C
       Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "Frame2"
-      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).Control(1)=   "cmdEliminarEco"
-      Tab(1).Control(1).Enabled=   0   'False
       Tab(1).Control(2)=   "cmdAgregarEco"
-      Tab(1).Control(2).Enabled=   0   'False
       Tab(1).Control(3)=   "cmdVer"
-      Tab(1).Control(3).Enabled=   0   'False
       Tab(1).Control(4)=   "cmdVerEstudio"
-      Tab(1).Control(4).Enabled=   0   'False
       Tab(1).Control(5)=   "Frame7"
-      Tab(1).Control(5).Enabled=   0   'False
       Tab(1).Control(6)=   "cmdabrirdoc"
-      Tab(1).Control(6).Enabled=   0   'False
       Tab(1).ControlCount=   7
       TabCaption(2)   =   "Laboratorio"
       TabPicture(2)   =   "frmhistoriaclinica.frx":0038
@@ -493,7 +486,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   20840449
+            Format          =   110428161
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHastaImg 
@@ -507,7 +500,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   20840449
+            Format          =   110428161
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdImagenes 
@@ -657,7 +650,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   20840449
+            Format          =   110428161
             CurrentDate     =   41098
          End
          Begin VB.Label Label32 
@@ -741,7 +734,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   20840449
+            Format          =   110428161
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHastaPedido 
@@ -755,7 +748,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   20840449
+            Format          =   110428161
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdPedidos 
@@ -944,7 +937,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   20840449
+            Format          =   110428161
             CurrentDate     =   41098
          End
          Begin VB.Label Label24 
@@ -1060,7 +1053,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   20840449
+            Format          =   110428161
             CurrentDate     =   43205
          End
          Begin VB.CommandButton cmdCancelar 
@@ -1097,7 +1090,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   20840449
+            Format          =   110428161
             CurrentDate     =   41098
          End
          Begin VB.CommandButton cmdAceptar 
@@ -1243,7 +1236,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   20840449
+            Format          =   110428161
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHasta 
@@ -1257,7 +1250,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   20840449
+            Format          =   110428161
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdConsultas 
@@ -1520,7 +1513,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   20840449
+            Format          =   110428161
             CurrentDate     =   41098
          End
          Begin VB.Label Label38 
@@ -1640,7 +1633,7 @@ Private Function Calculo_Edad(cumple As Date)
     If Not (IsNull(cumple)) Then
         años = Year(Date) - Year(cumple)
         If Month(Fecha) < Month(cumple) Then años = años - 1 'todavía no ha llegado el mes de su cumple
-        If Month(Now) = Month(cumple) And Day(Fecha) < Day(cumple) Then años = años - 1 'es el mes pero no ha llegado el día de su cumple
+         If Month(Now) = Month(cumple) And Day(Fecha) < Day(cumple) Then años = años - 1 'es el mes pero no ha llegado el día de su cumple
         edad = años
     Else
         edad = 0
@@ -2719,7 +2712,6 @@ Private Sub txtBuscaCliente_KeyPress(KeyAscii As Integer)
     KeyAscii = CarNumeroEntero(KeyAscii)
 End Sub
 Private Sub txtBuscaCliente_LostFocus()
-   
     If txtBuscaCliente.Text <> "" Then
         Set rec = New ADODB.Recordset
         sql = "SELECT CLI_CODIGO, CLI_RAZSOC,CLI_NRODOC,CLI_TELEFONO,CLI_NROAFIL,CLI_CUMPLE"
@@ -2999,5 +2991,6 @@ Private Sub TxtCodigo_LostFocus()
         End If
         rec.Close
     End If
+    txtBuscaCliente_LostFocus
 End Sub
 

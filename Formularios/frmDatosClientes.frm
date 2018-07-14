@@ -211,10 +211,6 @@ Private Sub cmdTurnos_Click()
     frmBuscarTurnos.Show vbModal
 End Sub
 
-Private Sub Command4_Click()
-
-End Sub
-
 Private Sub Command6_Click()
     'Set rec = Nothing
     Unload Me

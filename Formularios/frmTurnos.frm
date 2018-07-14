@@ -456,7 +456,7 @@ Begin VB.Form frmTurnos
          AutoSize        =   -1  'True
          BackColor       =   &H00C0C0FF&
          BorderStyle     =   1  'Fixed Single
-         Caption         =   "Teléfono:"
+         Caption         =   "Tel�fono:"
          BeginProperty Font 
             Name            =   "MS Sans Serif"
             Size            =   8.25
@@ -466,11 +466,11 @@ Begin VB.Form frmTurnos
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Height          =   315
+         Height          =   255
          Left            =   120
          TabIndex        =   28
          Top             =   1080
-         Width           =   1320
+         Width           =   1350
       End
       Begin VB.Label Label3 
          Alignment       =   2  'Center
@@ -488,7 +488,7 @@ Begin VB.Form frmTurnos
             Strikethrough   =   0   'False
          EndProperty
          Height          =   315
-         Left            =   105
+         Left            =   120
          TabIndex        =   19
          Top             =   4140
          Width           =   2640
@@ -554,7 +554,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   20971522
+         StartOfWeek     =   110428162
          CurrentDate     =   40049
       End
    End
@@ -1480,7 +1480,7 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
     Dim foreColor As String
     Dim backColor As String
     Dim total As Double
-    Dim años As Integer
+    Dim a�os As Integer
     Dim edad As Integer
     sql = "SELECT T.*,V.VEN_NOMBRE,C.CLI_RAZSOC,C.CLI_NRODOC,C.CLI_TELEFONO,C.CLI_CELULAR,C.CLI_CUMPLE"
     sql = sql & " FROM TURNOS T, VENDEDOR V, CLIENTE C"
@@ -1509,10 +1509,10 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
             'calculo edad de paciente
             If Not (IsNull(rec!CLI_CUMPLE)) Then
                 If rec.EOF = False Then
-                    años = Year(Date) - Year(rec!CLI_CUMPLE)
-                    If Month(Fecha) < Month(rec!CLI_CUMPLE) Then años = años - 1 'todavía no ha llegado el mes de su cumple
-                    If Month(Now) = Month(rec!CLI_CUMPLE) And Day(Fecha) < Day(rec!CLI_CUMPLE) Then años = años - 1 'es el mes pero no ha llegado el día de su cumple
-                    edad = años
+                    a�os = Year(Date) - Year(rec!CLI_CUMPLE)
+                    If Month(Fecha) < Month(rec!CLI_CUMPLE) Then a�os = a�os - 1 'todavía no ha llegado el mes de su cumple
+                    If Month(Now) = Month(rec!CLI_CUMPLE) And Day(Fecha) < Day(rec!CLI_CUMPLE) Then a�os = a�os - 1 'es el mes pero no ha llegado el día de su cumple
+                    edad = a�os
                 End If
             Else
                 edad = 0
@@ -1745,24 +1745,33 @@ Private Sub grdGrilla_Click()
            txtBuscarCliDescri.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 1)
            txtTelefono.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 3)
            txtOSocial.Text = BuscarOSocial(txtCodigo.Text) 'grdGrilla.TextMatrix(grdGrilla.RowSel, 5)
-           If grdGrilla.TextMatrix(grdGrilla.RowSel, 5) = "PARTICULAR" Then
-               optNO.Value = True
-               optNO.Enabled = True
-           Else
-               optSI.Value = True
-               optSI.Enabled = True
-           End If
-           If Chk0(grdGrilla.TextMatrix(grdGrilla.RowSel, 13)) <> 1 Then 'si no tiene mutual el paciente
+           
+           'verifico si el paciente tiene mutual
+           ' If Chk0(grdGrilla.TextMatrix(grdGrilla.RowSel, 13)) <> 1 Then 'si no tiene mutual el paciente
+          If txtOSocial.Text = "" Then
                optSI.Enabled = False
                optNO.Value = True
+            Else
+                optSI.Enabled = True
+                optSI.Value = True
            End If
+           
+           'veriifco si es con mutual el turno
+           If grdGrilla.TextMatrix(grdGrilla.RowSel, 5) = "PARTICULAR" Then
+               optNO.Value = True
+               'optSI.Enabled = True
+           Else
+                optSI.Enabled = True
+                optSI.Value = True
+           End If
+          
            txtMotivo.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 6)
            txtDrSolicitante.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 7)
            BuscaDescriProx Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5), cboDesde
            BuscaDescriProx Right(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5), cbohasta
-           If Chk0(grdGrilla.TextMatrix(grdGrilla.RowSel, 13)) = 0 Then
-               optSI.Enabled = False
-           End If
+           'If Chk0(grdGrilla.TextMatrix(grdGrilla.RowSel, 13)) = 0 Then
+           '    optSI.Enabled = False
+           'End If
 
            If User = 1 Then
                txtimporte.Text = Valido_Importe(grdGrilla.TextMatrix(grdGrilla.RowSel, 14))
@@ -1820,6 +1829,7 @@ Private Sub grdGrilla_KeyDown(KeyCode As Integer, Shift As Integer)
     End If
 
 End Sub
+
 Private Sub MViewFecha_DateClick(ByVal DateClicked As Date)
     'lbldiaTurno.Caption = "Turnos del dia " & MViewFecha.Value
     'lbldiaTurno.Caption = "Turnos del dia " & WeekdayName(Weekday(MViewFecha.Value) - 1, False) & " " & day(MViewFecha.Value) & " de " & MonthName(Month(MViewFecha.Value), False) & " de " & Year(MViewFecha.Value)

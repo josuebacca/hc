@@ -9,6 +9,7 @@ Public vFormPais As frmCListaBaseABM
 Public vFormSucursal As frmCListaBaseABM
 Public vFormProvincia As frmCListaBaseABM
 Public vFormLocalidad As frmCListaBaseABM
+Public vFormTipoImagen As frmCListaBaseABM
 Public vFormMarcas As frmCListaBaseABM
 Public vFormTipoComprobante As frmCListaBaseABM
 Public vFormCondicionIva As frmCListaBaseABM
@@ -41,6 +42,7 @@ Public vABMClPr As CListaBaseABM
 Public vABMPais As CListaBaseABM
 Public vABMSucursal As CListaBaseABM
 Public vABMProvincia As CListaBaseABM
+Public vABMTipoImagen As CListaBaseABM
 Public vABMLocalidad As CListaBaseABM
 Public vABMMarcas As CListaBaseABM
 Public vABMTipoCompronate As CListaBaseABM
