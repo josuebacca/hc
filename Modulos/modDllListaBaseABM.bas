@@ -36,6 +36,7 @@ Public vFormLabClinicos As frmCListaBaseABM
 Public vFormGrupos As frmCListaBaseABM
 Public vFormMedicamentos As frmCListaBaseABM
 Public vFormProfesiones As frmCListaBaseABM
+Public vFormProtocolos As frmCListaBaseABM
 
 'objetos
 Public vABMClPr As CListaBaseABM
@@ -43,6 +44,7 @@ Public vABMPais As CListaBaseABM
 Public vABMSucursal As CListaBaseABM
 Public vABMProvincia As CListaBaseABM
 Public vABMTipoImagen As CListaBaseABM
+Public vABMProtocolos As CListaBaseABM
 Public vABMLocalidad As CListaBaseABM
 Public vABMMarcas As CListaBaseABM
 Public vABMTipoCompronate As CListaBaseABM

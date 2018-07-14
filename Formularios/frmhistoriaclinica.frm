@@ -304,28 +304,33 @@ Begin VB.Form frmhistoriaclinica
       _ExtentY        =   15055
       _Version        =   393216
       Tabs            =   5
+      Tab             =   1
       TabsPerRow      =   5
       TabHeight       =   520
       TabCaption(0)   =   "Curso Clinico"
       TabPicture(0)   =   "frmhistoriaclinica.frx":0000
-      Tab(0).ControlEnabled=   -1  'True
-      Tab(0).Control(0)=   "Frame4"
-      Tab(0).Control(0).Enabled=   0   'False
+      Tab(0).ControlEnabled=   0   'False
+      Tab(0).Control(0)=   "Frame6"
       Tab(0).Control(1)=   "Frame5"
-      Tab(0).Control(1).Enabled=   0   'False
-      Tab(0).Control(2)=   "Frame6"
-      Tab(0).Control(2).Enabled=   0   'False
+      Tab(0).Control(2)=   "Frame4"
       Tab(0).ControlCount=   3
       TabCaption(1)   =   "Ecografias"
       TabPicture(1)   =   "frmhistoriaclinica.frx":001C
-      Tab(1).ControlEnabled=   0   'False
+      Tab(1).ControlEnabled=   -1  'True
       Tab(1).Control(0)=   "Frame2"
+      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).Control(1)=   "cmdEliminarEco"
+      Tab(1).Control(1).Enabled=   0   'False
       Tab(1).Control(2)=   "cmdAgregarEco"
+      Tab(1).Control(2).Enabled=   0   'False
       Tab(1).Control(3)=   "cmdVer"
+      Tab(1).Control(3).Enabled=   0   'False
       Tab(1).Control(4)=   "cmdVerEstudio"
+      Tab(1).Control(4).Enabled=   0   'False
       Tab(1).Control(5)=   "Frame7"
+      Tab(1).Control(5).Enabled=   0   'False
       Tab(1).Control(6)=   "cmdabrirdoc"
+      Tab(1).Control(6).Enabled=   0   'False
       Tab(1).ControlCount=   7
       TabCaption(2)   =   "Laboratorio"
       TabPicture(2)   =   "frmhistoriaclinica.frx":0038
@@ -334,24 +339,24 @@ Begin VB.Form frmhistoriaclinica
       TabCaption(3)   =   "Ginecologia"
       TabPicture(3)   =   "frmhistoriaclinica.frx":0054
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "Label8"
-      Tab(3).Control(1)=   "optTipoEst"
-      Tab(3).Control(2)=   "optFechaGine"
-      Tab(3).Control(3)=   "cboTipoEstGine"
-      Tab(3).Control(4)=   "cmdAgregarEstGine"
-      Tab(3).Control(5)=   "cmdEliminarEstGine"
-      Tab(3).Control(6)=   "cmdImprimirEstGine"
-      Tab(3).Control(7)=   "Frame3"
+      Tab(3).Control(0)=   "Frame3"
+      Tab(3).Control(1)=   "cmdImprimirEstGine"
+      Tab(3).Control(2)=   "cmdEliminarEstGine"
+      Tab(3).Control(3)=   "cmdAgregarEstGine"
+      Tab(3).Control(4)=   "cboTipoEstGine"
+      Tab(3).Control(5)=   "optFechaGine"
+      Tab(3).Control(6)=   "optTipoEst"
+      Tab(3).Control(7)=   "Label8"
       Tab(3).ControlCount=   8
       TabCaption(4)   =   "Pedidos"
       TabPicture(4)   =   "frmhistoriaclinica.frx":0070
       Tab(4).ControlEnabled=   0   'False
-      Tab(4).Control(0)=   "Frame8"
-      Tab(4).Control(1)=   "Frame9"
+      Tab(4).Control(0)=   "Frame9"
+      Tab(4).Control(1)=   "Frame8"
       Tab(4).ControlCount=   2
       Begin VB.CommandButton cmdabrirdoc 
          Height          =   495
-         Left            =   -67200
+         Left            =   7800
          Picture         =   "frmhistoriaclinica.frx":008C
          Style           =   1  'Graphical
          TabIndex        =   130
@@ -361,7 +366,7 @@ Begin VB.Form frmhistoriaclinica
       End
       Begin VB.Frame Frame6 
          Height          =   1095
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   45
          Top             =   7260
          Width           =   8055
@@ -427,7 +432,7 @@ Begin VB.Form frmhistoriaclinica
             Strikethrough   =   0   'False
          EndProperty
          Height          =   7935
-         Left            =   -66480
+         Left            =   8520
          TabIndex        =   116
          Top             =   480
          Width           =   8055
@@ -486,7 +491,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110428161
+            Format          =   54788097
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHastaImg 
@@ -500,7 +505,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110428161
+            Format          =   54788097
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdImagenes 
@@ -650,7 +655,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110428161
+            Format          =   54788097
             CurrentDate     =   41098
          End
          Begin VB.Label Label32 
@@ -734,7 +739,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110428161
+            Format          =   54788097
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHastaPedido 
@@ -748,7 +753,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110428161
+            Format          =   54788097
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdPedidos 
@@ -937,7 +942,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110428161
+            Format          =   54788097
             CurrentDate     =   41098
          End
          Begin VB.Label Label24 
@@ -1014,7 +1019,7 @@ Begin VB.Form frmhistoriaclinica
             Strikethrough   =   0   'False
          EndProperty
          Height          =   6855
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   33
          Top             =   420
          Width           =   8055
@@ -1053,7 +1058,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110428161
+            Format          =   54788097
             CurrentDate     =   43205
          End
          Begin VB.CommandButton cmdCancelar 
@@ -1090,7 +1095,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110428161
+            Format          =   54788097
             CurrentDate     =   41098
          End
          Begin VB.CommandButton cmdAceptar 
@@ -1195,7 +1200,7 @@ Begin VB.Form frmhistoriaclinica
             Strikethrough   =   0   'False
          EndProperty
          Height          =   7935
-         Left            =   8280
+         Left            =   -66720
          TabIndex        =   26
          Top             =   420
          Width           =   8055
@@ -1236,7 +1241,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110428161
+            Format          =   54788097
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHasta 
@@ -1250,7 +1255,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110428161
+            Format          =   54788097
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdConsultas 
@@ -1360,7 +1365,7 @@ Begin VB.Form frmhistoriaclinica
       Begin VB.CommandButton cmdVerEstudio 
          Caption         =   "Ver Estudio(VA ACA?)"
          Height          =   375
-         Left            =   -60360
+         Left            =   14640
          TabIndex        =   5
          Top             =   8580
          Width           =   1335
@@ -1368,7 +1373,7 @@ Begin VB.Form frmhistoriaclinica
       Begin VB.CommandButton cmdVer 
          Caption         =   "Ver"
          Height          =   375
-         Left            =   -61800
+         Left            =   13200
          TabIndex        =   4
          Top             =   8580
          Width           =   1215
@@ -1376,7 +1381,7 @@ Begin VB.Form frmhistoriaclinica
       Begin VB.CommandButton cmdAgregarEco 
          Caption         =   "Agregar"
          Height          =   375
-         Left            =   -58800
+         Left            =   16200
          TabIndex        =   3
          Top             =   9060
          Width           =   1455
@@ -1384,7 +1389,7 @@ Begin VB.Form frmhistoriaclinica
       Begin VB.CommandButton cmdEliminarEco 
          Caption         =   "Elinimar"
          Height          =   375
-         Left            =   -57000
+         Left            =   18000
          TabIndex        =   2
          Top             =   9060
          Width           =   1215
@@ -1401,7 +1406,7 @@ Begin VB.Form frmhistoriaclinica
             Strikethrough   =   0   'False
          EndProperty
          Height          =   7935
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   102
          Top             =   480
          Width           =   8295
@@ -1513,7 +1518,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110428161
+            Format          =   54788097
             CurrentDate     =   41098
          End
          Begin VB.Label Label38 
@@ -1910,8 +1915,8 @@ Private Sub cmdAceptar_Click()
     Dim nFilaH As Integer
     Dim sHoraD As String
     Dim sHoraDAux As String
-    Dim i As Integer
-    Dim Num As Integer
+    Dim I As Integer
+    Dim num As Integer
     
     'Validar los campos requeridos
     If validarcclinico = False Then Exit Sub
@@ -1920,13 +1925,13 @@ Private Sub cmdAceptar_Click()
         'agregar teniendo en cuentas loc combos de horas
         'On Error GoTo HayErrorTurno
 
-        i = 0
+        I = 0
         sql = "SELECT MAX(CCL_NUMERO) as ultimo FROM CCLINICO"
         rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
         If rec.EOF = False Then
-            Num = Chk0(rec!Ultimo) + 1 ' guardo el proxuimo turno
+            num = Chk0(rec!Ultimo) + 1 ' guardo el proxuimo turno
         Else
-            Num = 1
+            num = 1
         End If
         rec.Close
         
@@ -1935,7 +1940,7 @@ Private Sub cmdAceptar_Click()
         sql = sql & " (CCL_NUMERO,CCL_FECHA,"
         sql = sql & " CLI_CODIGO,VEN_CODIGO,CCL_MOTIVO,CCL_INDICA,CCL_FECPC)"
         sql = sql & " VALUES ("
-        sql = sql & Num & ","
+        sql = sql & num & ","
         sql = sql & XDQ(Fecha.Value) & ","
         sql = sql & XN(txtCodigo.Text) & ","
         sql = sql & cboDocCon.ItemData(cboDocCon.ListIndex) & ","
@@ -1995,8 +2000,8 @@ Private Sub cmdAceptarImg_Click()
     Dim nFilaH As Integer
     Dim sHoraD As String
     Dim sHoraDAux As String
-    Dim i As Integer
-    Dim Num As Integer
+    Dim I As Integer
+    Dim num As Integer
     
     'Validar los campos requeridos
     If validarImagen = False Then Exit Sub
@@ -2005,13 +2010,13 @@ Private Sub cmdAceptarImg_Click()
         'agregar teniendo en cuentas loc combos de horas
         'On Error GoTo HayErrorTurno
 
-        i = 0
+        I = 0
         sql = "SELECT MAX(IMG_CODIGO) as ultimo FROM IMAGEN"
         rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
         If rec.EOF = False Then
-            Num = Chk0(rec!Ultimo) + 1 ' guardo el proxuimo turno
+            num = Chk0(rec!Ultimo) + 1 ' guardo el proxuimo turno
         Else
-            Num = 1
+            num = 1
         End If
         rec.Close
         
@@ -2020,7 +2025,7 @@ Private Sub cmdAceptarImg_Click()
         sql = sql & " (IMG_CODIGO,IMG_FECHA,"
         sql = sql & " CLI_CODIGO,VEN_CODIGO,TIP_CODIGO,IMG_DESCRI)"
         sql = sql & " VALUES ("
-        sql = sql & Num & ","
+        sql = sql & num & ","
         sql = sql & XDQ(FechaImg.Value) & ","
         sql = sql & XN(txtCodigo.Text) & ","
         sql = sql & cboDocImg.ItemData(cboDocImg.ListIndex) & ","
@@ -2057,8 +2062,8 @@ Private Sub cmdAceptarPedido_Click()
     Dim nFilaH As Integer
     Dim sHoraD As String
     Dim sHoraDAux As String
-    Dim i As Integer
-    Dim Num As Integer
+    Dim I As Integer
+    Dim num As Integer
     
     'Validar los campos requeridos
     If validarPedido = False Then Exit Sub
@@ -2067,13 +2072,13 @@ Private Sub cmdAceptarPedido_Click()
         'agregar teniendo en cuentas loc combos de horas
         'On Error GoTo HayErrorTurno
 
-        i = 0
+        I = 0
         sql = "SELECT MAX(PED_NUMERO) as ultimo FROM PEDIDO"
         rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
         If rec.EOF = False Then
-            Num = rec!Ultimo + 1 ' guardo el proxuimo turno
+            num = rec!Ultimo + 1 ' guardo el proxuimo turno
         Else
-            Num = 1
+            num = 1
         End If
         rec.Close
         
@@ -2082,7 +2087,7 @@ Private Sub cmdAceptarPedido_Click()
         sql = sql & " (PED_NUMERO,PED_FECHA,"
         sql = sql & " ESP_CODIGO,CLI_CODIGO,PED_MOTIVO,PED_DESCRI,VEN_CODIGO)"
         sql = sql & " VALUES ("
-        sql = sql & Num & ","
+        sql = sql & num & ","
         sql = sql & XDQ(FechaPed.Value) & ","
         sql = sql & cboEspecPedido.ItemData(cboEspecPedido.ListIndex) & ","
         sql = sql & XN(txtCodigo.Text) & ","
@@ -2473,8 +2478,8 @@ Private Function preparogrillas()
     grdConsultas.Rows = 1
     grdConsultas.BorderStyle = flexBorderNone
     grdConsultas.row = 0
-    For i = 0 To grdConsultas.Cols - 1
-        grdConsultas.Col = i
+    For I = 0 To grdConsultas.Cols - 1
+        grdConsultas.Col = I
         grdConsultas.CellForeColor = &HFFFFFF 'FUENTE COLOR BLANCO
         grdConsultas.CellBackColor = &H808080    'GRIS OSCURO
         grdConsultas.CellFontBold = True
@@ -2515,8 +2520,8 @@ Private Function preparogrillas()
     grdImagenes.Rows = 1
     grdImagenes.BorderStyle = flexBorderNone
     grdImagenes.row = 0
-    For i = 0 To grdImagenes.Cols - 1
-        grdImagenes.Col = i
+    For I = 0 To grdImagenes.Cols - 1
+        grdImagenes.Col = I
         grdImagenes.CellForeColor = &HFFFFFF 'FUENTE COLOR BLANCO
         grdImagenes.CellBackColor = &H808080    'GRIS OSCURO
         grdImagenes.CellFontBold = True
@@ -2828,7 +2833,7 @@ Public Sub BuscarClientes(Txt As String, mQuien As String, Optional mCadena As S
     Dim cSQL As String
     Dim hSQL As String
     Dim B As CBusqueda
-    Dim i, posicion As Integer
+    Dim I, posicion As Integer
     Dim cadena As String
     
     Set B = New CBusqueda

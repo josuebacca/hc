@@ -194,11 +194,13 @@ Begin VB.MDIForm Menu
             Bevel           =   2
             Object.Width           =   6526
             MinWidth        =   6526
+            TextSave        =   ""
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel2 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
             Object.Width           =   7673
             MinWidth        =   7673
+            TextSave        =   ""
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel3 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
@@ -214,7 +216,6 @@ Begin VB.MDIForm Menu
             Style           =   1
             Alignment       =   1
             Bevel           =   2
-            Enabled         =   0   'False
             Object.Width           =   1587
             MinWidth        =   1587
             TextSave        =   "MAYÚS"
@@ -226,7 +227,7 @@ Begin VB.MDIForm Menu
             Bevel           =   2
             Object.Width           =   1587
             MinWidth        =   1587
-            TextSave        =   "13:16"
+            TextSave        =   "18:27"
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel6 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
@@ -321,9 +322,6 @@ Begin VB.MDIForm Menu
    End
    Begin VB.Menu mnuEstablecer 
       Caption         =   "Establecer"
-      Begin VB.Menu mnuProtocolos 
-         Caption         =   "Protocolos"
-      End
       Begin VB.Menu mnuPacientes 
          Caption         =   "Pacientes"
       End
@@ -339,20 +337,28 @@ Begin VB.MDIForm Menu
       Begin VB.Menu mnuRayaProf 
          Caption         =   "-"
       End
+      Begin VB.Menu mnuProtocolos 
+         Caption         =   "Protocolos"
+      End
       Begin VB.Menu mnuTratamientos 
          Caption         =   "Tratamientos"
+         Visible         =   0   'False
       End
       Begin VB.Menu mnuMedicamentos 
          Caption         =   "Medicamentos"
+         Visible         =   0   'False
       End
       Begin VB.Menu mnuLabDentales 
          Caption         =   "Laboratorios Dentales"
+         Visible         =   0   'False
       End
       Begin VB.Menu mnuLabClinicos 
          Caption         =   "Laboratorios Clinicos"
+         Visible         =   0   'False
       End
       Begin VB.Menu mnuGrupos 
          Caption         =   "Grupos"
+         Visible         =   0   'False
       End
       Begin VB.Menu mnuRaya11 
          Caption         =   "-"
@@ -485,7 +491,7 @@ Private Declare Function ShellAbout Lib "shell32.dll" Alias _
 "ShellAboutA" (ByVal hWnd As Long, ByVal szApp As String, _
 ByVal szOtherStuff As String, ByVal hIcon As Long) As Long
 Dim Letrero As String
-Dim i As Integer
+Dim I As Integer
 
 
 Private Sub cmdActLetrero_Click()
@@ -1034,22 +1040,21 @@ Private Sub mnuProtocolos_Click()
     
     mOrigen = True
         
-    Set vABMTipoImagen = New CListaBaseABM
+    Set vABMProtocolos = New CListaBaseABM
     
-    With vABMTipoImagen
+    With vABMProtocolos
         .Caption = "Actualizacion de Protocolos"
-        .sql = "SELECT TIP_NOMBRE,TIP_CODIGO,TIP_CONTEN" & _
-               " FROM TIPO_IMAGEN " & _
-        .HeaderSQL = "Nombre, Código,Contenido "
+        .sql = "SELECT TIP_NOMBRE,TIP_CODIGO FROM TIPO_IMAGEN "
+        .HeaderSQL = "Nombre,Código"
         .FieldID = "TIP_CODIGO"
         '.Report = RptPath & "tipocomp.rpt"
-        Set .FormBase = vFormTipoImagen
-        Set .FormDatos = ABMTipoImagen
+        Set .FormBase = vFormProtocolos
+        Set .FormDatos = ABMProtocolos
     End With
     
-    Set auxDllActiva = vABMTipoImagen
+    Set auxDllActiva = vABMProtocolos
     
-    vABMTipoImagen.Show
+    vABMProtocolos.Show
 End Sub
 
 Private Sub mnuRestArchivos_Click()
@@ -1130,7 +1135,7 @@ Public Sub BuscarClientes(Txt As String, mQuien As String, Optional mCadena As S
     Dim cSQL As String
     Dim hSQL As String
     Dim B As CBusqueda
-    Dim i, posicion As Integer
+    Dim I, posicion As Integer
     Dim cadena As String
     
     Set B = New CBusqueda

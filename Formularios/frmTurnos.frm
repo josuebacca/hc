@@ -18,6 +18,66 @@ Begin VB.Form frmTurnos
    ScaleHeight     =   9525
    ScaleWidth      =   17655
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Frame fraprotocolos 
+      Caption         =   "Protocolos"
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   8655
+      Left            =   10200
+      TabIndex        =   45
+      Top             =   720
+      Visible         =   0   'False
+      Width           =   7335
+      Begin VB.CommandButton cmdSalirP 
+         Caption         =   "&Salir"
+         Height          =   495
+         Left            =   5760
+         TabIndex        =   48
+         Top             =   8040
+         Width           =   1455
+      End
+      Begin MSFlexGridLib.MSFlexGrid grdProtocolos 
+         Height          =   7710
+         Left            =   120
+         TabIndex        =   46
+         Top             =   240
+         Width           =   7140
+         _ExtentX        =   12594
+         _ExtentY        =   13600
+         _Version        =   393216
+         Cols            =   3
+         FixedCols       =   0
+         RowHeightMin    =   280
+         BackColorSel    =   16761024
+         AllowBigSelection=   -1  'True
+         FocusRect       =   0
+         SelectionMode   =   1
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Tahoma"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+      End
+      Begin VB.CommandButton cmdAceptarP 
+         Caption         =   "&Aceptar"
+         Height          =   495
+         Left            =   4320
+         TabIndex        =   47
+         Top             =   8040
+         Width           =   1455
+      End
+   End
    Begin VB.CommandButton cmdatendido 
       BackColor       =   &H0000C000&
       Height          =   315
@@ -554,7 +614,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   110428162
+         StartOfWeek     =   54525954
          CurrentDate     =   40049
       End
    End
@@ -603,14 +663,14 @@ Begin VB.Form frmTurnos
       WindowControls  =   -1  'True
       PrintFileLinesPerPage=   60
    End
-   Begin VB.CommandButton cmdPegar 
+   Begin VB.CommandButton cmdProtocolos 
       Enabled         =   0   'False
       Height          =   375
       Left            =   16680
       Picture         =   "frmTurnos.frx":9708
       Style           =   1  'Graphical
       TabIndex        =   33
-      ToolTipText     =   "Pegar Turnos"
+      ToolTipText     =   "Protocolos"
       Top             =   50
       Width           =   495
    End
@@ -759,7 +819,7 @@ Attribute VB_Exposed = False
 
 Option Explicit
 Dim i As Integer
-Dim J As Integer
+Dim j As Integer
 Dim hDesde As Integer
 Dim hHasta As Integer
 Dim ActivoGrid As Integer ' 1 actio 0 desactivo
@@ -904,6 +964,44 @@ Private Function ImprimirTurno()
     
     Rep.Action = 1
 End Function
+
+Private Sub cmdAceptarP_Click()
+    'Guardar PROTOCOLO SELECCIONADO en tabla IMAGEN
+    Dim i, cont As Integer
+    Dim num As Integer
+    cont = 0
+    For i = 1 To grdProtocolos.Rows - 1
+        If grdProtocolos.TextMatrix(i, 3) = "SI" Then
+            sql = "SELECT MAX(IMG_CODIGO) AS NUMERO FROM IMAGEN"
+            rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
+            If rec.EOF = False Then
+                num = rec!Numero + 1
+            End If
+            rec.Close
+            
+        
+            sql = "INSERT INTO IMAGEN"
+            sql = sql & " (IMG_CODIGO,IMG_FECHA,"
+            sql = sql & " CLI_CODIGO,VEN_CODIGO,TIP_CODIGO,IMG_DESCRI)"
+            sql = sql & " VALUES ("
+            sql = sql & num & ","
+            sql = sql & XDQ(MViewFecha.Value) & ","
+            sql = sql & grdGrilla.TextMatrix(grdGrilla.RowSel, 9) & ","
+            sql = sql & 1 & "," 'SOLO SILVANA ES LA ECOGRAFA
+            sql = sql & grdProtocolos.TextMatrix(i, 1) & ","
+            sql = sql & XS(grdProtocolos.TextMatrix(i, 2)) & ")"
+            DBConn.Execute sql
+            cont = cont + 1
+        End If
+    Next
+    If cont > 0 Then
+        MsgBox "Protocolo agregado a la Historia Clinica (Ecografias) del Paciente" & grdGrilla.TextMatrix(grdGrilla.RowSel, 1) & ". ", vbInformation, TIT_MSGBOX
+        frmhistoriaclinica.tabhc.Tab = 1
+        frmhistoriaclinica.txtCodigo = grdGrilla.TextMatrix(grdGrilla.RowSel, 9)
+        frmhistoriaclinica.Show vbModal
+    End If
+End Sub
+
 Private Sub cmdAgregar_Click()
     Dim nFilaD As Integer
     Dim nFilaH As Integer
@@ -1075,7 +1173,7 @@ Private Sub CmdBuscar_Click()
     frmBuscarTurnos.Show vbModal
 End Sub
 Private Sub LimpiarTurno()
-    
+    fraprotocolos.Visible = False
     txtBuscaCliente.Text = ""
     txtBuscaCliente.ToolTipText = ""
     txtCodigo.Text = ""
@@ -1091,7 +1189,7 @@ Private Sub LimpiarTurno()
     cmdImpTurno.Enabled = False
     cmdCopiar.Enabled = False
     cmdCortar.Enabled = False
-    cmdPegar.Enabled = False
+    cmdProtocolos.Enabled = False
     optSI.Enabled = True
     If User = 1 Then
         cmdAgregar.Enabled = True
@@ -1156,105 +1254,105 @@ Private Sub CmdNuevo_Click()
     'End If
 End Sub
 
-Private Sub cmdPegar_Click()
-    Dim DIA As Integer
-    Dim sDiaTurno As String
-    DIA = Weekday(dFechaCopy, vbMonday)
-    sDiaTurno = "Turnos del dia " & WeekdayName(DIA, False) & " " & Day(dFechaCopy) & " de " & MonthName(Month(dFechaCopy), False) & " de " & Year(dFechaCopy)
-
-    If sAction = "CORTAR" Then
-        For i = 1 To grdGrilla.Rows - 1
-            If grdGrilla.TextMatrix(i, 1) <> "" Then
-                Exit For
-            End If
-        Next
-        If i < grdGrilla.Rows - 1 Then
-            If MsgBox("Hay Turnos previamente cargados en este dia que se eliminaran si realiza esta acción." & Chr(13) & _
-            " ¿Confirma eliminar estos Turnos?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
-            
-            sql = "DELETE FROM TURNOS WHERE TUR_FECHA = " & XDQ(MViewFecha.Value)
-            sql = sql & " AND VEN_CODIGO =" & cboDoctor.ItemData(cboDoctor.ListIndex)
-            DBConn.Execute sql
-            LimpiarGrilla
-        End If
-        
-         If MsgBox("Esta a punto de Pegar los " & sDiaTurno & " " & Chr(13) & "previamente cortados del Doctor: " & sNameDoctorCopy & _
-        " " & Chr(13) & "¿Confirma Pegar los Turnos?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
-        
-        sql = "UPDATE TURNOS SET"
-        sql = sql & " TUR_FECHA = " & XDQ(MViewFecha.Value)
-        sql = sql & ", VEN_CODIGO = " & cboDoctor.ItemData(cboDoctor.ListIndex)
-        sql = sql & " WHERE TUR_FECHA = " & XDQ(dFechaCopy)
-        sql = sql & " AND VEN_CODIGO = " & XN(nDoctorCopy)
-        DBConn.Execute sql
-    
-    Else
-        
-        If sAction = "COPIAR" Then
-            For i = 1 To grdGrilla.Rows - 1
-                If grdGrilla.TextMatrix(i, 1) <> "" Then
-                    Exit For
-                End If
-            Next
-            If i < grdGrilla.Rows - 1 Then
-                If MsgBox("Hay Turnos previamente cargados en este dia que se eliminaran si realiza esta acción." & Chr(13) & _
-                " ¿Confirma eliminar estos Turnos?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
-                
-                sql = "DELETE FROM TURNOS WHERE TUR_FECHA = " & XDQ(MViewFecha.Value)
-                sql = sql & " AND VEN_CODIGO =" & cboDoctor.ItemData(cboDoctor.ListIndex)
-                DBConn.Execute sql
-                LimpiarGrilla
-            End If
-            
-            
-        
-             If MsgBox("Esta a punto de Pegar los " & sDiaTurno & " " & Chr(13) & "previamente copiados del Doctor: " & sNameDoctorCopy & _
-            " " & Chr(13) & "¿Confirma Pegar los Turnos?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
-                        
-            sql = "SELECT * FROM TURNOS WHERE TUR_FECHA = " & XDQ(dFechaCopy)
-            sql = sql & "AND VEN_CODIGO = " & XN(nDoctorCopy)
-            rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
-            If rec.EOF = False Then
-                Do While rec.EOF = False
-                    sql = "INSERT INTO TURNOS"
-                    sql = sql & " (TUR_FECHA, TUR_HORAD,TUR_HORAH,"
-                    sql = sql & " VEN_CODIGO,CLI_CODIGO,"
-                    If Not IsNull(rec!TUR_MOTIVO) Then
-                        sql = sql & " TUR_MOTIVO,"
-                    End If
-                    If Not IsNull(rec!TUR_OSOCIAL) Then
-                        sql = sql & " TUR_OSOCIAL,"
-                    End If
-                    sql = sql & "TUR_ASISTIO)"
-                    sql = sql & " VALUES ("
-                    sql = sql & XDQ(MViewFecha.Value) & ",#"
-                    sql = sql & rec!TUR_HORAD & "#,#"
-                    sql = sql & rec!TUR_HORAH & "#,"
-                    sql = sql & cboDoctor.ItemData(cboDoctor.ListIndex) & ","
-                    sql = sql & XN(rec!CLI_CODIGO) & ","
-                    If Not IsNull(rec!TUR_MOTIVO) Then
-                        sql = sql & XS(rec!TUR_MOTIVO) & ","
-                    End If
-                    If Not IsNull(rec!TUR_OSOCIAL) Then
-                        sql = sql & XS(rec!TUR_OSOCIAL) & ","
-                    End If
-                    sql = sql & 0 & ")"
-                    
-                    DBConn.Execute sql
-                    
-                    rec.MoveNext
-                Loop
-            End If
-            rec.Close
-            
-        End If
-    End If
-    BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
-    sAction = ""
-    dFechaCopy = ""
-    nDoctorCopy = ""
-    sNameDoctorCopy = ""
-End Sub
+'Private Sub cmdProtocolos_Click()
+'    Dim DIA As Integer
+'    Dim sDiaTurno As String
+'    DIA = Weekday(dFechaCopy, vbMonday)
+'    sDiaTurno = "Turnos del dia " & WeekdayName(DIA, False) & " " & Day(dFechaCopy) & " de " & MonthName(Month(dFechaCopy), False) & " de " & Year(dFechaCopy)
+'
+'    If sAction = "CORTAR" Then
+'        For i = 1 To grdGrilla.Rows - 1
+'            If grdGrilla.TextMatrix(i, 1) <> "" Then
+'                Exit For
+'            End If
+'        Next
+'        If i < grdGrilla.Rows - 1 Then
+'            If MsgBox("Hay Turnos previamente cargados en este dia que se eliminaran si realiza esta acción." & Chr(13) & _
+'            " ¿Confirma eliminar estos Turnos?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+'
+'            sql = "DELETE FROM TURNOS WHERE TUR_FECHA = " & XDQ(MViewFecha.Value)
+'            sql = sql & " AND VEN_CODIGO =" & cboDoctor.ItemData(cboDoctor.ListIndex)
+'            DBConn.Execute sql
+'            LimpiarGrilla
+'        End If
+'
+'         If MsgBox("Esta a punto de Pegar los " & sDiaTurno & " " & Chr(13) & "previamente cortados del Doctor: " & sNameDoctorCopy & _
+'        " " & Chr(13) & "¿Confirma Pegar los Turnos?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+'
+'        sql = "UPDATE TURNOS SET"
+'        sql = sql & " TUR_FECHA = " & XDQ(MViewFecha.Value)
+'        sql = sql & ", VEN_CODIGO = " & cboDoctor.ItemData(cboDoctor.ListIndex)
+'        sql = sql & " WHERE TUR_FECHA = " & XDQ(dFechaCopy)
+'        sql = sql & " AND VEN_CODIGO = " & XN(nDoctorCopy)
+'        DBConn.Execute sql
+'
+'    Else
+'
+'        If sAction = "COPIAR" Then
+'            For i = 1 To grdGrilla.Rows - 1
+'                If grdGrilla.TextMatrix(i, 1) <> "" Then
+'                    Exit For
+'                End If
+'            Next
+'            If i < grdGrilla.Rows - 1 Then
+'                If MsgBox("Hay Turnos previamente cargados en este dia que se eliminaran si realiza esta acción." & Chr(13) & _
+'                " ¿Confirma eliminar estos Turnos?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+'
+'                sql = "DELETE FROM TURNOS WHERE TUR_FECHA = " & XDQ(MViewFecha.Value)
+'                sql = sql & " AND VEN_CODIGO =" & cboDoctor.ItemData(cboDoctor.ListIndex)
+'                DBConn.Execute sql
+'                LimpiarGrilla
+'            End If
+'
+'
+'
+'             If MsgBox("Esta a punto de Pegar los " & sDiaTurno & " " & Chr(13) & "previamente copiados del Doctor: " & sNameDoctorCopy & _
+'            " " & Chr(13) & "¿Confirma Pegar los Turnos?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+'
+'            sql = "SELECT * FROM TURNOS WHERE TUR_FECHA = " & XDQ(dFechaCopy)
+'            sql = sql & "AND VEN_CODIGO = " & XN(nDoctorCopy)
+'            rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
+'            If rec.EOF = False Then
+'                Do While rec.EOF = False
+'                    sql = "INSERT INTO TURNOS"
+'                    sql = sql & " (TUR_FECHA, TUR_HORAD,TUR_HORAH,"
+'                    sql = sql & " VEN_CODIGO,CLI_CODIGO,"
+'                    If Not IsNull(rec!TUR_MOTIVO) Then
+'                        sql = sql & " TUR_MOTIVO,"
+'                    End If
+'                    If Not IsNull(rec!TUR_OSOCIAL) Then
+'                        sql = sql & " TUR_OSOCIAL,"
+'                    End If
+'                    sql = sql & "TUR_ASISTIO)"
+'                    sql = sql & " VALUES ("
+'                    sql = sql & XDQ(MViewFecha.Value) & ",#"
+'                    sql = sql & rec!TUR_HORAD & "#,#"
+'                    sql = sql & rec!TUR_HORAH & "#,"
+'                    sql = sql & cboDoctor.ItemData(cboDoctor.ListIndex) & ","
+'                    sql = sql & XN(rec!CLI_CODIGO) & ","
+'                    If Not IsNull(rec!TUR_MOTIVO) Then
+'                        sql = sql & XS(rec!TUR_MOTIVO) & ","
+'                    End If
+'                    If Not IsNull(rec!TUR_OSOCIAL) Then
+'                        sql = sql & XS(rec!TUR_OSOCIAL) & ","
+'                    End If
+'                    sql = sql & 0 & ")"
+'
+'                    DBConn.Execute sql
+'
+'                    rec.MoveNext
+'                Loop
+'            End If
+'            rec.Close
+'
+'        End If
+'    End If
+'    BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
+'    sAction = ""
+'    dFechaCopy = ""
+'    nDoctorCopy = ""
+'    sNameDoctorCopy = ""
+'End Sub
 
 Private Sub cmdpendiente_Click()
     If grdGrilla.RowSel <> 0 Then
@@ -1271,6 +1369,12 @@ Private Sub cmdpendiente_Click()
         sql = sql & " AND VEN_CODIGO = " & XN(grdGrilla.TextMatrix(grdGrilla.RowSel, 8))
         DBConn.Execute sql
     End If
+End Sub
+
+Private Sub cmdProtocolos_Click()
+    fraprotocolos.Visible = True
+    grdProtocolos.SetFocus
+    
 End Sub
 
 Private Sub cmdQuitar_Click()
@@ -1413,6 +1517,24 @@ Private Sub Command3_Click()
 
 End Sub
 
+Private Sub cmdSalirP_Click()
+    fraprotocolos.Visible = False
+    limpiar_protocolos
+End Sub
+Private Function limpiar_protocolos()
+    Dim i, j As Integer
+    For i = 1 To grdProtocolos.Rows - 1
+        grdProtocolos.TextMatrix(i, 3) = "NO"
+        For j = 0 To grdProtocolos.Cols - 1
+            grdProtocolos.row = i
+            grdProtocolos.Col = j
+            grdProtocolos.CellForeColor = &H80000008
+            grdProtocolos.CellBackColor = &H80000005
+            grdProtocolos.CellFontBold = False
+        Next
+    Next
+
+End Function
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     If KeyCode = vbKeyF5 Then
         BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
@@ -1460,6 +1582,8 @@ Private Sub Form_Load()
         lbltotal.Visible = False
         txtTotal.Visible = False
     End If
+    
+    cargo_protocolos
 End Sub
 Private Sub LimpiarGrilla()
     For i = 1 To grdGrilla.Rows - 1
@@ -1468,14 +1592,31 @@ Private Sub LimpiarGrilla()
         grdGrilla.TextMatrix(i, 3) = ""
         grdGrilla.TextMatrix(i, 4) = ""
         grdGrilla.row = i
-        For J = 1 To grdGrilla.Cols - 1
-            grdGrilla.Col = J
+        For j = 1 To grdGrilla.Cols - 1
+            grdGrilla.Col = j
             grdGrilla.CellForeColor = &H80000008          'FUENTE COLOR BLANCO
             grdGrilla.CellBackColor = &HC0FFC0       'ROSA
             grdGrilla.CellFontBold = True
         Next
     Next
 End Sub
+Private Function cargo_protocolos()
+    
+    sql = "SELECT * FROM TIPO_IMAGEN"
+    rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
+    If rec.EOF = False Then
+        Do While rec.EOF = False
+            grdProtocolos.AddItem ChkNull(rec!TIP_NOMBRE) & Chr(9) & _
+                                  rec!TIP_CODIGO & Chr(9) & _
+                                  rec!TIP_CONTEN & Chr(9) & _
+                                  "NO"
+            rec.MoveNext
+        Loop
+    
+    End If
+    rec.Close
+    
+End Function
 Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
     Dim foreColor As String
     Dim backColor As String
@@ -1532,8 +1673,8 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
             
             'COLOR DE FILAS
             grdGrilla.row = i
-            For J = 1 To grdGrilla.Cols - 1
-                grdGrilla.Col = J
+            For j = 1 To grdGrilla.Cols - 1
+                grdGrilla.Col = j
                 grdGrilla.CellForeColor = foreColor       'FUENTE COLOR NEGRO
                 grdGrilla.CellBackColor = backColor      'ROSA
                 grdGrilla.CellFontBold = True
@@ -1570,8 +1711,8 @@ Private Function cambiocolor(asistio As Integer)
     End Select
     
     grdGrilla.row = grdGrilla.RowSel
-    For J = 1 To grdGrilla.Cols - 1
-        grdGrilla.Col = J
+    For j = 1 To grdGrilla.Cols - 1
+        grdGrilla.Col = j
         grdGrilla.CellForeColor = foreColor       'FUENTE COLOR NEGRO
         grdGrilla.CellBackColor = backColor      'ROSA
         grdGrilla.CellFontBold = True
@@ -1629,7 +1770,7 @@ Private Sub LlenarComboHoras()
     i = 0
     
     cont = 1
-    J = hDesde
+    j = hDesde
     Do While cont < cItems
         minutos = 0
         For z = 0 To 11
@@ -1638,16 +1779,16 @@ Private Sub LlenarComboHoras()
                     'cboDesde.AddItem Format(J, "00") & ":" & Format(minutos, "00") & " a " & Format(J + 1, "00") & ":" & Format(0, "00")
                     Exit For
                 Else
-                    cboDesde.AddItem Format(J, "00") & ":" & Format(minutos, "00")
+                    cboDesde.AddItem Format(j, "00") & ":" & Format(minutos, "00")
                     cboDesde.ItemData(cboDesde.NewIndex) = cont
-                    cbohasta.AddItem Format(J, "00") & ":" & Format(minutos, "00")
+                    cbohasta.AddItem Format(j, "00") & ":" & Format(minutos, "00")
                     cbohasta.ItemData(cbohasta.NewIndex) = cont
                 End If
             End If
             cont = cont + 1
             minutos = minutos + 5
         Next
-        J = J + 1
+        j = j + 1
     Loop
     cbohasta.AddItem Format(hHasta, "00") & ":" & Format(0, "00")
 
@@ -1731,6 +1872,12 @@ Private Function configurogrilla()
 '        J = J + 1
 '    Loop
 
+    grdProtocolos.FormatString = "Protocolo|Codigo|Contenido|^Seleccionado"
+    grdProtocolos.ColWidth(0) = 5500 'Protocolo
+    grdProtocolos.ColWidth(1) = 0 'Codigo
+    grdProtocolos.ColWidth(2) = 0 'Contenido
+    grdProtocolos.ColWidth(3) = 1200 'Seleccionar
+    grdProtocolos.Rows = 1
     
 End Function
 
@@ -1779,7 +1926,7 @@ Private Sub grdGrilla_Click()
                txtimporte.Text = "0,00"
            End If
            cmdImpTurno.Enabled = True
-           cmdPegar.Enabled = True
+           cmdProtocolos.Enabled = True
            cmdCortar.Enabled = True
            cmdCopiar.Enabled = True
        Else
@@ -1828,6 +1975,36 @@ Private Sub grdGrilla_KeyDown(KeyCode As Integer, Shift As Integer)
         cmdQuitar_Click
     End If
 
+End Sub
+
+Private Sub grdProtocolos_DblClick()
+    Dim j As Integer
+    If grdProtocolos.TextMatrix(grdProtocolos.RowSel, 3) = "NO" Then
+        grdProtocolos.TextMatrix(grdProtocolos.RowSel, 3) = "SI"
+        'CAMBIAR COLOR
+        'backColor = &HC000&
+        'foreColor = &HFFFFFF
+        For j = 0 To grdProtocolos.Cols - 1
+            grdProtocolos.Col = j
+            grdProtocolos.CellForeColor = &HFFFFFF
+            grdProtocolos.CellBackColor = &HC000&
+            grdProtocolos.CellFontBold = True
+        Next
+    Else
+        grdProtocolos.TextMatrix(grdProtocolos.RowSel, 3) = "NO"
+        For j = 0 To grdProtocolos.Cols - 1
+            grdProtocolos.Col = j
+            grdProtocolos.CellForeColor = &H80000008
+            grdProtocolos.CellBackColor = &H80000005
+            grdProtocolos.CellFontBold = False
+        Next
+    End If
+End Sub
+
+Private Sub grdProtocolos_KeyDown(KeyCode As Integer, Shift As Integer)
+    If KeyCode = vbKeySpace Then
+        grdProtocolos_DblClick
+    End If
 End Sub
 
 Private Sub MViewFecha_DateClick(ByVal DateClicked As Date)

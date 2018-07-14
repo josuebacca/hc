@@ -168,6 +168,12 @@ Private Sub cmdAceptarFiltro_Click()
                     " WHERE PR_DESCRI LIKE " & XS("%" & txtBusqueda.Text & "%")
             End If
             
+            If .Caption = "Actualización de Protocolos" Then
+                .sql = "SELECT TIP_NOMBRE, TIP_CODIGO,TIP_CONTEN " & _
+                    " FROM TIPO_IMAGEN  " & _
+                    " WHERE TIP_NOMBRE LIKE " & XS("%" & txtBusqueda.Text & "%")
+            End If
+            
         Else
         
         
@@ -250,6 +256,10 @@ Private Sub cmdAceptarFiltro_Click()
                     " FROM PROFESION  "
             End If
             
+             If .Caption = "Actualización de Protocolos" Then
+                .sql = "SELECT TIP_NOMBRE, TIP_CODIGO,TIP_CONTEN " & _
+                    " FROM TIPO_IMAGEN  "
+            End If
         End If
         CargarListView .FormBase, auxListView, .sql, .FieldID, .HeaderSQL, .FormBase.ImgLstLista
         .FormBase.sBarEstado.Panels(1).Text = auxListView.ListItems.Count & " Registro(s)"
