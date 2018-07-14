@@ -1,6 +1,7 @@
 VERSION 5.00
 Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "Comdlg32.ocx"
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
+Object = "{00025600-0000-0000-C000-000000000046}#5.2#0"; "Crystl32.OCX"
 Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "MSFLXGRD.OCX"
 Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form frmhistoriaclinica 
@@ -16,13 +17,13 @@ Begin VB.Form frmhistoriaclinica
    ScaleHeight     =   10935
    ScaleWidth      =   16725
    StartUpPosition =   3  'Windows Default
-   Begin VB.CommandButton cmdImprimirEco 
-      Caption         =   "Imprimir"
-      Height          =   375
-      Left            =   4680
-      TabIndex        =   130
-      Top             =   9000
-      Width           =   1095
+   Begin Crystal.CrystalReport Rep 
+      Left            =   600
+      Top             =   10320
+      _ExtentX        =   741
+      _ExtentY        =   741
+      _Version        =   348160
+      PrintFileLinesPerPage=   60
    End
    Begin VB.Frame Frame1 
       Caption         =   "Datos del Paciente"
@@ -303,19 +304,21 @@ Begin VB.Form frmhistoriaclinica
       _ExtentY        =   15055
       _Version        =   393216
       Tabs            =   5
-      Tab             =   1
       TabsPerRow      =   5
       TabHeight       =   520
       TabCaption(0)   =   "Curso Clinico"
       TabPicture(0)   =   "frmhistoriaclinica.frx":0000
-      Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "Frame6"
+      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).Control(0)=   "Frame4"
+      Tab(0).Control(0).Enabled=   0   'False
       Tab(0).Control(1)=   "Frame5"
-      Tab(0).Control(2)=   "Frame4"
+      Tab(0).Control(1).Enabled=   0   'False
+      Tab(0).Control(2)=   "Frame6"
+      Tab(0).Control(2).Enabled=   0   'False
       Tab(0).ControlCount=   3
       TabCaption(1)   =   "Ecografias"
       TabPicture(1)   =   "frmhistoriaclinica.frx":001C
-      Tab(1).ControlEnabled=   -1  'True
+      Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "Frame2"
       Tab(1).Control(0).Enabled=   0   'False
       Tab(1).Control(1)=   "cmdEliminarEco"
@@ -328,7 +331,7 @@ Begin VB.Form frmhistoriaclinica
       Tab(1).Control(4).Enabled=   0   'False
       Tab(1).Control(5)=   "Frame7"
       Tab(1).Control(5).Enabled=   0   'False
-      Tab(1).Control(6)=   "Command5"
+      Tab(1).Control(6)=   "cmdabrirdoc"
       Tab(1).Control(6).Enabled=   0   'False
       Tab(1).ControlCount=   7
       TabCaption(2)   =   "Laboratorio"
@@ -353,21 +356,21 @@ Begin VB.Form frmhistoriaclinica
       Tab(4).Control(0)=   "Frame8"
       Tab(4).Control(1)=   "Frame9"
       Tab(4).ControlCount=   2
-      Begin VB.CommandButton Command5 
+      Begin VB.CommandButton cmdabrirdoc 
          Height          =   495
-         Left            =   7800
+         Left            =   -67200
          Picture         =   "frmhistoriaclinica.frx":008C
          Style           =   1  'Graphical
-         TabIndex        =   131
+         TabIndex        =   130
          ToolTipText     =   "Abrir desde un archivo existente"
          Top             =   2520
          Width           =   495
       End
       Begin VB.Frame Frame6 
          Height          =   1095
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   45
-         Top             =   7500
+         Top             =   7260
          Width           =   8055
          Begin VB.CommandButton cmdGineco 
             Caption         =   "&Ginecologia"
@@ -430,8 +433,8 @@ Begin VB.Form frmhistoriaclinica
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Height          =   8175
-         Left            =   8520
+         Height          =   7935
+         Left            =   -66480
          TabIndex        =   116
          Top             =   480
          Width           =   8055
@@ -490,7 +493,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   111869953
+            Format          =   20840449
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHastaImg 
@@ -504,17 +507,17 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   111869953
+            Format          =   20840449
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdImagenes 
-            Height          =   6870
+            Height          =   6630
             Left            =   120
             TabIndex        =   121
             Top             =   1200
             Width           =   7860
             _ExtentX        =   13864
-            _ExtentY        =   12118
+            _ExtentY        =   11695
             _Version        =   393216
             Cols            =   3
             FixedCols       =   0
@@ -654,7 +657,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   111869953
+            Format          =   20840449
             CurrentDate     =   41098
          End
          Begin VB.Label Label32 
@@ -738,7 +741,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   111869953
+            Format          =   20840449
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHastaPedido 
@@ -752,7 +755,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   111869953
+            Format          =   20840449
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdPedidos 
@@ -941,7 +944,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   111869953
+            Format          =   20840449
             CurrentDate     =   41098
          End
          Begin VB.Label Label24 
@@ -1017,8 +1020,8 @@ Begin VB.Form frmhistoriaclinica
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Height          =   7095
-         Left            =   -74880
+         Height          =   6855
+         Left            =   120
          TabIndex        =   33
          Top             =   420
          Width           =   8055
@@ -1057,7 +1060,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   111869953
+            Format          =   20840449
             CurrentDate     =   43205
          End
          Begin VB.CommandButton cmdCancelar 
@@ -1094,7 +1097,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   111869953
+            Format          =   20840449
             CurrentDate     =   41098
          End
          Begin VB.CommandButton cmdAceptar 
@@ -1198,8 +1201,8 @@ Begin VB.Form frmhistoriaclinica
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Height          =   8175
-         Left            =   -66720
+         Height          =   7935
+         Left            =   8280
          TabIndex        =   26
          Top             =   420
          Width           =   8055
@@ -1240,7 +1243,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   111869953
+            Format          =   20840449
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHasta 
@@ -1254,17 +1257,17 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   111869953
+            Format          =   20840449
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdConsultas 
-            Height          =   6870
+            Height          =   6630
             Left            =   120
             TabIndex        =   53
             Top             =   1200
             Width           =   7860
             _ExtentX        =   13864
-            _ExtentY        =   12118
+            _ExtentY        =   11695
             _Version        =   393216
             Cols            =   3
             FixedCols       =   0
@@ -1364,7 +1367,7 @@ Begin VB.Form frmhistoriaclinica
       Begin VB.CommandButton cmdVerEstudio 
          Caption         =   "Ver Estudio(VA ACA?)"
          Height          =   375
-         Left            =   14640
+         Left            =   -60360
          TabIndex        =   5
          Top             =   8580
          Width           =   1335
@@ -1372,7 +1375,7 @@ Begin VB.Form frmhistoriaclinica
       Begin VB.CommandButton cmdVer 
          Caption         =   "Ver"
          Height          =   375
-         Left            =   13200
+         Left            =   -61800
          TabIndex        =   4
          Top             =   8580
          Width           =   1215
@@ -1380,7 +1383,7 @@ Begin VB.Form frmhistoriaclinica
       Begin VB.CommandButton cmdAgregarEco 
          Caption         =   "Agregar"
          Height          =   375
-         Left            =   16200
+         Left            =   -58800
          TabIndex        =   3
          Top             =   9060
          Width           =   1455
@@ -1388,7 +1391,7 @@ Begin VB.Form frmhistoriaclinica
       Begin VB.CommandButton cmdEliminarEco 
          Caption         =   "Elinimar"
          Height          =   375
-         Left            =   18000
+         Left            =   -57000
          TabIndex        =   2
          Top             =   9060
          Width           =   1215
@@ -1405,10 +1408,18 @@ Begin VB.Form frmhistoriaclinica
             Strikethrough   =   0   'False
          EndProperty
          Height          =   7935
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   102
          Top             =   480
          Width           =   8295
+         Begin VB.CommandButton cmdImprimirEco 
+            Caption         =   "Imprimir"
+            Height          =   375
+            Left            =   4560
+            TabIndex        =   131
+            Top             =   7440
+            Width           =   1095
+         End
          Begin VB.ComboBox cboImg 
             BackColor       =   &H00C0FFC0&
             BeginProperty Font 
@@ -1509,7 +1520,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   111869953
+            Format          =   20840449
             CurrentDate     =   41098
          End
          Begin VB.Label Label38 
@@ -1862,6 +1873,34 @@ Private Sub cmdAbrir_Click()
             'Image1.Picture = LoadPicture(CommonDialog1.FileName)
             'txtimagen.Text = CommonDialog1.FileName
             word.FileOpen (CommonDialog1.FileName)
+            word.AppShow
+            'word.filePrintDefault
+            On Error GoTo 0
+        'Else
+        '    MsgBox "El Archivo seleccionado no es válido", vbExclamation, Me.Caption
+        'End If
+        
+    End If
+    'word.AppClose
+End Sub
+
+Private Sub cmdabrirdoc_Click()
+    Set word = CreateObject("word.Basic")
+    cmdAceptar.Enabled = True
+    On Error Resume Next
+    CommonDialog2.CancelError = True
+    CommonDialog2.DialogTitle = "Seleccione un nombre de archivo"
+    CommonDialog2.Filter = "Documents(*.doc;*.docx)"
+    
+    CommonDialog2.ShowOpen
+    If Err.Number = 0 Then
+        'If CommonDialog1.FileName Like "*.bmp" _
+        'Or CommonDialog1.FileName Like "*.gif" _
+        'Or CommonDialog1.FileName Like "*.jpg" Then
+            
+            'Image1.Picture = LoadPicture(CommonDialog1.FileName)
+            'txtimagen.Text = CommonDialog1.FileName
+            word.FileOpen (CommonDialog2.FileName)
             word.AppShow
             'word.filePrintDefault
             On Error GoTo 0
@@ -2249,6 +2288,26 @@ Private Sub cmdGineco_Click()
     tabhc.Tab = 3
 End Sub
 
+Private Sub cmdImprimirEco_Click()
+    If txtNroImg.Text <> "" Then
+        Rep.WindowState = crptMaximized
+        Rep.WindowBorderStyle = crptNoBorder
+        Rep.Connect = "Provider=MSDASQL.1;Persist Security Info=False;Data Source=" & SERVIDOR
+        
+        Rep.SelectionFormula = ""
+        Rep.Formulas(0) = ""
+                
+        Rep.SelectionFormula = " {IMAGEN.IMG_CODIGO}= " & XN(txtNroImg.Text)
+    
+        Rep.WindowTitle = "Protocolos"
+        Rep.ReportFileName = DirReport & "rptImagen.rpt"
+        Rep.Action = 1
+    '    lblEstado.Caption = ""
+        Screen.MousePointer = vbNormal
+        Rep.SelectionFormula = ""
+    End If
+End Sub
+
 Private Sub cmdLabora_Click()
     tabhc.Tab = 2
 End Sub
@@ -2347,31 +2406,7 @@ Private Sub Command2_Click()
 End Sub
 
 Private Sub Command5_Click()
-Set word = CreateObject("word.Basic")
-    cmdAceptar.Enabled = True
-    On Error Resume Next
-    CommonDialog1.CancelError = True
-    CommonDialog1.DialogTitle = "Seleccione un nombre de archivo"
-    CommonDialog1.Filter = "Documents(*.doc;*.docx)"
     
-    CommonDialog1.ShowOpen
-    If Err.Number = 0 Then
-        'If CommonDialog1.FileName Like "*.bmp" _
-        'Or CommonDialog1.FileName Like "*.gif" _
-        'Or CommonDialog1.FileName Like "*.jpg" Then
-            
-            'Image1.Picture = LoadPicture(CommonDialog1.FileName)
-            'txtimagen.Text = CommonDialog1.FileName
-            word.FileOpen (CommonDialog1.FileName)
-            word.AppShow
-            'word.filePrintDefault
-            On Error GoTo 0
-        'Else
-        '    MsgBox "El Archivo seleccionado no es válido", vbExclamation, Me.Caption
-        'End If
-        
-    End If
-    'word.AppClose
 End Sub
 
 Private Sub Command6_Click()
@@ -2423,11 +2458,11 @@ Private Sub Form_Load()
     End If
 End Sub
 Private Function HabilitarBoton(boton As String)
-    If cboDocCon.ItemData(cboDocCon.ListIndex) = Int(Doc) Then 'VEERR
-        boton.Enabled = True
-    Else
-        boton.Enabled = False
-    End If
+'    If cboDocCon.ItemData(cboDocCon.ListIndex) = Int(Doc) Then 'VEERR
+'        boton.Enabled = True
+'    Else
+'        boton.Enabled = False
+'    End If
 End Function
 
 
