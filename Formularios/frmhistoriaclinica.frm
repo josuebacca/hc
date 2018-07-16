@@ -2714,7 +2714,7 @@ End Sub
 Private Sub txtBuscaCliente_LostFocus()
     If txtBuscaCliente.Text <> "" Then
         Set rec = New ADODB.Recordset
-        sql = "SELECT CLI_CODIGO, CLI_RAZSOC,CLI_NRODOC,CLI_TELEFONO,CLI_NROAFIL,CLI_CUMPLE"
+        sql = "SELECT CLI_CODIGO, CLI_RAZSOC,CLI_NRODOC,CLI_TELEFONO,CLI_NROAFIL,CLI_CUMPLE,CLI_EDAD"
         sql = sql & " FROM CLIENTE"
         sql = sql & " WHERE "
         If txtBuscaCliente.Text <> "" Then
@@ -2739,10 +2739,8 @@ Private Sub txtBuscaCliente_LostFocus()
             Else
                 txtOSocial.Text = TurOSocial & " - " & ChkNull(rec!CLI_NROAFIL) 'BuscarOSocial(rec!CLI_CODIGO)
             End If
-            'txtNAfil.Text = ChkNull(rec!CLI_NROAFIL)
-            'calculo de edad
-            Calculo_Edad Chk0(rec!CLI_CUMPLE)
-            
+            'Calculo_Edad Chk0(rec!CLI_CUMPLE)
+            txtEdad.Text = ChkNull(rec!CLI_EDAD)
             CargarConsultasAnteriores
             CargarPedidosAnteriores
             CargarImagenesAnteriores
@@ -2967,7 +2965,7 @@ Private Sub TxtCodigo_LostFocus()
     Dim años As Integer
     If txtCodigo.Text <> "" Then
         Set rec = New ADODB.Recordset
-        sql = "SELECT CLI_CODIGO, CLI_RAZSOC,CLI_NRODOC,CLI_TELEFONO,CLI_NROAFIL,CLI_CUMPLE"
+        sql = "SELECT CLI_CODIGO, CLI_RAZSOC,CLI_NRODOC,CLI_TELEFONO,CLI_NROAFIL,CLI_CUMPLE,CLI_EDAD"
         sql = sql & " FROM CLIENTE"
         sql = sql & " WHERE "
         sql = sql & " CLI_CODIGO=" & XN(txtCodigo)
@@ -2981,7 +2979,8 @@ Private Sub TxtCodigo_LostFocus()
             txtOSocial.Text = BuscarOSocial(rec!CLI_CODIGO) & " - " & ChkNull(rec!CLI_NROAFIL)
             'calculo de edad
             'BuscarProxPaciente
-            Calculo_Edad IIf(IsNull(rec!CLI_CUMPLE), Date, rec!CLI_CUMPLE)
+            'Calculo_Edad IIf(IsNull(rec!CLI_CUMPLE), Date, rec!CLI_CUMPLE)
+            txtOSocial.Text = ChkNull(rec!edad)
             CargarConsultasAnteriores
             'txtMotivo.SetFocus
             'ActivoGrid = 1

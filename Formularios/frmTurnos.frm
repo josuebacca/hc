@@ -613,7 +613,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   110821378
+         StartOfWeek     =   110755842
          CurrentDate     =   40049
       End
    End
@@ -1129,14 +1129,11 @@ Private Sub cmdAgregar_Click()
             cboDesde.ListIndex = cboDesde.ListIndex + 1
     'Next
     cboDesde.Text = sHoraDAux
-    BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
-    
-    If MsgBox("¿Imprime el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then
-       ' busco fecha nacimiento y calculo la edad
+    ' busco fecha nacimiento y calculo la edad
         Fecha = MViewFecha.Value
         sql = "SELECT CLI_CUMPLE"
         sql = sql & " FROM  CLIENTE "
-        sql = sql & " WHERE CLI_CODIGO = XN(txtCodigo.text) "
+        sql = sql & " WHERE CLI_CODIGO = " & XN(txtCodigo.Text)
         rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
         If Not (IsNull(rec!CLI_CUMPLE)) Then
                 If rec.EOF = False Then
@@ -1148,15 +1145,18 @@ Private Sub cmdAgregar_Click()
             Else
                 edad = 0
             End If
-
-'        sql = "INSERT INTO CLIENTE"
-'        sql = sql & " (CLI_EDAD)"
-'        sql = sql & " VALUES ("
-'        sql = sql & "(edad)" & ")"
-'        rec.Close
-'        DBConn.Execute sql
-'        DBConn.CommitTrans
+        rec.Close
+        sql = "INSERT INTO CLIENTE"
+        sql = sql & " (CLI_EDAD)"
+        sql = sql & " VALUES ("
+        sql = sql & edad & ")"
+        DBConn.Execute sql
+        'DBConn.CommitTrans
        ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
+    
+    If MsgBox("¿Imprime el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then
+'
     
         LimpiarTurno
         Exit Sub
