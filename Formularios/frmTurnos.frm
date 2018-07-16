@@ -45,9 +45,9 @@ Begin VB.Form frmTurnos
       End
       Begin MSFlexGridLib.MSFlexGrid grdProtocolos 
          Height          =   7710
-         Left            =   120
+         Left            =   240
          TabIndex        =   46
-         Top             =   240
+         Top             =   360
          Width           =   7140
          _ExtentX        =   12594
          _ExtentY        =   13600
@@ -314,7 +314,6 @@ Begin VB.Form frmTurnos
          Left            =   1920
          TabIndex        =   21
          Top             =   600
-         Visible         =   0   'False
          Width           =   855
       End
       Begin VB.TextBox txtTelefono 
@@ -614,7 +613,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   54525954
+         StartOfWeek     =   110821378
          CurrentDate     =   40049
       End
    End
@@ -819,7 +818,7 @@ Attribute VB_Exposed = False
 
 Option Explicit
 Dim i As Integer
-Dim j As Integer
+Dim J As Integer
 Dim hDesde As Integer
 Dim hHasta As Integer
 Dim ActivoGrid As Integer ' 1 actio 0 desactivo
@@ -968,14 +967,14 @@ End Function
 Private Sub cmdAceptarP_Click()
     'Guardar PROTOCOLO SELECCIONADO en tabla IMAGEN
     Dim i, cont As Integer
-    Dim num As Integer
+    Dim Num As Integer
     cont = 0
     For i = 1 To grdProtocolos.Rows - 1
         If grdProtocolos.TextMatrix(i, 3) = "SI" Then
             sql = "SELECT MAX(IMG_CODIGO) AS NUMERO FROM IMAGEN"
             rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
             If rec.EOF = False Then
-                num = rec!Numero + 1
+                Num = Chk0(rec!Numero) + 1
             End If
             rec.Close
             
@@ -984,7 +983,7 @@ Private Sub cmdAceptarP_Click()
             sql = sql & " (IMG_CODIGO,IMG_FECHA,"
             sql = sql & " CLI_CODIGO,VEN_CODIGO,TIP_CODIGO,IMG_DESCRI)"
             sql = sql & " VALUES ("
-            sql = sql & num & ","
+            sql = sql & Num & ","
             sql = sql & XDQ(MViewFecha.Value) & ","
             sql = sql & grdGrilla.TextMatrix(grdGrilla.RowSel, 9) & ","
             sql = sql & 1 & "," 'SOLO SILVANA ES LA ECOGRAFA
@@ -1007,10 +1006,12 @@ Private Sub cmdAgregar_Click()
     Dim nFilaH As Integer
     Dim sHoraD As String
     Dim sHoraDAux As String
+    Dim años, edad As Integer
+    Dim Fecha As Date
     'Validar los campos requeridos
     If ValidarTurno = False Then Exit Sub
     'If ValidarHorarioTurno = False Then Exit Sub
-    If MsgBox("Â¿Confirma el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+    If MsgBox("¿Confirma el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
     'agregar teniendo en cuentas loc combos de horas
     On Error GoTo HayErrorTurno
     
@@ -1086,7 +1087,7 @@ Private Sub cmdAgregar_Click()
             
         Else
             
-            If MsgBox("Ya hay un turno para ese horario Â¿Confirma la ModificaciÃ³n del Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then
+            If MsgBox("Ya hay un turno para ese horario ¿Confirma la Modificación del Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then
                 rec.Close
                 Exit Sub
             End If
@@ -1125,13 +1126,38 @@ Private Sub cmdAgregar_Click()
         rec.Close
         DBConn.Execute sql
         DBConn.CommitTrans
-        
-        cboDesde.ListIndex = cboDesde.ListIndex + 1
+            cboDesde.ListIndex = cboDesde.ListIndex + 1
     'Next
     cboDesde.Text = sHoraDAux
     BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
     
-    If MsgBox("Â¿Imprime el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then
+    If MsgBox("¿Imprime el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then
+       ' busco fecha nacimiento y calculo la edad
+        Fecha = MViewFecha.Value
+        sql = "SELECT CLI_CUMPLE"
+        sql = sql & " FROM  CLIENTE "
+        sql = sql & " WHERE CLI_CODIGO = XN(txtCodigo.text) "
+        rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
+        If Not (IsNull(rec!CLI_CUMPLE)) Then
+                If rec.EOF = False Then
+                    años = Year(Date) - Year(rec!CLI_CUMPLE)
+                    If Month(Fecha) < Month(rec!CLI_CUMPLE) Then años = años - 1 'todavia no ha llegado el mes de su cumple
+                    If Month(Now) = Month(rec!CLI_CUMPLE) And Day(Fecha) < Day(rec!CLI_CUMPLE) Then años = años - 1 'es el mes pero no ha llegado el dia de su cumple
+                    edad = años
+                End If
+            Else
+                edad = 0
+            End If
+
+'        sql = "INSERT INTO CLIENTE"
+'        sql = sql & " (CLI_EDAD)"
+'        sql = sql & " VALUES ("
+'        sql = sql & "(edad)" & ")"
+'        rec.Close
+'        DBConn.Execute sql
+'        DBConn.CommitTrans
+       ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    
         LimpiarTurno
         Exit Sub
     End If
@@ -1383,7 +1409,7 @@ Private Sub cmdQuitar_Click()
     'Borrar de la BD
     If txtCodigo.Text <> "" Then
         If grdGrilla.TextMatrix(grdGrilla.RowSel, 1) <> "" Then
-            If MsgBox("Â¿Confirma Eiminar el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+            If MsgBox("¿Confirma Eiminar el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
                 
             sql = "DELETE FROM TURNOS WHERE"
             sql = sql & " TUR_FECHA = " & XDQ(MViewFecha.Value)
@@ -1522,12 +1548,12 @@ Private Sub cmdSalirP_Click()
     limpiar_protocolos
 End Sub
 Private Function limpiar_protocolos()
-    Dim i, j As Integer
+    Dim i, J As Integer
     For i = 1 To grdProtocolos.Rows - 1
         grdProtocolos.TextMatrix(i, 3) = "NO"
-        For j = 0 To grdProtocolos.Cols - 1
+        For J = 0 To grdProtocolos.Cols - 1
             grdProtocolos.row = i
-            grdProtocolos.Col = j
+            grdProtocolos.Col = J
             grdProtocolos.CellForeColor = &H80000008
             grdProtocolos.CellBackColor = &H80000005
             grdProtocolos.CellFontBold = False
@@ -1592,8 +1618,8 @@ Private Sub LimpiarGrilla()
         grdGrilla.TextMatrix(i, 3) = ""
         grdGrilla.TextMatrix(i, 4) = ""
         grdGrilla.row = i
-        For j = 1 To grdGrilla.Cols - 1
-            grdGrilla.Col = j
+        For J = 1 To grdGrilla.Cols - 1
+            grdGrilla.Col = J
             grdGrilla.CellForeColor = &H80000008          'FUENTE COLOR BLANCO
             grdGrilla.CellBackColor = &HC0FFC0       'ROSA
             grdGrilla.CellFontBold = True
@@ -1651,8 +1677,8 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
             If Not (IsNull(rec!CLI_CUMPLE)) Then
                 If rec.EOF = False Then
                     años = Year(Date) - Year(rec!CLI_CUMPLE)
-                    If Month(Fecha) < Month(rec!CLI_CUMPLE) Then años = años - 1 'todavÃ­a no ha llegado el mes de su cumple
-                    If Month(Now) = Month(rec!CLI_CUMPLE) And Day(Fecha) < Day(rec!CLI_CUMPLE) Then años = años - 1 'es el mes pero no ha llegado el dÃ­a de su cumple
+                    If Month(Fecha) < Month(rec!CLI_CUMPLE) Then años = años - 1 'todavia no ha llegado el mes de su cumple
+                    If Month(Now) = Month(rec!CLI_CUMPLE) And Day(Fecha) < Day(rec!CLI_CUMPLE) Then años = años - 1 'es el mes pero no ha llegado el dia de su cumple
                     edad = años
                 End If
             Else
@@ -1673,8 +1699,8 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
             
             'COLOR DE FILAS
             grdGrilla.row = i
-            For j = 1 To grdGrilla.Cols - 1
-                grdGrilla.Col = j
+            For J = 1 To grdGrilla.Cols - 1
+                grdGrilla.Col = J
                 grdGrilla.CellForeColor = foreColor       'FUENTE COLOR NEGRO
                 grdGrilla.CellBackColor = backColor      'ROSA
                 grdGrilla.CellFontBold = True
@@ -1711,8 +1737,8 @@ Private Function cambiocolor(asistio As Integer)
     End Select
     
     grdGrilla.row = grdGrilla.RowSel
-    For j = 1 To grdGrilla.Cols - 1
-        grdGrilla.Col = j
+    For J = 1 To grdGrilla.Cols - 1
+        grdGrilla.Col = J
         grdGrilla.CellForeColor = foreColor       'FUENTE COLOR NEGRO
         grdGrilla.CellBackColor = backColor      'ROSA
         grdGrilla.CellFontBold = True
@@ -1770,7 +1796,7 @@ Private Sub LlenarComboHoras()
     i = 0
     
     cont = 1
-    j = hDesde
+    J = hDesde
     Do While cont < cItems
         minutos = 0
         For z = 0 To 11
@@ -1779,16 +1805,16 @@ Private Sub LlenarComboHoras()
                     'cboDesde.AddItem Format(J, "00") & ":" & Format(minutos, "00") & " a " & Format(J + 1, "00") & ":" & Format(0, "00")
                     Exit For
                 Else
-                    cboDesde.AddItem Format(j, "00") & ":" & Format(minutos, "00")
+                    cboDesde.AddItem Format(J, "00") & ":" & Format(minutos, "00")
                     cboDesde.ItemData(cboDesde.NewIndex) = cont
-                    cbohasta.AddItem Format(j, "00") & ":" & Format(minutos, "00")
+                    cbohasta.AddItem Format(J, "00") & ":" & Format(minutos, "00")
                     cbohasta.ItemData(cbohasta.NewIndex) = cont
                 End If
             End If
             cont = cont + 1
             minutos = minutos + 5
         Next
-        j = j + 1
+        J = J + 1
     Loop
     cbohasta.AddItem Format(hHasta, "00") & ":" & Format(0, "00")
 
@@ -1978,22 +2004,22 @@ Private Sub grdGrilla_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub grdProtocolos_DblClick()
-    Dim j As Integer
+    Dim J As Integer
     If grdProtocolos.TextMatrix(grdProtocolos.RowSel, 3) = "NO" Then
         grdProtocolos.TextMatrix(grdProtocolos.RowSel, 3) = "SI"
         'CAMBIAR COLOR
         'backColor = &HC000&
         'foreColor = &HFFFFFF
-        For j = 0 To grdProtocolos.Cols - 1
-            grdProtocolos.Col = j
+        For J = 0 To grdProtocolos.Cols - 1
+            grdProtocolos.Col = J
             grdProtocolos.CellForeColor = &HFFFFFF
             grdProtocolos.CellBackColor = &HC000&
             grdProtocolos.CellFontBold = True
         Next
     Else
         grdProtocolos.TextMatrix(grdProtocolos.RowSel, 3) = "NO"
-        For j = 0 To grdProtocolos.Cols - 1
-            grdProtocolos.Col = j
+        For J = 0 To grdProtocolos.Cols - 1
+            grdProtocolos.Col = J
             grdProtocolos.CellForeColor = &H80000008
             grdProtocolos.CellBackColor = &H80000005
             grdProtocolos.CellFontBold = False

@@ -26,7 +26,6 @@ Begin VB.Form ABMProtocolos
    Begin VB.TextBox txtAbrevia 
       Height          =   5820
       Left            =   210
-      MaxLength       =   10
       MultiLine       =   -1  'True
       TabIndex        =   2
       Top             =   1680
@@ -44,7 +43,6 @@ Begin VB.Form ABMProtocolos
    Begin VB.TextBox txtDescri 
       Height          =   300
       Left            =   210
-      MaxLength       =   25
       TabIndex        =   1
       Top             =   1035
       Width           =   9435
@@ -259,19 +257,19 @@ Function Validar(pMode As Integer) As Boolean
         If txtID.Text = "" Then
             Beep
             MsgBox "Falta información." & Chr(13) & _
-                             "Ingrese la Identificación del Tipo de Comprobante antes de aceptar.", vbCritical + vbOKOnly, App.Title
+                             "Ingrese la Identificación del Protocola antes de aceptar.", vbCritical + vbOKOnly, App.Title
             txtID.SetFocus
             Exit Function
         ElseIf txtDescri.Text = "" Then
             Beep
             MsgBox "Falta información." & Chr(13) & _
-                             "Ingrese la descripción del Tipo de Comprobante antes de aceptar.", vbCritical + vbOKOnly, App.Title
+                             "Ingrese el nombre del Protocolo antes de aceptar.", vbCritical + vbOKOnly, App.Title
             txtDescri.SetFocus
             Exit Function
         ElseIf txtAbrevia.Text = "" Then
             Beep
             MsgBox "Falta información." & Chr(13) & _
-                             "Ingrese la Abreviatura del Tipo de Comprobante antes de aceptar.", vbCritical + vbOKOnly, App.Title
+                             "Ingrese el contenido del Protocolo antes de aceptar.", vbCritical + vbOKOnly, App.Title
             txtAbrevia.SetFocus
             Exit Function
         End If
