@@ -44,13 +44,13 @@ Begin VB.Form frmTurnos
          Width           =   1455
       End
       Begin MSFlexGridLib.MSFlexGrid grdProtocolos 
-         Height          =   7710
-         Left            =   240
+         Height          =   7590
+         Left            =   120
          TabIndex        =   46
          Top             =   360
-         Width           =   7140
-         _ExtentX        =   12594
-         _ExtentY        =   13600
+         Width           =   7020
+         _ExtentX        =   12383
+         _ExtentY        =   13388
          _Version        =   393216
          Cols            =   3
          FixedCols       =   0
@@ -314,6 +314,7 @@ Begin VB.Form frmTurnos
          Left            =   1920
          TabIndex        =   21
          Top             =   600
+         Visible         =   0   'False
          Width           =   855
       End
       Begin VB.TextBox txtTelefono 
@@ -613,7 +614,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   110755842
+         StartOfWeek     =   21037058
          CurrentDate     =   40049
       End
    End
@@ -1125,11 +1126,11 @@ Private Sub cmdAgregar_Click()
         
         rec.Close
         DBConn.Execute sql
-        DBConn.CommitTrans
+        
             cboDesde.ListIndex = cboDesde.ListIndex + 1
-    'Next
-    cboDesde.Text = sHoraDAux
-    ' busco fecha nacimiento y calculo la edad
+        'Next
+        cboDesde.Text = sHoraDAux
+        ' busco fecha nacimiento y calculo la edad
         Fecha = MViewFecha.Value
         sql = "SELECT CLI_CUMPLE"
         sql = sql & " FROM  CLIENTE "
@@ -1146,16 +1147,15 @@ Private Sub cmdAgregar_Click()
                 edad = 0
             End If
         rec.Close
-        sql = "INSERT INTO CLIENTE"
-        sql = sql & " (CLI_EDAD)"
-        sql = sql & " VALUES ("
-        sql = sql & edad & ")"
+        sql = "UPDATE CLIENTE SET"
+        sql = sql & " CLI_EDAD=" & edad
+        sql = sql & " WHERE CLI_CODIGO=" & txtCodigo.Text
         DBConn.Execute sql
-        'DBConn.CommitTrans
-       ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
+        
+        DBConn.CommitTrans
+        BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
     
-    If MsgBox("¿Imprime el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then
+        If MsgBox("¿Imprime el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then
 '
     
         LimpiarTurno
@@ -1842,7 +1842,8 @@ Private Function configurogrilla()
     grdGrilla.ColWidth(11) = 0 'DNI
     grdGrilla.ColWidth(12) = 0 'TUR_DESDE
     grdGrilla.ColWidth(13) = 0 'TUR_TIENEMUTUAL
-    If User = 1 Then
+    'If User = 1 Then 'ESTA CONFIGURACION LA TOMA DEL INI
+    If mNomUser = "DIGOR" Then 'ESTA CONFIGURACION LA TOMA DEL USUARIO LOGUEADO
         grdGrilla.ColWidth(14) = 1200 'Importe
     Else
         'oculto la columna de importe para los doctores
@@ -1898,8 +1899,8 @@ Private Function configurogrilla()
 '        J = J + 1
 '    Loop
 
-    grdProtocolos.FormatString = "Protocolo|Codigo|Contenido|^Seleccionado"
-    grdProtocolos.ColWidth(0) = 5500 'Protocolo
+    grdProtocolos.FormatString = "<Protocolo|Codigo|Contenido|^Seleccionado"
+    grdProtocolos.ColWidth(0) = 5300 'Protocolo
     grdProtocolos.ColWidth(1) = 0 'Codigo
     grdProtocolos.ColWidth(2) = 0 'Contenido
     grdProtocolos.ColWidth(3) = 1200 'Seleccionar
@@ -1987,11 +1988,15 @@ Private Sub GRDGrilla_DblClick()
     End If
     rec.Close
     
-    If Doc = cboDoctor.ItemData(cboDoctor.ListIndex) Then
+    If Doc = cboDoctor.ItemData(cboDoctor.ListIndex) Or mNomUser = "DIGOR" Then
+        If grdGrilla.TextMatrix(grdGrilla.RowSel, 5) = "PARTICULAR" Then
+            TurOSocial = "PARTICULAR"
+        Else
+            TurOSocial = ""
+        End If
         frmhistoriaclinica.txtCodigo = grdGrilla.TextMatrix(grdGrilla.RowSel, 9)
         frmhistoriaclinica.Show vbModal
     End If
-
     
 
 End Sub

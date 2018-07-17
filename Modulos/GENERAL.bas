@@ -58,7 +58,13 @@ Public Const SPI_SCREENSAVERRUNNING = 97&
 Public Declare Function SystemParametersInfo Lib "user32" Alias "SystemParametersInfoA" _
         (ByVal uAction As Long, ByVal uParam As Long, _
         lpvParam As Any, ByVal fuWinIni As Long) As Long
+Public TurOSocial As String
 ' Fin de la Declaración
+
+
+
+
+
 
 Public Sub MySendKeys(texto As String)
 'FUNCION QUE USA UNA API DE WINDOWS
@@ -1574,15 +1580,15 @@ Public Sub CambiarColor(Matriz, CntObjetos As Integer, Color As ColorConstants, 
     i = 0
     Do While i < CntObjetos
        If Detalle = "T" Then
-          Matriz(i).BackColor = Color
+          Matriz(i).backColor = Color
        Else
           If Detalle = "D" Then
              If Not Matriz(i).Enabled Then
-                Matriz(i).BackColor = Color
+                Matriz(i).backColor = Color
              End If
           Else
              If Matriz(i).Enabled Then
-                Matriz(i).BackColor = Color
+                Matriz(i).backColor = Color
              End If
           End If
        End If

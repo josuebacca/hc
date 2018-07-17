@@ -29,50 +29,60 @@ Begin VB.MDIForm Menu
       BeginProperty Buttons {0713E452-850A-101B-AFC0-4210102A8DA7} 
          NumButtons      =   10
          BeginProperty Button1 {0713F354-850A-101B-AFC0-4210102A8DA7} 
+            Key             =   ""
             Object.Tag             =   ""
             Style           =   3
             MixedState      =   -1  'True
          EndProperty
          BeginProperty Button2 {0713F354-850A-101B-AFC0-4210102A8DA7} 
+            Key             =   ""
             Object.ToolTipText     =   "Salir"
             Object.Tag             =   ""
             ImageIndex      =   1
             Object.Width           =   1e-4
          EndProperty
          BeginProperty Button3 {0713F354-850A-101B-AFC0-4210102A8DA7} 
+            Key             =   ""
             Object.ToolTipText     =   "Turnos"
             Object.Tag             =   ""
             ImageIndex      =   2
          EndProperty
          BeginProperty Button4 {0713F354-850A-101B-AFC0-4210102A8DA7} 
+            Key             =   ""
             Object.ToolTipText     =   "Pacientes"
             Object.Tag             =   ""
             ImageIndex      =   3
          EndProperty
          BeginProperty Button5 {0713F354-850A-101B-AFC0-4210102A8DA7} 
+            Key             =   ""
             Object.Tag             =   ""
             Style           =   3
          EndProperty
          BeginProperty Button6 {0713F354-850A-101B-AFC0-4210102A8DA7} 
+            Key             =   ""
             Object.ToolTipText     =   "Tratamientos"
             Object.Tag             =   ""
             ImageIndex      =   4
          EndProperty
          BeginProperty Button7 {0713F354-850A-101B-AFC0-4210102A8DA7} 
+            Key             =   ""
             Object.ToolTipText     =   "Medicamentos"
             Object.Tag             =   ""
             ImageIndex      =   5
          EndProperty
          BeginProperty Button8 {0713F354-850A-101B-AFC0-4210102A8DA7} 
+            Key             =   ""
             Object.Tag             =   ""
             Style           =   3
          EndProperty
          BeginProperty Button9 {0713F354-850A-101B-AFC0-4210102A8DA7} 
+            Key             =   ""
             Object.ToolTipText     =   "Cumpleaños"
             Object.Tag             =   ""
             ImageIndex      =   6
          EndProperty
          BeginProperty Button10 {0713F354-850A-101B-AFC0-4210102A8DA7} 
+            Key             =   ""
             Object.ToolTipText     =   "Control"
             Object.Tag             =   ""
             ImageIndex      =   7
@@ -195,12 +205,14 @@ Begin VB.MDIForm Menu
             Object.Width           =   6526
             MinWidth        =   6526
             TextSave        =   ""
+            Key             =   ""
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel2 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
             Object.Width           =   7673
             MinWidth        =   7673
             TextSave        =   ""
+            Key             =   ""
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel3 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
@@ -210,6 +222,7 @@ Begin VB.MDIForm Menu
             Object.Width           =   1587
             MinWidth        =   1587
             TextSave        =   "NÚM"
+            Key             =   ""
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel4 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
@@ -219,6 +232,7 @@ Begin VB.MDIForm Menu
             Object.Width           =   1587
             MinWidth        =   1587
             TextSave        =   "MAYÚS"
+            Key             =   ""
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel5 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
@@ -227,7 +241,8 @@ Begin VB.MDIForm Menu
             Bevel           =   2
             Object.Width           =   1587
             MinWidth        =   1587
-            TextSave        =   "18:27"
+            TextSave        =   "21:23"
+            Key             =   ""
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel6 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
@@ -236,7 +251,8 @@ Begin VB.MDIForm Menu
             Bevel           =   2
             Object.Width           =   1940
             MinWidth        =   1940
-            TextSave        =   "14/07/2018"
+            TextSave        =   "16/07/2018"
+            Key             =   ""
             Object.Tag             =   ""
          EndProperty
       EndProperty
@@ -491,7 +507,7 @@ Private Declare Function ShellAbout Lib "shell32.dll" Alias _
 "ShellAboutA" (ByVal hWnd As Long, ByVal szApp As String, _
 ByVal szOtherStuff As String, ByVal hIcon As Long) As Long
 Dim Letrero As String
-Dim I As Integer
+Dim i As Integer
 
 
 Private Sub cmdActLetrero_Click()
@@ -878,28 +894,28 @@ Private Sub mnuLabClinicos_Click()
 End Sub
 
 Private Sub mnuLabDentales_Click()
-    Dim cSQL As String
-    
-    mOrigen = True
-        
-    Set vABMLabDentales = New CListaBaseABM
-    
-    With vABMLabDentales
-        .Caption = "Actualizacion de Laboratorios Dentales"
-        .sql = "SELECT C.LAD_NOMBRE, C.LAD_CODIGO, C.LAD_DOMICI,L.LOC_DESCRI," & _
-               "  C.LAD_TELEFONO  " & _
-               " FROM LAB_DENTALES C, LOCALIDAD L " & _
-               " WHERE C.LOC_CODIGO = L.LOC_CODIGO "
-        .HeaderSQL = "Nombre, Código, Domicilio, Localidad, Teléfono"
-        .FieldID = "LAD_CODIGO"
-        '.Report = RptPath & "tipocomp.rpt"
-        Set .FormBase = vFormLabDentales
-        Set .FormDatos = ABMLabDentales
-    End With
-    
-    Set auxDllActiva = vABMLabDentales
-    
-    vABMLabDentales.Show
+'    Dim cSQL As String
+'
+'    mOrigen = True
+'
+'    Set vABMLabDentales = New CListaBaseABM
+'
+'    With vABMLabDentales
+'        .Caption = "Actualizacion de Laboratorios Dentales"
+'        .sql = "SELECT C.LAD_NOMBRE, C.LAD_CODIGO, C.LAD_DOMICI,L.LOC_DESCRI," & _
+'               "  C.LAD_TELEFONO  " & _
+'               " FROM LAB_DENTALES C, LOCALIDAD L " & _
+'               " WHERE C.LOC_CODIGO = L.LOC_CODIGO "
+'        .HeaderSQL = "Nombre, Código, Domicilio, Localidad, Teléfono"
+'        .FieldID = "LAD_CODIGO"
+'        '.Report = RptPath & "tipocomp.rpt"
+'        Set .FormBase = vFormLabDentales
+'        Set .FormDatos = ABMLabDentales
+'    End With
+'
+'    Set auxDllActiva = vABMLabDentales
+'
+'    vABMLabDentales.Show
 End Sub
 
 Private Sub mnuMedicamentos_Click()
@@ -1135,7 +1151,7 @@ Public Sub BuscarClientes(Txt As String, mQuien As String, Optional mCadena As S
     Dim cSQL As String
     Dim hSQL As String
     Dim B As CBusqueda
-    Dim I, posicion As Integer
+    Dim i, posicion As Integer
     Dim cadena As String
     
     Set B = New CBusqueda

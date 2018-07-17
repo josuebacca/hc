@@ -7,15 +7,15 @@ Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form frmhistoriaclinica 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Historia Clinica"
-   ClientHeight    =   10935
+   ClientHeight    =   10515
    ClientLeft      =   105
    ClientTop       =   435
-   ClientWidth     =   16725
+   ClientWidth     =   16740
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   10935
-   ScaleWidth      =   16725
+   ScaleHeight     =   10515
+   ScaleWidth      =   16740
    StartUpPosition =   3  'Windows Default
    Begin Crystal.CrystalReport Rep 
       Left            =   600
@@ -81,7 +81,7 @@ Begin VB.Form frmhistoriaclinica
          Height          =   285
          Left            =   3240
          TabIndex        =   22
-         Top             =   -120
+         Top             =   0
          Visible         =   0   'False
          Width           =   495
       End
@@ -275,7 +275,7 @@ Begin VB.Form frmhistoriaclinica
       Height          =   735
       Left            =   13080
       TabIndex        =   25
-      Top             =   10080
+      Top             =   9720
       Width           =   1095
    End
    Begin VB.CommandButton cmdSalir 
@@ -283,7 +283,7 @@ Begin VB.Form frmhistoriaclinica
       Height          =   735
       Left            =   15240
       TabIndex        =   24
-      Top             =   10080
+      Top             =   9720
       Width           =   1095
    End
    Begin VB.CommandButton cmdNuevo 
@@ -291,7 +291,7 @@ Begin VB.Form frmhistoriaclinica
       Height          =   735
       Left            =   14160
       TabIndex        =   23
-      Top             =   10080
+      Top             =   9720
       Width           =   1095
    End
    Begin TabDlg.SSTab tabhc 
@@ -319,13 +319,13 @@ Begin VB.Form frmhistoriaclinica
       TabCaption(1)   =   "Ecografias"
       TabPicture(1)   =   "frmhistoriaclinica.frx":001C
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "cmdabrirdoc"
-      Tab(1).Control(1)=   "Frame7"
-      Tab(1).Control(2)=   "cmdVerEstudio"
+      Tab(1).Control(0)=   "Frame2"
+      Tab(1).Control(1)=   "cmdEliminarEco"
+      Tab(1).Control(2)=   "cmdAgregarEco"
       Tab(1).Control(3)=   "cmdVer"
-      Tab(1).Control(4)=   "cmdAgregarEco"
-      Tab(1).Control(5)=   "cmdEliminarEco"
-      Tab(1).Control(6)=   "Frame2"
+      Tab(1).Control(4)=   "cmdVerEstudio"
+      Tab(1).Control(5)=   "Frame7"
+      Tab(1).Control(6)=   "cmdabrirdoc"
       Tab(1).ControlCount=   7
       TabCaption(2)   =   "Laboratorio"
       TabPicture(2)   =   "frmhistoriaclinica.frx":0038
@@ -334,20 +334,20 @@ Begin VB.Form frmhistoriaclinica
       TabCaption(3)   =   "Ginecologia"
       TabPicture(3)   =   "frmhistoriaclinica.frx":0054
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "Frame3"
-      Tab(3).Control(1)=   "cmdImprimirEstGine"
-      Tab(3).Control(2)=   "cmdEliminarEstGine"
-      Tab(3).Control(3)=   "cmdAgregarEstGine"
-      Tab(3).Control(4)=   "cboTipoEstGine"
-      Tab(3).Control(5)=   "optFechaGine"
-      Tab(3).Control(6)=   "optTipoEst"
-      Tab(3).Control(7)=   "Label8"
+      Tab(3).Control(0)=   "Label8"
+      Tab(3).Control(1)=   "optTipoEst"
+      Tab(3).Control(2)=   "optFechaGine"
+      Tab(3).Control(3)=   "cboTipoEstGine"
+      Tab(3).Control(4)=   "cmdAgregarEstGine"
+      Tab(3).Control(5)=   "cmdEliminarEstGine"
+      Tab(3).Control(6)=   "cmdImprimirEstGine"
+      Tab(3).Control(7)=   "Frame3"
       Tab(3).ControlCount=   8
       TabCaption(4)   =   "Pedidos"
       TabPicture(4)   =   "frmhistoriaclinica.frx":0070
       Tab(4).ControlEnabled=   0   'False
-      Tab(4).Control(0)=   "Frame9"
-      Tab(4).Control(1)=   "Frame8"
+      Tab(4).Control(0)=   "Frame8"
+      Tab(4).Control(1)=   "Frame9"
       Tab(4).ControlCount=   2
       Begin VB.CommandButton cmdabrirdoc 
          Height          =   495
@@ -486,7 +486,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110821377
+            Format          =   54329345
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHastaImg 
@@ -500,7 +500,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110821377
+            Format          =   54329345
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdImagenes 
@@ -650,7 +650,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110821377
+            Format          =   54329345
             CurrentDate     =   41098
          End
          Begin VB.Label Label32 
@@ -734,7 +734,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110821377
+            Format          =   54329345
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHastaPedido 
@@ -748,7 +748,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110821377
+            Format          =   54329345
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdPedidos 
@@ -937,7 +937,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110821377
+            Format          =   54329345
             CurrentDate     =   41098
          End
          Begin VB.Label Label24 
@@ -1053,7 +1053,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110821377
+            Format          =   54329345
             CurrentDate     =   43205
          End
          Begin VB.CommandButton cmdCancelar 
@@ -1090,7 +1090,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110821377
+            Format          =   54329345
             CurrentDate     =   41098
          End
          Begin VB.CommandButton cmdAceptar 
@@ -1236,7 +1236,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110821377
+            Format          =   54329345
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHasta 
@@ -1250,7 +1250,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110821377
+            Format          =   54329345
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdConsultas 
@@ -1513,7 +1513,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   110821377
+            Format          =   54329345
             CurrentDate     =   41098
          End
          Begin VB.Label Label38 
@@ -1606,7 +1606,7 @@ Dim Rec2 As New ADODB.Recordset
 Dim edad As Integer
 Dim años As Integer
 Public NroAfil As String
-Public TurOSocial As String
+
 
 Private Function BuscarProxPaciente(codven, DIA) As Integer
     Dim CodPac As Integer
@@ -1622,7 +1622,7 @@ Private Function BuscarProxPaciente(codven, DIA) As Integer
         CodPac = Rec2!CLI_CODIGO
         txthorad = Format(Rec2!TUR_HORAD, "hh:mm")
         NroAfil = ChkNull(Rec2!CLI_NROAFIL)
-        TurOSocial = ChkNull(Rec2!TUR_OSOCIAL)
+        'TurOSocial = ChkNull(Rec2!TUR_OSOCIAL)
         Calculo_Edad IIf(IsNull(Rec2!CLI_CUMPLE), Date, Rec2!CLI_CUMPLE)
     End If
     Rec2.Close
@@ -2737,7 +2737,7 @@ Private Sub txtBuscaCliente_LostFocus()
             If TurOSocial = "PARTICULAR" Then
                 txtOSocial.Text = "PARTICULAR"
             Else
-                txtOSocial.Text = TurOSocial & " - " & ChkNull(rec!CLI_NROAFIL) 'BuscarOSocial(rec!CLI_CODIGO)
+                txtOSocial.Text = BuscarOSocial(txtCodigo.Text) & " - " & ChkNull(rec!CLI_NROAFIL)
             End If
             'Calculo_Edad Chk0(rec!CLI_CUMPLE)
             txtEdad.Text = ChkNull(rec!CLI_EDAD)
@@ -2976,11 +2976,15 @@ Private Sub TxtCodigo_LostFocus()
             txtCodigo.Text = rec!CLI_CODIGO
             txtTelefono.Text = ChkNull(rec!CLI_TELEFONO)
             txtNAfil.Text = ChkNull(rec!CLI_NROAFIL)
-            txtOSocial.Text = BuscarOSocial(rec!CLI_CODIGO) & " - " & ChkNull(rec!CLI_NROAFIL)
+            If TurOSocial = "PARTICULAR" Then
+                txtOSocial.Text = "PARTICULAR"
+            Else
+                txtOSocial.Text = BuscarOSocial(txtCodigo.Text) & " - " & ChkNull(rec!CLI_NROAFIL)
+            End If
             'calculo de edad
             'BuscarProxPaciente
             'Calculo_Edad IIf(IsNull(rec!CLI_CUMPLE), Date, rec!CLI_CUMPLE)
-            txtOSocial.Text = ChkNull(rec!edad)
+            txtOSocial.Text = ChkNull(rec!CLI_EDAD)
             CargarConsultasAnteriores
             'txtMotivo.SetFocus
             'ActivoGrid = 1

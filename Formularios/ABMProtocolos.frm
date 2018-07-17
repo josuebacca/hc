@@ -257,7 +257,7 @@ Function Validar(pMode As Integer) As Boolean
         If txtID.Text = "" Then
             Beep
             MsgBox "Falta información." & Chr(13) & _
-                             "Ingrese la Identificación del Protocola antes de aceptar.", vbCritical + vbOKOnly, App.Title
+                             "Ingrese la Identificación del Protocolo antes de aceptar.", vbCritical + vbOKOnly, App.Title
             txtID.SetFocus
             Exit Function
         ElseIf txtDescri.Text = "" Then
@@ -353,11 +353,11 @@ Private Sub Form_Activate()
 End Sub
 
 Private Sub Form_KeyPress(KeyAscii As Integer)
-
-    If KeyAscii = 13 Then
-        KeyAscii = 0
-        SendKeys "{TAB}"
-    End If
+    
+'    If KeyAscii = 13 Then
+'        KeyAscii = 0
+'        SendKeys "{TAB}"
+'    End If
     
     
     If KeyAscii = 27 Then
@@ -421,6 +421,10 @@ End Sub
 
 Private Sub txtDescri_KeyPress(KeyAscii As Integer)
     KeyAscii = CarTexto(KeyAscii)
+    If KeyAscii = 13 Then
+        KeyAscii = 0
+        SendKeys "{TAB}"
+    End If
 End Sub
 
 Private Sub txtID_Change()
@@ -458,7 +462,7 @@ Private Sub txtID_LostFocus()
                 If rec.Fields(0) > 0 Then
                     Beep
                     MsgBox "Código de " & cDesRegistro & " repetido." & Chr(13) & _
-                                     "El código ingresado Pertenece a otro registro de " & cDesRegistro & ".", vbCritical + vbOKOnly, App.Title
+                                     "El código ingresado pertenece a otro registro de " & cDesRegistro & ".", vbCritical + vbOKOnly, App.Title
                     txtID.Text = ""
                     txtID.SetFocus
                 End If
