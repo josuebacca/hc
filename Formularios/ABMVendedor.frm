@@ -1,8 +1,7 @@
 VERSION 5.00
 Begin VB.Form ABMVendedor 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "Datos del Personal..."
-   ClientHeight    =   5910
+   ClientHeight    =   5805
    ClientLeft      =   2700
    ClientTop       =   2625
    ClientWidth     =   4530
@@ -20,9 +19,17 @@ Begin VB.Form ABMVendedor
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   5910
+   ScaleHeight     =   5805
    ScaleWidth      =   4530
    ShowInTaskbar   =   0   'False
+   Begin VB.TextBox txtcoseguro 
+      Height          =   315
+      Left            =   3450
+      MaxLength       =   50
+      TabIndex        =   12
+      Top             =   4560
+      Width           =   735
+   End
    Begin VB.TextBox txtPorcentCom 
       Height          =   315
       Left            =   1050
@@ -52,8 +59,8 @@ Begin VB.Form ABMVendedor
       Caption         =   "Dar de Baja"
       Height          =   285
       Left            =   1065
-      TabIndex        =   12
-      Top             =   5160
+      TabIndex        =   13
+      Top             =   5040
       Width           =   1140
    End
    Begin VB.TextBox txtDomicilio 
@@ -123,8 +130,8 @@ Begin VB.Form ABMVendedor
       Left            =   240
       Picture         =   "ABMVendedor.frx":001C
       Style           =   1  'Graphical
-      TabIndex        =   17
-      Top             =   5415
+      TabIndex        =   18
+      Top             =   5295
       Visible         =   0   'False
       Width           =   330
    End
@@ -147,7 +154,7 @@ Begin VB.Form ABMVendedor
       Caption         =   "&Cerrar"
       Height          =   345
       Left            =   3150
-      TabIndex        =   14
+      TabIndex        =   15
       Top             =   5415
       Width           =   1300
    End
@@ -155,9 +162,29 @@ Begin VB.Form ABMVendedor
       Caption         =   "&Aceptar"
       Height          =   345
       Left            =   1800
-      TabIndex        =   13
+      TabIndex        =   14
       Top             =   5415
       Width           =   1300
+   End
+   Begin VB.Label Label1 
+      AutoSize        =   -1  'True
+      Caption         =   "Coseguro:"
+      Height          =   195
+      Index           =   13
+      Left            =   2520
+      TabIndex        =   31
+      Top             =   4620
+      Width           =   750
+   End
+   Begin VB.Label Label1 
+      AutoSize        =   -1  'True
+      Caption         =   "%"
+      Height          =   195
+      Index           =   12
+      Left            =   4200
+      TabIndex        =   30
+      Top             =   4620
+      Width           =   165
    End
    Begin VB.Label Label1 
       AutoSize        =   -1  'True
@@ -165,25 +192,25 @@ Begin VB.Form ABMVendedor
       Height          =   195
       Index           =   11
       Left            =   1800
-      TabIndex        =   28
+      TabIndex        =   29
       Top             =   4605
       Width           =   165
    End
    Begin VB.Label Label1 
       AutoSize        =   -1  'True
-      Caption         =   "Porcentaje:"
+      Caption         =   "Particular:"
       Height          =   195
       Index           =   10
       Left            =   120
-      TabIndex        =   27
+      TabIndex        =   28
       Top             =   4605
-      Width           =   840
+      Width           =   735
    End
    Begin VB.Label Label2 
       Caption         =   "Consultorio:"
       Height          =   255
       Left            =   120
-      TabIndex        =   26
+      TabIndex        =   27
       Top             =   1320
       Width           =   855
    End
@@ -193,7 +220,7 @@ Begin VB.Form ABMVendedor
       Height          =   195
       Index           =   9
       Left            =   120
-      TabIndex        =   25
+      TabIndex        =   26
       Top             =   1005
       Width           =   810
    End
@@ -203,7 +230,7 @@ Begin VB.Form ABMVendedor
       Height          =   195
       Index           =   8
       Left            =   135
-      TabIndex        =   24
+      TabIndex        =   25
       Top             =   2760
       Width           =   660
    End
@@ -213,7 +240,7 @@ Begin VB.Form ABMVendedor
       Height          =   195
       Index           =   7
       Left            =   135
-      TabIndex        =   23
+      TabIndex        =   24
       Top             =   4110
       Width           =   480
    End
@@ -223,7 +250,7 @@ Begin VB.Form ABMVendedor
       Height          =   195
       Index           =   6
       Left            =   135
-      TabIndex        =   22
+      TabIndex        =   23
       Top             =   3660
       Width           =   330
    End
@@ -233,7 +260,7 @@ Begin VB.Form ABMVendedor
       Height          =   195
       Index           =   5
       Left            =   135
-      TabIndex        =   21
+      TabIndex        =   22
       Top             =   3210
       Width           =   690
    End
@@ -243,7 +270,7 @@ Begin VB.Form ABMVendedor
       Height          =   195
       Index           =   4
       Left            =   135
-      TabIndex        =   20
+      TabIndex        =   21
       Top             =   2415
       Width           =   720
    End
@@ -253,7 +280,7 @@ Begin VB.Form ABMVendedor
       Height          =   195
       Index           =   3
       Left            =   135
-      TabIndex        =   19
+      TabIndex        =   20
       Top             =   2070
       Width           =   705
    End
@@ -263,7 +290,7 @@ Begin VB.Form ABMVendedor
       Height          =   195
       Index           =   2
       Left            =   135
-      TabIndex        =   18
+      TabIndex        =   19
       Top             =   1725
       Width           =   345
    End
@@ -273,7 +300,7 @@ Begin VB.Form ABMVendedor
       Height          =   195
       Index           =   1
       Left            =   135
-      TabIndex        =   16
+      TabIndex        =   17
       Top             =   675
       Width           =   615
    End
@@ -283,7 +310,7 @@ Begin VB.Form ABMVendedor
       Height          =   195
       Index           =   0
       Left            =   135
-      TabIndex        =   15
+      TabIndex        =   16
       Top             =   315
       Width           =   270
    End
@@ -593,7 +620,7 @@ Private Sub cmdAceptar_Click()
             
                 cSQL = "INSERT INTO " & cTabla
                 cSQL = cSQL & "     (VEN_CODIGO, VEN_NOMBRE, VEN_DOMICI, VEN_TELEFONO,"
-                cSQL = cSQL & " VEN_MAIL, VEN_FAX, LOC_CODIGO, PRO_CODIGO, PAI_CODIGO,PR_CODIGO,VEN_ESTADO,VEN_CONSULTORIO,VEN_PORCENTCOM) "
+                cSQL = cSQL & " VEN_MAIL, VEN_FAX, LOC_CODIGO, PRO_CODIGO, PAI_CODIGO,PR_CODIGO,VEN_ESTADO,VEN_CONSULTORIO,VEN_PORCENTCOM,VEN_COSEGURO) "
                 cSQL = cSQL & " VALUES "
                 cSQL = cSQL & "     (" & XN(txtID.Text) & ", " & XS(txtNombre.Text) & ", "
                 cSQL = cSQL & XS(txtDomicilio.Text) & ", " & XS(txtTelefono.Text) & ", "
@@ -608,7 +635,8 @@ Private Sub cmdAceptar_Click()
                     cSQL = cSQL & "'N'" & ","
                 End If
             cSQL = cSQL & XN(txtConsul.Text) & ","
-            cSQL = cSQL & XN(txtPorcentCom.Text) & ")"
+            cSQL = cSQL & XN(txtPorcentCom.Text) & ","
+            cSQL = cSQL & XN(txtcoseguro.Text) & ")"
                 
             Case 2 'editar
                 
@@ -629,6 +657,7 @@ Private Sub cmdAceptar_Click()
                 End If
                 cSQL = cSQL & " ,VEN_CONSULTORIO=" & XN(txtConsul.Text)
                 cSQL = cSQL & " ,VEN_PORCENTCOM=" & XN(txtPorcentCom.Text)
+                cSQL = cSQL & " ,VEN_COSEGURO=" & XN(txtcoseguro.Text)
                 cSQL = cSQL & " WHERE VEN_CODIGO  = " & XN(txtID.Text)
             Case 4 'eliminar
             
@@ -738,7 +767,8 @@ Private Sub Form_Load()
                 txtTelefono.Text = ChkNull(rec!VEN_TELEFONO)
                 txtFax.Text = ChkNull(rec!VEN_FAX)
                 txtMail.Text = ChkNull(rec!VEN_MAIL)
-                txtPorcentCom.Text = Format(ChkNull(rec!VEN_PORCENTCOM), "#,##0.00")
+                txtPorcentCom.Text = Format(Chk0(rec!VEN_PORCENTCOM), "#,##0.00")
+                txtcoseguro.Text = Format(Chk0(rec!VEN_COSEGURO), "#,##0.00")
                 
                 If ChkNull(rec!VEN_ESTADO) = "N" Or ChkNull(rec!VEN_ESTADO) = "" Then
                     chkVenEstado.Value = Unchecked
@@ -772,6 +802,18 @@ End Sub
 
 Private Sub txtConsul_Change()
     cmdAceptar.Enabled = True
+End Sub
+
+Private Sub txtcoseguro_Change()
+    cmdAceptar.Enabled = True
+End Sub
+
+Private Sub txtcoseguro_GotFocus()
+    seltxt
+End Sub
+
+Private Sub txtcoseguro_KeyPress(KeyAscii As Integer)
+    KeyAscii = CarNumeroDecimal(txtcoseguro, KeyAscii)
 End Sub
 
 Private Sub txtDomicilio_Change()

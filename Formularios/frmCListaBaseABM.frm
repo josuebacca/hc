@@ -18,11 +18,11 @@ Begin VB.Form frmCListaBaseABM
    EndProperty
    Icon            =   "frmCListaBaseABM.frx":0000
    LinkTopic       =   "Form2"
+   MaxButton       =   0   'False
    MDIChild        =   -1  'True
    PaletteMode     =   1  'UseZOrder
    ScaleHeight     =   4725
    ScaleWidth      =   7980
-   WindowState     =   2  'Maximized
    Begin ComctlLib.Toolbar tbarHerramientas 
       Align           =   1  'Align Top
       Height          =   390
@@ -134,7 +134,7 @@ Begin VB.Form frmCListaBaseABM
          BeginProperty Panel1 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
             AutoSize        =   1
             Bevel           =   0
-            Object.Width           =   13582
+            Object.Width           =   13555
             MinWidth        =   8819
             TextSave        =   ""
             Key             =   ""
@@ -311,7 +311,7 @@ End Sub
 
 
 Private Sub Form_Resize()
-    
+    'VER EL ERROR ACA
     If Me.WindowState <> 1 Then
         Me.Refresh
         lstvLista.Top = tbarHerramientas.Top + tbarHerramientas.Height

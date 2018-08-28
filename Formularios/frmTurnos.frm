@@ -1,6 +1,7 @@
 VERSION 5.00
 Object = "{00025600-0000-0000-C000-000000000046}#5.2#0"; "Crystl32.OCX"
 Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "MSFLXGRD.OCX"
+Object = "{C932BA88-4374-101B-A56C-00AA003668DC}#1.1#0"; "MSMASK32.OCX"
 Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form frmTurnos 
    BorderStyle     =   1  'Fixed Single
@@ -14,10 +15,22 @@ Begin VB.Form frmTurnos
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
-   MinButton       =   0   'False
    ScaleHeight     =   9525
    ScaleWidth      =   17655
    StartUpPosition =   2  'CenterScreen
+   Begin MSComCtl2.DTPicker fechaturno 
+      Height          =   375
+      Left            =   13440
+      TabIndex        =   55
+      Top             =   480
+      Visible         =   0   'False
+      Width           =   1815
+      _ExtentX        =   3201
+      _ExtentY        =   661
+      _Version        =   393216
+      Format          =   20971521
+      CurrentDate     =   43340
+   End
    Begin VB.Frame fraprotocolos 
       Caption         =   "Protocolos"
       BeginProperty Font 
@@ -31,26 +44,33 @@ Begin VB.Form frmTurnos
       EndProperty
       Height          =   8655
       Left            =   10200
-      TabIndex        =   45
+      TabIndex        =   47
       Top             =   720
       Visible         =   0   'False
       Width           =   7335
+      Begin VB.TextBox txtfiltrop 
+         Height          =   315
+         Left            =   1800
+         TabIndex        =   51
+         Top             =   240
+         Width           =   3855
+      End
       Begin VB.CommandButton cmdSalirP 
          Caption         =   "&Salir"
          Height          =   495
          Left            =   5760
-         TabIndex        =   48
+         TabIndex        =   50
          Top             =   8040
          Width           =   1455
       End
       Begin MSFlexGridLib.MSFlexGrid grdProtocolos 
-         Height          =   7590
+         Height          =   7230
          Left            =   120
-         TabIndex        =   46
-         Top             =   360
+         TabIndex        =   48
+         Top             =   720
          Width           =   7020
          _ExtentX        =   12383
-         _ExtentY        =   13388
+         _ExtentY        =   12753
          _Version        =   393216
          Cols            =   3
          FixedCols       =   0
@@ -73,9 +93,18 @@ Begin VB.Form frmTurnos
          Caption         =   "&Aceptar"
          Height          =   495
          Left            =   4320
-         TabIndex        =   47
+         TabIndex        =   49
          Top             =   8040
          Width           =   1455
+      End
+      Begin VB.Label Label10 
+         AutoSize        =   -1  'True
+         Caption         =   "Filtro"
+         Height          =   195
+         Left            =   1320
+         TabIndex        =   52
+         Top             =   300
+         Width           =   330
       End
    End
    Begin VB.CommandButton cmdatendido 
@@ -83,7 +112,7 @@ Begin VB.Form frmTurnos
       Height          =   315
       Left            =   5760
       Style           =   1  'Graphical
-      TabIndex        =   44
+      TabIndex        =   46
       ToolTipText     =   "Atendido"
       Top             =   450
       Width           =   495
@@ -93,7 +122,7 @@ Begin VB.Form frmTurnos
       Height          =   315
       Left            =   5280
       Style           =   1  'Graphical
-      TabIndex        =   43
+      TabIndex        =   45
       ToolTipText     =   "En Espera"
       Top             =   450
       Width           =   495
@@ -104,7 +133,7 @@ Begin VB.Form frmTurnos
       Left            =   4800
       MaskColor       =   &H8000000F&
       Style           =   1  'Graphical
-      TabIndex        =   42
+      TabIndex        =   44
       ToolTipText     =   "Pendiente"
       Top             =   450
       Width           =   495
@@ -126,7 +155,7 @@ Begin VB.Form frmTurnos
       Left            =   15600
       Locked          =   -1  'True
       MaxLength       =   50
-      TabIndex        =   35
+      TabIndex        =   37
       Tag             =   "Descripci贸n"
       Top             =   8880
       Width           =   1500
@@ -137,7 +166,7 @@ Begin VB.Form frmTurnos
       Left            =   15240
       Picture         =   "frmTurnos.frx":030A
       Style           =   1  'Graphical
-      TabIndex        =   30
+      TabIndex        =   32
       ToolTipText     =   "ImprimirTurno"
       Top             =   50
       Width           =   495
@@ -148,7 +177,7 @@ Begin VB.Form frmTurnos
       Left            =   16200
       Picture         =   "frmTurnos.frx":5F1C
       Style           =   1  'Graphical
-      TabIndex        =   32
+      TabIndex        =   34
       ToolTipText     =   "Cortar Turnos"
       Top             =   50
       Width           =   495
@@ -159,7 +188,7 @@ Begin VB.Form frmTurnos
       Left            =   15720
       Picture         =   "frmTurnos.frx":62A6
       Style           =   1  'Graphical
-      TabIndex        =   31
+      TabIndex        =   33
       ToolTipText     =   "Copiar Turnos"
       Top             =   50
       Width           =   495
@@ -170,7 +199,7 @@ Begin VB.Form frmTurnos
       Left            =   5040
       Picture         =   "frmTurnos.frx":6630
       Style           =   1  'Graphical
-      TabIndex        =   12
+      TabIndex        =   14
       Top             =   8760
       Width           =   975
    End
@@ -180,7 +209,7 @@ Begin VB.Form frmTurnos
       Left            =   4080
       Picture         =   "frmTurnos.frx":7672
       Style           =   1  'Graphical
-      TabIndex        =   22
+      TabIndex        =   24
       ToolTipText     =   "Listado de Turnos del dia por Doctor"
       Top             =   8760
       Width           =   975
@@ -191,7 +220,7 @@ Begin VB.Form frmTurnos
       Left            =   3120
       Picture         =   "frmTurnos.frx":833C
       Style           =   1  'Graphical
-      TabIndex        =   23
+      TabIndex        =   25
       Top             =   8760
       Width           =   975
    End
@@ -201,7 +230,7 @@ Begin VB.Form frmTurnos
       Left            =   2160
       Picture         =   "frmTurnos.frx":937E
       Style           =   1  'Graphical
-      TabIndex        =   20
+      TabIndex        =   22
       Top             =   8760
       Width           =   975
    End
@@ -218,7 +247,7 @@ Begin VB.Form frmTurnos
       EndProperty
       Height          =   735
       Left            =   120
-      TabIndex        =   16
+      TabIndex        =   18
       Top             =   0
       Width           =   2895
       Begin VB.ComboBox cboDoctor 
@@ -253,9 +282,31 @@ Begin VB.Form frmTurnos
       EndProperty
       Height          =   5310
       Left            =   120
-      TabIndex        =   14
+      TabIndex        =   16
       Top             =   3400
       Width           =   2895
+      Begin MSMask.MaskEdBox mebHoraD 
+         Height          =   315
+         Left            =   675
+         TabIndex        =   6
+         Top             =   4560
+         Width           =   705
+         _ExtentX        =   1244
+         _ExtentY        =   556
+         _Version        =   393216
+         MaxLength       =   5
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Mask            =   "##:##"
+         PromptChar      =   "_"
+      End
       Begin VB.TextBox txtDrSolicitante 
          BeginProperty Font 
             Name            =   "Tahoma"
@@ -278,7 +329,7 @@ Begin VB.Form frmTurnos
          Caption         =   "NO"
          Height          =   315
          Left            =   2040
-         TabIndex        =   40
+         TabIndex        =   42
          Top             =   1560
          Width           =   615
       End
@@ -286,7 +337,7 @@ Begin VB.Form frmTurnos
          Caption         =   "SI"
          Height          =   315
          Left            =   1440
-         TabIndex        =   39
+         TabIndex        =   41
          Top             =   1560
          Width           =   615
       End
@@ -304,7 +355,7 @@ Begin VB.Form frmTurnos
          Left            =   120
          Locked          =   -1  'True
          MaxLength       =   50
-         TabIndex        =   27
+         TabIndex        =   29
          Tag             =   "Descripci贸n"
          Top             =   1920
          Width           =   2715
@@ -312,7 +363,7 @@ Begin VB.Form frmTurnos
       Begin VB.TextBox txtCodigo 
          Height          =   285
          Left            =   1920
-         TabIndex        =   21
+         TabIndex        =   23
          Top             =   600
          Visible         =   0   'False
          Width           =   855
@@ -331,7 +382,7 @@ Begin VB.Form frmTurnos
          Left            =   1440
          Locked          =   -1  'True
          MaxLength       =   50
-         TabIndex        =   26
+         TabIndex        =   28
          Tag             =   "Descripci贸n"
          Top             =   1080
          Width           =   1395
@@ -372,24 +423,6 @@ Begin VB.Form frmTurnos
          Top             =   250
          Width           =   1395
       End
-      Begin VB.ComboBox cbohasta 
-         BackColor       =   &H8000000E&
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   315
-         Left            =   1560
-         Style           =   2  'Dropdown List
-         TabIndex        =   7
-         Top             =   4500
-         Width           =   1260
-      End
       Begin VB.TextBox txtMotivo 
          BeginProperty Font 
             Name            =   "Tahoma"
@@ -409,24 +442,6 @@ Begin VB.Form frmTurnos
          Top             =   2640
          Width           =   2650
       End
-      Begin VB.ComboBox cboDesde 
-         BackColor       =   &H8000000E&
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   315
-         Left            =   120
-         Style           =   2  'Dropdown List
-         TabIndex        =   6
-         Top             =   4500
-         Width           =   1260
-      End
       Begin VB.TextBox txtimporte 
          BackColor       =   &H00008000&
          BeginProperty Font 
@@ -442,18 +457,36 @@ Begin VB.Form frmTurnos
          Height          =   315
          Left            =   1440
          MaxLength       =   50
-         TabIndex        =   8
+         TabIndex        =   10
          Tag             =   "Descripci贸n"
          Text            =   "0,00"
          Top             =   4935
          Width           =   1395
       End
-      Begin VB.Label Label7 
-         Alignment       =   2  'Center
-         AutoSize        =   -1  'True
-         BackColor       =   &H00C0C0FF&
-         BorderStyle     =   1  'Fixed Single
-         Caption         =   "Dr Solicitante"
+      Begin MSMask.MaskEdBox mebHoraH 
+         Height          =   315
+         Left            =   2040
+         TabIndex        =   7
+         Top             =   4560
+         Width           =   700
+         _ExtentX        =   1244
+         _ExtentY        =   556
+         _Version        =   393216
+         MaxLength       =   5
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Mask            =   "##:##"
+         PromptChar      =   "_"
+      End
+      Begin VB.ComboBox cbohasta 
+         BackColor       =   &H8000000E&
          BeginProperty Font 
             Name            =   "MS Sans Serif"
             Size            =   8.25
@@ -464,10 +497,65 @@ Begin VB.Form frmTurnos
             Strikethrough   =   0   'False
          EndProperty
          Height          =   315
+         Left            =   1560
+         Style           =   2  'Dropdown List
+         TabIndex        =   9
+         Top             =   4620
+         Visible         =   0   'False
+         Width           =   1260
+      End
+      Begin VB.ComboBox cboDesde 
+         BackColor       =   &H8000000E&
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   315
+         Left            =   1560
+         Style           =   2  'Dropdown List
+         TabIndex        =   8
+         Top             =   4920
+         Visible         =   0   'False
+         Width           =   1260
+      End
+      Begin VB.Label Label12 
+         Caption         =   "Hasta"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   255
+         Left            =   1480
+         TabIndex        =   54
+         Top             =   4590
+         Width           =   495
+      End
+      Begin VB.Label Label11 
+         Caption         =   "Desde"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   255
          Left            =   120
-         TabIndex        =   41
-         Top             =   3300
-         Width           =   2550
+         TabIndex        =   53
+         Top             =   4590
+         Width           =   615
       End
       Begin VB.Label lblimporte 
          Alignment       =   1  'Right Justify
@@ -486,9 +574,30 @@ Begin VB.Form frmTurnos
          EndProperty
          Height          =   315
          Left            =   120
-         TabIndex        =   36
+         TabIndex        =   38
          Top             =   4935
          Width           =   1245
+      End
+      Begin VB.Label Label7 
+         Alignment       =   2  'Center
+         AutoSize        =   -1  'True
+         BackColor       =   &H00C0C0FF&
+         BorderStyle     =   1  'Fixed Single
+         Caption         =   "Dr Solicitante"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   315
+         Left            =   120
+         TabIndex        =   43
+         Top             =   3300
+         Width           =   2550
       End
       Begin VB.Label Label6 
          Alignment       =   1  'Right Justify
@@ -507,7 +616,7 @@ Begin VB.Form frmTurnos
          EndProperty
          Height          =   315
          Left            =   120
-         TabIndex        =   29
+         TabIndex        =   31
          Top             =   1560
          Width           =   1200
       End
@@ -528,7 +637,7 @@ Begin VB.Form frmTurnos
          EndProperty
          Height          =   255
          Left            =   120
-         TabIndex        =   28
+         TabIndex        =   30
          Top             =   1080
          Width           =   1350
       End
@@ -549,7 +658,7 @@ Begin VB.Form frmTurnos
          EndProperty
          Height          =   315
          Left            =   120
-         TabIndex        =   19
+         TabIndex        =   21
          Top             =   4140
          Width           =   2640
       End
@@ -570,7 +679,7 @@ Begin VB.Form frmTurnos
          EndProperty
          Height          =   315
          Left            =   120
-         TabIndex        =   18
+         TabIndex        =   20
          Top             =   2280
          Width           =   1320
       End
@@ -591,7 +700,7 @@ Begin VB.Form frmTurnos
          EndProperty
          Height          =   315
          Left            =   120
-         TabIndex        =   17
+         TabIndex        =   19
          Top             =   250
          Width           =   1320
       End
@@ -599,7 +708,7 @@ Begin VB.Form frmTurnos
    Begin VB.Frame Frame1 
       Height          =   2655
       Left            =   120
-      TabIndex        =   13
+      TabIndex        =   15
       Top             =   720
       Width           =   2895
       Begin MSComCtl2.MonthView MViewFecha 
@@ -614,14 +723,14 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   21037058
+         StartOfWeek     =   20971522
          CurrentDate     =   40049
       End
    End
    Begin MSFlexGridLib.MSFlexGrid grdGrilla 
       Height          =   7965
       Left            =   3120
-      TabIndex        =   10
+      TabIndex        =   12
       ToolTipText     =   "Doble Click para ver la Historia Clinica del Paciente"
       Top             =   765
       Width           =   14205
@@ -669,7 +778,7 @@ Begin VB.Form frmTurnos
       Left            =   16680
       Picture         =   "frmTurnos.frx":9708
       Style           =   1  'Graphical
-      TabIndex        =   33
+      TabIndex        =   35
       ToolTipText     =   "Protocolos"
       Top             =   50
       Width           =   495
@@ -680,7 +789,7 @@ Begin VB.Form frmTurnos
       Left            =   240
       Picture         =   "frmTurnos.frx":B402
       Style           =   1  'Graphical
-      TabIndex        =   9
+      TabIndex        =   11
       Top             =   8760
       Width           =   975
    End
@@ -690,7 +799,7 @@ Begin VB.Form frmTurnos
       Left            =   1200
       Picture         =   "frmTurnos.frx":B78C
       Style           =   1  'Graphical
-      TabIndex        =   11
+      TabIndex        =   13
       Top             =   8760
       Width           =   975
    End
@@ -711,7 +820,7 @@ Begin VB.Form frmTurnos
       EndProperty
       Height          =   405
       Left            =   14100
-      TabIndex        =   38
+      TabIndex        =   40
       Top             =   8880
       Width           =   1500
    End
@@ -732,7 +841,7 @@ Begin VB.Form frmTurnos
       EndProperty
       Height          =   315
       Left            =   9720
-      TabIndex        =   37
+      TabIndex        =   39
       Top             =   11160
       Width           =   1245
    End
@@ -740,7 +849,7 @@ Begin VB.Form frmTurnos
       Caption         =   "Label7"
       Height          =   255
       Left            =   11520
-      TabIndex        =   34
+      TabIndex        =   36
       Top             =   360
       Visible         =   0   'False
       Width           =   1455
@@ -759,7 +868,7 @@ Begin VB.Form frmTurnos
       EndProperty
       Height          =   195
       Left            =   3240
-      TabIndex        =   25
+      TabIndex        =   27
       Top             =   480
       Width           =   1470
    End
@@ -777,7 +886,7 @@ Begin VB.Form frmTurnos
       EndProperty
       Height          =   195
       Left            =   8880
-      TabIndex        =   24
+      TabIndex        =   26
       Top             =   450
       Width           =   2685
    End
@@ -797,7 +906,7 @@ Begin VB.Form frmTurnos
       ForeColor       =   &H8000000E&
       Height          =   360
       Left            =   3600
-      TabIndex        =   15
+      TabIndex        =   17
       Top             =   60
       Width           =   945
    End
@@ -839,7 +948,7 @@ Private Sub cboDesde_LostFocus()
 End Sub
 
 Private Sub cboDoctor_LostFocus()
-    LimpiarTurno
+    'LimpiarTurno
     LimpiarGrilla
     BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
 End Sub
@@ -854,7 +963,7 @@ Private Sub cbohasta_LostFocus()
     End If
 End Sub
 Private Function ValidarHorarioTurno() As Boolean
-If cbohasta.Text <= cboDesde.Text Then
+If mebHoraH.Text <= mebHoraD.Text Then
     MsgBox "La hora HASTA debe ser mayor que la hora DESDE", vbCritical, TIT_MSGBOX
 Else
 
@@ -872,7 +981,7 @@ Dim turdesde As Date
 Dim turhasta As Date
 Dim hasta As Date
 Dim desde As Date
-hasta = cbohasta.Text
+hasta = mebHoraH.Text
 desde = cboDesde.Text
 If grdGrilla.Rows < 2 Then
     ValidarRangoTurno = True
@@ -915,21 +1024,21 @@ Private Function ValidarTurno() As Boolean
 '        ValidarTurno = False
 '        Exit Function
 '    End If
-    If cboDesde.ListIndex = -1 Then
+    If mebHoraD.Text = "" Then
         MsgBox "No ha ingresado la hora de comienzo del Turno", vbCritical, TIT_MSGBOX
-        cboDesde.SetFocus
+        mebHoraD.SetFocus
         ValidarTurno = False
         Exit Function
     End If
-    If cbohasta.ListIndex = -1 Then
-        MsgBox "No ha ingresado la hora de finalizaci贸n del Turno", vbCritical, TIT_MSGBOX
-        cbohasta.SetFocus
+    If mebHoraH.Text = "" Then
+        MsgBox "No ha ingresado la hora de finalizaci髇 del Turno", vbCritical, TIT_MSGBOX
+        mebHoraH.SetFocus
         ValidarTurno = False
         Exit Function
     End If
-    If cboDesde.Text >= cbohasta.Text Then
+    If mebHoraD.Text >= mebHoraH.Text Then
         MsgBox "La hora HASTA debe ser mayor a la hora DESDE", vbCritical, TIT_MSGBOX
-        cboDesde.SetFocus
+        mebHoraD.SetFocus
         ValidarTurno = False
         Exit Function
     End If
@@ -938,22 +1047,22 @@ Private Function ValidarTurno() As Boolean
 End Function
 Private Function ImprimirTurno()
     Dim sHoraD As Date
-    sHoraD = cboDesde.Text
-    sHoraD = Mid(sHoraD, 1, 1)
+    sHoraD = mebHoraD.Text
+    sHoraD = Mid(mebHoraD, 1, 1)
     
     If sHoraD = "0" Then
-        sHoraD = Mid(cboDesde.Text, 2, 4)
+        sHoraD = Mid(mebHoraD.Text, 2, 4)
     Else
-        sHoraD = Mid(cboDesde.Text, 1, 5)
+        sHoraD = Mid(mebHoraD.Text, 1, 5)
     End If
     
     Rep.SelectionFormula = ""
     Rep.Formulas(0) = ""
             
-    Rep.SelectionFormula = " {TURNOS.TUR_FECHA}= " & XDQ(MViewFecha.Value)
+    Rep.SelectionFormula = " {TURNOS.TUR_FECHA}= DATE (" & Mid(MViewFecha.Value, 7, 4) & "," & Mid(MViewFecha.Value, 4, 2) & "," & Mid(MViewFecha.Value, 1, 2) & ")"
     Rep.SelectionFormula = Rep.SelectionFormula & " AND {TURNOS.VEN_CODIGO}= " & cboDoctor.ItemData(cboDoctor.ListIndex)
     Rep.SelectionFormula = Rep.SelectionFormula & " AND {TURNOS.CLI_CODIGO}= " & XN(txtCodigo.Text)
-    'Rep.SelectionFormula = Rep.SelectionFormula & " AND {TURNOS.TUR_DESDE}= 1" '& grdGrilla.RowSel
+    'Rep.SelectionFormula = Rep.SelectionFormula & " AND {TURNOS.TUR_DESDE}= TIME (" & Mid(mebHoraD.Text, 1, 2) & "," & Mid(mebHoraD.Text, 4, 2) & ",00)"  '& grdGrilla.RowSel
     
     Rep.WindowState = crptMaximized
     Rep.WindowBorderStyle = crptNoBorder
@@ -1018,26 +1127,28 @@ Private Sub cmdAgregar_Click()
     
     grdGrilla.HighLight = flexHighlightAlways
     
-    nFilaD = cboDesde.ListIndex
-    nFilaH = cbohasta.ListIndex
+    'nFilaD = cboDesde.ListIndex
+    'nFilaH = cbohasta.ListIndex
+    'nFilaD = mebHoraD.Text
+    'nFilaH = mebHoraH.Text
     i = 0
     
-    sHoraDAux = cboDesde.Text
+    sHoraDAux = mebHoraD.Text
     'For i = 1 To nFilaH - nFilaD
         DBConn.BeginTrans
         
-        sHoraD = cboDesde.Text
+        sHoraD = mebHoraD.Text
         sHoraD = Mid(sHoraD, 1, 1)
         
         If sHoraD = "0" Then
-            sHoraD = Mid(cboDesde.Text, 2, 4)
+            sHoraD = Mid(mebHoraD.Text, 2, 4)
         Else
-            sHoraD = Trim(cboDesde.Text)
+            sHoraD = Trim(mebHoraD.Text)
         End If
         
         'ACA TENGO QUE HACER UN CONTROL POR CLAVES PRIMARIAS
         sql = "SELECT * FROM TURNOS"
-        sql = sql & " WHERE TUR_FECHA = " & XDQ(MViewFecha.Value)
+        sql = sql & " WHERE TUR_FECHA = " & XDQ(fechaturno.Value)
         sql = sql & " AND TUR_HORAD = #" & sHoraD & "#"
         sql = sql & " AND VEN_CODIGO = " & cboDoctor.ItemData(cboDoctor.ListIndex)
         'sql = sql & " AND CLI_CODIGO = " & XN(txtcodigo.Text)
@@ -1052,11 +1163,11 @@ Private Sub cmdAgregar_Click()
             'End If
             sql = sql & " TUR_FECALTA, TUR_DESDE, TUR_IMPORTE)"
             sql = sql & " VALUES ("
-            sql = sql & XDQ(MViewFecha.Value) & ",#"
+            sql = sql & XDQ(fechaturno.Value) & ",#"
             'sql = sql & Left(Trim(grdGrilla.TextMatrix(i + nFilaD, 0)), 5) & "#,#"
             'sql = sql & Right(Trim(grdGrilla.TextMatrix(i + nFilaD, 0)), 5) & "#,"
-            sql = sql & cboDesde.Text & "#,#"
-            sql = sql & cbohasta.Text & "#,"
+            sql = sql & mebHoraD.Text & "#,#"
+            sql = sql & mebHoraH.Text & "#,"
             sql = sql & cboDoctor.ItemData(cboDoctor.ListIndex) & ","
             sql = sql & XN(txtCodigo) & ","
             sql = sql & XS(txtMotivo) & ","
@@ -1095,8 +1206,8 @@ Private Sub cmdAgregar_Click()
             ' aca hago el update
             sql = "UPDATE TURNOS SET "
             sql = sql & " CLI_CODIGO = " & XN(txtCodigo.Text) 'CAMBIAR CUANDO CARGUEMOS DNI
-            sql = sql & " ,TUR_HORAD = " & "#" & cboDesde.Text & "#"
-            sql = sql & " ,TUR_HORAH = " & "#" & cbohasta.Text & "#"
+            sql = sql & " ,TUR_HORAD = " & "#" & mebHoraD.Text & "#"
+            sql = sql & " ,TUR_HORAH = " & "#" & mebHoraH.Text & "#"
             sql = sql & " ,TUR_MOTIVO =" & XS(txtMotivo.Text)
             sql = sql & " ,TUR_DRSOLICITA =" & XS(txtDrSolicitante.Text)
             sql = sql & " ,TUR_FECALTA =" & XDQ(Date)
@@ -1117,8 +1228,8 @@ Private Sub cmdAgregar_Click()
                 sql = sql & ",TUR_TIENEMUTUAL = " & XN(0)
             End If
             sql = sql & " WHERE "
-            sql = sql & " TUR_FECHA = " & XDQ(MViewFecha.Value)
-            sql = sql & " AND TUR_HORAD = #" & cboDesde.Text & "#"
+            sql = sql & " TUR_FECHA = " & XDQ(fechaturno.Value)
+            sql = sql & " AND TUR_HORAD = #" & mebHoraD.Text & "#"
             sql = sql & " AND VEN_CODIGO = " & cboDoctor.ItemData(cboDoctor.ListIndex)
             
         End If
@@ -1126,12 +1237,12 @@ Private Sub cmdAgregar_Click()
         
         rec.Close
         DBConn.Execute sql
-        
-            cboDesde.ListIndex = cboDesde.ListIndex + 1
+             'VER Q HAGO ACA
+            'cboDesde.ListIndex = cboDesde.ListIndex + 1
         'Next
-        cboDesde.Text = sHoraDAux
+        mebHoraD.Text = sHoraDAux
         ' busco fecha nacimiento y calculo la edad
-        Fecha = MViewFecha.Value
+        Fecha = fechaturno.Value
         sql = "SELECT CLI_CUMPLE"
         sql = sql & " FROM  CLIENTE "
         sql = sql & " WHERE CLI_CODIGO = " & XN(txtCodigo.Text)
@@ -1188,8 +1299,8 @@ Private Sub cmdatendido_Click()
         sql = "UPDATE TURNOS SET "
         sql = sql & " TUR_ASISTIO =" & grdGrilla.TextMatrix(grdGrilla.RowSel, 10)
         sql = sql & " WHERE "
-        sql = sql & " TUR_FECHA = " & XDQ(MViewFecha.Value)
-        sql = sql & " AND TUR_HORAD = #" & Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 6) & "#"
+        sql = sql & " TUR_FECHA = " & XDQ(fechaturno.Value)
+        sql = sql & " AND TUR_HORAD = #" & Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5) & "#"
         sql = sql & " AND VEN_CODIGO = " & XN(grdGrilla.TextMatrix(grdGrilla.RowSel, 8))
         DBConn.Execute sql
     End If
@@ -1208,8 +1319,10 @@ Private Sub LimpiarTurno()
     txtBuscarCliDescri.Text = ""
     txtMotivo.Text = ""
     txtDrSolicitante.Text = ""
-    cboDesde.ListIndex = -1
-    cbohasta.ListIndex = -1
+    'cboDesde.ListIndex = -1
+    'cbohasta.ListIndex = -1
+    mebHoraD.Text = "__:__"
+    mebHoraH.Text = "__:__"
     txtimporte.Text = "0,00"
     txtBuscaCliente.SetFocus
     cmdImpTurno.Enabled = False
@@ -1256,7 +1369,7 @@ Private Sub cmdespera_Click()
         sql = sql & " TUR_ASISTIO =" & grdGrilla.TextMatrix(grdGrilla.RowSel, 10)
         sql = sql & " WHERE "
         sql = sql & " TUR_FECHA = " & XDQ(MViewFecha.Value)
-        sql = sql & " AND TUR_HORAD = #" & Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 8) & "#"
+        sql = sql & " AND TUR_HORAD = #" & Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5) & "#"
         sql = sql & " AND VEN_CODIGO = " & XN(grdGrilla.TextMatrix(grdGrilla.RowSel, 8))
         DBConn.Execute sql
     End If
@@ -1273,6 +1386,7 @@ End Sub
 Private Sub CmdNuevo_Click()
     LimpiarTurno
     MViewFecha.Value = Date
+    fechaturno.Value = Date
     'If User <> 99 Then
     '    Call BuscaCodigoProxItemData(XN(User), cboDoctor)
     'Else
@@ -1391,7 +1505,7 @@ Private Sub cmdpendiente_Click()
         sql = sql & " TUR_ASISTIO =" & grdGrilla.TextMatrix(grdGrilla.RowSel, 10)
         sql = sql & " WHERE "
         sql = sql & " TUR_FECHA = " & XDQ(MViewFecha.Value)
-        sql = sql & " AND TUR_HORAD = #" & Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 8) & "#"
+        sql = sql & " AND TUR_HORAD = #" & Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5) & "#"
         sql = sql & " AND VEN_CODIGO = " & XN(grdGrilla.TextMatrix(grdGrilla.RowSel, 8))
         DBConn.Execute sql
     End If
@@ -1400,7 +1514,8 @@ End Sub
 Private Sub cmdProtocolos_Click()
     fraprotocolos.Visible = True
     grdProtocolos.SetFocus
-    
+    grdProtocolos.Rows = 1
+    cargo_protocolos
 End Sub
 
 Private Sub cmdQuitar_Click()
@@ -1546,6 +1661,7 @@ End Sub
 Private Sub cmdSalirP_Click()
     fraprotocolos.Visible = False
     limpiar_protocolos
+    txtfiltrop.Text = ""
 End Sub
 Private Function limpiar_protocolos()
     Dim i, J As Integer
@@ -1629,6 +1745,9 @@ End Sub
 Private Function cargo_protocolos()
     
     sql = "SELECT * FROM TIPO_IMAGEN"
+    If txtfiltrop.Text <> "" Then
+        sql = sql & " WHERE TIP_NOMBRE LIKE '%" & txtfiltrop.Text & "%'"
+    End If
     rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
     If rec.EOF = False Then
         Do While rec.EOF = False
@@ -1905,6 +2024,7 @@ Private Function configurogrilla()
     grdProtocolos.ColWidth(2) = 0 'Contenido
     grdProtocolos.ColWidth(3) = 1200 'Seleccionar
     grdProtocolos.Rows = 1
+    grdProtocolos.HighLight = flexHighlightAlways
     
 End Function
 
@@ -1943,6 +2063,10 @@ Private Sub grdGrilla_Click()
            txtDrSolicitante.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 7)
            BuscaDescriProx Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5), cboDesde
            BuscaDescriProx Right(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5), cbohasta
+           
+           mebHoraD.Text = Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5)
+           mebHoraH.Text = Right(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5)
+           
            'If Chk0(grdGrilla.TextMatrix(grdGrilla.RowSel, 13)) = 0 Then
            '    optSI.Enabled = False
            'End If
@@ -1967,6 +2091,9 @@ Private Sub grdGrilla_Click()
                txtMotivo.Text = ""
                cboDesde.ListIndex = -1
                cbohasta.ListIndex = -1
+               mebHoraD.Text = ""
+               mebHoraH.Text = ""
+               
                txtimporte.Text = "0,00"
            End If
        End If
@@ -2038,12 +2165,31 @@ Private Sub grdProtocolos_KeyDown(KeyCode As Integer, Shift As Integer)
     End If
 End Sub
 
+Private Sub mebHoraD_LostFocus()
+    If Mid(mebHoraD.Text, 1, 2) = "__" And Mid(mebHoraD.Text, 4, 2) <> "__" Then
+        mebHoraD.Text = "00:" & Mid(mebHoraD.Text, 4, 2)
+    End If
+    If Mid(mebHoraD.Text, 4, 2) = "__" And Mid(mebHoraD.Text, 1, 2) <> "__" Then
+        mebHoraD.Text = Mid(mebHoraD.Text, 1, 2) & ":00"
+    End If
+End Sub
+
+Private Sub mebHoraH_LostFocus()
+    If Mid(mebHoraH.Text, 1, 2) = "__" And Mid(mebHoraH.Text, 4, 2) <> "__" Then
+        mebHoraH.Text = "00:" & Mid(mebHoraH.Text, 4, 2)
+    End If
+    If Mid(mebHoraH.Text, 4, 2) = "__" And Mid(mebHoraH.Text, 1, 2) <> "__" Then
+        mebHoraH.Text = Mid(mebHoraH.Text, 1, 2) & ":00"
+    End If
+End Sub
+
 Private Sub MViewFecha_DateClick(ByVal DateClicked As Date)
     'lbldiaTurno.Caption = "Turnos del dia " & MViewFecha.Value
     'lbldiaTurno.Caption = "Turnos del dia " & WeekdayName(Weekday(MViewFecha.Value) - 1, False) & " " & day(MViewFecha.Value) & " de " & MonthName(Month(MViewFecha.Value), False) & " de " & Year(MViewFecha.Value)
     configurodia MViewFecha.Value
+    fechaturno.Value = MViewFecha.Value
     LimpiarGrilla
-    LimpiarTurno
+    'LimpiarTurno
     BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
 End Sub
 Private Sub configurodia(Fecha As Date)
@@ -2268,6 +2414,15 @@ End Sub
 
 Private Sub txtDrSolicitante_GotFocus()
     seltxt
+End Sub
+
+Private Sub txtfiltrop_GotFocus()
+    seltxt
+End Sub
+
+Private Sub txtfiltrop_LostFocus()
+    grdProtocolos.Rows = 1
+    cargo_protocolos
 End Sub
 
 Private Sub txtimporte_GotFocus()

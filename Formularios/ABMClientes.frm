@@ -220,7 +220,7 @@ Begin VB.Form ABMClientes
          _ExtentY        =   556
          _Version        =   393216
          CheckBox        =   -1  'True
-         Format          =   40697857
+         Format          =   54263809
          CurrentDate     =   40071
       End
       Begin MSComCtl2.DTPicker DTFechaNac 
@@ -233,7 +233,7 @@ Begin VB.Form ABMClientes
          _ExtentY        =   556
          _Version        =   393216
          CheckBox        =   -1  'True
-         Format          =   40697857
+         Format          =   54263809
          CurrentDate     =   40071
       End
       Begin VB.Label Label1 
@@ -478,27 +478,27 @@ Begin VB.Form ABMClientes
       TabCaption(2)   =   "&Historia Clinica"
       TabPicture(2)   =   "ABMClientes.frx":1C18
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "Frame6"
-      Tab(2).Control(1)=   "cboTratamiento"
-      Tab(2).Control(2)=   "Frame2"
-      Tab(2).Control(3)=   "Frame1"
-      Tab(2).Control(4)=   "txtHC"
-      Tab(2).Control(5)=   "grdCClinico"
+      Tab(2).Control(0)=   "grdCClinico"
+      Tab(2).Control(1)=   "txtHC"
+      Tab(2).Control(2)=   "Frame1"
+      Tab(2).Control(3)=   "Frame2"
+      Tab(2).Control(4)=   "cboTratamiento"
+      Tab(2).Control(5)=   "Frame6"
       Tab(2).ControlCount=   6
       TabCaption(3)   =   "Medicamentos"
       TabPicture(3)   =   "ABMClientes.frx":1C34
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "GrdCMedica"
+      Tab(3).Control(0)=   "Frame4"
       Tab(3).Control(1)=   "txtMedica"
-      Tab(3).Control(2)=   "Frame4"
+      Tab(3).Control(2)=   "GrdCMedica"
       Tab(3).ControlCount=   3
       TabCaption(4)   =   "Pedidos"
       TabPicture(4)   =   "ABMClientes.frx":1C50
       Tab(4).ControlEnabled=   0   'False
-      Tab(4).Control(0)=   "Frame7"
-      Tab(4).Control(1)=   "Command2"
-      Tab(4).Control(2)=   "cmdCancelarPedido"
-      Tab(4).Control(3)=   "cmdRealizado"
+      Tab(4).Control(0)=   "cmdRealizado"
+      Tab(4).Control(1)=   "cmdCancelarPedido"
+      Tab(4).Control(2)=   "Command2"
+      Tab(4).Control(3)=   "Frame7"
       Tab(4).ControlCount=   4
       TabCaption(5)   =   "Imágenes"
       TabPicture(5)   =   "ABMClientes.frx":1C6C
@@ -682,7 +682,7 @@ Begin VB.Form ABMClientes
             _ExtentY        =   556
             _Version        =   393216
             CheckBox        =   -1  'True
-            Format          =   40697857
+            Format          =   54263809
             CurrentDate     =   40070
          End
          Begin VB.TextBox txtcualca 
@@ -1061,7 +1061,7 @@ Begin VB.Form ABMClientes
             CalendarBackColor=   12648384
             CalendarForeColor=   0
             CalendarTitleBackColor=   12648384
-            Format          =   40697857
+            Format          =   54263809
             UpDown          =   -1  'True
             CurrentDate     =   40063
          End
@@ -1088,7 +1088,7 @@ Begin VB.Form ABMClientes
             CalendarTitleBackColor=   12648384
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   40697857
+            Format          =   54263809
             CurrentDate     =   40063
          End
          Begin VB.TextBox txtDescTra 
@@ -1513,7 +1513,7 @@ Begin VB.Form ABMClientes
             CalendarBackColor=   12648384
             CalendarForeColor=   0
             CalendarTitleBackColor=   12648384
-            Format          =   40697857
+            Format          =   54263809
             UpDown          =   -1  'True
             CurrentDate     =   40063
          End
@@ -3378,7 +3378,7 @@ Private Sub txtBuscaOS_Change()
 End Sub
 
 Private Sub txtBuscaOS_GotFocus()
-    SelecTexto txtBuscaOS
+   seltxt
 End Sub
 
 Private Sub txtBuscaOS_KeyDown(KeyCode As Integer, Shift As Integer)
@@ -3394,7 +3394,11 @@ End Sub
 Private Sub txtBuscaOS_LostFocus()
     If txtBuscaOS.Text <> "" Then
         cSQL = "SELECT OS_NUMERO, OS_NOMBRE FROM OBRA_SOCIAL WHERE OS_NUMERO = " & XN(txtBuscaOS.Text)
+        If rec.State = 1 Then
+            rec.Close
+        End If
         rec.Open cSQL, DBConn, adOpenStatic, adLockOptimistic
+        
         If rec.EOF = False Then
             txtBuscaOS.Text = ChkNull(rec!OS_NUMERO)
             txtBuscarOSNombre.Text = ChkNull(rec!OS_NOMBRE)
@@ -3403,11 +3407,17 @@ Private Sub txtBuscaOS_LostFocus()
             'txtBuscaOS.SetFocus
         End If
         rec.Close
+    Else
+        txtBuscarOSNombre.Text = ""
     End If
 End Sub
 
 Private Sub txtBuscarOSNombre_Change()
     cmdAceptar.Enabled = True
+End Sub
+
+Private Sub txtBuscarOSNombre_GotFocus()
+    seltxt
 End Sub
 
 Private Sub txtBuscarOSNombre_KeyDown(KeyCode As Integer, Shift As Integer)
@@ -3445,6 +3455,9 @@ Private Sub txtBuscarOSNombre_LostFocus()
             gObraS = 0
         End If
         If rec.State = 1 Then rec.Close
+    End If
+    If txtBuscarOSNombre.Text = "" Then
+        txtBuscaOS.Text = ""
     End If
 End Sub
 
