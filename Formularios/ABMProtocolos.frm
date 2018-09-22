@@ -2,7 +2,7 @@ VERSION 5.00
 Begin VB.Form ABMProtocolos 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Datos del Protocolo..."
-   ClientHeight    =   8145
+   ClientHeight    =   8430
    ClientLeft      =   2700
    ClientTop       =   2625
    ClientWidth     =   9960
@@ -20,11 +20,89 @@ Begin VB.Form ABMProtocolos
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   8145
+   ScaleHeight     =   8430
    ScaleWidth      =   9960
    ShowInTaskbar   =   0   'False
+   Begin VB.CommandButton cmdsig 
+      Caption         =   ">"
+      Height          =   255
+      Left            =   4920
+      TabIndex        =   17
+      Top             =   7800
+      Width           =   495
+   End
+   Begin VB.CommandButton cmdprev 
+      Caption         =   "<"
+      Height          =   255
+      Left            =   4440
+      TabIndex        =   16
+      Top             =   7800
+      Width           =   495
+   End
+   Begin VB.CommandButton cmdult 
+      Caption         =   ">>"
+      Height          =   255
+      Left            =   5400
+      TabIndex        =   15
+      Top             =   7800
+      Width           =   495
+   End
+   Begin VB.CommandButton cmdpri 
+      Caption         =   "<<"
+      Height          =   255
+      Left            =   3960
+      TabIndex        =   14
+      Top             =   7800
+      Width           =   495
+   End
    Begin VB.TextBox txtAbrevia 
       Height          =   5820
+      Index           =   5
+      Left            =   210
+      MultiLine       =   -1  'True
+      TabIndex        =   13
+      Top             =   1680
+      Width           =   9555
+   End
+   Begin VB.TextBox txtAbrevia 
+      Height          =   5820
+      Index           =   4
+      Left            =   210
+      MultiLine       =   -1  'True
+      TabIndex        =   12
+      Top             =   1680
+      Width           =   9555
+   End
+   Begin VB.TextBox txtAbrevia 
+      Height          =   5820
+      Index           =   3
+      Left            =   210
+      MultiLine       =   -1  'True
+      TabIndex        =   11
+      Top             =   1680
+      Width           =   9555
+   End
+   Begin VB.TextBox txtAbrevia 
+      Height          =   5820
+      Index           =   2
+      Left            =   210
+      MultiLine       =   -1  'True
+      TabIndex        =   10
+      Top             =   1680
+      Width           =   9555
+   End
+   Begin VB.TextBox txtAbrevia 
+      Height          =   5820
+      Index           =   1
+      Left            =   210
+      MultiLine       =   -1  'True
+      TabIndex        =   9
+      Top             =   1680
+      Width           =   9555
+   End
+   Begin VB.TextBox txtAbrevia 
+      Height          =   5820
+      Index           =   0
       Left            =   210
       MultiLine       =   -1  'True
       TabIndex        =   2
@@ -33,11 +111,11 @@ Begin VB.Form ABMProtocolos
    End
    Begin VB.CommandButton cmdAyuda 
       Height          =   315
-      Left            =   5250
+      Left            =   6240
       Picture         =   "ABMProtocolos.frx":000C
       Style           =   1  'Graphical
       TabIndex        =   7
-      Top             =   7665
+      Top             =   8040
       Width           =   330
    End
    Begin VB.TextBox txtDescri 
@@ -59,7 +137,7 @@ Begin VB.Form ABMProtocolos
       Height          =   345
       Left            =   8160
       TabIndex        =   4
-      Top             =   7665
+      Top             =   8025
       Width           =   1300
    End
    Begin VB.CommandButton cmdAceptar 
@@ -67,8 +145,17 @@ Begin VB.Form ABMProtocolos
       Height          =   345
       Left            =   6825
       TabIndex        =   3
-      Top             =   7665
+      Top             =   8025
       Width           =   1300
+   End
+   Begin VB.Label lblnroja 
+      AutoSize        =   -1  'True
+      Caption         =   "Label16"
+      Height          =   195
+      Left            =   4680
+      TabIndex        =   18
+      Top             =   7560
+      Width           =   570
    End
    Begin VB.Label Label1 
       AutoSize        =   -1  'True
@@ -200,10 +287,10 @@ Function SetMode(pMode As Integer)
     Select Case pMode
         Case 1, 2
             AcCtrl txtDescri
-            AcCtrl txtAbrevia
+            'AcCtrl txtAbrevia
         Case 3, 4
             DesacCtrl txtDescri
-            DesacCtrl txtAbrevia
+            'DesacCtrl txtAbrevia
     End Select
     
     
@@ -266,11 +353,11 @@ Function Validar(pMode As Integer) As Boolean
                              "Ingrese el nombre del Protocolo antes de aceptar.", vbCritical + vbOKOnly, App.Title
             txtDescri.SetFocus
             Exit Function
-        ElseIf txtAbrevia.Text = "" Then
+        ElseIf txtAbrevia(0).Text = "" Then
             Beep
             MsgBox "Falta información." & Chr(13) & _
                              "Ingrese el contenido del Protocolo antes de aceptar.", vbCritical + vbOKOnly, App.Title
-            txtAbrevia.SetFocus
+            'txtAbrevia(0).SetFocus
             Exit Function
         End If
     End If
@@ -294,16 +381,25 @@ Private Sub cmdAceptar_Click()
             Case 1 'nuevo
             
                 cSQL = "INSERT INTO " & cTabla
-                cSQL = cSQL & "     (TIP_CODIGO, TIP_NOMBRE, TIP_CONTEN) "
+                cSQL = cSQL & "     (TIP_CODIGO, TIP_NOMBRE, TIP_CONTEN, "
+                cSQL = cSQL & "     ,TIP_CONTEN1, TIP_CONTEN2, TIP_CONTEN3, "
+                cSQL = cSQL & "     ,TIP_CONTEN4, TIP_CONTEN5) "
                 cSQL = cSQL & "VALUES "
                 cSQL = cSQL & "     (" & XN(txtID.Text) & ", " & XS(txtDescri.Text) & ", "
-                cSQL = cSQL & XS(txtAbrevia.Text) & ") "
+                cSQL = cSQL & XS(txtAbrevia(0).Text) & ", " & XS(txtAbrevia(1).Text) & ", "
+                cSQL = cSQL & XS(txtAbrevia(2).Text) & ", " & XS(txtAbrevia(3).Text) & ", "
+                cSQL = cSQL & XS(txtAbrevia(4).Text) & ", " & XS(txtAbrevia(5).Text) & ") "
             
             Case 2 'editar
                 
                 cSQL = "UPDATE " & cTabla & " SET "
                 cSQL = cSQL & "     TIP_NOMBRE = " & XS(txtDescri.Text)
-                cSQL = cSQL & "    ,TIP_CONTEN = " & XS(txtAbrevia.Text)
+                cSQL = cSQL & "    ,TIP_CONTEN = " & XS(txtAbrevia(0).Text)
+                cSQL = cSQL & "    ,TIP_CONTEN1 = " & XS(txtAbrevia(1).Text)
+                cSQL = cSQL & "    ,TIP_CONTEN2 = " & XS(txtAbrevia(2).Text)
+                cSQL = cSQL & "    ,TIP_CONTEN3 = " & XS(txtAbrevia(3).Text)
+                cSQL = cSQL & "    ,TIP_CONTEN4 = " & XS(txtAbrevia(4).Text)
+                cSQL = cSQL & "    ,TIP_CONTEN5 = " & XS(txtAbrevia(5).Text)
                 cSQL = cSQL & " WHERE TIP_CODIGO  = " & XN(txtID.Text)
             
             Case 4 'eliminar
@@ -343,6 +439,31 @@ Private Sub cmdCerrar_Click()
 
     Unload Me
     
+End Sub
+
+Private Sub cmdprev_Click()
+    If hojaactual > 0 Then
+        lblnroja.Caption = "Hoja " & hojaactual
+         muestro_ImgDescri hojaactual
+    End If
+End Sub
+
+Private Sub cmdpri_Click()
+    lblnroja.Caption = "Hoja 1"
+    muestro_ImgDescri 1
+    
+End Sub
+
+Private Sub cmdsig_Click()
+ If hojaactual < 5 Then
+    lblnroja.Caption = "Hoja " & hojaactual + 2
+    muestro_ImgDescri hojaactual + 2
+ End If
+End Sub
+
+Private Sub cmdult_Click()
+    lblnroja.Caption = "Hoja 6"
+    muestro_ImgDescri 6
 End Sub
 
 Private Sub Form_Activate()
@@ -387,7 +508,13 @@ Private Sub Form_Load()
                 'si encontró el registro muestro los datos
                 txtID.Text = rec!TIP_CODIGO
                 txtDescri.Text = rec!TIP_NOMBRE
-                txtAbrevia.Text = ChkNull(rec!TIP_CONTEN)
+                txtAbrevia(0).Text = ChkNull(rec!TIP_CONTEN)
+                txtAbrevia(1).Text = ChkNull(rec!TIP_CONTEN1)
+                txtAbrevia(2).Text = ChkNull(rec!TIP_CONTEN2)
+                txtAbrevia(3).Text = ChkNull(rec!TIP_CONTEN3)
+                txtAbrevia(4).Text = ChkNull(rec!TIP_CONTEN4)
+                txtAbrevia(5).Text = ChkNull(rec!TIP_CONTEN5)
+                muestro_ImgDescri 1
             Else
                 Beep
                 MsgBox "Imposible encontrar el registro seleccionado.", vbCritical + vbOKOnly, App.Title
@@ -395,19 +522,27 @@ Private Sub Form_Load()
         End If
     End If
     
+    lblnroja.Caption = "Hoja 1"
+    muestro_ImgDescri 1
+    
     'establesco funcionalidad del form de datos
     SetMode vMode
 End Sub
 
-Private Sub txtAbrevia_Change()
+
+
+Private Sub txtAbrevia_Change(Index As Integer)
     cmdAceptar.Enabled = True
 End Sub
 
-Private Sub txtAbrevia_GotFocus()
-    SelecTexto txtAbrevia
+
+
+
+Private Sub txtAbrevia_GotFocus(Index As Integer)
+    seltxt txtAbrevia(Index)
 End Sub
 
-Private Sub txtAbrevia_KeyPress(KeyAscii As Integer)
+Private Sub txtAbrevia_KeyPress(Index As Integer, KeyAscii As Integer)
     KeyAscii = CarTexto(KeyAscii)
 End Sub
 
@@ -470,3 +605,25 @@ Private Sub txtID_LostFocus()
         End If
     End If
 End Sub
+Private Function muestro_ImgDescri(hoja As Integer)
+    'hoja va de 1 a 6
+    'elemento de matriz va de 0 a 5
+    Dim i As Integer
+        For i = 0 To 5
+            If (hoja - 1) = i Then
+                txtAbrevia(i).Visible = True
+            Else
+                txtAbrevia(i).Visible = False
+            End If
+        Next
+End Function
+Private Function hojaactual() As Integer
+    Dim i As Integer
+    For i = 0 To 5
+        If txtAbrevia(i).Visible = True Then
+            hojaactual = i
+        End If
+    Next
+
+End Function
+

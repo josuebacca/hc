@@ -4,7 +4,7 @@ Public DRIVE        As String   'Unidad donde está mapeado
 Public SERVIDOR     As String   'Servidor al cual conectarse
 Public BASEDATO     As String   'Base de datos a la que te queres conectar
 Public DirReport    As String
-Public Impresora    As String   'PARA SABER QUE IMPRESORA USA PARA LA FACTURA Y REMITO
+Public IMPRESORA    As String   'PARA SABER QUE IMPRESORA USA PARA LA FACTURA Y REMITO
 Public DirBkp    As String
 Public Ayuda As String
 Public User As String
@@ -38,7 +38,7 @@ Do While Not EOF(1)
                 DirReport = ValVar
            
            Case "IMPRESORA"
-                Impresora = ValVar
+                IMPRESORA = ValVar
            
            Case "DIRBKP"
                 DirBkp = ValVar

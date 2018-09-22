@@ -28,7 +28,7 @@ Begin VB.Form frmTurnos
       _ExtentX        =   3201
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   20971521
+      Format          =   54329345
       CurrentDate     =   43340
    End
    Begin VB.Frame fraprotocolos 
@@ -723,7 +723,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   20971522
+         StartOfWeek     =   54329346
          CurrentDate     =   40049
       End
    End
@@ -1080,7 +1080,7 @@ Private Sub cmdAceptarP_Click()
     Dim Num As Integer
     cont = 0
     For i = 1 To grdProtocolos.Rows - 1
-        If grdProtocolos.TextMatrix(i, 3) = "SI" Then
+        If grdProtocolos.TextMatrix(i, 8) = "SI" Then
             sql = "SELECT MAX(IMG_CODIGO) AS NUMERO FROM IMAGEN"
             rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
             If rec.EOF = False Then
@@ -1091,14 +1091,20 @@ Private Sub cmdAceptarP_Click()
         
             sql = "INSERT INTO IMAGEN"
             sql = sql & " (IMG_CODIGO,IMG_FECHA,"
-            sql = sql & " CLI_CODIGO,VEN_CODIGO,TIP_CODIGO,IMG_DESCRI)"
+            sql = sql & " CLI_CODIGO,VEN_CODIGO,TIP_CODIGO,IMG_DESCRI,"
+            sql = sql & " IMG_DESCRI1,IMG_DESCRI2,IMG_DESCRI3,IMG_DESCRI4,IMG_DESCRI5)"
             sql = sql & " VALUES ("
             sql = sql & Num & ","
             sql = sql & XDQ(MViewFecha.Value) & ","
             sql = sql & grdGrilla.TextMatrix(grdGrilla.RowSel, 9) & ","
             sql = sql & 1 & "," 'SOLO SILVANA ES LA ECOGRAFA
             sql = sql & grdProtocolos.TextMatrix(i, 1) & ","
-            sql = sql & XS(grdProtocolos.TextMatrix(i, 2)) & ")"
+            sql = sql & XS(grdProtocolos.TextMatrix(i, 2)) & ","
+            sql = sql & XS(grdProtocolos.TextMatrix(i, 3)) & ","
+            sql = sql & XS(grdProtocolos.TextMatrix(i, 4)) & ","
+            sql = sql & XS(grdProtocolos.TextMatrix(i, 5)) & ","
+            sql = sql & XS(grdProtocolos.TextMatrix(i, 6)) & ","
+            sql = sql & XS(grdProtocolos.TextMatrix(i, 7)) & ")"
             DBConn.Execute sql
             cont = cont + 1
         End If
@@ -1754,6 +1760,11 @@ Private Function cargo_protocolos()
             grdProtocolos.AddItem ChkNull(rec!TIP_NOMBRE) & Chr(9) & _
                                   rec!TIP_CODIGO & Chr(9) & _
                                   rec!TIP_CONTEN & Chr(9) & _
+                                  rec!TIP_CONTEN1 & Chr(9) & _
+                                  rec!TIP_CONTEN2 & Chr(9) & _
+                                  rec!TIP_CONTEN3 & Chr(9) & _
+                                  rec!TIP_CONTEN4 & Chr(9) & _
+                                  rec!TIP_CONTEN5 & Chr(9) & _
                                   "NO"
             rec.MoveNext
         Loop
@@ -2018,11 +2029,16 @@ Private Function configurogrilla()
 '        J = J + 1
 '    Loop
 
-    grdProtocolos.FormatString = "<Protocolo|Codigo|Contenido|^Seleccionado"
+    grdProtocolos.FormatString = "<Protocolo|Codigo|Contenido|Contenido1|Contenido2|Contenido3|Contenido4|Contenido5|^Seleccionado"
     grdProtocolos.ColWidth(0) = 5300 'Protocolo
     grdProtocolos.ColWidth(1) = 0 'Codigo
     grdProtocolos.ColWidth(2) = 0 'Contenido
-    grdProtocolos.ColWidth(3) = 1200 'Seleccionar
+    grdProtocolos.ColWidth(3) = 0 'Contenido1
+    grdProtocolos.ColWidth(4) = 0 'Contenido2
+    grdProtocolos.ColWidth(5) = 0 'Contenido3
+    grdProtocolos.ColWidth(6) = 0 'Contenido4
+    grdProtocolos.ColWidth(7) = 0 'Contenido5
+    grdProtocolos.ColWidth(8) = 1200 'Seleccionar
     grdProtocolos.Rows = 1
     grdProtocolos.HighLight = flexHighlightAlways
     
@@ -2137,8 +2153,8 @@ End Sub
 
 Private Sub grdProtocolos_DblClick()
     Dim J As Integer
-    If grdProtocolos.TextMatrix(grdProtocolos.RowSel, 3) = "NO" Then
-        grdProtocolos.TextMatrix(grdProtocolos.RowSel, 3) = "SI"
+    If grdProtocolos.TextMatrix(grdProtocolos.RowSel, 8) = "NO" Then
+        grdProtocolos.TextMatrix(grdProtocolos.RowSel, 8) = "SI"
         'CAMBIAR COLOR
         'backColor = &HC000&
         'foreColor = &HFFFFFF
@@ -2149,7 +2165,7 @@ Private Sub grdProtocolos_DblClick()
             grdProtocolos.CellFontBold = True
         Next
     Else
-        grdProtocolos.TextMatrix(grdProtocolos.RowSel, 3) = "NO"
+        grdProtocolos.TextMatrix(grdProtocolos.RowSel, 8) = "NO"
         For J = 0 To grdProtocolos.Cols - 1
             grdProtocolos.Col = J
             grdProtocolos.CellForeColor = &H80000008

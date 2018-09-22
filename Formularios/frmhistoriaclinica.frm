@@ -454,9 +454,9 @@ Begin VB.Form frmhistoriaclinica
       TabCaption(0)   =   "Curso Clinico"
       TabPicture(0)   =   "frmhistoriaclinica.frx":0000
       Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "Frame6"
+      Tab(0).Control(0)=   "Frame4"
       Tab(0).Control(1)=   "Frame5"
-      Tab(0).Control(2)=   "Frame4"
+      Tab(0).Control(2)=   "Frame6"
       Tab(0).ControlCount=   3
       TabCaption(1)   =   "Ecografias"
       TabPicture(1)   =   "frmhistoriaclinica.frx":001C
@@ -475,8 +475,8 @@ Begin VB.Form frmhistoriaclinica
       TabCaption(2)   =   "Pedidos"
       TabPicture(2)   =   "frmhistoriaclinica.frx":0038
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "Frame9"
-      Tab(2).Control(1)=   "Frame8"
+      Tab(2).Control(0)=   "Frame8"
+      Tab(2).Control(1)=   "Frame9"
       Tab(2).ControlCount=   2
       Begin VB.CommandButton cmdzoom 
          Caption         =   "+"
@@ -629,7 +629,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   20971521
+            Format          =   54394881
             CurrentDate     =   41098
          End
          Begin VB.Label Label19 
@@ -747,7 +747,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   20971521
+            Format          =   54394881
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHastaPedido 
@@ -761,7 +761,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   20971521
+            Format          =   54394881
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdPedidos 
@@ -939,7 +939,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   20971521
+            Format          =   54394881
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHastaImg 
@@ -953,7 +953,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   20971521
+            Format          =   54394881
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdImagenes 
@@ -1103,7 +1103,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   20971521
+            Format          =   54394881
             CurrentDate     =   43205
          End
          Begin VB.CommandButton cmdCancelar 
@@ -1140,7 +1140,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   20971521
+            Format          =   54394881
             CurrentDate     =   41098
          End
          Begin VB.CommandButton cmdAceptar 
@@ -1286,7 +1286,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   20971521
+            Format          =   54394881
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHasta 
@@ -1300,7 +1300,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   20971521
+            Format          =   54394881
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdConsultas 
@@ -1390,6 +1390,83 @@ Begin VB.Form frmhistoriaclinica
          TabIndex        =   53
          Top             =   480
          Width           =   8295
+         Begin VB.TextBox txtImgDescri 
+            Height          =   5115
+            Index           =   5
+            Left            =   1320
+            MultiLine       =   -1  'True
+            TabIndex        =   133
+            Top             =   1800
+            Width           =   6495
+         End
+         Begin VB.TextBox txtImgDescri 
+            Height          =   5115
+            Index           =   4
+            Left            =   1320
+            MultiLine       =   -1  'True
+            TabIndex        =   132
+            Top             =   1800
+            Width           =   6495
+         End
+         Begin VB.TextBox txtImgDescri 
+            Height          =   5115
+            Index           =   3
+            Left            =   1320
+            MultiLine       =   -1  'True
+            TabIndex        =   131
+            Top             =   1800
+            Width           =   6495
+         End
+         Begin VB.TextBox txtImgDescri 
+            Height          =   5115
+            Index           =   2
+            Left            =   1320
+            MultiLine       =   -1  'True
+            TabIndex        =   130
+            Top             =   1800
+            Width           =   6495
+         End
+         Begin VB.TextBox txtImgDescri 
+            Height          =   5115
+            Index           =   1
+            Left            =   1320
+            MultiLine       =   -1  'True
+            TabIndex        =   129
+            Top             =   1800
+            Width           =   6495
+         End
+         Begin VB.CommandButton cmdpri 
+            Caption         =   "<<"
+            Height          =   255
+            Left            =   3600
+            TabIndex        =   128
+            Top             =   7200
+            Width           =   375
+         End
+         Begin VB.CommandButton cmdult 
+            Caption         =   ">>"
+            Height          =   255
+            Left            =   4680
+            TabIndex        =   127
+            Top             =   7200
+            Width           =   375
+         End
+         Begin VB.CommandButton cmdprev 
+            Caption         =   "<"
+            Height          =   255
+            Left            =   3960
+            TabIndex        =   126
+            Top             =   7200
+            Width           =   375
+         End
+         Begin VB.CommandButton cmdsig 
+            Caption         =   ">"
+            Height          =   255
+            Left            =   4320
+            TabIndex        =   124
+            Top             =   7200
+            Width           =   375
+         End
          Begin VB.CommandButton cmdImprimirEco 
             Caption         =   "Imprimir"
             Height          =   375
@@ -1415,7 +1492,7 @@ Begin VB.Form frmhistoriaclinica
             List            =   "frmhistoriaclinica.frx":707A
             Style           =   2  'Dropdown List
             TabIndex        =   78
-            Top             =   1080
+            Top             =   840
             Width           =   4980
          End
          Begin VB.ComboBox cboDocImg 
@@ -1436,7 +1513,7 @@ Begin VB.Form frmhistoriaclinica
             Locked          =   -1  'True
             Style           =   2  'Dropdown List
             TabIndex        =   61
-            Top             =   1560
+            Top             =   1320
             Width           =   2580
          End
          Begin VB.CommandButton cmdAceptarImg 
@@ -1448,11 +1525,12 @@ Begin VB.Form frmhistoriaclinica
             Width           =   1095
          End
          Begin VB.TextBox txtImgDescri 
-            Height          =   5355
+            Height          =   5115
+            Index           =   0
             Left            =   1320
             MultiLine       =   -1  'True
             TabIndex        =   58
-            Top             =   2040
+            Top             =   1800
             Width           =   6495
          End
          Begin VB.CommandButton cmdCancelarImg 
@@ -1467,7 +1545,7 @@ Begin VB.Form frmhistoriaclinica
             Height          =   315
             Left            =   2880
             TabIndex        =   56
-            Top             =   600
+            Top             =   360
             Visible         =   0   'False
             Width           =   495
          End
@@ -1476,7 +1554,7 @@ Begin VB.Form frmhistoriaclinica
             Height          =   315
             Left            =   7320
             TabIndex        =   55
-            Top             =   1560
+            Top             =   1320
             Width           =   495
          End
          Begin VB.TextBox txtProfImg 
@@ -1484,22 +1562,31 @@ Begin VB.Form frmhistoriaclinica
             Height          =   315
             Left            =   4680
             TabIndex        =   54
-            Top             =   1560
+            Top             =   1320
             Width           =   1575
          End
          Begin MSComCtl2.DTPicker FechaImg 
             Height          =   315
             Left            =   1305
             TabIndex        =   59
-            Top             =   600
+            Top             =   360
             Width           =   1455
             _ExtentX        =   2566
             _ExtentY        =   556
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   20971521
+            Format          =   54394881
             CurrentDate     =   41098
+         End
+         Begin VB.Label lblnroja 
+            AutoSize        =   -1  'True
+            Caption         =   "Label16"
+            Height          =   195
+            Left            =   4080
+            TabIndex        =   125
+            Top             =   6960
+            Width           =   570
          End
          Begin VB.Label Label38 
             AutoSize        =   -1  'True
@@ -1507,7 +1594,7 @@ Begin VB.Form frmhistoriaclinica
             Height          =   195
             Left            =   600
             TabIndex        =   77
-            Top             =   1080
+            Top             =   840
             Width           =   570
          End
          Begin VB.Label Label34 
@@ -1516,7 +1603,7 @@ Begin VB.Form frmhistoriaclinica
             Height          =   195
             Left            =   600
             TabIndex        =   66
-            Top             =   600
+            Top             =   360
             Width           =   495
          End
          Begin VB.Label Label33 
@@ -1525,7 +1612,7 @@ Begin VB.Form frmhistoriaclinica
             Height          =   195
             Left            =   240
             TabIndex        =   65
-            Top             =   2040
+            Top             =   1800
             Width           =   885
          End
          Begin VB.Label Label17 
@@ -1534,7 +1621,7 @@ Begin VB.Form frmhistoriaclinica
             Height          =   195
             Left            =   600
             TabIndex        =   64
-            Top             =   1560
+            Top             =   1320
             Width           =   540
          End
          Begin VB.Label Label15 
@@ -1542,7 +1629,7 @@ Begin VB.Form frmhistoriaclinica
             Height          =   375
             Left            =   3960
             TabIndex        =   63
-            Top             =   1560
+            Top             =   1320
             Width           =   735
          End
          Begin VB.Label Label6 
@@ -1550,7 +1637,7 @@ Begin VB.Form frmhistoriaclinica
             Height          =   255
             Left            =   6480
             TabIndex        =   62
-            Top             =   1560
+            Top             =   1320
             Width           =   855
          End
       End
@@ -1668,7 +1755,7 @@ Private Function validarImagen()
         ValidarTurno = False
         Exit Function
     End If
-    If txtImgDescri.Text = "" Then
+    If txtImgDescri(0).Text = "" Then
         MsgBox "No ha ingresado la descripción de la Imagen", vbCritical, TIT_MSGBOX
         txtMotivo.SetFocus
         validarImagen = False
@@ -1696,7 +1783,7 @@ Private Function ImprimirTurno()
             
     Rep.SelectionFormula = " {TURNOS.TUR_FECHA}= " & XDQ(MViewFecha.Value)
     Rep.SelectionFormula = Rep.SelectionFormula & " AND {TURNOS.VEN_CODIGO}= " & cboDoctor.ItemData(cboDoctor.ListIndex)
-    Rep.SelectionFormula = Rep.SelectionFormula & " AND {TURNOS.CLI_CODIGO}= " & XN(txtcodigo.Text)
+    Rep.SelectionFormula = Rep.SelectionFormula & " AND {TURNOS.CLI_CODIGO}= " & XN(txtCodigo.Text)
     'Rep.SelectionFormula = Rep.SelectionFormula & " AND {TURNOS.TUR_HORAD}= #" & TRIM(cboDesde.Text) & "#"
     
     Rep.WindowState = crptMaximized
@@ -1708,10 +1795,15 @@ Private Function ImprimirTurno()
     Rep.Action = 1
 End Function
 Private Function LimpiarImagen()
+    Dim i As Integer
     FechaImg.Value = Date
-    txtImgDescri = ""
+    For i = 0 To 5
+        txtImgDescri(i).Text = ""
+    Next
     cboImg.ListIndex = -1
     txtNroImg = ""
+    lblnroja.Caption = "Hoja 1"
+    muestro_ImgDescri 1
 End Function
 Private Sub cmdAgregar_Click()
     
@@ -1888,7 +1980,7 @@ Private Sub cmdabrirdoc_Click()
 '
 '    End If
 '    'word.AppClose
-    If txtcodigo.Text <> "" Then
+    If txtCodigo.Text <> "" Then
         fraprotocolos.Visible = True
         grdProtocolos.SetFocus
         grdProtocolos.Rows = 1
@@ -1928,7 +2020,7 @@ Private Sub cmdAceptar_Click()
         sql = sql & " VALUES ("
         sql = sql & Num & ","
         sql = sql & XDQ(Fecha.Value) & ","
-        sql = sql & XN(txtcodigo.Text) & ","
+        sql = sql & XN(txtCodigo.Text) & ","
         sql = sql & cboDocCon.ItemData(cboDocCon.ListIndex) & ","
         sql = sql & XS(txtMotivo.Text) & ","
         sql = sql & XS(txtIndicaciones.Text) & ","
@@ -1943,7 +2035,7 @@ Private Sub cmdAceptar_Click()
         If MsgBox("¿Desea Modificar la Consulta Medica?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
         sql = "UPDATE CCLINICO SET "
         sql = sql & " CCL_FECHA = " & XDQ(Fecha.Value)
-        sql = sql & " ,CLI_CODIGO=" & XN(txtcodigo.Text)
+        sql = sql & " ,CLI_CODIGO=" & XN(txtCodigo.Text)
         sql = sql & " ,VEN_CODIGO=" & cboDocCon.ItemData(cboDocCon.ListIndex)
         sql = sql & " ,CCL_MOTIVO=" & XS(txtMotivo.Text)
         sql = sql & " ,CCL_INDICA=" & XS(txtIndicaciones.Text)
@@ -2009,23 +2101,34 @@ Private Sub cmdAceptarImg_Click()
         'NUEVA CONSULTA
         sql = "INSERT INTO IMAGEN"
         sql = sql & " (IMG_CODIGO,IMG_FECHA,"
-        sql = sql & " CLI_CODIGO,VEN_CODIGO,TIP_CODIGO,IMG_DESCRI)"
+        sql = sql & " CLI_CODIGO,VEN_CODIGO,TIP_CODIGO,IMG_DESCRI,"
+        sql = sql & " IMG_DESCRI1,IMG_DESCRI2,IMG_DESCRI3,IMG_DESCRI4,IMG_DESCRI5)"
         sql = sql & " VALUES ("
         sql = sql & Num & ","
         sql = sql & XDQ(FechaImg.Value) & ","
-        sql = sql & XN(txtcodigo.Text) & ","
+        sql = sql & XN(txtCodigo.Text) & ","
         sql = sql & cboDocImg.ItemData(cboDocImg.ListIndex) & ","
         sql = sql & cboImg.ItemData(cboImg.ListIndex) & ","
-        sql = sql & XS(txtImgDescri.Text) & ")"
+        sql = sql & XS(txtImgDescri(0).Text) & ","
+        sql = sql & XS(txtImgDescri(1).Text) & ","
+        sql = sql & XS(txtImgDescri(2).Text) & ","
+        sql = sql & XS(txtImgDescri(3).Text) & ","
+        sql = sql & XS(txtImgDescri(4).Text) & ","
+        sql = sql & XS(txtImgDescri(5).Text) & ")"
         DBConn.Execute sql
     Else
         If MsgBox("¿Desea Modificar la Imagen?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
         sql = "UPDATE IMAGEN SET "
         sql = sql & " IMG_FECHA = " & XDQ(FechaImg.Value)
-        sql = sql & " ,CLI_CODIGO=" & XN(txtcodigo.Text)
+        sql = sql & " ,CLI_CODIGO=" & XN(txtCodigo.Text)
         sql = sql & " ,VEN_CODIGO=" & cboDocCon.ItemData(cboDocCon.ListIndex)
         sql = sql & " ,TIP_CODIGO=" & cboImg.ItemData(cboImg.ListIndex)
-        sql = sql & " ,IMG_DESCRI=" & XS(txtImgDescri.Text)
+        sql = sql & " ,IMG_DESCRI=" & XS(txtImgDescri(0).Text)
+        sql = sql & " ,IMG_DESCRI1=" & XS(txtImgDescri(1).Text)
+        sql = sql & " ,IMG_DESCRI2=" & XS(txtImgDescri(2).Text)
+        sql = sql & " ,IMG_DESCRI3=" & XS(txtImgDescri(3).Text)
+        sql = sql & " ,IMG_DESCRI4=" & XS(txtImgDescri(4).Text)
+        sql = sql & " ,IMG_DESCRI5=" & XS(txtImgDescri(5).Text)
         sql = sql & " WHERE IMG_CODIGO = " & txtNroImg.Text
         DBConn.Execute sql
     End If
@@ -2049,7 +2152,7 @@ Private Sub cmdAceptarP_Click()
     Dim Num As Integer
     cont = 0
     For i = 1 To grdProtocolos.Rows - 1
-        If grdProtocolos.TextMatrix(i, 3) = "SI" Then
+        If grdProtocolos.TextMatrix(i, 8) = "SI" Then
             sql = "SELECT MAX(IMG_CODIGO) AS NUMERO FROM IMAGEN"
             rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
             If rec.EOF = False Then
@@ -2060,14 +2163,20 @@ Private Sub cmdAceptarP_Click()
         
             sql = "INSERT INTO IMAGEN"
             sql = sql & " (IMG_CODIGO,IMG_FECHA,"
-            sql = sql & " CLI_CODIGO,VEN_CODIGO,TIP_CODIGO,IMG_DESCRI)"
+            sql = sql & " CLI_CODIGO,VEN_CODIGO,TIP_CODIGO,IMG_DESCRI,"
+            sql = sql & " IMG_DESCRI1,IMG_DESCRI2,IMG_DESCRI3,IMG_DESCRI4,IMG_DESCRI5)"
             sql = sql & " VALUES ("
             sql = sql & Num & ","
             sql = sql & XDQ(FechaImg.Value) & ","
-            sql = sql & txtcodigo.Text & ","
+            sql = sql & txtCodigo.Text & ","
             sql = sql & cboDocImg.ItemData(cboDocImg.ListIndex) & "," 'SOLO SILVANA ES LA ECOGRAFA
             sql = sql & grdProtocolos.TextMatrix(i, 1) & ","
-            sql = sql & XS(grdProtocolos.TextMatrix(i, 2)) & ")"
+            sql = sql & XS(grdProtocolos.TextMatrix(i, 2)) & ","
+            sql = sql & XS(grdProtocolos.TextMatrix(i, 3)) & ","
+            sql = sql & XS(grdProtocolos.TextMatrix(i, 4)) & ","
+            sql = sql & XS(grdProtocolos.TextMatrix(i, 5)) & ","
+            sql = sql & XS(grdProtocolos.TextMatrix(i, 6)) & ","
+            sql = sql & XS(grdProtocolos.TextMatrix(i, 7)) & ")"
             DBConn.Execute sql
             cont = cont + 1
         End If
@@ -2115,7 +2224,7 @@ Private Sub cmdAceptarPedido_Click()
         sql = sql & Num & ","
         sql = sql & XDQ(FechaPed.Value) & ","
         sql = sql & cboEspecPedido.ItemData(cboEspecPedido.ListIndex) & ","
-        sql = sql & XN(txtcodigo.Text) & ","
+        sql = sql & XN(txtCodigo.Text) & ","
         sql = sql & XS(txtMotivoPedido.Text) & ","
         sql = sql & XS(txtDescPedido.Text) & ","
         sql = sql & cboDocPedido.ItemData(cboDocPedido.ListIndex) & ")"
@@ -2124,7 +2233,7 @@ Private Sub cmdAceptarPedido_Click()
         If MsgBox("¿Desea Modificar el Pedido?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
         sql = "UPDATE PEDIDO SET "
         sql = sql & " PED_FECHA = " & XDQ(FechaPed.Value)
-        sql = sql & " ,CLI_CODIGO=" & XN(txtcodigo.Text)
+        sql = sql & " ,CLI_CODIGO=" & XN(txtCodigo.Text)
         sql = sql & " ,ESP_CODIGO=" & cboEspecPedido.ItemData(cboEspecPedido.ListIndex)
         sql = sql & " ,PED_MOTIVO=" & XS(txtMotivoPedido.Text)
         sql = sql & " ,PED_DESCRI=" & XS(txtDescPedido.Text)
@@ -2193,7 +2302,7 @@ Private Function CargarPedidosAnteriores()
     sql = sql & " AND P.VEN_CODIGO = V.VEN_CODIGO"
     sql = sql & " AND P.ESP_CODIGO = E.ESP_CODIGO"
     If txtBuscaCliente.Text <> "" Then
-        sql = sql & " AND P.CLI_CODIGO = " & XN(txtcodigo)
+        sql = sql & " AND P.CLI_CODIGO = " & XN(txtCodigo)
     End If
     If cboDocPedidos.ListIndex > 0 Then
         sql = sql & " AND P.VEN_CODIGO = " & cboDocPedidos.ItemData(cboDocPedidos.ListIndex)
@@ -2312,25 +2421,66 @@ Private Sub cmdGineco_Click()
 End Sub
 
 Private Sub cmdImprimirEco_Click()
-    If txtNroImg.Text <> "" Then
-        Rep.WindowState = crptMaximized
-        Rep.WindowBorderStyle = crptNoBorder
-        Rep.Connect = "Provider=MSDASQL.1;Persist Security Info=False;Data Source=" & SERVIDOR
-        
-        Rep.SelectionFormula = ""
-        Rep.Formulas(0) = ""
-                
-        Rep.SelectionFormula = " {IMAGEN.IMG_CODIGO}= " & XN(txtNroImg.Text)
-    
-        Rep.WindowTitle = "Protocolos"
-        Rep.ReportFileName = DirReport & "rptImagen.rpt"
-        Rep.Action = 1
-    '    lblEstado.Caption = ""
-        Screen.MousePointer = vbNormal
-        Rep.SelectionFormula = ""
-    End If
+'    If txtNroImg.Text <> "" Then
+'        Rep.WindowState = crptMaximized
+'        Rep.WindowBorderStyle = crptNoBorder
+'        Rep.Connect = "Provider=MSDASQL.1;Persist Security Info=False;Data Source=" & SERVIDOR
+'
+'        Rep.SelectionFormula = ""
+'        Rep.Formulas(0) = ""
+'
+'        Rep.SelectionFormula = " {IMAGEN.IMG_CODIGO}= " & XN(txtNroImg.Text)
+'
+'        Rep.WindowTitle = "Protocolos"
+'        Rep.ReportFileName = DirReport & "rptImagen.rpt"
+'        Rep.Action = 1
+'    '    lblEstado.Caption = ""
+'        Screen.MousePointer = vbNormal
+'        Rep.SelectionFormula = ""
+'    End If
+    Dim X As Printer
+    Dim mDriver As String
+    mDriver = IMPRESORA
+    For Each X In Printers
+        If X.DeviceName = mDriver Then
+            ' La define como predeterminada del sistema.
+            Set Printer = X
+            Exit For
+        End If
+    Next
+'-----------------------------------
+    Set_Impresora
+    ImprimirProtocolo
 End Sub
-
+Private Function ImprimirProtocolo()
+    Dim Renglon As Double
+    Dim canttxt As Integer
+    Dim cantHojas As Integer
+    Screen.MousePointer = vbHourglass
+'    lblEstado.Caption = "Imprimiendo..."
+    cantHojas = 0
+    For i = 0 To 5
+        If txtImgDescri(i).Text <> "" Then
+            cantHojas = cantHojas + 1
+        End If
+    Next
+    ImprimirEncabezado
+    For w = 0 To cantHojas '1 'SE IMPRIME POR DUPLICADO
+        If w = 1 Then
+            Imprimir 10, 0, True, txtImgDescri(w).Text
+        Else
+            Imprimir 6, 0, True, txtImgDescri(w).Text
+        End If
+        Printer.EndDoc
+    Next w
+    Screen.MousePointer = vbNormal
+End Function
+Private Function ImprimirEncabezado()
+    Imprimir 6, 1, True, "Paciente: " & txtBuscarCliDescri
+    Imprimir 6.5, 1, True, "Fecha: " & FechaImg.Value
+    Imprimir 7, 1, True, "Edad: " & txtEdad
+    Imprimir 7.5, 1, True, "Medico Solicitante: "
+End Function
 Private Sub cmdLabora_Click()
     tabhc.Tab = 2
 End Sub
@@ -2351,14 +2501,39 @@ Private Sub cmdproximo_Click()
 
 End Sub
 
+Private Sub cmdprev_Click()
+    If hojaactual > 0 Then
+        lblnroja.Caption = "Hoja " & hojaactual
+         muestro_ImgDescri hojaactual
+    End If
+End Sub
+
+Private Sub cmdpri_Click()
+    lblnroja.Caption = "Hoja 1"
+    muestro_ImgDescri 1
+    
+End Sub
+
+Private Sub cmdsig_Click()
+ If hojaactual < 5 Then
+    lblnroja.Caption = "Hoja " & hojaactual + 2
+    muestro_ImgDescri hojaactual + 2
+ End If
+End Sub
+
+Private Sub cmdult_Click()
+    lblnroja.Caption = "Hoja 6"
+    muestro_ImgDescri 6
+End Sub
+
 Private Sub cmdQuitarProducto_Click()
     If grdImagenes.Rows > 1 Then
         If MsgBox("¿Confirma la eliminacion del Protocolo " & grdImagenes.TextMatrix(grdImagenes.RowSel, 2) & " ?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbYes Then
             If grdImagenes.Rows > 2 Then
-                borrar_protocolo XN(txtcodigo.Text), XN(grdImagenes.TextMatrix(grdImagenes.RowSel, 6))
+                borrar_protocolo XN(txtCodigo.Text), XN(grdImagenes.TextMatrix(grdImagenes.RowSel, 6))
                 grdImagenes.RemoveItem (grdImagenes.RowSel)
             Else
-                borrar_protocolo XN(txtcodigo.Text), XN(grdImagenes.TextMatrix(grdImagenes.RowSel, 6))
+                borrar_protocolo XN(txtCodigo.Text), XN(grdImagenes.TextMatrix(grdImagenes.RowSel, 6))
                 grdImagenes.Rows = 1
                 cmdCancelar_Click
             End If
@@ -2400,7 +2575,7 @@ Private Sub cmdSiguiente_Click()
             sql = sql & " TUR_FECHA = " & XDQ(Date)
             sql = sql & " AND TUR_HORAD = #" & txthorad & "#"
             sql = sql & " AND VEN_CODIGO = " & XN(cboDocCon.ItemData(cboDocCon.ListIndex))
-            sql = sql & " AND CLI_CODIGO = " & XN(txtcodigo)
+            sql = sql & " AND CLI_CODIGO = " & XN(txtCodigo)
             DBConn.Execute sql
         End If
         
@@ -2413,12 +2588,12 @@ Private Sub cmdSiguiente_Click()
         Rec2.Open sql, DBConn, adOpenStatic, adLockOptimistic
         If Rec2.EOF = False Then
             Do While Rec2.EOF = False
-                If Rec2!CLI_CODIGO = txtcodigo Then
+                If Rec2!CLI_CODIGO = txtCodigo Then
                     'PACIENTE ACTUAL
                     actual = 1
                 End If
-                If actual = 1 And Rec2!CLI_CODIGO <> txtcodigo Then
-                    txtcodigo = Rec2!CLI_CODIGO
+                If actual = 1 And Rec2!CLI_CODIGO <> txtCodigo Then
+                    txtCodigo = Rec2!CLI_CODIGO
                     'txtMotivo.Text = Rec2!TUR_MOTIVO
                     txthorad = Format(Rec2!TUR_HORAD, "hh:mm")
                     TxtCodigo_LostFocus
@@ -2430,7 +2605,7 @@ Private Sub cmdSiguiente_Click()
                     Rec2.Close
                     Exit Sub
                 Else
-                    If actual = 1 And Rec2!CLI_CODIGO = txtcodigo And Format(Rec2!TUR_HORAD, "hh:mm") > txthorad Then
+                    If actual = 1 And Rec2!CLI_CODIGO = txtCodigo And Format(Rec2!TUR_HORAD, "hh:mm") > txthorad Then
                         txthorad = Format(Rec2!TUR_HORAD, "hh:mm")
                         Rec2.Close
                         Exit Sub
@@ -2468,10 +2643,10 @@ Private Sub cmdzoom_Click(Index As Integer)
         cmdzoom_out(0).Visible = True
         txtindicaciones_zoom(0).Text = txtIndicaciones.Text
     Case 1
-        txtindicaciones_zoom(1).Visible = True
-        txtindicaciones_zoom(1).Top = 1080
-        cmdzoom_out(1).Visible = True
-        txtindicaciones_zoom(1).Text = txtImgDescri.Text
+        'txtindicaciones_zoom(1).Visible = True
+        'txtindicaciones_zoom(1).Top = 1080
+        'cmdzoom_out(1).Visible = True
+        'txtindicaciones_zoom(1).Text = txtImgDescri.Text
     Case 2
     End Select
 End Sub
@@ -2489,9 +2664,9 @@ Private Sub cmdzoom_out_Click(Index As Integer)
         cmdzoom_out(0).Visible = False
         txtIndicaciones.Text = txtindicaciones_zoom(0).Text
     Case 1 'imagenes/protocolos
-        txtindicaciones_zoom(1).Visible = False
-        cmdzoom_out(1).Visible = False
-        txtImgDescri.Text = txtindicaciones_zoom(1).Text
+'        txtindicaciones_zoom(1).Visible = False
+'        cmdzoom_out(1).Visible = False
+'        txtImgDescri.Text = txtindicaciones_zoom(1).Text
     End Select
 End Sub
 
@@ -2506,7 +2681,7 @@ Private Sub Command6_Click()
 End Sub
 
 Private Sub Form_Activate()
-    If txtcodigo <> "" Then
+    If txtCodigo <> "" Then
         TxtCodigo_LostFocus
     End If
 End Sub
@@ -2533,7 +2708,7 @@ Private Sub Form_Load()
     CodCli = BuscarProxPaciente(Int(Doc), XDQ(Fecha.Value))
     If CodCli <> 0 Then
         txtBuscaCliente.Text = ChkNull(CodCli)
-        txtcodigo.Text = ChkNull(CodCli)
+        txtCodigo.Text = ChkNull(CodCli)
         txtBuscaCliente_LostFocus
     End If
     'ESTO LO HAGO PARA HABILITAR EL ACEPTAR DE LA CONSULTA MEDICA
@@ -2542,6 +2717,8 @@ Private Sub Form_Load()
     Else
         cmdAceptar.Enabled = False
     End If
+    lblnroja.Caption = "Hoja 1"
+    muestro_ImgDescri 1
 End Sub
 Private Function HabilitarBoton(boton As String)
 '    If cboDocCon.ItemData(cboDocCon.ListIndex) = Int(Doc) Then 'VEERR
@@ -2597,7 +2774,8 @@ Private Function preparogrillas()
         grdPedidos.HighLight = flexHighlightAlways
     
     ' Grilla de IMAGENES -
-    grdImagenes.FormatString = "Fecha|Doctor|<Imágen|Descripcion|TipoIMG|CodMedico|IMG_CODIGO"
+    grdImagenes.FormatString = "Fecha|Doctor|<Imágen|Descripcion|TipoIMG|CodMedico|IMG_CODIGO|Descripcion1|Descripcion2|Descripcion3|Descripcion4|Descripcion5"
+    
     grdImagenes.ColWidth(0) = 1500  'Fecha
     grdImagenes.ColWidth(1) = 2500 'Doctor
     grdImagenes.ColWidth(2) = 3200 'Imagen
@@ -2605,6 +2783,11 @@ Private Function preparogrillas()
     grdImagenes.ColWidth(4) = 0 'tipo Img
     grdImagenes.ColWidth(5) = 0 'CodMedico
     grdImagenes.ColWidth(6) = 0 'IMG CODIGO
+    grdImagenes.ColWidth(7) = 0 'descripcion1
+    grdImagenes.ColWidth(8) = 0 'descripcion2
+    grdImagenes.ColWidth(9) = 0 'descripcion3
+    grdImagenes.ColWidth(10) = 0 'descripcion4
+    grdImagenes.ColWidth(11) = 0 'descripcion5
     grdImagenes.Rows = 1
     grdImagenes.BorderStyle = flexBorderNone
     grdImagenes.row = 0
@@ -2615,13 +2798,17 @@ Private Function preparogrillas()
         grdImagenes.CellFontBold = True
     Next
     grdImagenes.HighLight = flexHighlightAlways
-    
-    
-    grdProtocolos.FormatString = "<Protocolo|Codigo|Contenido|^Seleccionado"
+  
+    grdProtocolos.FormatString = "<Protocolo|Codigo|Contenido|Contenido1|Contenido2|Contenido3|Contenido4|Contenido5|^Seleccionado"
     grdProtocolos.ColWidth(0) = 5300 'Protocolo
     grdProtocolos.ColWidth(1) = 0 'Codigo
     grdProtocolos.ColWidth(2) = 0 'Contenido
-    grdProtocolos.ColWidth(3) = 1200 'Seleccionar
+    grdProtocolos.ColWidth(3) = 0 'Contenido1
+    grdProtocolos.ColWidth(4) = 0 'Contenido2
+    grdProtocolos.ColWidth(5) = 0 'Contenido3
+    grdProtocolos.ColWidth(6) = 0 'Contenido4
+    grdProtocolos.ColWidth(7) = 0 'Contenido5
+    grdProtocolos.ColWidth(8) = 1200 'Seleccionar
     grdProtocolos.Rows = 1
     grdProtocolos.HighLight = flexHighlightAlways
 End Function
@@ -2736,7 +2923,18 @@ Private Sub grdImagenes_Click()
         'codigo del nombre de la imagen
         BuscaCodigoProxItemData grdImagenes.TextMatrix(grdImagenes.RowSel, 4), cboImg
         'cboDocImg.ListIndex = grdImagenes.TextMatrix(grdImagenes.RowSel, 5)
-        txtImgDescri = grdImagenes.TextMatrix(grdImagenes.RowSel, 3)
+        
+        'OJO ACA VER COMO CARGAMOS LA MATRIZ
+        txtImgDescri(0).Text = grdImagenes.TextMatrix(grdImagenes.RowSel, 3)
+        txtImgDescri(1).Text = grdImagenes.TextMatrix(grdImagenes.RowSel, 7)
+        txtImgDescri(2).Text = grdImagenes.TextMatrix(grdImagenes.RowSel, 8)
+        txtImgDescri(3).Text = grdImagenes.TextMatrix(grdImagenes.RowSel, 9)
+        txtImgDescri(4).Text = grdImagenes.TextMatrix(grdImagenes.RowSel, 10)
+        txtImgDescri(5).Text = grdImagenes.TextMatrix(grdImagenes.RowSel, 11)
+        
+        lblnroja.Caption = "Hoja 1"
+        muestro_ImgDescri 1
+                
         txtNroImg.Text = grdImagenes.TextMatrix(grdImagenes.RowSel, 6)
          'ESTO LO HAGO PARA HABILITAR EL ACEPTAR DE LA CONSULTA MEDICA
         If cboDocImg.ItemData(cboDocImg.ListIndex) = Int(Doc) Then
@@ -2780,8 +2978,8 @@ End Sub
 
 Private Sub grdProtocolos_DblClick()
     Dim J As Integer
-    If grdProtocolos.TextMatrix(grdProtocolos.RowSel, 3) = "NO" Then
-        grdProtocolos.TextMatrix(grdProtocolos.RowSel, 3) = "SI"
+    If grdProtocolos.TextMatrix(grdProtocolos.RowSel, 8) = "NO" Then
+        grdProtocolos.TextMatrix(grdProtocolos.RowSel, 8) = "SI"
         'CAMBIAR COLOR
         'backColor = &HC000&
         'foreColor = &HFFFFFF
@@ -2792,7 +2990,7 @@ Private Sub grdProtocolos_DblClick()
             grdProtocolos.CellFontBold = True
         Next
     Else
-        grdProtocolos.TextMatrix(grdProtocolos.RowSel, 3) = "NO"
+        grdProtocolos.TextMatrix(grdProtocolos.RowSel, 8) = "NO"
         For J = 0 To grdProtocolos.Cols - 1
             grdProtocolos.Col = J
             grdProtocolos.CellForeColor = &H80000008
@@ -2813,7 +3011,7 @@ Private Sub txtBuscaCliente_Change()
     grdPedidos.Rows = 1
         If txtBuscaCliente.Text = "" Then
             txtBuscarCliDescri.Text = ""
-            txtcodigo.Text = ""
+            txtCodigo.Text = ""
             txtTelefono.Text = ""
             txtOSocial.Text = ""
             txthorad.Text = ""
@@ -2850,7 +3048,7 @@ Private Sub txtBuscaCliente_LostFocus()
         sql = sql & " WHERE "
         If txtBuscaCliente.Text <> "" Then
             If Len(Trim(txtBuscaCliente.Text)) < 7 Then
-                sql = sql & " CLI_CODIGO=" & XN(txtcodigo)
+                sql = sql & " CLI_CODIGO=" & XN(txtCodigo)
             Else
                 sql = sql & " CLI_NRODOC=" & XN(txtBuscaCliente)
             End If
@@ -2862,13 +3060,13 @@ Private Sub txtBuscaCliente_LostFocus()
         If rec.EOF = False Then
             'txtBuscaCliente.Text = rec!CLI_NRODOC
             txtBuscarCliDescri.Text = rec!CLI_RAZSOC
-            txtcodigo.Text = rec!CLI_CODIGO
+            txtCodigo.Text = rec!CLI_CODIGO
             txtTelefono.Text = ChkNull(rec!CLI_TELEFONO)
             'ATENCION CON O SIN OBRA SOCIAL
             If TurOSocial = "PARTICULAR" Then
                 txtOSocial.Text = "PARTICULAR"
             Else
-                txtOSocial.Text = BuscarOSocial(txtcodigo.Text) & " - " & ChkNull(rec!CLI_NROAFIL)
+                txtOSocial.Text = BuscarOSocial(txtCodigo.Text) & " - " & ChkNull(rec!CLI_NROAFIL)
             End If
             'Calculo_Edad Chk0(rec!CLI_CUMPLE)
             txtEdad.Text = ChkNull(rec!CLI_EDAD)
@@ -2888,7 +3086,7 @@ End Sub
 Private Sub txtBuscarCliDescri_Change()
     If txtBuscarCliDescri.Text = "" Then
         txtBuscaCliente.Text = ""
-        txtcodigo.Text = ""
+        txtCodigo.Text = ""
         txtTelefono.Text = ""
         txtOSocial.Text = ""
         txtEdad = ""
@@ -2941,7 +3139,7 @@ Private Sub txtBuscarCliDescri_LostFocus()
                 End If
                 'txtBuscaCliente.Text = rec!CLI_NRODOC
                 txtBuscarCliDescri.Text = rec!CLI_RAZSOC
-                txtcodigo.Text = rec!CLI_CODIGO
+                txtCodigo.Text = rec!CLI_CODIGO
                 txtTelefono.Text = ChkNull(rec!CLI_TELEFONO)
                 Calculo_Edad ChkNull(rec!CLI_CUMPLE)
             End If
@@ -2987,12 +3185,12 @@ Public Sub BuscarClientes(Txt As String, mQuien As String, Optional mCadena As S
         ' utilizar la coleccion de datos devueltos
         If .ResultFields.Count > 0 Then
             If Txt = "txtcodCli" Then
-                txtcodigo.Text = .ResultFields(2)
+                txtCodigo.Text = .ResultFields(2)
                 'txtCodCli_LostFocus
             Else
                 If .ResultFields(3) = "" Then
                     txtBuscaCliente.Text = .ResultFields(2)
-                    txtcodigo.Text = .ResultFields(2)
+                    txtCodigo.Text = .ResultFields(2)
                 Else
                     txtBuscaCliente.Text = .ResultFields(3)
                 End If
@@ -3036,7 +3234,7 @@ Private Function CargarConsultasAnteriores()
     sql = sql & " WHERE CC.CLI_CODIGO = C.CLI_CODIGO"
     sql = sql & " AND CC.VEN_CODIGO = V.VEN_CODIGO"
     If txtBuscaCliente.Text <> "" Then
-        sql = sql & " AND CC.CLI_CODIGO = " & XN(txtcodigo)
+        sql = sql & " AND CC.CLI_CODIGO = " & XN(txtCodigo)
     End If
     If cboDocAnt.ListIndex > 0 Then
         sql = sql & " AND CC.VEN_CODIGO = " & cboDocAnt.ItemData(cboDocAnt.ListIndex)
@@ -3067,7 +3265,7 @@ Private Function CargarImagenesAnteriores()
     sql = sql & " AND I.VEN_CODIGO = V.VEN_CODIGO"
     sql = sql & " AND I.TIP_CODIGO = T.TIP_CODIGO"
     If txtBuscaCliente.Text <> "" Then
-        sql = sql & " AND I.CLI_CODIGO = " & XN(txtcodigo)
+        sql = sql & " AND I.CLI_CODIGO = " & XN(txtCodigo)
     End If
     If cboDocImgAnt.ListIndex > -1 Then
         sql = sql & " AND I.VEN_CODIGO = " & cboDocImgAnt.ItemData(cboDocImgAnt.ListIndex)
@@ -3083,8 +3281,8 @@ Private Function CargarImagenesAnteriores()
     If Rec1.EOF = False Then
         Do While Rec1.EOF = False
             grdImagenes.AddItem Rec1!IMG_FECHA & Chr(9) & Rec1!VEN_NOMBRE & Chr(9) & Rec1!TIP_NOMBRE & Chr(9) & Rec1!IMG_DESCRI & Chr(9) & _
-                                    Rec1!TIP_CODIGO & Chr(9) & Rec1!VEN_CODIGO & Chr(9) & Rec1!IMG_CODIGO
-                                       
+                                    Rec1!TIP_CODIGO & Chr(9) & Rec1!VEN_CODIGO & Chr(9) & Rec1!IMG_CODIGO & Chr(9) & _
+                                    Rec1!IMG_DESCRI1 & Chr(9) & Rec1!IMG_DESCRI2 & Chr(9) & Rec1!IMG_DESCRI3 & Chr(9) & Rec1!IMG_DESCRI4 & Chr(9) & Rec1!IMG_DESCRI5
             Rec1.MoveNext
         Loop
     End If
@@ -3095,23 +3293,23 @@ End Function
 Private Sub TxtCodigo_LostFocus()
     Dim edad As Integer
     Dim años As Integer
-    If txtcodigo.Text <> "" Then
+    If txtCodigo.Text <> "" Then
         Set rec = New ADODB.Recordset
         sql = "SELECT CLI_CODIGO, CLI_RAZSOC,CLI_NRODOC,CLI_TELEFONO,CLI_NROAFIL,CLI_CUMPLE,CLI_EDAD"
         sql = sql & " FROM CLIENTE"
         sql = sql & " WHERE "
-        sql = sql & " CLI_CODIGO=" & XN(txtcodigo)
+        sql = sql & " CLI_CODIGO=" & XN(txtCodigo)
         rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
         If rec.EOF = False Then
             txtBuscaCliente.Text = IIf(IsNull(rec!CLI_NRODOC), rec!CLI_CODIGO, rec!CLI_NRODOC)
             txtBuscarCliDescri.Text = rec!CLI_RAZSOC
-            txtcodigo.Text = rec!CLI_CODIGO
+            txtCodigo.Text = rec!CLI_CODIGO
             txtTelefono.Text = ChkNull(rec!CLI_TELEFONO)
             txtNAfil.Text = ChkNull(rec!CLI_NROAFIL)
             If TurOSocial = "PARTICULAR" Then
                 txtOSocial.Text = "PARTICULAR"
             Else
-                txtOSocial.Text = BuscarOSocial(txtcodigo.Text) & " - " & ChkNull(rec!CLI_NROAFIL)
+                txtOSocial.Text = BuscarOSocial(txtCodigo.Text) & " - " & ChkNull(rec!CLI_NROAFIL)
             End If
             'calculo de edad
             'BuscarProxPaciente
@@ -3129,9 +3327,9 @@ Private Sub TxtCodigo_LostFocus()
    txtBuscaCliente_LostFocus
 End Sub
 
-Private Sub txtImgDescri_Change()
-    txtindicaciones_zoom(1).Text = txtImgDescri.Text
-End Sub
+'Private Sub txtImgDescri_Change()
+'    txtindicaciones_zoom(1).Text = txtImgDescri.Text
+'End Sub
 
 Private Sub txtIndicaciones_Change()
     txtindicaciones_zoom(0).Text = txtIndicaciones.Text
@@ -3150,6 +3348,11 @@ Private Function cargo_protocolos()
             grdProtocolos.AddItem ChkNull(rec!TIP_NOMBRE) & Chr(9) & _
                                   rec!TIP_CODIGO & Chr(9) & _
                                   rec!TIP_CONTEN & Chr(9) & _
+                                  rec!TIP_CONTEN1 & Chr(9) & _
+                                  rec!TIP_CONTEN2 & Chr(9) & _
+                                  rec!TIP_CONTEN3 & Chr(9) & _
+                                  rec!TIP_CONTEN4 & Chr(9) & _
+                                  rec!TIP_CONTEN5 & Chr(9) & _
                                   "NO"
             rec.MoveNext
         Loop
@@ -3164,6 +3367,26 @@ Private Sub txtindicaciones_zoom_LostFocus(Index As Integer)
     Case 0
         txtIndicaciones.Text = txtindicaciones_zoom(0).Text
     Case 1
-        txtImgDescri.Text = txtindicaciones_zoom(1).Text
+        'txtImgDescri.Text = txtindicaciones_zoom(1).Text
     End Select
 End Sub
+Private Function muestro_ImgDescri(hoja As Integer)
+    Dim i As Integer
+        For i = 0 To 5
+            If (hoja - 1) = i Then
+                txtImgDescri(i).Visible = True
+            Else
+                txtImgDescri(i).Visible = False
+            End If
+        Next
+
+End Function
+Private Function hojaactual() As Integer
+    Dim i As Integer
+    For i = 0 To 5
+        If txtImgDescri(i).Visible = True Then
+            hojaactual = i
+        End If
+    Next
+
+End Function
