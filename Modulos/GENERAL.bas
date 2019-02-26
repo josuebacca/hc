@@ -15,7 +15,8 @@ Public gObraS  As Integer
 Global Const TIT_MSGBOX  As String * 5 = "DIGOR"
 
 'Public Boton_Grabar As Boolean
-
+Global vMode As Integer
+Global vDNI As String
 Global Sucursal  As String 'NUMERO DE SUCURSAL ESTILO SUCURSAL 1
 Global Item      As Integer
 Global sql       As String
@@ -66,13 +67,13 @@ Public TurOSocial As String
 
 
 
-Public Sub MySendKeys(TEXTO As String)
+Public Sub MySendKeys(texto As String)
 'FUNCION QUE USA UNA API DE WINDOWS
 'PARA REMPLAZAR
     Dim f As Long
     Dim st As Byte
-    For f = 1 To Len(TEXTO)
-        st = Asc(Mid(TEXTO, f, 1))
+    For f = 1 To Len(texto)
+        st = Asc(Mid(texto, f, 1))
         keybd_event st, 0, 0, 0
         keybd_event st, 0, KEYEVENTF_KEYUP, 0
     Next f
@@ -283,11 +284,11 @@ Public Sub CentrarW(f As Form)
     f.Top = (Screen.Height - f.Height) / 2
 End Sub
 
-Function BuscarPunto(TEXTO As String) As Boolean
+Function BuscarPunto(texto As String) As Boolean
     BuscarPunto = False
     
-    For i = 1 To Len(TEXTO)
-        If Mid$(TEXTO, i, 1) = "." Then
+    For i = 1 To Len(texto)
+        If Mid$(texto, i, 1) = "." Then
             BuscarPunto = True
             Exit For
         End If
@@ -330,7 +331,7 @@ Public Function NumeroEntero(ByRef KeyAscii As Integer) As Integer
     End If
 End Function
 
-Public Function CarNumeroDecimalComaPunto(ByRef TEXTO As String, ByRef KeyAscii As Integer, Optional NEG As Boolean) As Integer
+Public Function CarNumeroDecimalComaPunto(ByRef texto As String, ByRef KeyAscii As Integer, Optional NEG As Boolean) As Integer
     
     Dim Car As String * 1
         
@@ -350,7 +351,7 @@ Public Function CarNumeroDecimalComaPunto(ByRef TEXTO As String, ByRef KeyAscii 
         Car = "."
         
         ' verifico si hay un punto decimal ingresado
-        If BuscarPunto(TEXTO) Then
+        If BuscarPunto(texto) Then
             Beep
             CarNumeroDecimalComaPunto = 0
         Else
@@ -363,7 +364,7 @@ Public Function CarNumeroDecimalComaPunto(ByRef TEXTO As String, ByRef KeyAscii 
     
 End Function
 
-Public Function CarNumeroDecimal(ByRef TEXTO As String, ByRef KeyAscii As Integer, Optional NEG As Boolean) As Integer
+Public Function CarNumeroDecimal(ByRef texto As String, ByRef KeyAscii As Integer, Optional NEG As Boolean) As Integer
     Dim Car As String * 1
         
     Car = Chr$(KeyAscii)
@@ -382,7 +383,7 @@ Public Function CarNumeroDecimal(ByRef TEXTO As String, ByRef KeyAscii As Intege
         Car = ","
          
         ' verifico si hay un punto decimal ingresado
-        If BuscarPunto(TEXTO) Then
+        If BuscarPunto(texto) Then
             Beep
             CarNumeroDecimal = 0
         Else
@@ -586,14 +587,14 @@ Error:
     VerificarFecha = False
 End Function
 
-Function MonedaSQL(ByVal TEXTO As String) As String
+Function MonedaSQL(ByVal texto As String) As String
 
     Dim Caracter As String
     Dim AuxTexto As String
     Dim SinMiles As String
     Dim Resultado As String
     
-    AuxTexto = Trim(TEXTO)
+    AuxTexto = Trim(texto)
     
     ' si es un blanco
     If AuxTexto = "" Then
@@ -629,25 +630,25 @@ Function MonedaSQL(ByVal TEXTO As String) As String
     
 End Function
 
-Public Sub Buscar_Concepto(Tabla As String, Campo As String, TEXTO As Object, Combo As Object)
+Public Sub Buscar_Concepto(Tabla As String, Campo As String, texto As Object, Combo As Object)
 
     Set rec = New ADODB.Recordset
 
-    If Trim(TEXTO) = "" Then Exit Sub
+    If Trim(texto) = "" Then Exit Sub
     cSQL = "SELECT " & Trim(Campo) & " as concepto " & _
             " FROM " & Trim(Tabla) & " WHERE " & _
-        "substring(" & Trim(Campo) & ",1," & Len(TEXTO) & ") = '" & Trim(TEXTO) & "'"
+        "substring(" & Trim(Campo) & ",1," & Len(texto) & ") = '" & Trim(texto) & "'"
     rec.Open cSQL, DBConn, adOpenStatic, adLockOptimistic
     'si no encontro no permite continuar
     If rec.RecordCount = 0 Then
         Beep
         MsgBox "Concepto Inexistente !", vbExclamation, TIT_MSGBOX
-        TEXTO = ""
-        If TEXTO.Enabled Then TEXTO.SetFocus
+        texto = ""
+        If texto.Enabled Then texto.SetFocus
         Exit Sub
     End If
     'si encontro uno solo lo pone en el texto
-    TEXTO = Trim(rec!Concepto)
+    texto = Trim(rec!Concepto)
 End Sub
 
 Public Sub Descripcion_Combo(CboGral As Object, Descripcion As String)
@@ -1009,7 +1010,7 @@ Public Function XS(Valor As Variant, Optional minuscula As Boolean)
 End Function
 
 Public Function XN(Valor As String, Optional decimales As Integer) As String
-    Dim A As Integer, TEXTO As String, cad1 As String
+    Dim A As Integer, texto As String, cad1 As String
 
     If Trim(Valor) = "" Or Trim(Valor) = "Null" Then
         XN = "Null"
@@ -1025,14 +1026,14 @@ Public Function XN(Valor As String, Optional decimales As Integer) As String
         End If
         For A = 1 To Len(XN)
             If Mid(XN, A, 1) = "," Then
-                TEXTO = TEXTO & "."
+                texto = texto & "."
             ElseIf Mid(XN, A, 1) = "." Then
-                TEXTO = TEXTO
+                texto = texto
             Else
-                TEXTO = TEXTO & Mid(XN, A, 1)
+                texto = texto & Mid(XN, A, 1)
             End If
         Next
-        XN = TEXTO
+        XN = texto
     End If
 End Function
 
@@ -1300,12 +1301,12 @@ Sub BuscaCodigoProxItemData(Codigo As Integer, Combo As Object)
 End Sub
 
 
-Public Function Relleno_con_z(TEXTO As String)
-    Largo = Len(TEXTO)
+Public Function Relleno_con_z(texto As String)
+    Largo = Len(texto)
     For i = Largo To 30
-        TEXTO = TEXTO & "Z"
+        texto = texto & "Z"
     Next
-    Relleno_con_z = XS(TEXTO)
+    Relleno_con_z = XS(texto)
 End Function
 
 Public Function ValidoCuit(cuit As String) As Boolean
@@ -1426,11 +1427,11 @@ Public Function CargaComboLocalidad(Combo As ComboBox, Pais As String, Provincia
     Screen.MousePointer = 1
 End Function
 
-Public Function CompletarConEspacios(TEXTO As String, Cnt As Integer) As String
+Public Function CompletarConEspacios(texto As String, Cnt As Integer) As String
     'Devuelve una cadena compuesta por el texto pasado por parámetro y le anexa
     'blancos a la derecha, hasta que la longitud del texto y los blancos sea
     'igual a cnt
-    CompletarConEspacios = TEXTO & Space(Cnt - Len(TEXTO))
+    CompletarConEspacios = texto & Space(Cnt - Len(texto))
 End Function
 
 Public Function CargaComboBarrio(Combo As ComboBox, Pais As String, Provincia As String, LOCALIDAD As String) As Boolean
@@ -1456,16 +1457,16 @@ Public Function CargaComboBarrio(Combo As ComboBox, Pais As String, Provincia As
     Screen.MousePointer = 1
 End Function
 
-Public Function SacoGuiones(TEXTO As String) As String
+Public Function SacoGuiones(texto As String) As String
     'Analiza la cadena TEXTO y extrae cualquier guión que encuentre en ella
     Dim NueTexto As String
     Dim i As Integer
     NueTexto = ""
-    If TEXTO <> "" And Not IsNull(TEXTO) Then
+    If texto <> "" And Not IsNull(texto) Then
        i = 1
-       Do While i <= Len(TEXTO)
-          If Mid(TEXTO, i, 1) <> "-" Then
-             NueTexto = NueTexto & Mid(TEXTO, i, 1)
+       Do While i <= Len(texto)
+          If Mid(texto, i, 1) <> "-" Then
+             NueTexto = NueTexto & Mid(texto, i, 1)
           End If
           i = i + 1
        Loop
@@ -1541,7 +1542,7 @@ Public Sub CargaComboTipoOrden(Combo As ComboBox, Tipo As Integer)
 End Sub
 
 
-Public Function ElementoNoRepetido(TEXTO As String, G As MSFlexGrid, Col As Integer) As Boolean
+Public Function ElementoNoRepetido(texto As String, G As MSFlexGrid, Col As Integer) As Boolean
        'Busca en la grilla "G", si en la columna "Col" el string "texto" se repite
        Dim FilaActual As Integer
        Dim i As Integer
@@ -1552,7 +1553,7 @@ Public Function ElementoNoRepetido(TEXTO As String, G As MSFlexGrid, Col As Inte
        G.Col = Col
        Do While i < G.Rows
           G.row = i
-          If G.Text = TEXTO Then
+          If G.Text = texto Then
              Repetido = True
              Exit Do
           End If
@@ -2259,11 +2260,11 @@ Public Function CompletarConEspaciosIzq(Tramite As String, Cnt As Integer) As St
     CompletarConEspaciosIzq = NueCadena
 End Function
 
-Public Function CompletarConEspaciosIz(TEXTO As String, Cnt As Integer) As String
+Public Function CompletarConEspaciosIz(texto As String, Cnt As Integer) As String
     'Devuelve una cadena compuesta por el texto pasado por parámetro y le anexa
     'blancos a la derecha, hasta que la longitud del texto y los blancos sea
     'igual a cnt
-    CompletarConEspaciosIz = Space(Cnt - Len(TEXTO)) & TEXTO
+    CompletarConEspaciosIz = Space(Cnt - Len(texto)) & texto
 End Function
 
 Public Sub Set_Impresora()
@@ -2288,7 +2289,7 @@ Public Sub Set_Impresora()
     
 End Sub
 
-Public Sub Imprimir(ejex As Double, ejey As Double, remarcada As Boolean, TEXTO As String, Optional Fuente As String)
+Public Sub Imprimir(ejex As Double, ejey As Double, remarcada As Boolean, texto As String, Optional Fuente As String)
     If ejey >= 33 Then
         ejey = ejey
         Printer.NewPage
@@ -2305,7 +2306,7 @@ Public Sub Imprimir(ejex As Double, ejey As Double, remarcada As Boolean, TEXTO 
     'Printer.FontSize = 13
     Printer.FontBold = remarcada
     Printer.PSet (ejex + 0.2, ejey)
-    Printer.Print TEXTO
+    Printer.Print texto
 End Sub
 
 Function GRIDINDEX(grid As MSFlexGrid, row As Integer, Col As Integer) As Long
@@ -3280,10 +3281,10 @@ Public Sub CargaComboEspecialidadMedico(Combo As ComboBox)
     Screen.MousePointer = vbNormal
 End Sub
 
-Public Sub SelecTexto(TEXTO As Control)
+Public Sub SelecTexto(texto As Control)
     'Marca el texto de un TextBox como seleccionado (pintado)
-    TEXTO.SelStart = 0
-    TEXTO.SelLength = Len(TEXTO)
+    texto.SelStart = 0
+    texto.SelLength = Len(texto)
 End Sub
 
 Public Sub CargaComboCategoriaMedico(Combo As ComboBox)
@@ -3303,18 +3304,18 @@ Public Sub CargaComboCategoriaMedico(Combo As ComboBox)
 
 End Sub
 
-Public Function Limpiar_Puntos(TEXTO As String) As String
+Public Function Limpiar_Puntos(texto As String) As String
 Dim A As Integer
-    TEXTO = Trim(TEXTO)
+    texto = Trim(texto)
 
-    For A = 1 To Len(Trim(TEXTO))
-        If Mid(TEXTO, A, 1) = "." Then
-            TEXTO = Mid(TEXTO, 1, A - 1) & Mid(TEXTO, A + 1, Len(TEXTO))
+    For A = 1 To Len(Trim(texto))
+        If Mid(texto, A, 1) = "." Then
+            texto = Mid(texto, 1, A - 1) & Mid(texto, A + 1, Len(texto))
             A = A - 1
         End If
     Next
     
-    Limpiar_Puntos = TEXTO
+    Limpiar_Puntos = texto
 End Function
 
 Public Function RecuperoDescDelega(CodDel As String) As String
@@ -3337,7 +3338,7 @@ End Function
 
 Public Function KN(Parametro As Double) As String
     Dim Valor As String
-    Dim A As Integer, TEXTO As String, cad1 As String
+    Dim A As Integer, texto As String, cad1 As String
     Valor = Str(Parametro)
     If Trim(Valor) = "" Or Trim(Valor) = "Null" Then
         KN = "Null"
@@ -3345,14 +3346,14 @@ Public Function KN(Parametro As Double) As String
         KN = Trim(Valor)
         For A = 1 To Len(KN)
             If Mid(KN, A, 1) = "," Then
-                TEXTO = TEXTO & "."
+                texto = texto & "."
             ElseIf Mid(KN, A, 1) = "." Then
-                TEXTO = TEXTO
+                texto = texto
             Else
-                TEXTO = TEXTO & Mid(KN, A, 1)
+                texto = texto & Mid(KN, A, 1)
             End If
         Next
-        KN = TEXTO
+        KN = texto
     End If
 End Function
 
@@ -3640,22 +3641,22 @@ Public Sub CompararVersiones(origen As String, destino As String)
     End If
 End Sub
 
-Public Sub InserPuntoNomenclador(TEXTO As Control)
+Public Sub InserPuntoNomenclador(texto As Control)
  Dim A As String
  Dim B As String
  Dim C As String
  ' Agrega punto al codigo del nomenclador
-  If Len(TEXTO) = 6 Then
-   TEXTO.SelStart = 0
-   TEXTO.SelLength = 2
-   A = TEXTO.SelText
-   TEXTO.SelStart = 2
-   TEXTO.SelLength = 2
-   B = TEXTO.SelText
-   TEXTO.SelStart = 4
-   TEXTO.SelLength = 2
-   C = TEXTO.SelText
-   TEXTO.Text = A + "." + B + "." + C
+  If Len(texto) = 6 Then
+   texto.SelStart = 0
+   texto.SelLength = 2
+   A = texto.SelText
+   texto.SelStart = 2
+   texto.SelLength = 2
+   B = texto.SelText
+   texto.SelStart = 4
+   texto.SelLength = 2
+   C = texto.SelText
+   texto.Text = A + "." + B + "." + C
   End If
 End Sub
 

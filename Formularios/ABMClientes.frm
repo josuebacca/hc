@@ -42,10 +42,10 @@ Begin VB.Form ABMClientes
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00C00000&
-      Height          =   6255
+      Height          =   6375
       Left            =   120
       TabIndex        =   126
-      Top             =   120
+      Top             =   0
       Width           =   10455
       Begin VB.TextBox txtDNI 
          Height          =   315
@@ -220,7 +220,7 @@ Begin VB.Form ABMClientes
          _ExtentY        =   556
          _Version        =   393216
          CheckBox        =   -1  'True
-         Format          =   54263809
+         Format          =   54394881
          CurrentDate     =   40071
       End
       Begin MSComCtl2.DTPicker DTFechaNac 
@@ -233,7 +233,7 @@ Begin VB.Form ABMClientes
          _ExtentY        =   556
          _Version        =   393216
          CheckBox        =   -1  'True
-         Format          =   54263809
+         Format          =   54394881
          CurrentDate     =   40071
       End
       Begin VB.Label Label1 
@@ -682,7 +682,7 @@ Begin VB.Form ABMClientes
             _ExtentY        =   556
             _Version        =   393216
             CheckBox        =   -1  'True
-            Format          =   54263809
+            Format          =   54394881
             CurrentDate     =   40070
          End
          Begin VB.TextBox txtcualca 
@@ -1061,7 +1061,7 @@ Begin VB.Form ABMClientes
             CalendarBackColor=   12648384
             CalendarForeColor=   0
             CalendarTitleBackColor=   12648384
-            Format          =   54263809
+            Format          =   54394881
             UpDown          =   -1  'True
             CurrentDate     =   40063
          End
@@ -1088,7 +1088,7 @@ Begin VB.Form ABMClientes
             CalendarTitleBackColor=   12648384
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   54263809
+            Format          =   54394881
             CurrentDate     =   40063
          End
          Begin VB.TextBox txtDescTra 
@@ -1513,7 +1513,7 @@ Begin VB.Form ABMClientes
             CalendarBackColor=   12648384
             CalendarForeColor=   0
             CalendarTitleBackColor=   12648384
-            Format          =   54263809
+            Format          =   54394881
             UpDown          =   -1  'True
             CurrentDate     =   40063
          End
@@ -1786,7 +1786,6 @@ Option Explicit
 Dim vFieldID As String
 Dim vStringSQL As String
 Dim vFormLlama As Form
-Dim vMode As Integer
 Dim vListView As ListView
 Dim vDesFieldID As String
 Dim Pais As String
@@ -2187,7 +2186,7 @@ Private Sub cmdAceptar_Click()
 
     Dim cSQL As String
     Dim cSQLAnam As String
-    
+    vDNI = ""
     If Validar(vMode) = True Then
         
         On Error GoTo ErrorTran
@@ -3022,6 +3021,7 @@ Private Sub Form_Load()
     Provincia = ""
     'TabClientes.Tab = 0
     
+    
     If vMode <> 1 Then
         If vFieldID <> "0" Then
             If gPaciente <> 0 Then
@@ -3029,8 +3029,8 @@ Private Sub Form_Load()
                 DesacCtrl txtID
                 'TabClientes.Tab = 2
                 
-                Call BuscaCodigoProxItemData(frmTurnos.cboDoctor.ItemData(frmTurnos.cboDoctor.ListIndex), cboDoctor)
-                txtIdTra.Text = 1
+                'Call BuscaCodigoProxItemData(frmTurnos.cboDoctor.ItemData(frmTurnos.cboDoctor.ListIndex), cboDoctor)
+                'txtIdTra.Text = 1
                 
                 cSQL = "SELECT * FROM " & cTabla & "  WHERE CLI_CODIGO = " & gPaciente
             Else
@@ -3095,71 +3095,73 @@ Private Sub Form_Load()
             End If
         End If
     End If
-    
+    gPaciente = 0
     'establesco funcionalidad del form de datos
     SetMode vMode
-    
+    If vDNI <> "" Then
+        txtNroDoc.Text = vDNI
+    End If
     
     'CARGO EL CURSO CLINICO
-    If txtID.Text <> "" Then
-        CargarCClinico txtID.Text
-        CargarCMedica txtID.Text
-    End If
+'    If txtID.Text <> "" Then
+'        CargarCClinico txtID.Text
+'        CargarCMedica txtID.Text
+'    End If
 End Sub
 Private Function cargarAnamnesis()
-    If gPaciente <> 0 Then
-        cSQL = "SELECT * FROM CLIENTE_ANAM WHERE CLI_CODIGO = " & gPaciente
-    Else
-        cSQL = "SELECT * FROM CLIENTE_ANAM WHERE CLI_CODIGO = " & Mid(vFieldID, 2, Len(vFieldID) - 2)
-    End If
-    Rec1.Open cSQL, DBConn, adOpenStatic, adLockOptimistic
-    If (Rec1.BOF And Rec1.EOF) = 0 Then
-        'si encontró el registro muestro los datos
-        'txtID.Text = rec!CLI_CODIGO
-        
-        
-        chkTomaMed.Value = Chk0(Rec1!CLA_TOMMED)
-        If chkTomaMed.Value = Checked Then
-            AcCtrl txtCualMe
-        Else
-            DesacCtrl txtCualMe
-        End If
-        txtCualMe.Text = ChkNull(Rec1!CLA_CUALME)
-        txtAlergia.Text = ChkNull(Rec1!CLA_ALERGIA)
-        chkAneste.Value = Chk0(Rec1!CLA_ANESTE)
-        chktuhemo.Value = Chk0(Rec1!CLA_TUHEMO)
-        chktarcic.Value = Chk0(Rec1!CLA_TARCIC)
-        chkDiabet.Value = Chk0(Rec1!CLA_Diabet)
-        chkprealt.Value = Chk0(Rec1!CLA_prealt)
-        chkprebaj.Value = Chk0(Rec1!CLA_prebaj)
-        chkEpilep.Value = Chk0(Rec1!CLA_Epilep)
-        chkEmbara.Value = Chk0(Rec1!CLA_Embara)
-        txtMeses.Text = ChkNull(Rec1!CLA_MESES)
-        chkLactan.Value = Chk0(Rec1!CLA_Lactan)
-        chkhemofi.Value = Chk0(Rec1!CLA_hemofi)
-        chkcardia.Value = Chk0(Rec1!CLA_cardia)
-        txtcualca.Text = ChkNull(Rec1!CLA_CUALCA)
-        chkmarcapaso.Value = Chk0(Rec1!CLA_MARCAP)
-'        DTUltVis.Value = Rec1!CLA_ULTVIS
-        If IsNull(Rec1!CLA_ULTVIS) Then
-            DTUltVis.Value = Null
-        
-        Else
-            DTUltVis.Value = Rec1!CLA_ULTVIS
-        End If
-        If IsNull(Rec1!TR_CODIGO) Then
-            cboAnamTrat.ListIndex = 0
-        Else
-            Call BuscaCodigoProxItemData(Chk0(Rec1!TR_CODIGO), cboAnamTrat)
-        End If
-        
-        txtcuadia.Text = ChkNull(Rec1!CLA_CUADIA)
-        txtAnamOtros.Text = ChkNull(Rec1!CLA_OTROS)
-    Else
-        'Beep
-        'MsgBox "Imposible encontrar el registro seleccionado.", vbCritical + vbOKOnly, App.Title
-    End If
-    Rec1.Close
+'    If gPaciente <> 0 Then
+'        cSQL = "SELECT * FROM CLIENTE_ANAM WHERE CLI_CODIGO = " & gPaciente
+'    Else
+'        cSQL = "SELECT * FROM CLIENTE_ANAM WHERE CLI_CODIGO = " & Mid(vFieldID, 2, Len(vFieldID) - 2)
+'    End If
+'    Rec1.Open cSQL, DBConn, adOpenStatic, adLockOptimistic
+'    If (Rec1.BOF And Rec1.EOF) = 0 Then
+'        'si encontró el registro muestro los datos
+'        'txtID.Text = rec!CLI_CODIGO
+'
+'
+'        chkTomaMed.Value = Chk0(Rec1!CLA_TOMMED)
+'        If chkTomaMed.Value = Checked Then
+'            AcCtrl txtCualMe
+'        Else
+'            DesacCtrl txtCualMe
+'        End If
+'        txtCualMe.Text = ChkNull(Rec1!CLA_CUALME)
+'        txtAlergia.Text = ChkNull(Rec1!CLA_ALERGIA)
+'        chkAneste.Value = Chk0(Rec1!CLA_ANESTE)
+'        chktuhemo.Value = Chk0(Rec1!CLA_TUHEMO)
+'        chktarcic.Value = Chk0(Rec1!CLA_TARCIC)
+'        chkDiabet.Value = Chk0(Rec1!CLA_Diabet)
+'        chkprealt.Value = Chk0(Rec1!CLA_prealt)
+'        chkprebaj.Value = Chk0(Rec1!CLA_prebaj)
+'        chkEpilep.Value = Chk0(Rec1!CLA_Epilep)
+'        chkEmbara.Value = Chk0(Rec1!CLA_Embara)
+'        txtMeses.Text = ChkNull(Rec1!CLA_MESES)
+'        chkLactan.Value = Chk0(Rec1!CLA_Lactan)
+'        chkhemofi.Value = Chk0(Rec1!CLA_hemofi)
+'        chkcardia.Value = Chk0(Rec1!CLA_cardia)
+'        txtcualca.Text = ChkNull(Rec1!CLA_CUALCA)
+'        chkmarcapaso.Value = Chk0(Rec1!CLA_MARCAP)
+''        DTUltVis.Value = Rec1!CLA_ULTVIS
+'        If IsNull(Rec1!CLA_ULTVIS) Then
+'            DTUltVis.Value = Null
+'
+'        Else
+'            DTUltVis.Value = Rec1!CLA_ULTVIS
+'        End If
+'        If IsNull(Rec1!TR_CODIGO) Then
+'            cboAnamTrat.ListIndex = 0
+'        Else
+'            Call BuscaCodigoProxItemData(Chk0(Rec1!TR_CODIGO), cboAnamTrat)
+'        End If
+'
+'        txtcuadia.Text = ChkNull(Rec1!CLA_CUADIA)
+'        txtAnamOtros.Text = ChkNull(Rec1!CLA_OTROS)
+'    Else
+'        'Beep
+'        'MsgBox "Imposible encontrar el registro seleccionado.", vbCritical + vbOKOnly, App.Title
+'    End If
+'    Rec1.Close
 End Function
 Private Sub LlenarComboTratamiento()
     sql = "SELECT * FROM TRATAMIENTO"
