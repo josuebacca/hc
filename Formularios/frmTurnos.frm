@@ -78,7 +78,7 @@ Begin VB.Form frmTurnos
       _ExtentX        =   3201
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   20971521
+      Format          =   59572225
       CurrentDate     =   43340
    End
    Begin VB.Frame fraprotocolos 
@@ -769,7 +769,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   20971522
+         StartOfWeek     =   59572226
          CurrentDate     =   40049
       End
    End
