@@ -1,10 +1,12 @@
 VERSION 5.00
+Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
+Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "MSFLXGRD.OCX"
 Begin VB.Form ABMVendedor 
    BorderStyle     =   3  'Fixed Dialog
-   ClientHeight    =   5805
+   ClientHeight    =   6900
    ClientLeft      =   2700
    ClientTop       =   2625
-   ClientWidth     =   4530
+   ClientWidth     =   11145
    BeginProperty Font 
       Name            =   "Tahoma"
       Size            =   8.25
@@ -19,300 +21,417 @@ Begin VB.Form ABMVendedor
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   5805
-   ScaleWidth      =   4530
+   ScaleHeight     =   6900
+   ScaleWidth      =   11145
    ShowInTaskbar   =   0   'False
-   Begin VB.TextBox txtcoseguro 
-      Height          =   315
-      Left            =   3450
-      MaxLength       =   50
-      TabIndex        =   12
-      Top             =   4560
-      Width           =   735
-   End
-   Begin VB.TextBox txtPorcentCom 
-      Height          =   315
-      Left            =   1050
-      MaxLength       =   50
-      TabIndex        =   11
-      Top             =   4545
-      Width           =   735
-   End
-   Begin VB.TextBox txtConsul 
-      Height          =   315
-      Left            =   1065
-      TabIndex        =   3
-      Top             =   1320
-      Width           =   720
-   End
-   Begin VB.ComboBox cboprofesion 
-      Height          =   315
-      ItemData        =   "ABMVendedor.frx":000C
-      Left            =   1065
-      List            =   "ABMVendedor.frx":000E
-      Style           =   2  'Dropdown List
-      TabIndex        =   2
-      Top             =   960
-      Width           =   3375
-   End
    Begin VB.CheckBox chkVenEstado 
       Caption         =   "Dar de Baja"
       Height          =   285
       Left            =   1065
-      TabIndex        =   13
-      Top             =   5040
+      TabIndex        =   0
+      Top             =   5760
       Width           =   1140
-   End
-   Begin VB.TextBox txtDomicilio 
-      Height          =   315
-      Left            =   1065
-      MaxLength       =   50
-      TabIndex        =   7
-      Top             =   2715
-      Width           =   3375
-   End
-   Begin VB.TextBox txtMail 
-      Height          =   315
-      Left            =   1065
-      MaxLength       =   50
-      TabIndex        =   10
-      Top             =   4065
-      Width           =   3375
-   End
-   Begin VB.TextBox txtFax 
-      Height          =   315
-      Left            =   1065
-      MaxLength       =   30
-      TabIndex        =   9
-      Top             =   3615
-      Width           =   3375
-   End
-   Begin VB.TextBox txtTelefono 
-      Height          =   315
-      Left            =   1065
-      MaxLength       =   30
-      TabIndex        =   8
-      Top             =   3165
-      Width           =   3375
-   End
-   Begin VB.ComboBox cboLocalidad 
-      Height          =   315
-      ItemData        =   "ABMVendedor.frx":0010
-      Left            =   1065
-      List            =   "ABMVendedor.frx":0012
-      Style           =   2  'Dropdown List
-      TabIndex        =   6
-      Top             =   2400
-      Width           =   3375
-   End
-   Begin VB.ComboBox cboProvincia 
-      Height          =   315
-      ItemData        =   "ABMVendedor.frx":0014
-      Left            =   1065
-      List            =   "ABMVendedor.frx":0016
-      Style           =   2  'Dropdown List
-      TabIndex        =   5
-      Top             =   2025
-      Width           =   3375
-   End
-   Begin VB.ComboBox cboPais 
-      Height          =   315
-      ItemData        =   "ABMVendedor.frx":0018
-      Left            =   1065
-      List            =   "ABMVendedor.frx":001A
-      Style           =   2  'Dropdown List
-      TabIndex        =   4
-      Top             =   1680
-      Width           =   3375
    End
    Begin VB.CommandButton cmdAyuda 
       Height          =   315
       Left            =   240
-      Picture         =   "ABMVendedor.frx":001C
+      Picture         =   "ABMVendedor.frx":000C
       Style           =   1  'Graphical
-      TabIndex        =   18
-      Top             =   5295
+      TabIndex        =   3
+      Top             =   6135
       Visible         =   0   'False
       Width           =   330
-   End
-   Begin VB.TextBox txtNombre 
-      Height          =   315
-      Left            =   1065
-      MaxLength       =   50
-      TabIndex        =   1
-      Top             =   630
-      Width           =   3375
-   End
-   Begin VB.TextBox txtID 
-      Height          =   315
-      Left            =   1065
-      TabIndex        =   0
-      Top             =   285
-      Width           =   720
    End
    Begin VB.CommandButton cmdCerrar 
       Caption         =   "&Cerrar"
       Height          =   345
       Left            =   3150
-      TabIndex        =   15
-      Top             =   5415
+      TabIndex        =   2
+      Top             =   6255
       Width           =   1300
    End
    Begin VB.CommandButton cmdAceptar 
       Caption         =   "&Aceptar"
       Height          =   345
       Left            =   1800
-      TabIndex        =   14
-      Top             =   5415
+      TabIndex        =   1
+      Top             =   6255
       Width           =   1300
    End
-   Begin VB.Label Label1 
-      AutoSize        =   -1  'True
-      Caption         =   "Coseguro:"
-      Height          =   195
-      Index           =   13
-      Left            =   2520
-      TabIndex        =   31
-      Top             =   4620
-      Width           =   750
-   End
-   Begin VB.Label Label1 
-      AutoSize        =   -1  'True
-      Caption         =   "%"
-      Height          =   195
-      Index           =   12
-      Left            =   4200
-      TabIndex        =   30
-      Top             =   4620
-      Width           =   165
-   End
-   Begin VB.Label Label1 
-      AutoSize        =   -1  'True
-      Caption         =   "%"
-      Height          =   195
-      Index           =   11
-      Left            =   1800
-      TabIndex        =   29
-      Top             =   4605
-      Width           =   165
-   End
-   Begin VB.Label Label1 
-      AutoSize        =   -1  'True
-      Caption         =   "Particular:"
-      Height          =   195
-      Index           =   10
+   Begin TabDlg.SSTab tabVendedor 
+      Height          =   5535
       Left            =   120
-      TabIndex        =   28
-      Top             =   4605
-      Width           =   735
-   End
-   Begin VB.Label Label2 
-      Caption         =   "Consultorio:"
-      Height          =   255
-      Left            =   120
-      TabIndex        =   27
-      Top             =   1320
-      Width           =   855
-   End
-   Begin VB.Label Label1 
-      AutoSize        =   -1  'True
-      Caption         =   "Ocupacion:"
-      Height          =   195
-      Index           =   9
-      Left            =   120
-      TabIndex        =   26
-      Top             =   1005
-      Width           =   810
-   End
-   Begin VB.Label Label1 
-      AutoSize        =   -1  'True
-      Caption         =   "Domicilio:"
-      Height          =   195
-      Index           =   8
-      Left            =   135
-      TabIndex        =   25
-      Top             =   2760
-      Width           =   660
-   End
-   Begin VB.Label Label1 
-      AutoSize        =   -1  'True
-      Caption         =   "e-mail:"
-      Height          =   195
-      Index           =   7
-      Left            =   135
-      TabIndex        =   24
-      Top             =   4110
-      Width           =   480
-   End
-   Begin VB.Label Label1 
-      AutoSize        =   -1  'True
-      Caption         =   "Fax:"
-      Height          =   195
-      Index           =   6
-      Left            =   135
-      TabIndex        =   23
-      Top             =   3660
-      Width           =   330
-   End
-   Begin VB.Label Label1 
-      AutoSize        =   -1  'True
-      Caption         =   "Teléfono:"
-      Height          =   195
-      Index           =   5
-      Left            =   135
-      TabIndex        =   22
-      Top             =   3210
-      Width           =   690
-   End
-   Begin VB.Label Label1 
-      AutoSize        =   -1  'True
-      Caption         =   "Localidad:"
-      Height          =   195
-      Index           =   4
-      Left            =   135
-      TabIndex        =   21
-      Top             =   2415
-      Width           =   720
-   End
-   Begin VB.Label Label1 
-      AutoSize        =   -1  'True
-      Caption         =   "Provincia:"
-      Height          =   195
-      Index           =   3
-      Left            =   135
-      TabIndex        =   20
-      Top             =   2070
-      Width           =   705
-   End
-   Begin VB.Label Label1 
-      AutoSize        =   -1  'True
-      Caption         =   "País:"
-      Height          =   195
-      Index           =   2
-      Left            =   135
-      TabIndex        =   19
-      Top             =   1725
-      Width           =   345
-   End
-   Begin VB.Label Label1 
-      AutoSize        =   -1  'True
-      Caption         =   "Nombre:"
-      Height          =   195
-      Index           =   1
-      Left            =   135
-      TabIndex        =   17
-      Top             =   675
-      Width           =   615
-   End
-   Begin VB.Label Label1 
-      AutoSize        =   -1  'True
-      Caption         =   "Id.:"
-      Height          =   195
-      Index           =   0
-      Left            =   135
-      TabIndex        =   16
-      Top             =   315
-      Width           =   270
+      TabIndex        =   4
+      Top             =   120
+      Width           =   7095
+      _ExtentX        =   12515
+      _ExtentY        =   9763
+      _Version        =   393216
+      Tabs            =   2
+      TabsPerRow      =   2
+      TabHeight       =   520
+      TabCaption(0)   =   "Datos"
+      TabPicture(0)   =   "ABMVendedor.frx":0156
+      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).Control(0)=   "Label1(0)"
+      Tab(0).Control(0).Enabled=   0   'False
+      Tab(0).Control(1)=   "Label2"
+      Tab(0).Control(1).Enabled=   0   'False
+      Tab(0).Control(2)=   "Label1(9)"
+      Tab(0).Control(2).Enabled=   0   'False
+      Tab(0).Control(3)=   "Label1(8)"
+      Tab(0).Control(3).Enabled=   0   'False
+      Tab(0).Control(4)=   "Label1(5)"
+      Tab(0).Control(4).Enabled=   0   'False
+      Tab(0).Control(5)=   "Label1(4)"
+      Tab(0).Control(5).Enabled=   0   'False
+      Tab(0).Control(6)=   "Label1(3)"
+      Tab(0).Control(6).Enabled=   0   'False
+      Tab(0).Control(7)=   "Label1(2)"
+      Tab(0).Control(7).Enabled=   0   'False
+      Tab(0).Control(8)=   "Label1(1)"
+      Tab(0).Control(8).Enabled=   0   'False
+      Tab(0).Control(9)=   "Label1(13)"
+      Tab(0).Control(9).Enabled=   0   'False
+      Tab(0).Control(10)=   "Label1(12)"
+      Tab(0).Control(10).Enabled=   0   'False
+      Tab(0).Control(11)=   "Label1(11)"
+      Tab(0).Control(11).Enabled=   0   'False
+      Tab(0).Control(12)=   "Label1(10)"
+      Tab(0).Control(12).Enabled=   0   'False
+      Tab(0).Control(13)=   "Label1(7)"
+      Tab(0).Control(13).Enabled=   0   'False
+      Tab(0).Control(14)=   "Label1(6)"
+      Tab(0).Control(14).Enabled=   0   'False
+      Tab(0).Control(15)=   "txtID"
+      Tab(0).Control(15).Enabled=   0   'False
+      Tab(0).Control(16)=   "txtConsul"
+      Tab(0).Control(16).Enabled=   0   'False
+      Tab(0).Control(17)=   "cboprofesion"
+      Tab(0).Control(17).Enabled=   0   'False
+      Tab(0).Control(18)=   "txtDomicilio"
+      Tab(0).Control(18).Enabled=   0   'False
+      Tab(0).Control(19)=   "txtTelefono"
+      Tab(0).Control(19).Enabled=   0   'False
+      Tab(0).Control(20)=   "cboLocalidad"
+      Tab(0).Control(20).Enabled=   0   'False
+      Tab(0).Control(21)=   "cboProvincia"
+      Tab(0).Control(21).Enabled=   0   'False
+      Tab(0).Control(22)=   "cboPais"
+      Tab(0).Control(22).Enabled=   0   'False
+      Tab(0).Control(23)=   "txtNombre"
+      Tab(0).Control(23).Enabled=   0   'False
+      Tab(0).Control(24)=   "txtcoseguro"
+      Tab(0).Control(24).Enabled=   0   'False
+      Tab(0).Control(25)=   "txtPorcentCom"
+      Tab(0).Control(25).Enabled=   0   'False
+      Tab(0).Control(26)=   "txtMail"
+      Tab(0).Control(26).Enabled=   0   'False
+      Tab(0).Control(27)=   "txtFax"
+      Tab(0).Control(27).Enabled=   0   'False
+      Tab(0).ControlCount=   28
+      TabCaption(1)   =   "Motivos"
+      TabPicture(1)   =   "ABMVendedor.frx":0172
+      Tab(1).ControlEnabled=   0   'False
+      Tab(1).Control(0)=   "Label3"
+      Tab(1).Control(1)=   "Label4"
+      Tab(1).Control(2)=   "grdMotivo"
+      Tab(1).Control(3)=   "grdMotivoAsignado"
+      Tab(1).ControlCount=   4
+      Begin VB.TextBox txtFax 
+         Height          =   315
+         Left            =   1065
+         MaxLength       =   30
+         TabIndex        =   26
+         Top             =   3840
+         Width           =   3375
+      End
+      Begin VB.TextBox txtMail 
+         Height          =   315
+         Left            =   1065
+         MaxLength       =   50
+         TabIndex        =   25
+         Top             =   4290
+         Width           =   3375
+      End
+      Begin VB.TextBox txtPorcentCom 
+         Height          =   315
+         Left            =   1050
+         MaxLength       =   50
+         TabIndex        =   24
+         Top             =   4770
+         Width           =   735
+      End
+      Begin VB.TextBox txtcoseguro 
+         Height          =   315
+         Left            =   3450
+         MaxLength       =   50
+         TabIndex        =   23
+         Top             =   4785
+         Width           =   735
+      End
+      Begin VB.TextBox txtNombre 
+         Height          =   315
+         Left            =   1065
+         MaxLength       =   50
+         TabIndex        =   14
+         Top             =   840
+         Width           =   3375
+      End
+      Begin VB.ComboBox cboPais 
+         Height          =   315
+         ItemData        =   "ABMVendedor.frx":018E
+         Left            =   1065
+         List            =   "ABMVendedor.frx":0190
+         Style           =   2  'Dropdown List
+         TabIndex        =   13
+         Top             =   1890
+         Width           =   3375
+      End
+      Begin VB.ComboBox cboProvincia 
+         Height          =   315
+         ItemData        =   "ABMVendedor.frx":0192
+         Left            =   1065
+         List            =   "ABMVendedor.frx":0194
+         Style           =   2  'Dropdown List
+         TabIndex        =   12
+         Top             =   2235
+         Width           =   3375
+      End
+      Begin VB.ComboBox cboLocalidad 
+         Height          =   315
+         ItemData        =   "ABMVendedor.frx":0196
+         Left            =   1065
+         List            =   "ABMVendedor.frx":0198
+         Style           =   2  'Dropdown List
+         TabIndex        =   11
+         Top             =   2610
+         Width           =   3375
+      End
+      Begin VB.TextBox txtTelefono 
+         Height          =   315
+         Left            =   1065
+         MaxLength       =   30
+         TabIndex        =   10
+         Top             =   3375
+         Width           =   3375
+      End
+      Begin VB.TextBox txtDomicilio 
+         Height          =   315
+         Left            =   1065
+         MaxLength       =   50
+         TabIndex        =   9
+         Top             =   2925
+         Width           =   3375
+      End
+      Begin VB.ComboBox cboprofesion 
+         Height          =   315
+         ItemData        =   "ABMVendedor.frx":019A
+         Left            =   1065
+         List            =   "ABMVendedor.frx":019C
+         Style           =   2  'Dropdown List
+         TabIndex        =   8
+         Top             =   1170
+         Width           =   3375
+      End
+      Begin VB.TextBox txtConsul 
+         Height          =   315
+         Left            =   1065
+         TabIndex        =   7
+         Top             =   1530
+         Width           =   720
+      End
+      Begin VB.TextBox txtID 
+         Height          =   315
+         Left            =   1080
+         TabIndex        =   5
+         Top             =   480
+         Width           =   720
+      End
+      Begin MSFlexGridLib.MSFlexGrid grdMotivoAsignado 
+         Height          =   4455
+         Left            =   -74760
+         TabIndex        =   35
+         Top             =   960
+         Width           =   2895
+         _ExtentX        =   5106
+         _ExtentY        =   7858
+         _Version        =   393216
+      End
+      Begin MSFlexGridLib.MSFlexGrid grdMotivo 
+         Height          =   4455
+         Left            =   -71040
+         TabIndex        =   36
+         Top             =   960
+         Width           =   2895
+         _ExtentX        =   5106
+         _ExtentY        =   7858
+         _Version        =   393216
+      End
+      Begin VB.Label Label4 
+         Caption         =   "Motivos Disponibles"
+         Height          =   375
+         Left            =   -70320
+         TabIndex        =   34
+         Top             =   480
+         Width           =   1695
+      End
+      Begin VB.Label Label3 
+         Caption         =   "Motivos Asignados"
+         Height          =   495
+         Left            =   -74160
+         TabIndex        =   33
+         Top             =   480
+         Width           =   1455
+      End
+      Begin VB.Label Label1 
+         AutoSize        =   -1  'True
+         Caption         =   "Fax:"
+         Height          =   195
+         Index           =   6
+         Left            =   135
+         TabIndex        =   32
+         Top             =   3885
+         Width           =   330
+      End
+      Begin VB.Label Label1 
+         AutoSize        =   -1  'True
+         Caption         =   "e-mail:"
+         Height          =   195
+         Index           =   7
+         Left            =   135
+         TabIndex        =   31
+         Top             =   4335
+         Width           =   480
+      End
+      Begin VB.Label Label1 
+         AutoSize        =   -1  'True
+         Caption         =   "Particular:"
+         Height          =   195
+         Index           =   10
+         Left            =   120
+         TabIndex        =   30
+         Top             =   4830
+         Width           =   735
+      End
+      Begin VB.Label Label1 
+         AutoSize        =   -1  'True
+         Caption         =   "%"
+         Height          =   195
+         Index           =   11
+         Left            =   1800
+         TabIndex        =   29
+         Top             =   4830
+         Width           =   165
+      End
+      Begin VB.Label Label1 
+         AutoSize        =   -1  'True
+         Caption         =   "%"
+         Height          =   195
+         Index           =   12
+         Left            =   4200
+         TabIndex        =   28
+         Top             =   4845
+         Width           =   165
+      End
+      Begin VB.Label Label1 
+         AutoSize        =   -1  'True
+         Caption         =   "Coseguro:"
+         Height          =   195
+         Index           =   13
+         Left            =   2520
+         TabIndex        =   27
+         Top             =   4845
+         Width           =   750
+      End
+      Begin VB.Label Label1 
+         AutoSize        =   -1  'True
+         Caption         =   "Nombre:"
+         Height          =   195
+         Index           =   1
+         Left            =   120
+         TabIndex        =   22
+         Top             =   885
+         Width           =   615
+      End
+      Begin VB.Label Label1 
+         AutoSize        =   -1  'True
+         Caption         =   "País:"
+         Height          =   195
+         Index           =   2
+         Left            =   120
+         TabIndex        =   21
+         Top             =   1935
+         Width           =   345
+      End
+      Begin VB.Label Label1 
+         AutoSize        =   -1  'True
+         Caption         =   "Provincia:"
+         Height          =   195
+         Index           =   3
+         Left            =   120
+         TabIndex        =   20
+         Top             =   2280
+         Width           =   705
+      End
+      Begin VB.Label Label1 
+         AutoSize        =   -1  'True
+         Caption         =   "Localidad:"
+         Height          =   195
+         Index           =   4
+         Left            =   120
+         TabIndex        =   19
+         Top             =   2625
+         Width           =   720
+      End
+      Begin VB.Label Label1 
+         AutoSize        =   -1  'True
+         Caption         =   "Teléfono:"
+         Height          =   195
+         Index           =   5
+         Left            =   120
+         TabIndex        =   18
+         Top             =   3420
+         Width           =   690
+      End
+      Begin VB.Label Label1 
+         AutoSize        =   -1  'True
+         Caption         =   "Domicilio:"
+         Height          =   195
+         Index           =   8
+         Left            =   120
+         TabIndex        =   17
+         Top             =   2970
+         Width           =   660
+      End
+      Begin VB.Label Label1 
+         AutoSize        =   -1  'True
+         Caption         =   "Ocupacion:"
+         Height          =   195
+         Index           =   9
+         Left            =   120
+         TabIndex        =   16
+         Top             =   1215
+         Width           =   810
+      End
+      Begin VB.Label Label2 
+         Caption         =   "Consultorio:"
+         Height          =   255
+         Left            =   120
+         TabIndex        =   15
+         Top             =   1530
+         Width           =   855
+      End
+      Begin VB.Label Label1 
+         AutoSize        =   -1  'True
+         Caption         =   "Id.:"
+         Height          =   195
+         Index           =   0
+         Left            =   120
+         TabIndex        =   6
+         Top             =   510
+         Width           =   270
+      End
    End
 End
 Attribute VB_Name = "ABMVendedor"
@@ -725,7 +844,9 @@ Private Sub Form_Load()
     'Me.Left = vFormLlama.Left + 1000
     
     'cargo el combo de PROFESION
+    configurogrilla
     CargoCboProfesion
+    'CargoGrillaMotivo
     'cargo el combo de PAIS
     cboPais.Clear
     cSQL = "SELECT * FROM PAIS ORDER BY PAI_DESCRI"
@@ -784,6 +905,96 @@ Private Sub Form_Load()
     
     'establesco funcionalidad del form de datos
     SetMode vMode
+    cargarGrillasMotivoYAsignado
+End Sub
+
+
+Private Sub cargarGrillasMotivoYAsignado()
+    'busco motivos asignados y genero coleccion con los numeros de motivo
+    Dim motAsignados As New Collection
+    Dim i As Integer
+    'busco motivos asignados
+    cSQL = "SELECT M.MOT_CODIGO FROM MOTIVO M,MOTIVO_VENDEDOR MV"
+    cSQL = cSQL & " WHERE  M.MOT_CODIGO= MV.MOT_CODIGO"
+    cSQL = cSQL & " AND  MV.VEN_CODIGO= " & txtID.Text
+    rec.Open cSQL, DBConn, adOpenStatic, adLockOptimistic
+    'lleno la collection con numeros d emotivos asign
+    Do While rec.EOF = False
+        motAsignados.Add (rec!MOT_CODIGO)
+        rec.MoveNext
+    Loop
+    rec.Close
+    If motAsignados.Count = 0 Then
+        'cargo todos los motivos ,y vacia la de asignados
+        cargarGrillaMotivo
+    Else
+         'busco todos los motivos
+          sql = "SELECT MOT_CODIGO,MOT_DESCRI FROM MOTIVO"
+          rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
+         'cargar en las dos grillas
+         Do While rec.EOF = False
+            'para cada motivo
+              For i = 1 To motAsignados.Count
+                 If rec!MOT_CODIGO = motAsignados(i) Then 'si es asignado
+                     grdMotivoAsignado.AddItem Trim(rec!MOT_CODIGO) & Chr(9) & _
+                     Trim(rec!MOT_DESCRI) 'lo agrego a grilla de asignados
+                     Exit For
+                 End If
+                 If i = motAsignados.Count Then
+                    grdMotivo.AddItem Trim(rec!MOT_CODIGO) & Chr(9) & _
+                    Trim(rec!MOT_DESCRI) 'lo agrego a grilla motivos
+                End If
+             Next
+             rec.MoveNext
+         Loop
+         rec.Close
+    End If
+End Sub
+
+
+
+Private Sub cargarGrillaMotivo()
+    cSQL = "SELECT * FROM MOTIVO"
+    rec.Open cSQL, DBConn, adOpenStatic, adLockOptimistic
+    If (rec.BOF And rec.EOF) = 0 Then
+       Do While rec.EOF = False
+            grdMotivo.AddItem Trim(rec!MOT_CODIGO) & Chr(9) & _
+            Trim(rec!MOT_DESCRI)
+            rec.MoveNext
+       Loop
+    End If
+    rec.Close
+End Sub
+Private Sub configurogrilla()
+    'motivos asignados
+    grdMotivoAsignado.FormatString = "Codigo|Descripcion"
+    grdMotivoAsignado.ColWidth(0) = 0 'codigo
+    grdMotivoAsignado.ColWidth(1) = 2000 'descipcion
+    grdMotivoAsignado.Rows = 1
+    grdMotivoAsignado.Cols = 2
+    grdMotivoAsignado.BorderStyle = flexBorderNone
+    grdMotivoAsignado.row = 0
+    Dim i As Integer
+    For i = 0 To grdMotivoAsignado.Cols - 1
+        grdMotivoAsignado.Col = i
+        grdMotivoAsignado.CellForeColor = &HFFFFFF 'FUENTE COLOR BLANCO
+        grdMotivoAsignado.CellBackColor = &H808080    'GRIS OSCURO
+        grdMotivoAsignado.CellFontBold = True
+    Next
+    'todos los motivos
+    grdMotivo.FormatString = "Codigo|Descripcion"
+    grdMotivo.ColWidth(0) = 0 'codigo
+    grdMotivo.ColWidth(1) = 2000 'descipcion
+    grdMotivo.Rows = 1
+    grdMotivo.Cols = 2
+    grdMotivo.BorderStyle = flexBorderNone
+    grdMotivo.row = 0
+    For i = 0 To grdMotivo.Cols - 1
+        grdMotivo.Col = i
+        grdMotivo.CellForeColor = &HFFFFFF 'FUENTE COLOR BLANCO
+        grdMotivo.CellBackColor = &H808080    'GRIS OSCURO
+        grdMotivo.CellFontBold = True
+    Next
 End Sub
 Private Sub CargoCboProfesion()
     cboprofesion.Clear

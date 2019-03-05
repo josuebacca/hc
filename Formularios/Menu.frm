@@ -228,7 +228,7 @@ Begin VB.MDIForm Menu
             Bevel           =   2
             Object.Width           =   1587
             MinWidth        =   1587
-            TextSave        =   "19:16"
+            TextSave        =   "19:34"
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel6 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
@@ -237,7 +237,7 @@ Begin VB.MDIForm Menu
             Bevel           =   2
             Object.Width           =   1940
             MinWidth        =   1940
-            TextSave        =   "23/01/2019"
+            TextSave        =   "04/03/2019"
             Object.Tag             =   ""
          EndProperty
       EndProperty
@@ -372,6 +372,9 @@ Begin VB.MDIForm Menu
       End
       Begin VB.Menu mnuObrasSociales 
          Caption         =   "Obras Sociales"
+      End
+      Begin VB.Menu Motivo 
+         Caption         =   "Motivos de Turnos"
       End
    End
    Begin VB.Menu mnuTurnos 
@@ -1112,6 +1115,28 @@ End Sub
 
 Private Sub mnuUsuario_Click()
     FrmUsuarios.Show vbModal
+End Sub
+
+Private Sub Motivo_Click()
+    Dim cSQL As String
+    
+    mOrigen = True
+        
+    Set vABMMotivo = New CListaBaseABM
+    
+    With vABMMotivo
+        .Caption = "Actualización de Motivos de turno"
+        .sql = "SELECT MOT_CODIGO, MOT_DESCRI FROM MOTIVO"
+        .HeaderSQL = "Numero, Nombre"
+        .FieldID = "MOT_CODIGO"
+        '.Report = RPTPATH & "tarjeta_credito.rpt"
+        Set .FormBase = vFormMotivo
+        Set .FormDatos = ABMMotivo
+    End With
+    
+    Set auxDllActiva = vABMMotivo
+    
+    vABMMotivo.Show
 End Sub
 
 Private Sub tbrPrincipal_ButtonClick(ByVal Button As ComctlLib.Button)

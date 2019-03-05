@@ -83,6 +83,7 @@ Form=Formularios\frmParametros.frm
 Form=Formularios\frmhistoriaclinica.frm
 Form=Formularios\ABMProtocolos.frm
 Form=Formularios\frmListadoCantVendidasVendedor.frm
+Form=Formularios\ABMMotivo.frm
 IconForm="Menu"
 Startup="Menu"
 HelpFile=""
