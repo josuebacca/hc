@@ -1,4 +1,4 @@
-GENERAL = 199, 86, 1407, 724, 
+GENERAL = 79, 11, 1287, 649, 
 modConstantesDB = 0, 0, 0, 0, C
 modDllBusqueda = 0, 0, 0, 0, C
 modDllListaBaseABM = 72, 8, 987, 502, C
@@ -51,7 +51,7 @@ frmCalendario = 0, 0, 0, 0, C, 44, 58, 455, 396, C
 ABMObraSocial = 0, 0, 0, 0, C, 215, 101, 769, 502, C
 frmRestaurarBD = 0, 0, 0, 0, C, 88, 116, 499, 454, C
 MenuCore = 150, 150, 1250, 813, C, 110, 145, 521, 483, C
-Menu = 49, 79, 1127, 732, , 60, 50, 981, 602, C
+Menu = -291, 175, 787, 828, C, 60, 50, 981, 602, C
 ABMTratamiento = 250, 250, 1350, 913, C, 22, 29, 723, 440, C
 ABMLabClinicos = 300, 300, 1400, 963, C, 66, 87, 477, 425, C
 ABMGrupos = 125, 172, 1225, 835, C, 88, 116, 499, 454, C

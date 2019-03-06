@@ -726,11 +726,30 @@ Private Sub cmdAceptar_Click()
     
     If Validar(vMode) = True Then
         
+        
         On Error GoTo ErrorTran
         
         Screen.MousePointer = vbHourglass
     
         DBConn.BeginTrans
+        
+        'Guardar motivos
+        Select Case vMode
+            Case 1 'nuevo
+                If grdMotivoAsignado.Rows > 1 Then
+                    GuardarMotivos
+                End If
+            Case 2 'editaar
+                'hay q borrar por mas que este vacia la grilla
+                BorrarMotivos (XN(txtID.Text))
+                If grdMotivoAsignado.Rows > 1 Then
+                    GuardarMotivos
+                End If
+            Case 4 'Eliminar
+                If grdMotivoAsignado.Rows > 1 Then
+                    BorrarMotivos (XN(txtID.Text))
+                End If
+        End Select
         Select Case vMode
             Case 1 'nuevo
             
@@ -789,23 +808,7 @@ Private Sub cmdAceptar_Click()
         
         Screen.MousePointer = vbDefault
         Unload Me
-        'Guardar motivos
-        Select Case vMode
-            Case 1 'nuevo
-                If grdMotivoAsignado.Rows > 1 Then
-                    GuardarMotivos
-                End If
-            Case 2 'editaar
-                'hay q borrar por mas que este vacia la grilla
-                BorrarMotivos (XN(txtID.Text))
-                If grdMotivoAsignado.Rows > 1 Then
-                    GuardarMotivos
-                End If
-            Case 4 'Eliminar
-                If grdMotivoAsignado.Rows > 1 Then
-                    BorrarMotivos (XN(txtID.Text))
-                End If
-        End Select
+        
     End If
     Exit Sub
     
@@ -828,13 +831,12 @@ Private Sub GuardarMotivos()
         cSQL = cSQL & "     (" & XN(txtID.Text) & " , "
         cSQL = cSQL & XN(grdMotivoAsignado.TextMatrix(i, 0)) & " )"
         DBConn.Execute cSQL
-        DBConn.CommitTrans
+        
     Next
 End Sub
 Private Sub BorrarMotivos(vencod As Integer)
     cSQL = "DELETE FROM MOTIVO_VENDEDOR  WHERE VEN_CODIGO  = " & vencod
     DBConn.Execute cSQL
-    DBConn.CommitTrans
 End Sub
 
 
