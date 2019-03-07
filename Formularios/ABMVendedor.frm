@@ -68,61 +68,82 @@ Begin VB.Form ABMVendedor
       _ExtentY        =   9763
       _Version        =   393216
       Tabs            =   2
-      Tab             =   1
       TabsPerRow      =   2
       TabHeight       =   520
       TabCaption(0)   =   "Datos"
       TabPicture(0)   =   "ABMVendedor.frx":0156
-      Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "txtFax"
-      Tab(0).Control(1)=   "txtMail"
-      Tab(0).Control(2)=   "txtPorcentCom"
-      Tab(0).Control(3)=   "txtcoseguro"
-      Tab(0).Control(4)=   "txtNombre"
-      Tab(0).Control(5)=   "cboPais"
-      Tab(0).Control(6)=   "cboProvincia"
-      Tab(0).Control(7)=   "cboLocalidad"
-      Tab(0).Control(8)=   "txtTelefono"
-      Tab(0).Control(9)=   "txtDomicilio"
-      Tab(0).Control(10)=   "cboprofesion"
-      Tab(0).Control(11)=   "txtConsul"
-      Tab(0).Control(12)=   "txtID"
-      Tab(0).Control(13)=   "Label1(6)"
-      Tab(0).Control(14)=   "Label1(7)"
-      Tab(0).Control(15)=   "Label1(10)"
-      Tab(0).Control(16)=   "Label1(11)"
-      Tab(0).Control(17)=   "Label1(12)"
-      Tab(0).Control(18)=   "Label1(13)"
-      Tab(0).Control(19)=   "Label1(1)"
-      Tab(0).Control(20)=   "Label1(2)"
-      Tab(0).Control(21)=   "Label1(3)"
-      Tab(0).Control(22)=   "Label1(4)"
-      Tab(0).Control(23)=   "Label1(5)"
-      Tab(0).Control(24)=   "Label1(8)"
-      Tab(0).Control(25)=   "Label1(9)"
-      Tab(0).Control(26)=   "Label2"
-      Tab(0).Control(27)=   "Label1(0)"
+      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).Control(0)=   "Label1(0)"
+      Tab(0).Control(0).Enabled=   0   'False
+      Tab(0).Control(1)=   "Label2"
+      Tab(0).Control(1).Enabled=   0   'False
+      Tab(0).Control(2)=   "Label1(9)"
+      Tab(0).Control(2).Enabled=   0   'False
+      Tab(0).Control(3)=   "Label1(8)"
+      Tab(0).Control(3).Enabled=   0   'False
+      Tab(0).Control(4)=   "Label1(5)"
+      Tab(0).Control(4).Enabled=   0   'False
+      Tab(0).Control(5)=   "Label1(4)"
+      Tab(0).Control(5).Enabled=   0   'False
+      Tab(0).Control(6)=   "Label1(3)"
+      Tab(0).Control(6).Enabled=   0   'False
+      Tab(0).Control(7)=   "Label1(2)"
+      Tab(0).Control(7).Enabled=   0   'False
+      Tab(0).Control(8)=   "Label1(1)"
+      Tab(0).Control(8).Enabled=   0   'False
+      Tab(0).Control(9)=   "Label1(13)"
+      Tab(0).Control(9).Enabled=   0   'False
+      Tab(0).Control(10)=   "Label1(12)"
+      Tab(0).Control(10).Enabled=   0   'False
+      Tab(0).Control(11)=   "Label1(11)"
+      Tab(0).Control(11).Enabled=   0   'False
+      Tab(0).Control(12)=   "Label1(10)"
+      Tab(0).Control(12).Enabled=   0   'False
+      Tab(0).Control(13)=   "Label1(7)"
+      Tab(0).Control(13).Enabled=   0   'False
+      Tab(0).Control(14)=   "Label1(6)"
+      Tab(0).Control(14).Enabled=   0   'False
+      Tab(0).Control(15)=   "txtID"
+      Tab(0).Control(15).Enabled=   0   'False
+      Tab(0).Control(16)=   "txtConsul"
+      Tab(0).Control(16).Enabled=   0   'False
+      Tab(0).Control(17)=   "cboprofesion"
+      Tab(0).Control(17).Enabled=   0   'False
+      Tab(0).Control(18)=   "txtDomicilio"
+      Tab(0).Control(18).Enabled=   0   'False
+      Tab(0).Control(19)=   "txtTelefono"
+      Tab(0).Control(19).Enabled=   0   'False
+      Tab(0).Control(20)=   "cboLocalidad"
+      Tab(0).Control(20).Enabled=   0   'False
+      Tab(0).Control(21)=   "cboProvincia"
+      Tab(0).Control(21).Enabled=   0   'False
+      Tab(0).Control(22)=   "cboPais"
+      Tab(0).Control(22).Enabled=   0   'False
+      Tab(0).Control(23)=   "txtNombre"
+      Tab(0).Control(23).Enabled=   0   'False
+      Tab(0).Control(24)=   "txtcoseguro"
+      Tab(0).Control(24).Enabled=   0   'False
+      Tab(0).Control(25)=   "txtPorcentCom"
+      Tab(0).Control(25).Enabled=   0   'False
+      Tab(0).Control(26)=   "txtMail"
+      Tab(0).Control(26).Enabled=   0   'False
+      Tab(0).Control(27)=   "txtFax"
+      Tab(0).Control(27).Enabled=   0   'False
       Tab(0).ControlCount=   28
       TabCaption(1)   =   "Motivos"
       TabPicture(1)   =   "ABMVendedor.frx":0172
-      Tab(1).ControlEnabled=   -1  'True
-      Tab(1).Control(0)=   "Label3"
-      Tab(1).Control(0).Enabled=   0   'False
-      Tab(1).Control(1)=   "Label4"
-      Tab(1).Control(1).Enabled=   0   'False
-      Tab(1).Control(2)=   "grdMotivo"
-      Tab(1).Control(2).Enabled=   0   'False
-      Tab(1).Control(3)=   "grdMotivoAsignado"
-      Tab(1).Control(3).Enabled=   0   'False
-      Tab(1).Control(4)=   "cmdAsignar"
-      Tab(1).Control(4).Enabled=   0   'False
-      Tab(1).Control(5)=   "cmdDesasignar"
-      Tab(1).Control(5).Enabled=   0   'False
+      Tab(1).ControlEnabled=   0   'False
+      Tab(1).Control(0)=   "cmdDesasignar"
+      Tab(1).Control(1)=   "cmdAsignar"
+      Tab(1).Control(2)=   "grdMotivoAsignado"
+      Tab(1).Control(3)=   "grdMotivo"
+      Tab(1).Control(4)=   "Label4"
+      Tab(1).Control(5)=   "Label3"
       Tab(1).ControlCount=   6
       Begin VB.CommandButton cmdDesasignar 
          Caption         =   ">"
          Height          =   400
-         Left            =   3120
+         Left            =   -71880
          TabIndex        =   38
          Top             =   2400
          Width           =   400
@@ -130,14 +151,14 @@ Begin VB.Form ABMVendedor
       Begin VB.CommandButton cmdAsignar 
          Caption         =   "<"
          Height          =   400
-         Left            =   3120
+         Left            =   -71880
          TabIndex        =   37
          Top             =   1800
          Width           =   400
       End
       Begin VB.TextBox txtFax 
          Height          =   315
-         Left            =   -73935
+         Left            =   1065
          MaxLength       =   30
          TabIndex        =   26
          Top             =   3840
@@ -145,7 +166,7 @@ Begin VB.Form ABMVendedor
       End
       Begin VB.TextBox txtMail 
          Height          =   315
-         Left            =   -73935
+         Left            =   1065
          MaxLength       =   50
          TabIndex        =   25
          Top             =   4290
@@ -153,7 +174,7 @@ Begin VB.Form ABMVendedor
       End
       Begin VB.TextBox txtPorcentCom 
          Height          =   315
-         Left            =   -73950
+         Left            =   1050
          MaxLength       =   50
          TabIndex        =   24
          Top             =   4770
@@ -161,7 +182,7 @@ Begin VB.Form ABMVendedor
       End
       Begin VB.TextBox txtcoseguro 
          Height          =   315
-         Left            =   -71550
+         Left            =   3450
          MaxLength       =   50
          TabIndex        =   23
          Top             =   4785
@@ -169,7 +190,7 @@ Begin VB.Form ABMVendedor
       End
       Begin VB.TextBox txtNombre 
          Height          =   315
-         Left            =   -73935
+         Left            =   1065
          MaxLength       =   50
          TabIndex        =   14
          Top             =   840
@@ -178,7 +199,7 @@ Begin VB.Form ABMVendedor
       Begin VB.ComboBox cboPais 
          Height          =   315
          ItemData        =   "ABMVendedor.frx":018E
-         Left            =   -73935
+         Left            =   1065
          List            =   "ABMVendedor.frx":0190
          Style           =   2  'Dropdown List
          TabIndex        =   13
@@ -188,7 +209,7 @@ Begin VB.Form ABMVendedor
       Begin VB.ComboBox cboProvincia 
          Height          =   315
          ItemData        =   "ABMVendedor.frx":0192
-         Left            =   -73935
+         Left            =   1065
          List            =   "ABMVendedor.frx":0194
          Style           =   2  'Dropdown List
          TabIndex        =   12
@@ -198,7 +219,7 @@ Begin VB.Form ABMVendedor
       Begin VB.ComboBox cboLocalidad 
          Height          =   315
          ItemData        =   "ABMVendedor.frx":0196
-         Left            =   -73935
+         Left            =   1065
          List            =   "ABMVendedor.frx":0198
          Style           =   2  'Dropdown List
          TabIndex        =   11
@@ -207,7 +228,7 @@ Begin VB.Form ABMVendedor
       End
       Begin VB.TextBox txtTelefono 
          Height          =   315
-         Left            =   -73935
+         Left            =   1065
          MaxLength       =   30
          TabIndex        =   10
          Top             =   3375
@@ -215,7 +236,7 @@ Begin VB.Form ABMVendedor
       End
       Begin VB.TextBox txtDomicilio 
          Height          =   315
-         Left            =   -73935
+         Left            =   1065
          MaxLength       =   50
          TabIndex        =   9
          Top             =   2925
@@ -224,7 +245,7 @@ Begin VB.Form ABMVendedor
       Begin VB.ComboBox cboprofesion 
          Height          =   315
          ItemData        =   "ABMVendedor.frx":019A
-         Left            =   -73935
+         Left            =   1065
          List            =   "ABMVendedor.frx":019C
          Style           =   2  'Dropdown List
          TabIndex        =   8
@@ -233,21 +254,21 @@ Begin VB.Form ABMVendedor
       End
       Begin VB.TextBox txtConsul 
          Height          =   315
-         Left            =   -73935
+         Left            =   1065
          TabIndex        =   7
          Top             =   1530
          Width           =   720
       End
       Begin VB.TextBox txtID 
          Height          =   315
-         Left            =   -73920
+         Left            =   1080
          TabIndex        =   5
          Top             =   480
          Width           =   720
       End
       Begin MSFlexGridLib.MSFlexGrid grdMotivoAsignado 
          Height          =   4455
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   35
          Top             =   960
          Width           =   2805
@@ -257,7 +278,7 @@ Begin VB.Form ABMVendedor
       End
       Begin MSFlexGridLib.MSFlexGrid grdMotivo 
          Height          =   4455
-         Left            =   3720
+         Left            =   -71280
          TabIndex        =   36
          Top             =   960
          Width           =   2800
@@ -268,7 +289,7 @@ Begin VB.Form ABMVendedor
       Begin VB.Label Label4 
          Caption         =   "Motivos Disponibles"
          Height          =   375
-         Left            =   4320
+         Left            =   -70680
          TabIndex        =   34
          Top             =   600
          Width           =   1695
@@ -276,7 +297,7 @@ Begin VB.Form ABMVendedor
       Begin VB.Label Label3 
          Caption         =   "Motivos Asignados"
          Height          =   495
-         Left            =   720
+         Left            =   -74280
          TabIndex        =   33
          Top             =   600
          Width           =   1455
@@ -286,7 +307,7 @@ Begin VB.Form ABMVendedor
          Caption         =   "Fax:"
          Height          =   195
          Index           =   6
-         Left            =   -74865
+         Left            =   135
          TabIndex        =   32
          Top             =   3885
          Width           =   330
@@ -296,7 +317,7 @@ Begin VB.Form ABMVendedor
          Caption         =   "e-mail:"
          Height          =   195
          Index           =   7
-         Left            =   -74865
+         Left            =   135
          TabIndex        =   31
          Top             =   4335
          Width           =   480
@@ -306,7 +327,7 @@ Begin VB.Form ABMVendedor
          Caption         =   "Particular:"
          Height          =   195
          Index           =   10
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   30
          Top             =   4830
          Width           =   735
@@ -316,7 +337,7 @@ Begin VB.Form ABMVendedor
          Caption         =   "%"
          Height          =   195
          Index           =   11
-         Left            =   -73200
+         Left            =   1800
          TabIndex        =   29
          Top             =   4830
          Width           =   165
@@ -326,7 +347,7 @@ Begin VB.Form ABMVendedor
          Caption         =   "%"
          Height          =   195
          Index           =   12
-         Left            =   -70800
+         Left            =   4200
          TabIndex        =   28
          Top             =   4845
          Width           =   165
@@ -336,7 +357,7 @@ Begin VB.Form ABMVendedor
          Caption         =   "Coseguro:"
          Height          =   195
          Index           =   13
-         Left            =   -72480
+         Left            =   2520
          TabIndex        =   27
          Top             =   4845
          Width           =   750
@@ -346,7 +367,7 @@ Begin VB.Form ABMVendedor
          Caption         =   "Nombre:"
          Height          =   195
          Index           =   1
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   22
          Top             =   885
          Width           =   615
@@ -356,7 +377,7 @@ Begin VB.Form ABMVendedor
          Caption         =   "País:"
          Height          =   195
          Index           =   2
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   21
          Top             =   1935
          Width           =   345
@@ -366,7 +387,7 @@ Begin VB.Form ABMVendedor
          Caption         =   "Provincia:"
          Height          =   195
          Index           =   3
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   20
          Top             =   2280
          Width           =   705
@@ -376,7 +397,7 @@ Begin VB.Form ABMVendedor
          Caption         =   "Localidad:"
          Height          =   195
          Index           =   4
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   19
          Top             =   2625
          Width           =   720
@@ -386,7 +407,7 @@ Begin VB.Form ABMVendedor
          Caption         =   "Teléfono:"
          Height          =   195
          Index           =   5
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   18
          Top             =   3420
          Width           =   690
@@ -396,7 +417,7 @@ Begin VB.Form ABMVendedor
          Caption         =   "Domicilio:"
          Height          =   195
          Index           =   8
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   17
          Top             =   2970
          Width           =   660
@@ -406,7 +427,7 @@ Begin VB.Form ABMVendedor
          Caption         =   "Ocupacion:"
          Height          =   195
          Index           =   9
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   16
          Top             =   1215
          Width           =   810
@@ -414,7 +435,7 @@ Begin VB.Form ABMVendedor
       Begin VB.Label Label2 
          Caption         =   "Consultorio:"
          Height          =   255
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   15
          Top             =   1530
          Width           =   855
@@ -424,7 +445,7 @@ Begin VB.Form ABMVendedor
          Caption         =   "Id.:"
          Height          =   195
          Index           =   0
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   6
          Top             =   510
          Width           =   270
@@ -843,9 +864,11 @@ End Sub
 Private Sub cmdAsignar_Click()
     cmdAceptar.Enabled = True
     Dim i As Integer
-    i = 1
+    i = 2
     Do While i <= grdMotivo.Rows - 1
         If grdMotivo.TextMatrix(i, 2) = "SI" Then
+            'Limpio Campo Seleccionado
+            grdMotivo.TextMatrix(i, 2) = "NO"
             grdMotivoAsignado.AddItem grdMotivo.TextMatrix(i, 0) & Chr(9) & _
                          grdMotivo.TextMatrix(i, 1) & Chr(9) & _
                          grdMotivo.TextMatrix(i, 2)
@@ -869,9 +892,11 @@ End Sub
 Private Sub cmdDesasignar_Click()
     cmdAceptar.Enabled = True
     Dim i As Integer
-    i = 1
+    i = 2
     Do While i <= grdMotivoAsignado.Rows - 1
         If grdMotivoAsignado.TextMatrix(i, 2) = "SI" Then
+            'limpio campo seleccionado
+            grdMotivoAsignado.TextMatrix(i, 2) = "NO"
             grdMotivo.AddItem grdMotivoAsignado.TextMatrix(i, 0) & Chr(9) & _
                          grdMotivoAsignado.TextMatrix(i, 1) & Chr(9) & _
                          grdMotivoAsignado.TextMatrix(i, 2)
@@ -1049,6 +1074,7 @@ Private Sub configurogrilla()
         grdMotivoAsignado.CellBackColor = &H808080    'GRIS OSCURO
         grdMotivoAsignado.CellFontBold = True
     Next
+    grdMotivoAsignado.AddItem ("" & "" & "")
     'todos los motivos
     grdMotivo.FormatString = "Codigo|Descripcion|Seleccionado"
     grdMotivo.ColWidth(0) = 0 'codigo
@@ -1064,6 +1090,7 @@ Private Sub configurogrilla()
         grdMotivo.CellBackColor = &H808080    'GRIS OSCURO
         grdMotivo.CellFontBold = True
     Next
+    grdMotivo.AddItem ("" & "" & "")
 End Sub
 Private Sub CargoCboProfesion()
     cboprofesion.Clear
@@ -1082,49 +1109,53 @@ End Sub
 
 Private Sub grdMotivo_DblClick()
     Dim J As Integer
-    If grdMotivo.TextMatrix(grdMotivo.RowSel, 2) = "NO" Then
-        grdMotivo.TextMatrix(grdMotivo.RowSel, 2) = "SI"
-        'CAMBIAR COLOR
-        'backColor = &HC000&
-        'foreColor = &HFFFFFF
-        For J = 0 To grdMotivo.Cols - 1
-            grdMotivo.Col = J
-            grdMotivo.CellForeColor = &HFFFFFF
-            grdMotivo.CellBackColor = &HC000&
-            grdMotivo.CellFontBold = True
-        Next
-    Else
-        grdMotivo.TextMatrix(grdMotivo.RowSel, 2) = "NO"
-        For J = 0 To grdMotivo.Cols - 1
-            grdMotivo.Col = J
-            grdMotivo.CellForeColor = &H80000008
-            grdMotivo.CellBackColor = &H80000005
-            grdMotivo.CellFontBold = False
-        Next
+    If grdMotivo.TextMatrix(grdMotivo.RowSel, 0) <> "" Then
+        If grdMotivo.TextMatrix(grdMotivo.RowSel, 2) = "NO" Then
+            grdMotivo.TextMatrix(grdMotivo.RowSel, 2) = "SI"
+            'CAMBIAR COLOR
+            'backColor = &HC000&
+            'foreColor = &HFFFFFF
+            For J = 0 To grdMotivo.Cols - 1
+                grdMotivo.Col = J
+                grdMotivo.CellForeColor = &HFFFFFF
+                grdMotivo.CellBackColor = &HC000&
+                grdMotivo.CellFontBold = True
+            Next
+        Else
+            grdMotivo.TextMatrix(grdMotivo.RowSel, 2) = "NO"
+            For J = 0 To grdMotivo.Cols - 1
+                grdMotivo.Col = J
+                grdMotivo.CellForeColor = &H80000008
+                grdMotivo.CellBackColor = &H80000005
+                grdMotivo.CellFontBold = False
+            Next
+        End If
     End If
 End Sub
 
 Private Sub grdMotivoAsignado_DblClick()
     Dim J As Integer
-    If grdMotivoAsignado.TextMatrix(grdMotivoAsignado.RowSel, 2) = "NO" Then
-        grdMotivoAsignado.TextMatrix(grdMotivoAsignado.RowSel, 2) = "SI"
-        'CAMBIAR COLOR
-        'backColor = &HC000&
-        'foreColor = &HFFFFFF
-        For J = 0 To grdMotivoAsignado.Cols - 1
-            grdMotivoAsignado.Col = J
-            grdMotivoAsignado.CellForeColor = &HFFFFFF
-            grdMotivoAsignado.CellBackColor = &HC000&
-            grdMotivoAsignado.CellFontBold = True
-        Next
-    Else
-        grdMotivoAsignado.TextMatrix(grdMotivoAsignado.RowSel, 2) = "NO"
-        For J = 0 To grdMotivoAsignado.Cols - 1
-            grdMotivoAsignado.Col = J
-            grdMotivoAsignado.CellForeColor = &H80000008
-            grdMotivoAsignado.CellBackColor = &H80000005
-            grdMotivoAsignado.CellFontBold = False
-        Next
+    If grdMotivoAsignado.TextMatrix(grdMotivoAsignado.RowSel, 0) <> "" Then
+        If grdMotivoAsignado.TextMatrix(grdMotivoAsignado.RowSel, 2) = "NO" Then
+            grdMotivoAsignado.TextMatrix(grdMotivoAsignado.RowSel, 2) = "SI"
+            'CAMBIAR COLOR
+            'backColor = &HC000&
+            'foreColor = &HFFFFFF
+            For J = 0 To grdMotivoAsignado.Cols - 1
+                grdMotivoAsignado.Col = J
+                grdMotivoAsignado.CellForeColor = &HFFFFFF
+                grdMotivoAsignado.CellBackColor = &HC000&
+                grdMotivoAsignado.CellFontBold = True
+            Next
+        Else
+            grdMotivoAsignado.TextMatrix(grdMotivoAsignado.RowSel, 2) = "NO"
+            For J = 0 To grdMotivoAsignado.Cols - 1
+                grdMotivoAsignado.Col = J
+                grdMotivoAsignado.CellForeColor = &H80000008
+                grdMotivoAsignado.CellBackColor = &H80000005
+                grdMotivoAsignado.CellFontBold = False
+            Next
+        End If
     End If
 End Sub
 
