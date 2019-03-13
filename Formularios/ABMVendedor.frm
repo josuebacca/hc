@@ -845,7 +845,7 @@ ErrorTran:
 End Sub
 Private Sub GuardarMotivos()
     Dim i As Integer
-    For i = 1 To grdMotivoAsignado.Rows - 1
+    For i = 2 To grdMotivoAsignado.Rows - 1
         cSQL = "INSERT INTO MOTIVO_VENDEDOR "
         cSQL = cSQL & "  (VEN_CODIGO,MOT_CODIGO)"
         cSQL = cSQL & " VALUES "

@@ -1,4 +1,4 @@
-GENERAL = 79, 11, 1287, 649, 
+GENERAL = 53, 82, 1261, 475, 
 modConstantesDB = 0, 0, 0, 0, C
 modDllBusqueda = 0, 0, 0, 0, C
 modDllListaBaseABM = 72, 8, 987, 502, C
@@ -56,7 +56,7 @@ ABMTratamiento = 250, 250, 1350, 913, C, 22, 29, 723, 440, C
 ABMLabClinicos = 300, 300, 1400, 963, C, 66, 87, 477, 425, C
 ABMGrupos = 125, 172, 1225, 835, C, 88, 116, 499, 454, C
 ABMMedicamentos = 164, 252, 1341, 915, C, 110, 145, 807, 616, C
-frmTurnos = -149, 81, 890, 756, C, 41, 21, 997, 498, C
+frmTurnos = -13, 68, 1026, 743, , 41, 21, 997, 498, C
 frmBuscarTurnos = 58, 114, 1154, 752, C, 377, 219, 1266, 885, C
 frmDatosClientes = 100, 633, 1274, 763, C, 44, 58, 790, 639, C
 frmCumpleaños = 0, 0, 0, 0, C, 66, 87, 821, 500, C
