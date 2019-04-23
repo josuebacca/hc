@@ -153,7 +153,12 @@ Public Sub Conexion()
     'DBConn.Open DBConn.ConnectionString, TxtUsuario, TxtClave
     'DBConn.ConnectionString = "Provider=Microsoft.Jet.OLEDB.3.51; Data Source=" & SERVIDOR & ";"
     DBConn.ConnectionString = "Provider=MSDASQL.1;Persist Security Info=False;Data Source=" & SERVIDOR
-    DBConn.Open
+    'SERVIDOR = "SQLSERVIDOR"
+    'DBConn.ConnectionString = "Provider=SQLOLEDB; " & _
+    '                            "Initial Catalog= HCSQL; " & _
+    '                           "Data Source=SERVIDOR-PC\SQLEXPRESS; " & _
+    '                           "integrated security=SSPI; persist security info=True;"
+            DBConn.Open
 '    ME CONECTO !
 '    Set DBConn = New ADODB.Connection
 '    DBConn.ConnectionString = "driver={SQL Server};server=" & SERVIDOR & ";DATABASE=" & BASEDATO
@@ -265,22 +270,22 @@ Private Sub cmdAceptar_Click()
             CUANTAS_VECES = CUANTAS_VECES + 1
         End If
     Else
+        
         Label1(1).FontBold = True
         Label1(1).Caption = " Conectando ... "
         Label1(1).Refresh
         'muestro un figureti de coneccion
         mNomUser = Trim(TxtUsuario)
         mPassword = Trim(TxtClave)
-        
         'BUSCO SUCURSALES---
-            BuscoNroSucursal
+           BuscoNroSucursal
         '-----------------
         Unload Me
-        Set FrmInicio = Nothing
-    End If
+            Set FrmInicio = Nothing
+                End If
 End Sub
 Private Sub CmdAceptar_GotFocus()
-    cmdAceptar.FontBold = True
+    CmdAceptar.FontBold = True
 End Sub
 
 Private Sub cmdSalir_Click()
