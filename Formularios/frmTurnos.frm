@@ -9,19 +9,19 @@ Begin VB.Form frmTurnos
    ClientHeight    =   9525
    ClientLeft      =   45
    ClientTop       =   435
-   ClientWidth     =   17655
+   ClientWidth     =   18345
    ForeColor       =   &H00000000&
    Icon            =   "frmTurnos.frx":0000
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    ScaleHeight     =   9525
-   ScaleWidth      =   17655
+   ScaleWidth      =   18345
    StartUpPosition =   2  'CenterScreen
    Begin VB.CommandButton cmdProtocolos 
       Enabled         =   0   'False
       Height          =   375
-      Left            =   16680
+      Left            =   17400
       Picture         =   "frmTurnos.frx":030A
       Style           =   1  'Graphical
       TabIndex        =   56
@@ -31,7 +31,7 @@ Begin VB.Form frmTurnos
    End
    Begin VB.CommandButton cmdCopiar 
       Height          =   375
-      Left            =   15720
+      Left            =   16440
       Picture         =   "frmTurnos.frx":2004
       Style           =   1  'Graphical
       TabIndex        =   55
@@ -42,7 +42,7 @@ Begin VB.Form frmTurnos
    Begin VB.CommandButton cmdCortar 
       Enabled         =   0   'False
       Height          =   375
-      Left            =   16200
+      Left            =   16920
       Picture         =   "frmTurnos.frx":238E
       Style           =   1  'Graphical
       TabIndex        =   54
@@ -53,7 +53,7 @@ Begin VB.Form frmTurnos
    Begin VB.CommandButton cmdImpTurno 
       Enabled         =   0   'False
       Height          =   375
-      Left            =   15240
+      Left            =   15960
       Picture         =   "frmTurnos.frx":2718
       Style           =   1  'Graphical
       TabIndex        =   53
@@ -63,14 +63,14 @@ Begin VB.Form frmTurnos
    End
    Begin VB.CommandButton cmdOcultar 
       Height          =   375
-      Left            =   17280
+      Left            =   17880
       TabIndex        =   52
       Top             =   50
       Width           =   375
    End
    Begin MSComCtl2.DTPicker fechaturno 
       Height          =   375
-      Left            =   12960
+      Left            =   13560
       TabIndex        =   51
       Top             =   480
       Visible         =   0   'False
@@ -78,7 +78,7 @@ Begin VB.Form frmTurnos
       _ExtentX        =   3201
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   54460417
+      Format          =   59572225
       CurrentDate     =   43340
    End
    Begin VB.Frame fraprotocolos 
@@ -93,7 +93,7 @@ Begin VB.Form frmTurnos
          Strikethrough   =   0   'False
       EndProperty
       Height          =   8655
-      Left            =   10200
+      Left            =   10920
       TabIndex        =   43
       Top             =   720
       Visible         =   0   'False
@@ -160,7 +160,7 @@ Begin VB.Form frmTurnos
    Begin VB.CommandButton cmdatendido 
       BackColor       =   &H0000C000&
       Height          =   315
-      Left            =   5760
+      Left            =   6360
       Style           =   1  'Graphical
       TabIndex        =   42
       ToolTipText     =   "Atendido"
@@ -170,7 +170,7 @@ Begin VB.Form frmTurnos
    Begin VB.CommandButton cmdespera 
       BackColor       =   &H0000FFFF&
       Height          =   315
-      Left            =   5280
+      Left            =   5880
       Style           =   1  'Graphical
       TabIndex        =   41
       ToolTipText     =   "En Espera"
@@ -180,7 +180,7 @@ Begin VB.Form frmTurnos
    Begin VB.CommandButton cmdpendiente 
       BackColor       =   &H00C0C0FF&
       Height          =   315
-      Left            =   4800
+      Left            =   5400
       MaskColor       =   &H8000000F&
       Style           =   1  'Graphical
       TabIndex        =   40
@@ -302,7 +302,16 @@ Begin VB.Form frmTurnos
       Left            =   120
       TabIndex        =   16
       Top             =   3400
-      Width           =   2895
+      Width           =   3495
+      Begin VB.ComboBox cboMotivo 
+         BackColor       =   &H0080FF80&
+         Height          =   315
+         Left            =   1440
+         Style           =   2  'Dropdown List
+         TabIndex        =   58
+         Top             =   2280
+         Width           =   1935
+      End
       Begin VB.CommandButton cmdNuevoPaciente 
          Caption         =   "+"
          BeginProperty Font 
@@ -315,7 +324,7 @@ Begin VB.Form frmTurnos
             Strikethrough   =   0   'False
          EndProperty
          Height          =   315
-         Left            =   2600
+         Left            =   3075
          Style           =   1  'Graphical
          TabIndex        =   57
          ToolTipText     =   "Agregar nuevo Paciente"
@@ -360,7 +369,7 @@ Begin VB.Form frmTurnos
          TabIndex        =   5
          Tag             =   "Descripción"
          Top             =   3660
-         Width           =   2595
+         Width           =   3270
       End
       Begin VB.OptionButton optNO 
          Caption         =   "NO"
@@ -395,7 +404,7 @@ Begin VB.Form frmTurnos
          TabIndex        =   29
          Tag             =   "Descripción"
          Top             =   1920
-         Width           =   2715
+         Width           =   3270
       End
       Begin VB.TextBox txtCodigo 
          Height          =   285
@@ -422,7 +431,7 @@ Begin VB.Form frmTurnos
          TabIndex        =   28
          Tag             =   "Descripción"
          Top             =   1080
-         Width           =   1395
+         Width           =   1875
       End
       Begin VB.TextBox txtBuscarCliDescri 
          BeginProperty Font 
@@ -440,7 +449,7 @@ Begin VB.Form frmTurnos
          TabIndex        =   3
          Tag             =   "Descripción"
          Top             =   735
-         Width           =   2715
+         Width           =   3195
       End
       Begin VB.TextBox txtBuscaCliente 
          Alignment       =   2  'Center
@@ -458,7 +467,7 @@ Begin VB.Form frmTurnos
          MaxLength       =   40
          TabIndex        =   2
          Top             =   250
-         Width           =   1155
+         Width           =   1515
       End
       Begin VB.TextBox txtMotivo 
          BeginProperty Font 
@@ -477,7 +486,7 @@ Begin VB.Form frmTurnos
          TabIndex        =   4
          Tag             =   "Descripción"
          Top             =   2640
-         Width           =   2650
+         Width           =   3255
       End
       Begin VB.TextBox txtimporte 
          BackColor       =   &H00008000&
@@ -492,20 +501,20 @@ Begin VB.Form frmTurnos
          EndProperty
          ForeColor       =   &H80000005&
          Height          =   315
-         Left            =   1440
+         Left            =   1800
          MaxLength       =   50
          TabIndex        =   10
          Tag             =   "Descripción"
          Text            =   "0,00"
          Top             =   4935
-         Width           =   1395
+         Width           =   1635
       End
       Begin MSMask.MaskEdBox mebHoraH 
          Height          =   315
-         Left            =   2040
+         Left            =   2400
          TabIndex        =   7
          Top             =   4560
-         Width           =   700
+         Width           =   705
          _ExtentX        =   1244
          _ExtentY        =   556
          _Version        =   393216
@@ -534,7 +543,7 @@ Begin VB.Form frmTurnos
             Strikethrough   =   0   'False
          EndProperty
          Height          =   315
-         Left            =   1560
+         Left            =   1920
          Style           =   2  'Dropdown List
          TabIndex        =   9
          Top             =   4620
@@ -553,7 +562,7 @@ Begin VB.Form frmTurnos
             Strikethrough   =   0   'False
          EndProperty
          Height          =   315
-         Left            =   1560
+         Left            =   1920
          Style           =   2  'Dropdown List
          TabIndex        =   8
          Top             =   4920
@@ -572,7 +581,7 @@ Begin VB.Form frmTurnos
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   1480
+         Left            =   1605
          TabIndex        =   50
          Top             =   4590
          Width           =   495
@@ -613,7 +622,7 @@ Begin VB.Form frmTurnos
          Left            =   120
          TabIndex        =   34
          Top             =   4935
-         Width           =   1245
+         Width           =   1605
       End
       Begin VB.Label Label7 
          Alignment       =   2  'Center
@@ -634,7 +643,7 @@ Begin VB.Form frmTurnos
          Left            =   120
          TabIndex        =   39
          Top             =   3300
-         Width           =   2550
+         Width           =   3270
       End
       Begin VB.Label Label6 
          Alignment       =   1  'Right Justify
@@ -697,7 +706,7 @@ Begin VB.Form frmTurnos
          Left            =   120
          TabIndex        =   21
          Top             =   4140
-         Width           =   2640
+         Width           =   3270
       End
       Begin VB.Label Label2 
          Alignment       =   1  'Right Justify
@@ -760,13 +769,13 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   54460418
+         StartOfWeek     =   59572226
          CurrentDate     =   40049
       End
    End
    Begin MSFlexGridLib.MSFlexGrid grdGrilla 
       Height          =   7965
-      Left            =   3120
+      Left            =   3720
       TabIndex        =   12
       ToolTipText     =   "Doble Click para ver la Historia Clinica del Paciente"
       Top             =   765
@@ -875,7 +884,7 @@ Begin VB.Form frmTurnos
    Begin VB.Label lblAux 
       Caption         =   "Label7"
       Height          =   255
-      Left            =   11520
+      Left            =   12120
       TabIndex        =   32
       Top             =   360
       Visible         =   0   'False
@@ -894,7 +903,7 @@ Begin VB.Form frmTurnos
          Strikethrough   =   0   'False
       EndProperty
       Height          =   195
-      Left            =   3240
+      Left            =   3720
       TabIndex        =   27
       Top             =   480
       Width           =   1470
@@ -932,7 +941,7 @@ Begin VB.Form frmTurnos
       EndProperty
       ForeColor       =   &H8000000E&
       Height          =   360
-      Left            =   3600
+      Left            =   3840
       TabIndex        =   17
       Top             =   60
       Width           =   945
@@ -942,7 +951,7 @@ Begin VB.Form frmTurnos
       BackStyle       =   1  'Opaque
       BorderStyle     =   6  'Inside Solid
       Height          =   375
-      Left            =   3120
+      Left            =   3720
       Top             =   60
       Width           =   12045
    End
@@ -972,6 +981,26 @@ Private Sub cboDesde_LostFocus()
     Else
         cbohasta.ListIndex = cboDesde.ListIndex
     End If
+End Sub
+
+Private Sub cboDoctor_Click()
+    LimpiarComboMotivo
+    If cboDoctor.ListIndex <> -1 Then
+        sql = "SELECT M.MOT_DESCRI"
+            sql = sql & " FROM  MOTIVO_VENDEDOR MV,VENDEDOR V,MOTIVO M "
+            sql = sql & " WHERE V.VEN_NOMBRE = " & XS(cboDoctor.Text)
+            sql = sql & " AND V.VEN_CODIGO = MV.VEN_CODIGO"
+            sql = sql & " AND MV.MOT_CODIGO = M.MOT_CODIGO"
+            Rec1.Open sql, DBConn, adOpenStatic, adLockOptimistic
+        Do While Rec1.EOF = False
+                cboMotivo.AddItem Rec1!MOT_DESCRI
+                Rec1.MoveNext
+        Loop
+        Rec1.Close
+    End If
+End Sub
+Private Sub LimpiarComboMotivo()
+    cboMotivo.Clear
 End Sub
 
 Private Sub cboDoctor_LostFocus()
@@ -1100,6 +1129,11 @@ Private Function ImprimirTurno()
     
     Rep.Action = 1
 End Function
+
+Private Sub cboMotivo_Click()
+    txtMotivo.Text = cboMotivo.Text
+    
+End Sub
 
 Private Sub cmdAceptarP_Click()
     'Guardar PROTOCOLO SELECCIONADO en tabla IMAGEN
@@ -1363,6 +1397,7 @@ Private Sub LimpiarTurno()
     cmdCortar.Enabled = False
     cmdProtocolos.Enabled = False
     optSI.Enabled = True
+    cboMotivo.ListIndex = -1
     If User = 1 Then
         cmdAgregar.Enabled = True
     Else

@@ -37,6 +37,7 @@ Public vFormGrupos As frmCListaBaseABM
 Public vFormMedicamentos As frmCListaBaseABM
 Public vFormProfesiones As frmCListaBaseABM
 Public vFormProtocolos As frmCListaBaseABM
+Public vFormMotivo As frmCListaBaseABM
 
 'objetos
 Public vABMClPr As CListaBaseABM
@@ -72,6 +73,7 @@ Public vABMLabClinicos As CListaBaseABM
 Public vABMGrupos As CListaBaseABM
 Public vABMMedicamentos As CListaBaseABM
 Public vABMProfesiones As CListaBaseABM
+Public vABMMotivo As CListaBaseABM
 
 'variable para mantener el objeto base de ABM activo
 Public auxDllActiva As CListaBaseABM
