@@ -78,7 +78,7 @@ Begin VB.Form frmTurnos
       _ExtentX        =   3201
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   59572225
+      Format          =   58064897
       CurrentDate     =   43340
    End
    Begin VB.Frame fraprotocolos 
@@ -769,7 +769,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   59572226
+         StartOfWeek     =   58064898
          CurrentDate     =   40049
       End
    End
@@ -1103,6 +1103,16 @@ Private Function ValidarTurno() As Boolean
 End Function
 Private Function ImprimirTurno()
     Dim sHoraD As Date
+    Dim mNombreImpresora As String
+    Dim strAutoSaveDirectory As String
+    Dim strAutoSaveFileName As String
+    Dim cliente As String
+    Dim Fecha As String
+    Dim objWSH As Object
+    
+    cliente = Replace(txtBuscarCliDescri.Text, " ", "_")
+    Fecha = Replace(MViewFecha.Value, "/", "")
+    
     sHoraD = mebHoraD.Text
     sHoraD = Mid(mebHoraD, 1, 1)
     
@@ -1112,23 +1122,85 @@ Private Function ImprimirTurno()
         sHoraD = Mid(mebHoraD.Text, 1, 5)
     End If
     
+    mNombreImpresora = Printer.DeviceName
+    Rep.Destination = 1
+    Call EstableceDefaultPrinter("PDFCreator")
+
+    
+    strAutoSaveDirectory = DirReport & "\Turnos\"
+    strAutoSaveFileName = "TURNO_" & cliente & "_" & Fecha & ".pdf"
+'
+    If Dir(strAutoSaveDirectory & strAutoSaveFileName) <> "" Then Kill (strAutoSaveDirectory & strAutoSaveFileName)
+'
+    Set objWSH = CreateObject("WScript.Shell")
+    objWSH.RegWrite "HKEY_CURRENT_USER\Software\PDFCreator\Program\UseAutoSave", 1, "REG_SZ"
+    objWSH.RegWrite "HKEY_CURRENT_USER\Software\PDFCreator\Program\UseAutoSaveDirectory", 1, "REG_SZ"
+    objWSH.RegWrite "HKEY_CURRENT_USER\Software\PDFCreator\Program\AutoSaveDirectory", strAutoSaveDirectory, "REG_SZ"
+    objWSH.RegWrite "HKEY_CURRENT_USER\Software\PDFCreator\Program\AutoSaveFileName", strAutoSaveFileName, "REG_SZ"
+'    'Rep.Action = 1
+    
+    
     Rep.SelectionFormula = ""
     Rep.Formulas(0) = ""
-            
+
     Rep.SelectionFormula = " {TURNOS.TUR_FECHA}= DATE (" & Mid(MViewFecha.Value, 7, 4) & "," & Mid(MViewFecha.Value, 4, 2) & "," & Mid(MViewFecha.Value, 1, 2) & ")"
     Rep.SelectionFormula = Rep.SelectionFormula & " AND {TURNOS.VEN_CODIGO}= " & cboDoctor.ItemData(cboDoctor.ListIndex)
     Rep.SelectionFormula = Rep.SelectionFormula & " AND {TURNOS.CLI_CODIGO}= " & XN(txtCodigo.Text)
     'Rep.SelectionFormula = Rep.SelectionFormula & " AND {TURNOS.TUR_DESDE}= TIME (" & Mid(mebHoraD.Text, 1, 2) & "," & Mid(mebHoraD.Text, 4, 2) & ",00)"  '& grdGrilla.RowSel
-    
+
     Rep.WindowState = crptMaximized
     Rep.WindowBorderStyle = crptNoBorder
     Rep.Connect = "Provider=MSDASQL.1;Persist Security Info=False;Data Source=" & SERVIDOR
     'Rep.Connect = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=" & SERVIDOR & ";"
     Rep.WindowTitle = "Impresion del Turno"
-    Rep.ReportFileName = DirReport & "rptTurno.rpt"
+    Select Case cboDoctor.ItemData(cboDoctor.ListIndex)
+        Case 1 ' Silvana
+            Rep.ReportFileName = DirReport & "rptTurno_silvana.rpt"
+        Case 2 'Lelo
+            Rep.ReportFileName = DirReport & "rptTurno_Lelo.rpt"
+        Case 16 ' carla gobbi
+            Rep.ReportFileName = DirReport & "rptTurno_gobbi.rpt"
+        Case 36 ' malena baudo
+            Rep.ReportFileName = DirReport & "rptTurno_baudo.rpt"
+        Case 36 ' malena baudo
+            Rep.ReportFileName = DirReport & "rptTurno_baudo.rpt"
+        Case 21 ' Lorena Sugar
+            Rep.ReportFileName = DirReport & "rptTurno_lorenasugar.rpt"
+        Case 33 ' Melina Orlietti
+            Rep.ReportFileName = DirReport & "rptTurno_melinaorlietti.rpt"
+        Case Else
+            Rep.ReportFileName = DirReport & "rptTurno.rpt"
+    End Select
     
     Rep.Action = 1
+
 End Function
+
+Private Sub ExportReportToPDF(ReportObject As CRAXDRT.Report, ByVal FileName As String, ByVal ReportTitle As String)
+    
+    Dim objExportOptions As CRAXDRT.ExportOptions
+ 
+    ReportObject.ReportTitle = ReportTitle
+    
+    With ReportObject
+        .EnableParameterPrompting = False
+        .MorePrintEngineErrorMessages = True
+    End With
+    
+    Set objExportOptions = ReportObject.ExportOptions
+    
+    With objExportOptions
+        .DestinationType = crEDTDiskFile
+        .DiskFileName = FileName
+        .FormatType = crEFTPortableDocFormat
+        .PDFExportAllPages = True
+    End With
+ 
+    ReportObject.Export False
+ 
+End Sub
+ 
+
 
 Private Sub cboMotivo_Click()
     txtMotivo.Text = cboMotivo.Text
@@ -1336,11 +1408,12 @@ Private Sub cmdAgregar_Click()
         If MsgBox("¿Imprime el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then
 '
     
+            LimpiarTurno
+            Exit Sub
+        End If
+        
+        ImprimirTurno
         LimpiarTurno
-        Exit Sub
-    End If
-    ImprimirTurno
-    LimpiarTurno
             
     Exit Sub
     
