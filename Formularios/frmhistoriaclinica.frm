@@ -484,9 +484,9 @@ Begin VB.Form frmhistoriaclinica
       TabCaption(0)   =   "Curso Clinico"
       TabPicture(0)   =   "frmhistoriaclinica.frx":1944
       Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "Frame6"
+      Tab(0).Control(0)=   "Frame4"
       Tab(0).Control(1)=   "Frame5"
-      Tab(0).Control(2)=   "Frame4"
+      Tab(0).Control(2)=   "Frame6"
       Tab(0).ControlCount=   3
       TabCaption(1)   =   "Ecografias / Protocolos"
       TabPicture(1)   =   "frmhistoriaclinica.frx":1960
@@ -505,8 +505,8 @@ Begin VB.Form frmhistoriaclinica
       TabCaption(2)   =   "Pedidos"
       TabPicture(2)   =   "frmhistoriaclinica.frx":197C
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "Frame9"
-      Tab(2).Control(1)=   "Frame8"
+      Tab(2).Control(0)=   "Frame8"
+      Tab(2).Control(1)=   "Frame9"
       Tab(2).ControlCount=   2
       Begin VB.CommandButton cmdzoom 
          Caption         =   "+"
@@ -659,7 +659,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   58064897
+            Format          =   57278465
             CurrentDate     =   41098
          End
          Begin VB.Label Label19 
@@ -777,7 +777,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   58064897
+            Format          =   57278465
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHastaPedido 
@@ -791,7 +791,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   58064897
+            Format          =   57278465
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdPedidos 
@@ -959,7 +959,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   58064897
+            Format          =   57278465
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHastaImg 
@@ -973,7 +973,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   58064897
+            Format          =   57278465
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdImagenes 
@@ -1133,7 +1133,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   58064897
+            Format          =   57278465
             CurrentDate     =   43205
          End
          Begin VB.CommandButton cmdCancelar 
@@ -1170,7 +1170,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   58064897
+            Format          =   57278465
             CurrentDate     =   41098
          End
          Begin VB.CommandButton cmdAceptar 
@@ -1316,7 +1316,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   58064897
+            Format          =   57278465
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHasta 
@@ -1330,7 +1330,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   58064897
+            Format          =   57278465
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdConsultas 
@@ -1611,7 +1611,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   58064897
+            Format          =   57278465
             CurrentDate     =   41098
          End
          Begin VB.Label lblnroja 
@@ -2179,8 +2179,10 @@ Private Sub cmdAceptarImg_Click()
     'If MsgBox("¿Imprime el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
     'ImprimirTurno
     
-    
-    
+    'ACTUALIZO DETALLE DE TIPO_IMAGEN PARA QUE QUEDE EN EL TEMPLATE
+    sql = "UPDATE TIPO_IMAGEN SET TIP_CONTEN=" & XS(txtImgDescri(0).Text, True)
+    sql = sql & " WHERE TIP_CODIGO=" & cboImg.ItemData(cboImg.ListIndex)
+    DBConn.Execute sql
     
 End Sub
 

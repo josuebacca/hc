@@ -242,7 +242,7 @@ Begin VB.MDIForm Menu
             Bevel           =   2
             Object.Width           =   1587
             MinWidth        =   1587
-            TextSave        =   "19:04"
+            TextSave        =   "23:55"
             Key             =   ""
             Object.Tag             =   ""
          EndProperty
@@ -252,7 +252,7 @@ Begin VB.MDIForm Menu
             Bevel           =   2
             Object.Width           =   1940
             MinWidth        =   1940
-            TextSave        =   "18/04/2019"
+            TextSave        =   "10/06/2020"
             Key             =   ""
             Object.Tag             =   ""
          EndProperty
@@ -721,6 +721,10 @@ Private Sub mnuArcSal_Click()
 End Sub
 
 Private Sub mnuAsignarTurnos_Click()
+    frmTurnos.Show
+End Sub
+
+Private Sub mnuAsignarTurnos2_Click()
     frmTurnos.Show
 End Sub
 
