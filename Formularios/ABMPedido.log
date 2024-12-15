@@ -1,0 +1,3 @@
+Línea 18: la propiedad Icon de ABMPedido tenía una referencia a archivo no válida.
+Línea 36: la propiedad ItemData de cboTarjeta tenía una referencia a archivo no válida.
+Línea 38: la propiedad List de cboTarjeta tenía una referencia a archivo no válida.

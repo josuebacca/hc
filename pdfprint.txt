@@ -1,0 +1,37 @@
+Private Sub ExportReportToPDF(ReportObject As CRAXDRT.Report, Byval FileName As String, Byval ReportTitle As String)
+    
+    Dim objExportOptions As CRAXDRT.ExportOptions
+ 
+    ReportObject.ReportTitle = ReportTitle
+    
+    With ReportObject
+        .EnableParameterPrompting = False
+        .MorePrintEngineErrorMessages = True
+    End With
+    
+    Set objExportOptions = ReportObject.ExportOptions
+    
+    With objExportOptions
+        .DestinationType = crEDTDiskFile
+        .DiskFileName = FileName
+        .FormatType = crEFTPortableDocFormat
+        .PDFExportAllPages = True
+    End With
+ 
+    ReportObject.Export False
+ 
+End Sub
+ 
+ Private Sub Command1_Click()
+    
+    Dim objCrystal As CRAXDRT.Application
+    Dim objReport As CRAXDRT.Report
+    
+    Set objCrystal = New CRAXDRT.Application
+    
+    Set objReport = objCrystal.OpenReport(ReportFileName, 1)
+    '...code to set report parameters, login information etc...
+    
+    ExportReportToPDF objReport, "M:\Testing\Beds.pdf", "Beds Held"
+ 
+End Sub
