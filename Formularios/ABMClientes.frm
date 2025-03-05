@@ -7,10 +7,10 @@ Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form ABMClientes 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Actualizacion de Pacientes..."
-   ClientHeight    =   7860
+   ClientHeight    =   8070
    ClientLeft      =   2700
    ClientTop       =   2625
-   ClientWidth     =   10635
+   ClientWidth     =   12210
    BeginProperty Font 
       Name            =   "Tahoma"
       Size            =   8.25
@@ -25,9 +25,9 @@ Begin VB.Form ABMClientes
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   7860
+   ScaleHeight     =   8070
    ScaleMode       =   0  'User
-   ScaleWidth      =   10635
+   ScaleWidth      =   12210
    StartUpPosition =   2  'CenterScreen
    Visible         =   0   'False
    Begin VB.Frame Frame3 
@@ -46,26 +46,198 @@ Begin VB.Form ABMClientes
       Left            =   120
       TabIndex        =   126
       Top             =   0
-      Width           =   10455
-      Begin VB.TextBox txtLink 
-         Height          =   315
-         Left            =   2640
+      Width           =   11175
+      Begin VB.Frame fraGenerarCarpetaEstudio 
+         Caption         =   "Generar carpeta de estudio"
+         Height          =   3615
+         Left            =   3360
+         TabIndex        =   153
+         Top             =   2400
+         Visible         =   0   'False
+         Width           =   6615
+         Begin VB.CommandButton cmdGenerar 
+            Caption         =   "&Generar"
+            Height          =   585
+            Left            =   1920
+            Picture         =   "ABMClientes.frx":0BC2
+            Style           =   1  'Graphical
+            TabIndex        =   165
+            Top             =   2760
+            Width           =   1065
+         End
+         Begin VB.CommandButton cmdCerrarFrameGenerarCarpetaEstudio 
+            Caption         =   "&Cerrar"
+            Height          =   585
+            Left            =   3240
+            Picture         =   "ABMClientes.frx":0ECC
+            Style           =   1  'Graphical
+            TabIndex        =   164
+            Top             =   2760
+            Width           =   1065
+         End
+         Begin VB.CommandButton cmdIrCarpetaEstudio 
+            Height          =   435
+            Left            =   4200
+            Picture         =   "ABMClientes.frx":11D6
+            Style           =   1  'Graphical
+            TabIndex        =   161
+            ToolTipText     =   "Ir a carpeta del estudio"
+            Top             =   2040
+            Visible         =   0   'False
+            Width           =   405
+         End
+         Begin VB.ComboBox cboTipoEstudio 
+            Height          =   315
+            ItemData        =   "ABMClientes.frx":1B80
+            Left            =   1440
+            List            =   "ABMClientes.frx":1B82
+            Style           =   2  'Dropdown List
+            TabIndex        =   157
+            Top             =   1560
+            Width           =   1725
+         End
+         Begin MSComCtl2.DTPicker dtFechaEstudio 
+            Height          =   315
+            Left            =   4800
+            TabIndex        =   159
+            Top             =   1560
+            Width           =   1455
+            _ExtentX        =   2566
+            _ExtentY        =   556
+            _Version        =   393216
+            Format          =   104660993
+            CurrentDate     =   40071
+         End
+         Begin VB.Label lblGenerandoCarpeta 
+            Caption         =   "Generando carpeta..."
+            Height          =   255
+            Left            =   2400
+            TabIndex        =   166
+            Top             =   2160
+            Visible         =   0   'False
+            Width           =   1575
+         End
+         Begin VB.Label lblErrorGenerarCarpetaPaciente 
+            Alignment       =   2  'Center
+            Caption         =   "Ocurrió un error al generar la carpeta, comuníquese con el administrador"
+            ForeColor       =   &H00000080&
+            Height          =   375
+            Left            =   960
+            TabIndex        =   162
+            Top             =   2160
+            Visible         =   0   'False
+            Width           =   4095
+         End
+         Begin VB.Label lblExitoGenerarCarpetaPaciente 
+            Caption         =   "Carpeta generada correctamente!"
+            ForeColor       =   &H0000C000&
+            Height          =   375
+            Left            =   1560
+            TabIndex        =   160
+            Top             =   2160
+            Visible         =   0   'False
+            Width           =   2535
+         End
+         Begin VB.Label Label24 
+            Caption         =   "Fecha de estudio"
+            Height          =   255
+            Left            =   3480
+            TabIndex        =   158
+            Top             =   1560
+            Width           =   1335
+         End
+         Begin VB.Label Label23 
+            Caption         =   "Tipo de estudio"
+            Height          =   255
+            Left            =   240
+            TabIndex        =   156
+            Top             =   1560
+            Width           =   1095
+         End
+         Begin VB.Label lblNota 
+            Caption         =   "NOTA: Si la carpeta ya existe, no será creada nuevamente ni reemplazada"
+            ForeColor       =   &H80000011&
+            Height          =   495
+            Left            =   240
+            TabIndex        =   155
+            Top             =   1080
+            Width           =   5415
+         End
+         Begin VB.Label Label21 
+            Caption         =   "Seleccione tipo de estudio y fecha del mismo, para crear su carpeta correspondiente en Google Drive"
+            Height          =   495
+            Left            =   240
+            TabIndex        =   154
+            Top             =   480
+            Width           =   5895
+         End
+      End
+      Begin VB.Frame driveFrame 
+         Caption         =   "Google Drive"
+         Height          =   2175
+         Left            =   6240
          TabIndex        =   148
-         Top             =   6120
-         Width           =   3885
+         Top             =   240
+         Width           =   4695
+         Begin VB.CommandButton cmdGenerarCarpetaEstudio 
+            Caption         =   "Generar carpeta de estudio"
+            Height          =   495
+            Left            =   960
+            TabIndex        =   152
+            Top             =   1320
+            Width           =   2535
+         End
+         Begin VB.CommandButton cmdIrCarpetaPaciente 
+            Height          =   435
+            Left            =   3960
+            Picture         =   "ABMClientes.frx":1B84
+            Style           =   1  'Graphical
+            TabIndex        =   151
+            ToolTipText     =   "Ir a carpeta de estudios"
+            Top             =   360
+            Width           =   405
+         End
+         Begin VB.TextBox txtLinkPaciente 
+            Enabled         =   0   'False
+            Height          =   315
+            Left            =   1440
+            TabIndex        =   150
+            Top             =   480
+            Width           =   2445
+         End
+         Begin VB.Label lblNoTieneLink 
+            Caption         =   "El paciente no cuenta con estudios cargados en Google Drive"
+            ForeColor       =   &H80000011&
+            Height          =   375
+            Left            =   120
+            TabIndex        =   163
+            Top             =   960
+            Visible         =   0   'False
+            Width           =   4455
+         End
+         Begin VB.Label Label1 
+            AutoSize        =   -1  'True
+            Caption         =   "Link a estudios"
+            Height          =   195
+            Index           =   27
+            Left            =   240
+            TabIndex        =   149
+            Top             =   480
+            Width           =   1050
+         End
       End
       Begin VB.TextBox txtDNI 
          Height          =   315
          Left            =   8940
          MaxLength       =   10
          TabIndex        =   130
-         Top             =   4080
+         Top             =   6240
          Visible         =   0   'False
          Width           =   1275
       End
       Begin VB.TextBox txtNombre 
          Height          =   315
-         Left            =   2610
+         Left            =   1650
          MaxLength       =   50
          TabIndex        =   1
          Top             =   855
@@ -73,7 +245,7 @@ Begin VB.Form ABMClientes
       End
       Begin VB.TextBox txtOcupacion 
          Height          =   315
-         Left            =   2610
+         Left            =   1650
          MaxLength       =   100
          TabIndex        =   9
          Top             =   3762
@@ -81,12 +253,12 @@ Begin VB.Form ABMClientes
       End
       Begin VB.CommandButton cmdBuscaOS 
          Height          =   315
-         Left            =   6600
-         Picture         =   "ABMClientes.frx":0BC2
+         Left            =   7560
+         Picture         =   "ABMClientes.frx":252E
          Style           =   1  'Graphical
          TabIndex        =   129
          ToolTipText     =   "Buscar Obras Sociales"
-         Top             =   5325
+         Top             =   6240
          Visible         =   0   'False
          Width           =   400
       End
@@ -101,7 +273,7 @@ Begin VB.Form ABMClientes
             Strikethrough   =   0   'False
          EndProperty
          Height          =   315
-         Left            =   3705
+         Left            =   2745
          MaxLength       =   50
          TabIndex        =   14
          Tag             =   "Descripción"
@@ -110,7 +282,7 @@ Begin VB.Form ABMClientes
       End
       Begin VB.TextBox txtNAfiliado 
          Height          =   315
-         Left            =   2610
+         Left            =   1650
          MaxLength       =   25
          TabIndex        =   15
          Top             =   5700
@@ -118,7 +290,7 @@ Begin VB.Form ABMClientes
       End
       Begin VB.TextBox txtEdad 
          Height          =   315
-         Left            =   2610
+         Left            =   1650
          Locked          =   -1  'True
          MaxLength       =   3
          TabIndex        =   7
@@ -127,9 +299,9 @@ Begin VB.Form ABMClientes
       End
       Begin VB.ComboBox cboProvincia 
          Height          =   315
-         ItemData        =   "ABMClientes.frx":15C4
-         Left            =   2610
-         List            =   "ABMClientes.frx":15C6
+         ItemData        =   "ABMClientes.frx":2F30
+         Left            =   1650
+         List            =   "ABMClientes.frx":2F32
          Style           =   2  'Dropdown List
          TabIndex        =   4
          Top             =   2115
@@ -137,9 +309,9 @@ Begin VB.Form ABMClientes
       End
       Begin VB.ComboBox cboLocalidad 
          Height          =   315
-         ItemData        =   "ABMClientes.frx":15C8
-         Left            =   2610
-         List            =   "ABMClientes.frx":15CA
+         ItemData        =   "ABMClientes.frx":2F34
+         Left            =   1650
+         List            =   "ABMClientes.frx":2F36
          Style           =   2  'Dropdown List
          TabIndex        =   5
          Top             =   2550
@@ -147,7 +319,7 @@ Begin VB.Form ABMClientes
       End
       Begin VB.TextBox txtTelefono 
          Height          =   315
-         Left            =   2640
+         Left            =   1680
          MaxLength       =   30
          TabIndex        =   10
          Top             =   4140
@@ -155,7 +327,7 @@ Begin VB.Form ABMClientes
       End
       Begin VB.TextBox txtCel 
          Height          =   315
-         Left            =   2610
+         Left            =   1650
          MaxLength       =   30
          TabIndex        =   11
          Top             =   4518
@@ -163,7 +335,7 @@ Begin VB.Form ABMClientes
       End
       Begin VB.TextBox txtDomicilio 
          Height          =   315
-         Left            =   2610
+         Left            =   1650
          MaxLength       =   50
          TabIndex        =   2
          Top             =   1350
@@ -171,7 +343,7 @@ Begin VB.Form ABMClientes
       End
       Begin VB.TextBox txtCodPostal 
          Height          =   315
-         Left            =   2610
+         Left            =   1650
          MaxLength       =   10
          TabIndex        =   3
          Top             =   1740
@@ -180,7 +352,7 @@ Begin VB.Form ABMClientes
       Begin VB.TextBox txtBuscaOS 
          Alignment       =   2  'Center
          Height          =   315
-         Left            =   2610
+         Left            =   1650
          MaxLength       =   40
          TabIndex        =   13
          Top             =   5319
@@ -188,23 +360,25 @@ Begin VB.Form ABMClientes
       End
       Begin VB.CommandButton cmdFotos 
          Caption         =   "Cargar Foto"
+         Enabled         =   0   'False
          Height          =   375
          Left            =   6960
          TabIndex        =   8
-         Top             =   2880
+         Top             =   5280
+         Visible         =   0   'False
          Width           =   3135
       End
       Begin VB.TextBox txtimagen 
          Height          =   405
          Left            =   6840
          TabIndex        =   128
-         Top             =   3360
+         Top             =   5760
          Visible         =   0   'False
          Width           =   3495
       End
       Begin VB.TextBox txtNroDoc 
          Height          =   315
-         Left            =   2580
+         Left            =   1620
          MaxLength       =   9
          TabIndex        =   0
          Top             =   360
@@ -212,7 +386,7 @@ Begin VB.Form ABMClientes
       End
       Begin VB.TextBox txtID 
          Height          =   315
-         Left            =   5400
+         Left            =   4440
          TabIndex        =   127
          Top             =   360
          Visible         =   0   'False
@@ -220,7 +394,7 @@ Begin VB.Form ABMClientes
       End
       Begin MSComCtl2.DTPicker DTFechaPCons 
          Height          =   315
-         Left            =   2610
+         Left            =   1650
          TabIndex        =   12
          Top             =   4920
          Width           =   1455
@@ -228,12 +402,12 @@ Begin VB.Form ABMClientes
          _ExtentY        =   556
          _Version        =   393216
          CheckBox        =   -1  'True
-         Format          =   151650305
+         Format          =   104660993
          CurrentDate     =   40071
       End
       Begin MSComCtl2.DTPicker DTFechaNac 
          Height          =   315
-         Left            =   2610
+         Left            =   1650
          TabIndex        =   6
          Top             =   2985
          Width           =   1455
@@ -241,18 +415,17 @@ Begin VB.Form ABMClientes
          _ExtentY        =   556
          _Version        =   393216
          CheckBox        =   -1  'True
-         Format          =   151650305
+         Format          =   104660993
          CurrentDate     =   40071
       End
       Begin VB.Label Label1 
          AutoSize        =   -1  'True
-         Caption         =   "Link a estudios"
          Height          =   195
          Index           =   26
-         Left            =   1440
+         Left            =   480
          TabIndex        =   147
-         Top             =   6165
-         Width           =   1050
+         Top             =   6120
+         Width           =   45
       End
       Begin VB.Label Label1 
          AutoSize        =   -1  'True
@@ -261,7 +434,7 @@ Begin VB.Form ABMClientes
          Index           =   25
          Left            =   8520
          TabIndex        =   146
-         Top             =   4140
+         Top             =   6300
          Visible         =   0   'False
          Width           =   330
       End
@@ -270,9 +443,9 @@ Begin VB.Form ABMClientes
          Caption         =   "Ocupacion:"
          Height          =   195
          Index           =   16
-         Left            =   1440
+         Left            =   480
          TabIndex        =   145
-         Top             =   3828
+         Top             =   3825
          Width           =   810
       End
       Begin VB.Label Label1 
@@ -280,7 +453,7 @@ Begin VB.Form ABMClientes
          Caption         =   "Nro. Afiliado :"
          Height          =   195
          Index           =   15
-         Left            =   1440
+         Left            =   480
          TabIndex        =   144
          Top             =   5745
          Width           =   990
@@ -294,9 +467,9 @@ Begin VB.Form ABMClientes
          ForeColor       =   &H80000008&
          Height          =   195
          Index           =   4
-         Left            =   1440
+         Left            =   480
          TabIndex        =   143
-         Top             =   5356
+         Top             =   5355
          Width           =   870
       End
       Begin VB.Label Label2 
@@ -304,9 +477,9 @@ Begin VB.Form ABMClientes
          Caption         =   "F Primer Cons.:"
          Height          =   195
          Index           =   0
-         Left            =   1440
+         Left            =   480
          TabIndex        =   142
-         Top             =   4974
+         Top             =   4980
          Width           =   1110
       End
       Begin VB.Label Label1 
@@ -314,7 +487,7 @@ Begin VB.Form ABMClientes
          Caption         =   "Edad:"
          Height          =   195
          Index           =   14
-         Left            =   1440
+         Left            =   480
          OLEDropMode     =   1  'Manual
          TabIndex        =   141
          Top             =   3420
@@ -325,7 +498,7 @@ Begin VB.Form ABMClientes
          Caption         =   "Id.:"
          Height          =   195
          Index           =   0
-         Left            =   4800
+         Left            =   3840
          TabIndex        =   140
          Top             =   360
          Visible         =   0   'False
@@ -336,7 +509,7 @@ Begin VB.Form ABMClientes
          Caption         =   "Nombre:"
          Height          =   195
          Index           =   1
-         Left            =   1440
+         Left            =   480
          TabIndex        =   139
          Top             =   885
          Width           =   615
@@ -346,9 +519,9 @@ Begin VB.Form ABMClientes
          Caption         =   "Localidad:"
          Height          =   195
          Index           =   4
-         Left            =   1440
+         Left            =   480
          TabIndex        =   138
-         Top             =   2600
+         Top             =   2595
          Width           =   720
       End
       Begin VB.Label Label1 
@@ -356,9 +529,9 @@ Begin VB.Form ABMClientes
          Caption         =   "Teléfono:"
          Height          =   195
          Index           =   5
-         Left            =   1440
+         Left            =   480
          TabIndex        =   137
-         Top             =   4210
+         Top             =   4215
          Width           =   690
       End
       Begin VB.Label Label1 
@@ -366,7 +539,7 @@ Begin VB.Form ABMClientes
          Caption         =   "Celular:"
          Height          =   195
          Index           =   6
-         Left            =   1440
+         Left            =   480
          TabIndex        =   136
          Top             =   4590
          Width           =   555
@@ -376,7 +549,7 @@ Begin VB.Form ABMClientes
          Caption         =   "Domicilio:"
          Height          =   195
          Index           =   8
-         Left            =   1440
+         Left            =   480
          TabIndex        =   135
          Top             =   1395
          Width           =   660
@@ -386,7 +559,7 @@ Begin VB.Form ABMClientes
          Caption         =   "F. Nacimiento:"
          Height          =   195
          Index           =   2
-         Left            =   1440
+         Left            =   480
          TabIndex        =   134
          Top             =   3045
          Width           =   1035
@@ -396,7 +569,7 @@ Begin VB.Form ABMClientes
          Caption         =   "Código Postal:"
          Height          =   195
          Index           =   2
-         Left            =   1440
+         Left            =   480
          TabIndex        =   133
          Top             =   1770
          Width           =   1035
@@ -406,7 +579,7 @@ Begin VB.Form ABMClientes
          Caption         =   "Nro. Doc.:"
          Height          =   195
          Index           =   3
-         Left            =   1440
+         Left            =   480
          TabIndex        =   132
          Top             =   390
          Width           =   750
@@ -416,17 +589,18 @@ Begin VB.Form ABMClientes
          Caption         =   "Provincia:"
          Height          =   195
          Index           =   13
-         Left            =   1440
+         Left            =   480
          TabIndex        =   131
          Top             =   2160
          Width           =   705
       End
       Begin VB.Image Image1 
          BorderStyle     =   1  'Fixed Single
-         Height          =   2415
+         Height          =   615
          Left            =   6960
          Stretch         =   -1  'True
-         Top             =   360
+         Top             =   4560
+         Visible         =   0   'False
          Width           =   3135
       End
    End
@@ -434,20 +608,20 @@ Begin VB.Form ABMClientes
       Caption         =   "&Cerrar"
       Height          =   585
       Left            =   9480
-      Picture         =   "ABMClientes.frx":15CC
+      Picture         =   "ABMClientes.frx":2F38
       Style           =   1  'Graphical
       TabIndex        =   17
-      Top             =   6840
+      Top             =   7080
       Width           =   1065
    End
    Begin VB.CommandButton cmdAceptar 
       Caption         =   "&Aceptar"
       Height          =   585
       Left            =   8400
-      Picture         =   "ABMClientes.frx":18D6
+      Picture         =   "ABMClientes.frx":3242
       Style           =   1  'Graphical
       TabIndex        =   16
-      Top             =   6840
+      Top             =   7080
       Width           =   1065
    End
    Begin TabDlg.SSTab Frame8 
@@ -456,15 +630,15 @@ Begin VB.Form ABMClientes
       TabIndex        =   20
       Top             =   120
       Visible         =   0   'False
-      Width           =   10935
-      _ExtentX        =   19288
+      Width           =   11295
+      _ExtentX        =   19923
       _ExtentY        =   13679
       _Version        =   393216
       Tabs            =   6
       TabsPerRow      =   6
       TabHeight       =   520
       TabCaption(0)   =   "&Datos del Paciente"
-      TabPicture(0)   =   "ABMClientes.frx":1BE0
+      TabPicture(0)   =   "ABMClientes.frx":354C
       Tab(0).ControlEnabled=   -1  'True
       Tab(0).Control(0)=   "Label1(12)"
       Tab(0).Control(0).Enabled=   0   'False
@@ -490,12 +664,12 @@ Begin VB.Form ABMClientes
       Tab(0).Control(10).Enabled=   0   'False
       Tab(0).ControlCount=   11
       TabCaption(1)   =   "&Anamnesis"
-      TabPicture(1)   =   "ABMClientes.frx":1BFC
+      TabPicture(1)   =   "ABMClientes.frx":3568
       Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "Frame5"
       Tab(1).ControlCount=   1
       TabCaption(2)   =   "&Historia Clinica"
-      TabPicture(2)   =   "ABMClientes.frx":1C18
+      TabPicture(2)   =   "ABMClientes.frx":3584
       Tab(2).ControlEnabled=   0   'False
       Tab(2).Control(0)=   "grdCClinico"
       Tab(2).Control(1)=   "txtHC"
@@ -505,14 +679,14 @@ Begin VB.Form ABMClientes
       Tab(2).Control(5)=   "Frame6"
       Tab(2).ControlCount=   6
       TabCaption(3)   =   "Medicamentos"
-      TabPicture(3)   =   "ABMClientes.frx":1C34
+      TabPicture(3)   =   "ABMClientes.frx":35A0
       Tab(3).ControlEnabled=   0   'False
       Tab(3).Control(0)=   "Frame4"
       Tab(3).Control(1)=   "txtMedica"
       Tab(3).Control(2)=   "GrdCMedica"
       Tab(3).ControlCount=   3
       TabCaption(4)   =   "Pedidos"
-      TabPicture(4)   =   "ABMClientes.frx":1C50
+      TabPicture(4)   =   "ABMClientes.frx":35BC
       Tab(4).ControlEnabled=   0   'False
       Tab(4).Control(0)=   "cmdRealizado"
       Tab(4).Control(1)=   "cmdCancelarPedido"
@@ -520,7 +694,7 @@ Begin VB.Form ABMClientes
       Tab(4).Control(3)=   "Frame7"
       Tab(4).ControlCount=   4
       TabCaption(5)   =   "Imágenes"
-      TabPicture(5)   =   "ABMClientes.frx":1C6C
+      TabPicture(5)   =   "ABMClientes.frx":35D8
       Tab(5).ControlEnabled=   0   'False
       Tab(5).Control(0)=   "ImagenesRealizadas"
       Tab(5).ControlCount=   1
@@ -701,7 +875,7 @@ Begin VB.Form ABMClientes
             _ExtentY        =   556
             _Version        =   393216
             CheckBox        =   -1  'True
-            Format          =   151650305
+            Format          =   104660993
             CurrentDate     =   40070
          End
          Begin VB.TextBox txtcualca 
@@ -987,7 +1161,7 @@ Begin VB.Form ABMClientes
             EndProperty
             Height          =   375
             Left            =   10200
-            Picture         =   "ABMClientes.frx":1C88
+            Picture         =   "ABMClientes.frx":35F4
             Style           =   1  'Graphical
             TabIndex        =   62
             ToolTipText     =   "Nuevo Curso Clínico"
@@ -1006,7 +1180,7 @@ Begin VB.Form ABMClientes
             EndProperty
             Height          =   375
             Left            =   9840
-            Picture         =   "ABMClientes.frx":2CCA
+            Picture         =   "ABMClientes.frx":4636
             Style           =   1  'Graphical
             TabIndex        =   61
             ToolTipText     =   "Quitar Curso Clínico"
@@ -1061,7 +1235,7 @@ Begin VB.Form ABMClientes
             EndProperty
             Height          =   375
             Left            =   9480
-            Picture         =   "ABMClientes.frx":3D0C
+            Picture         =   "ABMClientes.frx":5678
             Style           =   1  'Graphical
             TabIndex        =   101
             ToolTipText     =   "Agregar Curso Clínico"
@@ -1080,7 +1254,7 @@ Begin VB.Form ABMClientes
             CalendarBackColor=   12648384
             CalendarForeColor=   0
             CalendarTitleBackColor=   12648384
-            Format          =   151650305
+            Format          =   104660993
             UpDown          =   -1  'True
             CurrentDate     =   40063
          End
@@ -1107,7 +1281,7 @@ Begin VB.Form ABMClientes
             CalendarTitleBackColor=   12648384
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   151650305
+            Format          =   104660993
             CurrentDate     =   40063
          End
          Begin VB.TextBox txtDescTra 
@@ -1421,7 +1595,7 @@ Begin VB.Form ABMClientes
             EndProperty
             Height          =   375
             Left            =   10200
-            Picture         =   "ABMClientes.frx":4096
+            Picture         =   "ABMClientes.frx":5A02
             Style           =   1  'Graphical
             TabIndex        =   35
             ToolTipText     =   "Nueva Medicación"
@@ -1440,7 +1614,7 @@ Begin VB.Form ABMClientes
             EndProperty
             Height          =   375
             Left            =   10200
-            Picture         =   "ABMClientes.frx":50D8
+            Picture         =   "ABMClientes.frx":6A44
             Style           =   1  'Graphical
             TabIndex        =   34
             ToolTipText     =   "Quitar Medicación"
@@ -1513,7 +1687,7 @@ Begin VB.Form ABMClientes
             EndProperty
             Height          =   375
             Left            =   10200
-            Picture         =   "ABMClientes.frx":611A
+            Picture         =   "ABMClientes.frx":7A86
             Style           =   1  'Graphical
             TabIndex        =   108
             ToolTipText     =   "Agregar Medicación"
@@ -1532,7 +1706,7 @@ Begin VB.Form ABMClientes
             CalendarBackColor=   12648384
             CalendarForeColor=   0
             CalendarTitleBackColor=   12648384
-            Format          =   151650305
+            Format          =   104660993
             UpDown          =   -1  'True
             CurrentDate     =   40063
          End
@@ -1584,9 +1758,9 @@ Begin VB.Form ABMClientes
       End
       Begin VB.ComboBox cboIva 
          Height          =   315
-         ItemData        =   "ABMClientes.frx":64A4
+         ItemData        =   "ABMClientes.frx":7E10
          Left            =   7200
-         List            =   "ABMClientes.frx":64A6
+         List            =   "ABMClientes.frx":7E12
          Style           =   2  'Dropdown List
          TabIndex        =   30
          Top             =   5440
@@ -1596,9 +1770,9 @@ Begin VB.Form ABMClientes
       Begin VB.ComboBox cboPais 
          Enabled         =   0   'False
          Height          =   315
-         ItemData        =   "ABMClientes.frx":64A8
+         ItemData        =   "ABMClientes.frx":7E14
          Left            =   7200
-         List            =   "ABMClientes.frx":64AA
+         List            =   "ABMClientes.frx":7E16
          Style           =   2  'Dropdown List
          TabIndex        =   29
          Top             =   5080
@@ -1772,7 +1946,7 @@ Begin VB.Form ABMClientes
    Begin VB.CommandButton cmdAyuda 
       Height          =   315
       Left            =   5880
-      Picture         =   "ABMClientes.frx":64AC
+      Picture         =   "ABMClientes.frx":7E18
       Style           =   1  'Graphical
       TabIndex        =   18
       Top             =   7380
@@ -1820,10 +1994,17 @@ Const cTabla = "CLIENTE"
 Const cCampoID = "CLI_CODIGO"
 Const cDesRegistro = "Paciente"
 
+Dim tiposEstablecimiento(5) As String
+Dim studyLinkDrive As String
+Dim errorPostStudyFolder As Boolean
+
+Dim patientLinkDrive As String
+
+
 Function ActualizarListaBase(pMode As Integer)
     On Error GoTo moco
     Dim rec As ADODB.Recordset
-    Dim cSQL As String
+    Dim csql As String
     Dim i As Integer
     Dim auxListItem As ListItem
     Dim IndiceCampoID As Integer
@@ -1833,17 +2014,17 @@ Function ActualizarListaBase(pMode As Integer)
     
     'armo la cadena a ejecutar
     If InStr(1, vStringSQL, "WHERE") = 0 Then
-        cSQL = vStringSQL & " WHERE " & cCampoID & " = " & txtID.Text
+        csql = vStringSQL & " WHERE " & cCampoID & " = " & txtID.Text
     Else
-        cSQL = vStringSQL & " AND " & cCampoID & " = " & txtID.Text
+        csql = vStringSQL & " AND " & cCampoID & " = " & txtID.Text
     End If
     
     If pMode = 4 Then
-        vListView.ListItems.Remove vListView.SelectedItem.Index
+        vListView.ListItems.Remove vListView.SelectedItem.index
         Exit Function
     End If
     
-    rec.Open cSQL, DBConn, adOpenStatic, adLockOptimistic
+    rec.Open csql, DBConn, adOpenStatic, adLockOptimistic
     If (rec.BOF And rec.EOF) = 0 Then
         If rec.EOF = False Then
         
@@ -1852,7 +2033,7 @@ Function ActualizarListaBase(pMode As Integer)
             IndiceCampoID = 0
             For Each f In rec.Fields
                 OrdenCampo = OrdenCampo + 1
-                If UCase(f.Name) = UCase(vDesFieldID) Then
+                If UCase(f.name) = UCase(vDesFieldID) Then
                     IndiceCampoID = OrdenCampo - 1
                 End If
             Next f
@@ -1922,7 +2103,6 @@ Function SetMode(pMode As Integer)
             AcCtrlx cmdBuscaOS
             AcCtrlx txtBuscarOSNombre
             AcCtrlx txtNAfiliado
-            AcCtrlx txtLink
             
             AcCtrlx txtMC
             AcCtrlx txtRelac
@@ -1984,7 +2164,6 @@ Function SetMode(pMode As Integer)
             DesacCtrlx cmdBuscaOS
             DesacCtrlx txtBuscarOSNombre
             DesacCtrlx txtNAfiliado
-            DesacCtrlx txtLink
             
             DesacCtrlx txtMC
             DesacCtrlx txtRelac
@@ -2057,7 +2236,7 @@ Public Function SetWindow(pWindow As Form, pSQL As String, pMode As Integer, pLi
     'valor del campo identificador de registro seleccionado (0 si es un reg. nuevo)
     If vMode <> 1 Then
         If vListView.SelectedItem.Selected = True Then
-            vFieldID = vListView.SelectedItem.Key
+            vFieldID = vListView.SelectedItem.key
         Else
             vFieldID = 0
         End If
@@ -2198,87 +2377,29 @@ Private Sub cboProvincia_LostFocus()
     Rec1.Close
     'BuscaProx "CORDOBA", cboLocalidad
 End Sub
+Private Sub cboTipoEstudio_Click()
+    cmdGenerar.Enabled = True
+    lblErrorGenerarCarpetaPaciente.Visible = False
+    lblExitoGenerarCarpetaPaciente.Visible = False
+    cmdIrCarpetaEstudio.Visible = False
+End Sub
 
 Private Sub cboTratamiento_Change()
     'cmdAceptar.Enabled = True
 End Sub
-Private Sub UpdatePatientLink(method As String, endpoint As String)
-     Dim DataToSend As String
-    Dim objXML As Object
-     Dim DateToSend As String
-
-    DataToSend = "{""dni"": " & txtNroDoc.Text & ", ""linkDrive"": """ & txtLink.Text & """}"
-
-    ' Set objXML = CreateObject("Microsoft.XMLHTTP")
-     Set objXML = CreateObject("MSXML2.ServerXMLHTTP")
-     objXML.Open method, DIGOR_CORE_URL & endpoint, False
-     objXML.Open method, "https://bd82-2803-9800-9886-53cf-f3f6-9a26-d91b-2c30.ngrok-free.app" & endpoint, False
-     
-     objXML.setrequestheader "authorization", "Bearer " & DIGOR_PUBLIC_API_KEY
-     objXML.setrequestheader "content-type", "application/json"
-     objXML.send DataToSend
-     
-     Set objXML = Nothing
-     
-End Sub
-Private Sub UpdatePatientLinkCurl(method As String, endpoint As String)
+Private Sub DeletePatientCurl(method As String, endpoint As String)
     Dim command As String
-    Dim DataToSend As String
     Dim Result As Long
-    Dim birthDateFormatted As String
-    
-    ' Formatear la fecha del DateTimePicker a formato YYYY-MM-DD
-    birthDateFormatted = Format(DTFechaNac.Value, "yyyy-mm-dd")
-    
-    ' Datos a enviar en formato JSON
-    DataToSend = "{""dni"": " & CLng(txtNroDoc.Text) & _
-                 ", ""linkDrive"": """ & txtLink.Text & """" & _
-                 ", ""name"": """ & txtNombre.Text & """" & _
-                 ", ""birthDate"": """ & birthDateFormatted & """}"
     
     ' Comando curl para hacer una solicitud POST
     command = "curl -X " & method & " """ & DIGOR_CORE_URL & endpoint & """ " & _
               "-H ""Authorization: Bearer " & DIGOR_PUBLIC_API_KEY & """ " & _
               "-H ""Content-Type: application/json"" " & _
-              "-d """ & Replace(DataToSend, """", "\""") & """ -k"
+              "-d """ & Replace("", """", "\""") & """ -k"
 
     ' Ejecutar el comando usando Shell
     Result = Shell("cmd.exe /c " & command, vbHide)
 End Sub
-
-Private Sub UpdatePatientLinkCurlAlert(method As String, endpoint As String)
-    Dim command As String
-    Dim DataToSend As String
-    Dim Result As Long
-    Dim logFile As String
-    Dim logMessage As String
-    Dim ErrorCode As Long
-    
-    ' Datos a enviar en formato JSON
-    DataToSend = "{""dni"": " & txtNroDoc.Text & ", ""linkDrive"": """ & txtLink.Text & """}"
-    
-    ' Comando curl para hacer una solicitud POST
-    command = "curl -X " & method & " """ & DIGOR_CORE_URL & endpoint & """ -H ""Authorization: Bearer " & DIGOR_PUBLIC_API_KEY & """ -H ""Content-Type: application/json"" -d """ & DataToSend & """"
-    
-    ' Ruta del archivo de log en el escritorio
-    logFile = CreateObject("WScript.Shell").SpecialFolders("Desktop") & "\error_log.txt"
-    
-    ' Ejecutar el comando usando Shell
-    Result = Shell("cmd.exe /c " & command, vbHide)
-    
-    ' Obtener el código de error
-    ErrorCode = Err.Number
-    
-    ' Verificar si el comando se ejecutó correctamente
-    If Result = 0 Then
-        logMessage = "Error al enviar la solicitud HTTP en " & Now & ": " & command & " Error code: " & ErrorCode
-        Call WriteToLog(logFile, logMessage)
-        MsgBox "Error al enviar la solicitud HTTP. Revisa el archivo de log en el escritorio."
-    Else
-        MsgBox "Solicitud HTTP enviada correctamente"
-    End If
-End Sub
-
 Private Sub WriteToLog(logFile As String, message As String)
     Dim fileNumber As Integer
     fileNumber = FreeFile
@@ -2293,7 +2414,7 @@ End Sub
 
 Private Sub cmdAceptar_Click()
 
-    Dim cSQL As String
+    Dim csql As String
     Dim cSQLAnam As String
     
     Dim nuevoid As Long
@@ -2307,133 +2428,126 @@ Private Sub cmdAceptar_Click()
         DBConn.BeginTrans
         Select Case vMode
             Case 1 'nuevo
-                cSQL = "INSERT INTO " & cTabla
-                cSQL = cSQL & "     (CLI_RAZSOC, CLI_DNI, CLI_DOMICI, CLI_CUIT,"
-                cSQL = cSQL & " CLI_INGBRU, "
+                csql = "INSERT INTO " & cTabla
+                csql = csql & "     (CLI_RAZSOC, CLI_DNI, CLI_DOMICI, CLI_CUIT,"
+                csql = csql & " CLI_INGBRU, "
                 If Not IsNull(DTFechaNac.Value) Then
-                    cSQL = cSQL & " CLI_CUMPLE, "
+                    csql = csql & " CLI_CUMPLE, "
                 End If
-                cSQL = cSQL & " IVA_CODIGO, CLI_NRODOC,"
-                cSQL = cSQL & " CLI_TELEFONO, CLI_MAIL, CLI_CELULAR, CLI_CODPOS,"
-                cSQL = cSQL & " LOC_CODIGO, PRO_CODIGO, PAI_CODIGO, CLI_OBSERVA, "
-                cSQL = cSQL & " CLI_EDAD, CLI_OCUPACION, "
+                csql = csql & " IVA_CODIGO, CLI_NRODOC,"
+                csql = csql & " CLI_TELEFONO, CLI_MAIL, CLI_CELULAR, CLI_CODPOS,"
+                csql = csql & " LOC_CODIGO, PRO_CODIGO, PAI_CODIGO, CLI_OBSERVA, "
+                csql = csql & " CLI_EDAD, CLI_OCUPACION, "
                 
                 If Not IsNull(DTFechaPCons.Value) Then
-                    cSQL = cSQL & "CLI_FECPC,"
+                    csql = csql & "CLI_FECPC,"
                 End If
                 
-                cSQL = cSQL & "OS_NUMERO,CLI_NROAFIL, CLI_LINKARCH, "
+                csql = csql & "OS_NUMERO,CLI_NROAFIL, "
                 
-                cSQL = cSQL & " CLI_MC, CLI_RELAC, CLI_AFA,CLI_APP,CLI_EFISICO, "
-                cSQL = cSQL & " CLI_DIAG, CLI_ESTCOM, CLI_PTEST,CLI_HC,CLI_MEDICA,CLI_FOTO,CLI_ASPCLI) "
+                csql = csql & " CLI_MC, CLI_RELAC, CLI_AFA,CLI_APP,CLI_EFISICO, "
+                csql = csql & " CLI_DIAG, CLI_ESTCOM, CLI_PTEST,CLI_HC,CLI_MEDICA,CLI_FOTO,CLI_ASPCLI) "
                 
-                cSQL = cSQL & " VALUES "
-                cSQL = cSQL & "     (" & XS(txtNombre.Text) & ", "
-                cSQL = cSQL & XN(txtDNI.Text) & ", "
-                cSQL = cSQL & XS(txtDomicilio.Text) & ", " & XS(txtCuit.Text) & ", "
-                cSQL = cSQL & XS(txtIngresosBrutos.Text) & ", "
+                csql = csql & " VALUES "
+                csql = csql & "     (" & XS(txtNombre.Text) & ", "
+                csql = csql & XN(txtDNI.Text) & ", "
+                csql = csql & XS(txtDomicilio.Text) & ", " & XS(txtCuit.Text) & ", "
+                csql = csql & XS(txtIngresosBrutos.Text) & ", "
                 
                 If Not IsNull(DTFechaNac.Value) Then
-                    cSQL = cSQL & XDQ(DTFechaNac.Value) & ", "
+                    csql = csql & XDQ(DTFechaNac.Value) & ", "
                 End If
                 
-                cSQL = cSQL & cboIva.ItemData(cboIva.ListIndex) & ", "
-                cSQL = cSQL & XN(txtNroDoc.Text) & ", "
-                cSQL = cSQL & XS(txtTelefono.Text) & ", "
-                cSQL = cSQL & XS(txtMail.Text) & ", " & XS(txtCel.Text) & ", "
-                cSQL = cSQL & XS(txtCodPostal.Text) & ", "
-                cSQL = cSQL & cboLocalidad.ItemData(cboLocalidad.ListIndex) & ", "
-                cSQL = cSQL & cboProvincia.ItemData(cboProvincia.ListIndex) & ", "
-                cSQL = cSQL & cboPais.ItemData(cboPais.ListIndex) & ","
-                cSQL = cSQL & XS(Trim(txtObserva.Text)) & ","
-                cSQL = cSQL & XN(txtEdad.Text) & ", "
-                cSQL = cSQL & XS(Trim(txtOcupacion.Text)) & ","
+                csql = csql & cboIva.ItemData(cboIva.ListIndex) & ", "
+                csql = csql & XN(txtNroDoc.Text) & ", "
+                csql = csql & XS(txtTelefono.Text) & ", "
+                csql = csql & XS(txtMail.Text) & ", " & XS(txtCel.Text) & ", "
+                csql = csql & XS(txtCodPostal.Text) & ", "
+                csql = csql & cboLocalidad.ItemData(cboLocalidad.ListIndex) & ", "
+                csql = csql & cboProvincia.ItemData(cboProvincia.ListIndex) & ", "
+                csql = csql & cboPais.ItemData(cboPais.ListIndex) & ","
+                csql = csql & XS(Trim(txtObserva.Text)) & ","
+                csql = csql & XN(txtEdad.Text) & ", "
+                csql = csql & XS(Trim(txtOcupacion.Text)) & ","
                 
                 If Not IsNull(DTFechaPCons.Value) Then
-                    cSQL = cSQL & XDQ(DTFechaPCons.Value) & ", "
+                    csql = csql & XDQ(DTFechaPCons.Value) & ", "
                 End If
                 
-                cSQL = cSQL & XN(txtBuscaOS.Text) & ", "
-                cSQL = cSQL & XS(txtNAfiliado.Text) & ", "
-                cSQL = cSQL & "'" & txtLink.Text & "'" & ", "
+                csql = csql & XN(txtBuscaOS.Text) & ", "
+                csql = csql & XS(txtNAfiliado.Text) & ", "
                 
-                cSQL = cSQL & XSM(Trim(txtMC.Text)) & ","
-                cSQL = cSQL & XSM(Trim(txtRelac.Text)) & ","
-                cSQL = cSQL & XSM(Trim(txtAFA.Text)) & ","
-                cSQL = cSQL & XSM(Trim(txtAPP.Text)) & ","
-                cSQL = cSQL & XSM(Trim(txtEFisico.Text)) & ","
-                cSQL = cSQL & XSM(Trim(txtDiag.Text)) & ","
-                cSQL = cSQL & XSM(Trim(txtEstCom.Text)) & ","
-                cSQL = cSQL & XSM(Trim(txtPTest.Text)) & ","
-                cSQL = cSQL & XSM(Trim(txtHC.Text)) & ","
-                cSQL = cSQL & XSM(Trim(txtMedica.Text)) & ","
-                cSQL = cSQL & XS(txtimagen.Text) & ","
-                cSQL = cSQL & XS(txtAspCli.Text) & ")"
+                csql = csql & XSM(Trim(txtMC.Text)) & ","
+                csql = csql & XSM(Trim(txtRelac.Text)) & ","
+                csql = csql & XSM(Trim(txtAFA.Text)) & ","
+                csql = csql & XSM(Trim(txtAPP.Text)) & ","
+                csql = csql & XSM(Trim(txtEFisico.Text)) & ","
+                csql = csql & XSM(Trim(txtDiag.Text)) & ","
+                csql = csql & XSM(Trim(txtEstCom.Text)) & ","
+                csql = csql & XSM(Trim(txtPTest.Text)) & ","
+                csql = csql & XSM(Trim(txtHC.Text)) & ","
+                csql = csql & XSM(Trim(txtMedica.Text)) & ","
+                csql = csql & XS(txtimagen.Text) & ","
+                csql = csql & XS(txtAspCli.Text) & ")"
                 'anamnesis
                 'sql = InsertAnamnesis
-
-                UpdatePatientLinkCurl "POST", "/api/v1/patient-update-create"
                 
             Case 2 'editar
                 
-                cSQL = "UPDATE " & cTabla & " SET "
-                cSQL = cSQL & "  CLI_RAZSOC=" & XS(txtNombre.Text)
-                cSQL = cSQL & " ,CLI_DNI=" & XS(txtDNI.Text)
-                cSQL = cSQL & " ,CLI_DOMICI=" & XS(txtDomicilio.Text)
-                cSQL = cSQL & " ,CLI_CUIT=" & XS(txtCuit.Text)
-                cSQL = cSQL & " ,CLI_INGBRU=" & XS(txtIngresosBrutos.Text)
+                csql = "UPDATE " & cTabla & " SET "
+                csql = csql & "  CLI_RAZSOC=" & XS(txtNombre.Text)
+                csql = csql & " ,CLI_DNI=" & XS(txtDNI.Text)
+                csql = csql & " ,CLI_DOMICI=" & XS(txtDomicilio.Text)
+                csql = csql & " ,CLI_CUIT=" & XS(txtCuit.Text)
+                csql = csql & " ,CLI_INGBRU=" & XS(txtIngresosBrutos.Text)
                 If Not IsNull(DTFechaNac.Value) Then
-                    cSQL = cSQL & " ,CLI_CUMPLE=" & XDQ(DTFechaNac.Value)
+                    csql = csql & " ,CLI_CUMPLE=" & XDQ(DTFechaNac.Value)
                 End If
-                cSQL = cSQL & " ,IVA_CODIGO=" & cboIva.ItemData(cboIva.ListIndex)
-                cSQL = cSQL & " ,CLI_TELEFONO=" & XS(txtTelefono.Text)
-                cSQL = cSQL & " ,CLI_MAIL=" & XS(txtMail.Text)
-                cSQL = cSQL & " ,CLI_CELULAR=" & XS(txtCel.Text)
-                cSQL = cSQL & " ,CLI_CODPOS=" & XS(txtCodPostal.Text)
-                cSQL = cSQL & " ,LOC_CODIGO=" & cboLocalidad.ItemData(cboLocalidad.ListIndex)
-                cSQL = cSQL & " ,PRO_CODIGO=" & cboProvincia.ItemData(cboProvincia.ListIndex)
-                cSQL = cSQL & " ,PAI_CODIGO=" & cboPais.ItemData(cboPais.ListIndex)
-                cSQL = cSQL & " ,CLI_OBSERVA=" & XS(Trim(txtObserva.Text))
-                cSQL = cSQL & " ,CLI_NRODOC=" & XN(txtNroDoc.Text)
-                cSQL = cSQL & " ,CLI_EDAD= " & XN(txtEdad.Text)
-                cSQL = cSQL & " ,CLI_OCUPACION=" & XS(Trim(txtOcupacion.Text))
+                csql = csql & " ,IVA_CODIGO=" & cboIva.ItemData(cboIva.ListIndex)
+                csql = csql & " ,CLI_TELEFONO=" & XS(txtTelefono.Text)
+                csql = csql & " ,CLI_MAIL=" & XS(txtMail.Text)
+                csql = csql & " ,CLI_CELULAR=" & XS(txtCel.Text)
+                csql = csql & " ,CLI_CODPOS=" & XS(txtCodPostal.Text)
+                csql = csql & " ,LOC_CODIGO=" & cboLocalidad.ItemData(cboLocalidad.ListIndex)
+                csql = csql & " ,PRO_CODIGO=" & cboProvincia.ItemData(cboProvincia.ListIndex)
+                csql = csql & " ,PAI_CODIGO=" & cboPais.ItemData(cboPais.ListIndex)
+                csql = csql & " ,CLI_OBSERVA=" & XS(Trim(txtObserva.Text))
+                csql = csql & " ,CLI_NRODOC=" & XN(txtNroDoc.Text)
+                csql = csql & " ,CLI_EDAD= " & XN(txtEdad.Text)
+                csql = csql & " ,CLI_OCUPACION=" & XS(Trim(txtOcupacion.Text))
                 If Not IsNull(DTFechaPCons.Value) Then
-                    cSQL = cSQL & " ,CLI_FECPC=" & XDQ(DTFechaPCons.Value)
+                    csql = csql & " ,CLI_FECPC=" & XDQ(DTFechaPCons.Value)
                 End If
-                cSQL = cSQL & " ,OS_NUMERO=" & XN(txtBuscaOS.Text)
-                cSQL = cSQL & " ,CLI_NROAFIL=" & XS(txtNAfiliado.Text)
-                cSQL = cSQL & " ,CLI_LINKARCH=" & "'" & txtLink.Text & "'"
+                csql = csql & " ,OS_NUMERO=" & XN(txtBuscaOS.Text)
+                csql = csql & " ,CLI_NROAFIL=" & XS(txtNAfiliado.Text)
                 
-                cSQL = cSQL & " ,CLI_MC=" & XSM(Trim(txtMC.Text))
-                cSQL = cSQL & " ,CLI_RELAC=" & XSM(Trim(txtRelac.Text))
-                cSQL = cSQL & " ,CLI_AFA=" & XSM(Trim(txtAFA.Text))
-                cSQL = cSQL & " ,CLI_APP=" & XSM(Trim(txtAPP.Text))
-                cSQL = cSQL & " ,CLI_EFISICO=" & XSM(Trim(txtEFisico.Text))
-                cSQL = cSQL & " ,CLI_DIAG=" & XSM(Trim(txtDiag.Text))
-                cSQL = cSQL & " ,CLI_ESTCOM=" & XSM(Trim(txtEstCom.Text))
-                cSQL = cSQL & " ,CLI_PTEST=" & XSM(Trim(txtPTest.Text))
-                cSQL = cSQL & " ,CLI_HC=" & XSM(Trim(txtHC.Text))
-                cSQL = cSQL & " ,CLI_MEDICA=" & XSM(Trim(txtMedica.Text))
-                cSQL = cSQL & " ,CLI_FOTO=" & XS(txtimagen.Text)
+                csql = csql & " ,CLI_MC=" & XSM(Trim(txtMC.Text))
+                csql = csql & " ,CLI_RELAC=" & XSM(Trim(txtRelac.Text))
+                csql = csql & " ,CLI_AFA=" & XSM(Trim(txtAFA.Text))
+                csql = csql & " ,CLI_APP=" & XSM(Trim(txtAPP.Text))
+                csql = csql & " ,CLI_EFISICO=" & XSM(Trim(txtEFisico.Text))
+                csql = csql & " ,CLI_DIAG=" & XSM(Trim(txtDiag.Text))
+                csql = csql & " ,CLI_ESTCOM=" & XSM(Trim(txtEstCom.Text))
+                csql = csql & " ,CLI_PTEST=" & XSM(Trim(txtPTest.Text))
+                csql = csql & " ,CLI_HC=" & XSM(Trim(txtHC.Text))
+                csql = csql & " ,CLI_MEDICA=" & XSM(Trim(txtMedica.Text))
+                csql = csql & " ,CLI_FOTO=" & XS(txtimagen.Text)
                 'IMAGE1.DataField
-                cSQL = cSQL & " ,CLI_ASPCLI=" & XS(txtAspCli.Text)
-                cSQL = cSQL & " WHERE CLI_CODIGO  = " & XN(txtID.Text)
+                csql = csql & " ,CLI_ASPCLI=" & XS(txtAspCli.Text)
+                csql = csql & " WHERE CLI_CODIGO  = " & XN(txtID.Text)
                 
                 'sql = ActualizarAnamnesis
                 
-                UpdatePatientLinkCurl "POST", "/api/v1/patient-update-create"
-                'UpdatePatientLinkCurlAlert "POST", "/api/v1/patient-update-create"
-                
             Case 4 'eliminar
-                cSQL = "DELETE FROM " & cTabla & " WHERE CLI_CODIGO  = " & XN(txtID.Text)
+                csql = "DELETE FROM " & cTabla & " WHERE CLI_CODIGO  = " & XN(txtID.Text)
                 
                 'cSQLAnam = "DELETE FROM CLIENTE_ANAM WHERE CLI_CODIGO  = " & XN(txtID.Text)
-                
-                UpdatePatientLinkCurl "DELETE", "/api/v1/patient-by-dni/" & txtNroDoc.Text
+                'Eliminamos cliente de BD del servidor web
+                DeletePatientCurl "DELETE", "/api/v1/patient-by-dni/" & txtNroDoc.Text
                 
         End Select
         
-        DBConn.Execute cSQL
+        DBConn.Execute csql
         
         'comentado anamnesis
         'If cSQLAnam <> "" Then
@@ -2600,7 +2714,7 @@ Private Function CargarCClinico(paciente As Integer)
     sql = sql & " AND CC.CLI_CODIGO = " & paciente
     sql = sql & " ORDER BY CC.CCL_FECHA DESC"
     rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
-    grdCClinico.Rows = 1
+    grdCClinico.rows = 1
     If rec.EOF = False Then
         Do While rec.EOF = False
             grdCClinico.AddItem rec!CCL_FECHA & Chr(9) & rec!TR_DESCRI & Chr(9) & _
@@ -2622,7 +2736,7 @@ Private Function CargarCMedica(paciente As Integer)
     sql = sql & " AND CC.CLI_CODIGO = " & paciente
     sql = sql & " ORDER BY CC.CME_FECHA DESC"
     rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
-    GrdCMedica.Rows = 1
+    GrdCMedica.rows = 1
     If rec.EOF = False Then
         Do While rec.EOF = False
             GrdCMedica.AddItem rec!CME_FECHA & Chr(9) & rec!MED_NOMBRE & Chr(9) & _
@@ -2736,7 +2850,7 @@ Private Function LimpiarCMedica()
 End Function
 
 Private Sub cmdAyuda_Click()
-    Call WinHelp(Me.hWnd, App.Path & "\help\AYUDA.HLP", cdlHelpContext, 12)
+    Call WinHelp(Me.hwnd, App.Path & "\help\AYUDA.HLP", cdlHelpContext, 12)
 End Sub
 
 Private Sub cmdBuscaOS_Click()
@@ -2760,6 +2874,11 @@ Private Sub cmdCerrar_Click()
     
 End Sub
 
+Private Sub cmdCerrarFrameGenerarCarpetaEstudio_Click()
+    LimpiarFrameGenerarCarpetaEstudio
+    fraGenerarCarpetaEstudio.Visible = False
+End Sub
+
 Private Sub cmdFotos_Click()
     cmdAceptar.Enabled = True
     On Error Resume Next
@@ -2779,6 +2898,41 @@ Private Sub cmdFotos_Click()
         Else
             MsgBox "El Archivo seleccionado no es válido", vbExclamation, Me.Caption
         End If
+    End If
+End Sub
+
+Private Sub cmdGenerar_Click()
+    If cboTipoEstudio.Text = "" Then
+        MsgBox "Seleccione el tipo de estudio", vbExclamation, "Información"
+    Else
+        cmdGenerar.Enabled = False
+        cmdCerrarFrameGenerarCarpetaEstudio.Enabled = False
+        cboTipoEstudio.Enabled = False
+        dtFechaEstudio.Enabled = False
+        lblGenerandoCarpeta.Visible = True
+        PostPatientStudyLink
+    End If
+End Sub
+
+Private Sub cmdGenerarCarpetaEstudio_Click()
+    fraGenerarCarpetaEstudio.Visible = True
+    cmdGenerar.Enabled = True
+    cmdCerrarFrameGenerarCarpetaEstudio.Enabled = True
+End Sub
+
+Private Sub cmdIrCarpetaEstudio_Click()
+    If studyLinkDrive <> "" Then
+        Shell "cmd /c start " & studyLinkDrive, vbNormalFocus
+    Else
+        MsgBox "Error al redireccionar a la carpeta del estudio", vbExclamation, "Información"
+    End If
+End Sub
+
+Private Sub cmdIrCarpetaPaciente_Click()
+    If txtLinkPaciente <> "" Then
+        Shell "cmd /c start " & txtLinkPaciente, vbNormalFocus
+    Else
+        MsgBox "El paciente no tiene cargado el link a sus estudios", vbExclamation, "Información"
     End If
 End Sub
 
@@ -3048,10 +3202,24 @@ Private Sub chktuhemo_Click()
     cmdAceptar.Enabled = True
 End Sub
 
+Private Sub Command3_Click()
+'birthDateFormatted = Format(DTFechaNac.Value, "yyyy-mm-dd")
+End Sub
+
+Private Sub Command4_Click()
+
+End Sub
+
 Private Sub DTFecha_Change()
     'cmdAceptar.Enabled = True
 End Sub
 
+Private Sub dtFechaEstudio_Click()
+    cmdGenerar.Enabled = True
+End Sub
+Private Sub dtFechaEstudio_Change()
+    cmdGenerar.Enabled = True
+End Sub
 Private Sub DTFechaNac_Change()
     cmdAceptar.Enabled = True
 End Sub
@@ -3089,16 +3257,177 @@ Private Sub Form_KeyPress(KeyAscii As Integer)
         Unload Me
     End If
 End Sub
+Private Sub LimpiarFrameGenerarCarpetaEstudio()
+    lblErrorGenerarCarpetaPaciente.Visible = False
+    lblExitoGenerarCarpetaPaciente.Visible = False
+    cmdIrCarpetaEstudio.Visible = False
+End Sub
+Private Sub LimpiarSeccionDrive()
+    dtFechaEstudio.Value = Date
+    patientLinkDrive = ""
+    studyLinkDrive = ""
+    errorPostStudyFolder = False
+    cmdIrCarpetaPaciente.Enabled = False
+    lblNoTieneLink.Visible = False
+    If vMode = 2 Then
+        cmdGenerarCarpetaEstudio.Enabled = True
+    Else
+        cmdGenerarCarpetaEstudio.Enabled = False
+    End If
+    LimpiarFrameGenerarCarpetaEstudio
+End Sub
+Private Function getLinkFromPatientJSON(JsonString As String) As String
+    Dim jsonObject As Object
+    Dim success As String
+    Dim patientObject As Object
+    Dim link As String
+    
+    Set jsonObject = JsonConverter.ParseJson(JsonString)
+    success = jsonObject("success")
+    
+    If success = "Verdadero" Then
+        Set patientObject = jsonObject("patient")
+        
+        'Seteamos link del estudio
+        link = patientObject("linkDrive")
+    End If
+    getLinkFromPatientJSON = link
+End Function
+Private Sub getLinkFromFoldersJSON(JsonString As String)
+    Dim jsonObject As Object
+    Dim dataObject As Object
+    Dim success As String
+    Dim studyFolderJson As Object
+    Dim patientFolderJson As Object
+    
+    Set jsonObject = JsonConverter.ParseJson(JsonString)
+    success = jsonObject("success")
+    
+    If success = "Verdadero" Then
+        Set dataObject = jsonObject("data")
+        
+        'Seteamos link del estudio
+        Set studyFolderJson = dataObject("studyFolder")
+        studyLinkDrive = studyFolderJson("webViewLink")
+        
+        'Seteamos link del paciente
+        Set patientFolderJson = dataObject("patientFolder")
+        patientLinkDrive = patientFolderJson("webViewLink")
+    Else
+        errorPostStudyFolder = True
+    End If
+End Sub
+Public Sub PostPatientStudyLink()
+
+    Dim request As Object
+    Dim responseText As String
+    Dim linkDrive As String
+    Dim jsonBodyToSend As String
+    Dim endpoint As String
+    Dim jsonBody As String
+    
+    endpoint = "/api/v1/create-study-folder"
+    
+    Set request = CreateObject("MSXML2.ServerXMLHTTP.6.0")
+    
+    ' Construcción del JSON a enviar
+    jsonBody = "{""patientName"": """ & txtNombre & """, " & _
+               """studyShortName"": """ & cboTipoEstudio.Text & """, " & _
+               """studyDate"": """ & Format(dtFechaEstudio.Value, "yyyy-mm-dd") & """, " & _
+               """patientDNI"": " & txtNroDoc & "}"
+
+    
+    request.Open "POST", DIGOR_CORE_URL & endpoint, False    'populates object fields
+    request.setRequestHeader "Authorization", "Bearer " & DIGOR_PUBLIC_API_KEY
+    request.setRequestHeader "Content-Type", "application/json"
+
+    request.send jsonBody
+    responseText = request.responseText
+    
+    'Obtengo los links de la carpeta del estudio y del paciente y los guardo
+    'en variables del modulo si existen
+    getLinkFromFoldersJSON (responseText)
+    
+    If patientLinkDrive <> "" Then
+        'Guardo el link del paciente en la BD SQL, si no lo tiene todavía (primera vez)
+        If txtLinkPaciente = "" Then
+            ActualizoLinkPacienteSQL patientLinkDrive
+        End If
+        
+        txtLinkPaciente.Text = patientLinkDrive
+        lblNoTieneLink.Visible = False
+        cmdIrCarpetaPaciente.Enabled = True
+    End If
+    
+    lblGenerandoCarpeta.Visible = False
+    If errorPostStudyFolder = True Then
+        lblErrorGenerarCarpetaPaciente.Visible = True
+        lblExitoGenerarCarpetaPaciente.Visible = False
+        cmdIrCarpetaEstudio.Visible = False
+    Else
+        lblExitoGenerarCarpetaPaciente.Visible = True
+        cmdIrCarpetaEstudio.Visible = True
+        cboTipoEstudio.Enabled = True
+        dtFechaEstudio.Enabled = True
+    End If
+    cmdCerrarFrameGenerarCarpetaEstudio.Enabled = True
+    
+    Set request = Nothing
+
+End Sub
+Public Sub GetPatientStudyLinkByDNI()
+
+    Dim request As Object
+    Dim responseText As String
+    Dim linkDrive As String
+    Dim jsonBodyToSend As String
+    Dim endpoint As String
+    Dim jsonBody As String
+    
+    endpoint = "/api/v1/patient-by-dni/" & txtNroDoc.Text
+    
+    Set request = CreateObject("MSXML2.ServerXMLHTTP.6.0")
+    
+    request.Open "GET", DIGOR_CORE_URL & endpoint, False    'populates object fields
+    request.setRequestHeader "Authorization", "Bearer " & DIGOR_PUBLIC_API_KEY
+    request.setRequestHeader "Content-Type", "application/json"
+
+    request.send
+    responseText = request.responseText
+    
+    'Obtengo el link del paciente
+    linkDrive = getLinkFromPatientJSON(responseText)
+    
+    If linkDrive <> "" Then
+        'Guardo el link del paciente en la BD SQL
+        ActualizoLinkPacienteSQL linkDrive
+        
+        txtLinkPaciente.Text = linkDrive
+        lblNoTieneLink.Visible = False
+        cmdIrCarpetaPaciente.Enabled = True
+    End If
+    
+    Set request = Nothing
+
+End Sub
+Private Sub ActualizoLinkPacienteSQL(link As String)
+    Dim csql As String
+
+    csql = "UPDATE " & cTabla & " SET "
+    csql = csql & "  CLI_LINKARCH= '" & link & "'"
+    csql = csql & " WHERE CLI_CODIGO  = " & XN(txtID.Text)
+    DBConn.Execute csql
+End Sub
 
 
 
 Private Sub Form_Load()
 
-    Dim cSQL As String
+    Dim csql As String
     Dim hSQL As String
     Dim rec As ADODB.Recordset
     Set rec = New ADODB.Recordset
-    
+
     'Me.Top = vFormLlama.Top + 1500
     'Me.Left = vFormLlama.Left + 1000
     Call Centrar_pantalla(Me)
@@ -3110,8 +3439,8 @@ Private Sub Form_Load()
     
     'cargo el combo de PAIS
     cboPais.Clear
-    cSQL = "SELECT * FROM PAIS WHERE PAI_CODIGO=1 ORDER BY PAI_DESCRI"
-    rec.Open cSQL, DBConn, adOpenStatic, adLockOptimistic
+    csql = "SELECT * FROM PAIS WHERE PAI_CODIGO=1 ORDER BY PAI_DESCRI"
+    rec.Open csql, DBConn, adOpenStatic, adLockOptimistic
     If (rec.BOF And rec.EOF) = 0 Then
        Do While rec.EOF = False
           cboPais.AddItem Trim(rec!PAI_DESCRI)
@@ -3154,11 +3483,11 @@ Private Sub Form_Load()
                 'Call BuscaCodigoProxItemData(frmTurnos.cboDoctor.ItemData(frmTurnos.cboDoctor.ListIndex), cboDoctor)
                 'txtIdTra.Text = 1
                 
-                cSQL = "SELECT * FROM " & cTabla & "  WHERE CLI_CODIGO = " & gPaciente
+                csql = "SELECT * FROM " & cTabla & "  WHERE CLI_CODIGO = " & gPaciente
             Else
-                cSQL = "SELECT * FROM " & cTabla & "  WHERE CLI_CODIGO = " & XS(Mid(vFieldID, 2, Len(vFieldID) - 2))
+                csql = "SELECT * FROM " & cTabla & "  WHERE CLI_CODIGO = " & XS(Mid(vFieldID, 2, Len(vFieldID) - 2))
             End If
-            rec.Open cSQL, DBConn, adOpenStatic, adLockOptimistic
+            rec.Open csql, DBConn, adOpenStatic, adLockOptimistic
             If (rec.BOF And rec.EOF) = 0 Then
                 'si encontró el registro muestro los datos
                 txtID.Text = rec!CLI_CODIGO
@@ -3193,7 +3522,6 @@ Private Sub Form_Load()
                 txtBuscaOS.Text = ChkNull(rec!OS_NUMERO)
                 txtBuscaOS_LostFocus
                 txtNAfiliado.Text = ChkNull(rec!CLI_NROAFIL)
-                txtLink.Text = ChkNull(rec!CLI_LINKARCH)
                 
                 txtMC.Text = ChkNull(rec!CLI_MC)
                 txtRelac.Text = ChkNull(rec!CLI_RELAC)
@@ -3212,6 +3540,7 @@ Private Sub Form_Load()
                 End If
                 txtAspCli.Text = ChkNull(rec!CLI_ASPCLI)
                 cargarAnamnesis
+                txtLinkPaciente = ChkNull(rec!CLI_LINKARCH)
             Else
                 Beep
                 MsgBox "Imposible encontrar el registro seleccionado.", vbCritical + vbOKOnly, App.Title
@@ -3225,12 +3554,45 @@ Private Sub Form_Load()
         txtNroDoc.Text = vDNI
     End If
     
+    'Cargo combo tipos de estudio
+    
+    tiposEstablecimiento(0) = "ECO"
+    tiposEstablecimiento(1) = "RX"
+    tiposEstablecimiento(2) = "ECOCARDIO"
+    tiposEstablecimiento(3) = "GINECO"
+    tiposEstablecimiento(4) = "MAMOGRAFIA"
+    tiposEstablecimiento(5) = "DENSITO"
+
+    For i = 0 To 5
+        cboTipoEstudio.AddItem tiposEstablecimiento(i)
+        cboTipoEstudio.ItemData(cboTipoEstudio.NewIndex) = i
+    Next
+    
+    LimpiarSeccionDrive
+    If txtLinkPaciente = "" And vMode <> 1 Then
+        GetPatientStudyLinkByDNI
+    End If
+    ColocoLinkPaciente
+    
     'CARGO EL CURSO CLINICO
 '    If txtID.Text <> "" Then
 '        CargarCClinico txtID.Text
 '        CargarCMedica txtID.Text
 '    End If
 End Sub
+Private Sub ColocoLinkPaciente()
+    If vMode <> 1 Then
+            
+        If txtLinkPaciente <> "" Then
+            lblNoTieneLink.Visible = False
+            cmdIrCarpetaPaciente.Enabled = True
+        Else
+            lblNoTieneLink.Visible = True
+            cmdIrCarpetaPaciente.Enabled = False
+        End If
+    End If
+End Sub
+
 Private Function cargarAnamnesis()
 '    If gPaciente <> 0 Then
 '        cSQL = "SELECT * FROM CLIENTE_ANAM WHERE CLI_CODIGO = " & gPaciente
@@ -3356,7 +3718,7 @@ Private Sub configurogrilla()
     grdCClinico.ColWidth(6) = 0 'NRO HC
     grdCClinico.ColWidth(7) = 0 'Proximo Control
     grdCClinico.ColWidth(8) = 0 'CODIGO TRATAMIENTO
-    grdCClinico.Rows = 1
+    grdCClinico.rows = 1
     grdCClinico.Cols = 9
     grdCClinico.BorderStyle = flexBorderNone
     grdCClinico.row = 0
@@ -3375,7 +3737,7 @@ Private Sub configurogrilla()
     GrdCMedica.ColWidth(4) = 0 'Codigo TRATAMIENTO
     GrdCMedica.ColWidth(5) = 0 'CODIGO DOCTOR
     GrdCMedica.ColWidth(6) = 0 'NRO HC
-    GrdCMedica.Rows = 1
+    GrdCMedica.rows = 1
     GrdCMedica.Cols = 7
     GrdCMedica.BorderStyle = flexBorderNone
     GrdCMedica.row = 0
@@ -3436,7 +3798,7 @@ Private Sub GenWord_Click()
 End Sub
 
 Private Sub grdCClinico_Click()
-    If grdCClinico.Rows > 1 Then
+    If grdCClinico.rows > 1 Then
         DTFecha.Value = grdCClinico.TextMatrix(grdCClinico.RowSel, 0)
         Call BuscaCodigoProxItemData(grdCClinico.TextMatrix(grdCClinico.RowSel, 5), cboDoctor)
         'Call BuscaCodigoProxItemData(grdCClinico.TextMatrix(grdCClinico.RowSel, 4), cboTratamiento)
@@ -3451,7 +3813,7 @@ Private Sub grdCClinico_Click()
 End Sub
 
 Private Sub GrdCMedica_Click()
-    If GrdCMedica.Rows > 1 Then
+    If GrdCMedica.rows > 1 Then
         DTMedFec.Value = GrdCMedica.TextMatrix(GrdCMedica.RowSel, 0)
         Call BuscaCodigoProxItemData(GrdCMedica.TextMatrix(GrdCMedica.RowSel, 5), cboMedDoc)
         Call BuscaCodigoProxItemData(GrdCMedica.TextMatrix(GrdCMedica.RowSel, 4), cboMedica)
@@ -3518,11 +3880,11 @@ End Sub
 
 Private Sub txtBuscaOS_LostFocus()
     If txtBuscaOS.Text <> "" Then
-        cSQL = "SELECT OS_NUMERO, OS_NOMBRE FROM OBRA_SOCIAL WHERE OS_NUMERO = " & XN(txtBuscaOS.Text)
+        csql = "SELECT OS_NUMERO, OS_NOMBRE FROM OBRA_SOCIAL WHERE OS_NUMERO = " & XN(txtBuscaOS.Text)
         If rec.State = 1 Then
             rec.Close
         End If
-        rec.Open cSQL, DBConn, adOpenStatic, adLockOptimistic
+        rec.Open csql, DBConn, adOpenStatic, adLockOptimistic
         
         If rec.EOF = False Then
             txtBuscaOS.Text = ChkNull(rec!OS_NUMERO)
@@ -3860,16 +4222,16 @@ End Sub
 
 Private Sub txtID_LostFocus()
 
-    Dim cSQL As String
+    Dim csql As String
     Dim rec As ADODB.Recordset
     Set rec = New ADODB.Recordset
     
     If vMode = 1 Then ' si se esta usando en modo de nuevo registro
         If txtID.Text = "" Then
             If cSugerirID = True Then
-                cSQL = "SELECT MAX(" & cCampoID & ") FROM " & cTabla
+                csql = "SELECT MAX(" & cCampoID & ") FROM " & cTabla
                 'cSQL = cSQL & " WHERE PAI_CODIGO = " & cboPais.ItemData(cboPais.ListIndex)
-                rec.Open cSQL, DBConn, adOpenStatic, adLockOptimistic
+                rec.Open csql, DBConn, adOpenStatic, adLockOptimistic
                 If (rec.BOF And rec.EOF) = 0 Then
                     If rec.Fields(0) > 0 Then
                         txtID.Text = rec.Fields(0) + 1
@@ -3880,9 +4242,9 @@ Private Sub txtID_LostFocus()
             End If
         Else
             'verifico que no sea clave repetida
-            cSQL = "SELECT COUNT(*) FROM " & cTabla & " WHERE " & cCampoID & " = " & XN(txtID.Text)
+            csql = "SELECT COUNT(*) FROM " & cTabla & " WHERE " & cCampoID & " = " & XN(txtID.Text)
             'cSQL = cSQL & " AND PAI_CODIGO = " & cboPais.ItemData(cboPais.ListIndex)
-            rec.Open cSQL, DBConn, adOpenStatic, adLockOptimistic
+            rec.Open csql, DBConn, adOpenStatic, adLockOptimistic
             If (rec.BOF And rec.EOF) = 0 Then
                 If rec.Fields(0) > 0 Then
                     Beep
@@ -3945,7 +4307,7 @@ Private Sub txtTelefono_KeyPress(KeyAscii As Integer)
 End Sub
 
 Public Sub BuscarTratamientos(Txt As String, mQuien As String, Optional mCadena As String)
-    Dim cSQL As String
+    Dim csql As String
     Dim hSQL As String
     Dim B As CBusqueda
     Dim i, posicion As Integer
@@ -3953,18 +4315,18 @@ Public Sub BuscarTratamientos(Txt As String, mQuien As String, Optional mCadena 
         
     Set B = New CBusqueda
     With B
-        cSQL = "SELECT TR_CODNUE,TR_DESCRI, TR_CODIGO"
-        cSQL = cSQL & " FROM TRATAMIENTO "
+        csql = "SELECT TR_CODNUE,TR_DESCRI, TR_CODIGO"
+        csql = csql & " FROM TRATAMIENTO "
         If mQuien = "CADENA" Then
-            cSQL = cSQL & " WHERE TR_DESCRI LIKE '" & Trim(mCadena) & "%'"
+            csql = csql & " WHERE TR_DESCRI LIKE '" & Trim(mCadena) & "%'"
         Else
             If mCadena <> "" Then
-                cSQL = cSQL & " WHERE TR_CODNUE LIKE '" & Trim(mCadena) & "%'"
+                csql = csql & " WHERE TR_CODNUE LIKE '" & Trim(mCadena) & "%'"
             End If
         End If
         
         hSQL = "Codigo,Descripcion, Id"
-        .sql = cSQL
+        .sql = csql
         .Headers = hSQL
         .Field = "TR_CODNUE"
         campo1 = .Field
@@ -3995,7 +4357,7 @@ Public Sub BuscarTratamientos(Txt As String, mQuien As String, Optional mCadena 
     
 End Sub
 Public Sub BuscarOS(Txt As String, mQuien As String, Optional mCadena As String)
-    Dim cSQL As String
+    Dim csql As String
     Dim hSQL As String
     Dim B As CBusqueda
     Dim i, posicion As Integer
@@ -4003,14 +4365,14 @@ Public Sub BuscarOS(Txt As String, mQuien As String, Optional mCadena As String)
         
     Set B = New CBusqueda
     With B
-        cSQL = "SELECT OS_NOMBRE, OS_NUMERO"
-        cSQL = cSQL & " FROM OBRA_SOCIAL "
+        csql = "SELECT OS_NOMBRE, OS_NUMERO"
+        csql = csql & " FROM OBRA_SOCIAL "
         If mQuien = "CADENA" Then
-            cSQL = cSQL & " WHERE OS_NOMBRE LIKE '" & Trim(mCadena) & "%'"
+            csql = csql & " WHERE OS_NOMBRE LIKE '" & Trim(mCadena) & "%'"
         End If
         
         hSQL = "Nombre, Código"
-        .sql = cSQL
+        .sql = csql
         .Headers = hSQL
         .Field = "OS_NOMBRE"
         campo1 = .Field

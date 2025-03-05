@@ -33,7 +33,7 @@ Do While Not EOF(1)
            Case "SERVIDOR"
                 SERVIDOR = ValVar
         
-           'Case "BASEDATO_TESTING"  'TEST
+            'Case "BASEDATO_TESTING"  'TEST
            Case "BASEDATO"         'PROD
                 BASEDATO = ValVar
           

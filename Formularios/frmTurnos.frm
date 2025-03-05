@@ -97,7 +97,7 @@ Begin VB.Form frmTurnos
       _ExtentX        =   3201
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   151715841
+      Format          =   104660993
       CurrentDate     =   43340
    End
    Begin VB.Frame fraprotocolos 
@@ -847,7 +847,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   151715842
+         StartOfWeek     =   104660994
          CurrentDate     =   40049
       End
    End
@@ -1042,7 +1042,7 @@ Attribute VB_Exposed = False
 
 Option Explicit
 Dim i As Integer
-Dim J As Integer
+Dim j As Integer
 Dim hDesde As Integer
 Dim hHasta As Integer
 Dim ActivoGrid As Integer ' 1 actio 0 desactivo
@@ -1051,7 +1051,6 @@ Dim dFechaCopy As String
 Dim nDoctorCopy As String
 Dim sNameDoctorCopy As String
 Dim linkProtocolos As String
-
 
 
 Private Sub cboDesde_LostFocus()
@@ -1118,10 +1117,10 @@ Dim hasta As Date
 Dim desde As Date
 hasta = mebHoraH.Text
 desde = cboDesde.Text
-If grdGrilla.Rows < 2 Then
+If grdGrilla.rows < 2 Then
     ValidarRangoTurno = True
 Else
-   For i = 1 To grdGrilla.Rows - 1
+   For i = 1 To grdGrilla.rows - 1
    turdesde = Format(Left(grdGrilla.TextMatrix(i, 0), 5), "hh:mm")
    turhasta = Format(Right(grdGrilla.TextMatrix(i, 0), 5), "hh:mm")
    'si la hora hasta es menor o igual a la desde, lo agrego
@@ -1318,7 +1317,7 @@ Private Sub cmdAceptarP_Click()
     Dim i, cont As Integer
     Dim Num As Integer
     cont = 0
-    For i = 1 To grdProtocolos.Rows - 1
+    For i = 1 To grdProtocolos.rows - 1
         If grdProtocolos.TextMatrix(i, 8) = "SI" Then
             sql = "SELECT MAX(IMG_CODIGO) AS NUMERO FROM IMAGEN"
             rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
@@ -1602,7 +1601,7 @@ Private Sub cmdCopiar_Click()
 '    sNameDoctorCopy = cboDoctor.Text
     optNO.Enabled = True
     optSI.Enabled = True
-    If grdGrilla.Rows > 1 Then
+    If grdGrilla.rows > 1 Then
        If grdGrilla.TextMatrix(grdGrilla.RowSel, 1) <> "" Then
            txtBuscaCliente.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 11)
            'txtBuscaCliente_LostFocus
@@ -1869,7 +1868,7 @@ End Sub
 Private Sub cmdProtocolos_Click()
     fraprotocolos.Visible = True
     grdProtocolos.SetFocus
-    grdProtocolos.Rows = 1
+    grdProtocolos.rows = 1
     cargo_protocolos
 End Sub
 
@@ -1914,8 +1913,8 @@ Private Sub cmdQuitar_Click()
             'si hay no hago nada
             'End If
         
-            If grdGrilla.Rows = 2 Then
-                grdGrilla.Rows = 1
+            If grdGrilla.rows = 2 Then
+                grdGrilla.rows = 1
             Else
                 grdGrilla.RemoveItem (grdGrilla.RowSel)
             End If
@@ -1957,7 +1956,7 @@ Private Sub cmdReport_Click()
     DBConn.Execute sql
     i = 1
     
-    For i = 1 To grdGrilla.Rows - 1
+    For i = 1 To grdGrilla.rows - 1
         If grdGrilla.TextMatrix(i, 1) <> "" Then
             sql = "INSERT INTO TMP_TURNOS "
             sql = sql & " (TMP_ID,TMP_HORA,TMP_FECHA,TMP_DOCTOR,TMP_PACIENTE,TMP_EDAD,TMP_TELEFONO,TMP_CELULAR,TMP_OSOCIAL,TMP_MOTIVO,TMP_DRSOLICITA,TMP_IMPORTE)"
@@ -1977,8 +1976,8 @@ Private Sub cmdReport_Click()
             DBConn.Execute sql
         End If
     Next
-    ultimoimporte = XN(grdGrilla.TextMatrix(grdGrilla.Rows - 1, 14))
-    ultimoid = grdGrilla.Rows - 1
+    ultimoimporte = XN(grdGrilla.TextMatrix(grdGrilla.rows - 1, 14))
+    ultimoid = grdGrilla.rows - 1
     
     'actualizo tabla para solucionar lo del ultimo registro
     sql = "UPDATE TMP_TURNOS"
@@ -2020,12 +2019,12 @@ Private Sub cmdSalirP_Click()
     txtfiltrop.Text = ""
 End Sub
 Private Function limpiar_protocolos()
-    Dim i, J As Integer
-    For i = 1 To grdProtocolos.Rows - 1
+    Dim i, j As Integer
+    For i = 1 To grdProtocolos.rows - 1
         grdProtocolos.TextMatrix(i, 3) = "NO"
-        For J = 0 To grdProtocolos.Cols - 1
+        For j = 0 To grdProtocolos.Cols - 1
             grdProtocolos.row = i
-            grdProtocolos.Col = J
+            grdProtocolos.Col = j
             grdProtocolos.CellForeColor = &H80000008
             grdProtocolos.CellBackColor = &H80000005
             grdProtocolos.CellFontBold = False
@@ -2085,7 +2084,7 @@ Private Sub Form_Load()
     cargo_protocolos
 End Sub
 Private Sub LimpiarGrilla()
-    grdGrilla.Rows = 1
+    grdGrilla.rows = 1
 '    For i = 1 To grdGrilla.Rows - 1
 '        grdGrilla.TextMatrix(i, 1) = ""
 '        grdGrilla.TextMatrix(i, 2) = ""
@@ -2167,7 +2166,7 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
     sql = sql & " AND T.VEN_CODIGO = " & Doc
     sql = sql & " ORDER BY T.TUR_HORAD"
     rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
-    grdGrilla.Rows = 1
+    grdGrilla.rows = 1
     If rec.EOF = False Then
         i = 1
         Do While rec.EOF = False
@@ -2214,8 +2213,8 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
             
             'COLOR DE FILAS
             grdGrilla.row = i
-            For J = 1 To grdGrilla.Cols - 1
-                grdGrilla.Col = J
+            For j = 1 To grdGrilla.Cols - 1
+                grdGrilla.Col = j
                 grdGrilla.CellForeColor = foreColor       'FUENTE COLOR NEGRO
                 grdGrilla.CellBackColor = backColor      'ROSA
                 grdGrilla.CellFontBold = True
@@ -2252,8 +2251,8 @@ Private Function cambiocolor(asistio As Integer)
     End Select
     
     grdGrilla.row = grdGrilla.RowSel
-    For J = 1 To grdGrilla.Cols - 1
-        grdGrilla.Col = J
+    For j = 1 To grdGrilla.Cols - 1
+        grdGrilla.Col = j
         grdGrilla.CellForeColor = foreColor       'FUENTE COLOR NEGRO
         grdGrilla.CellBackColor = backColor      'ROSA
         grdGrilla.CellFontBold = True
@@ -2314,7 +2313,7 @@ Private Sub LlenarComboHoras()
     i = 0
     
     cont = 1
-    J = hDesde
+    j = hDesde
     Do While cont < cItems
         minutos = 0
         For z = 0 To 11
@@ -2323,16 +2322,16 @@ Private Sub LlenarComboHoras()
                     'cboDesde.AddItem Format(J, "00") & ":" & Format(minutos, "00") & " a " & Format(J + 1, "00") & ":" & Format(0, "00")
                     Exit For
                 Else
-                    cboDesde.AddItem Format(J, "00") & ":" & Format(minutos, "00")
+                    cboDesde.AddItem Format(j, "00") & ":" & Format(minutos, "00")
                     cboDesde.ItemData(cboDesde.NewIndex) = cont
-                    cbohasta.AddItem Format(J, "00") & ":" & Format(minutos, "00")
+                    cbohasta.AddItem Format(j, "00") & ":" & Format(minutos, "00")
                     cbohasta.ItemData(cbohasta.NewIndex) = cont
                 End If
             End If
             cont = cont + 1
             minutos = minutos + 5
         Next
-        J = J + 1
+        j = j + 1
     Loop
     cbohasta.AddItem Format(hHasta, "00") & ":" & Format(0, "00")
 
@@ -2389,9 +2388,9 @@ Private Function configurogrilla()
         hHasta = Hour(rec!HS_HASTA)
     End If
     rec.Close
-    grdGrilla.Rows = (hHasta - hDesde) * 12 + 1
+    grdGrilla.rows = (hHasta - hDesde) * 12 + 1
     
-    For i = 1 To grdGrilla.Rows - 1
+    For i = 1 To grdGrilla.rows - 1
         grdGrilla.Col = 0
         grdGrilla.row = i
         'grdGrilla.CellForeColor = &HFFFFFF 'FUENTE COLOR BLANCO
@@ -2402,7 +2401,7 @@ Private Function configurogrilla()
         
     Next
     
-    grdGrilla.Rows = 1
+    grdGrilla.rows = 1
     
 '    J = hDesde
 '    cont = 1
@@ -2432,7 +2431,7 @@ Private Function configurogrilla()
     grdProtocolos.ColWidth(6) = 0 'Contenido4
     grdProtocolos.ColWidth(7) = 0 'Contenido5
     grdProtocolos.ColWidth(8) = 1200 'Seleccionar
-    grdProtocolos.Rows = 1
+    grdProtocolos.rows = 1
     grdProtocolos.HighLight = flexHighlightAlways
     
 End Function
@@ -2460,6 +2459,8 @@ Private Sub GRDGrilla_DblClick()
         End If
         frmhistoriaclinica.txtCodigo = grdGrilla.TextMatrix(grdGrilla.RowSel, 9)
         frmhistoriaclinica.txthorad = fechaturno & " " & Left(grdGrilla.TextMatrix(grdGrilla.RowSel, 0), 5)
+        frmhistoriaclinica.txtMotivo = grdGrilla.TextMatrix(grdGrilla.RowSel, 6)
+        frmhistoriaclinica.txtDoctorSolicitante = grdGrilla.TextMatrix(grdGrilla.RowSel, 7)
         frmhistoriaclinica.Show vbModal
     End If
     
@@ -2474,22 +2475,22 @@ Private Sub grdGrilla_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub grdProtocolos_DblClick()
-    Dim J As Integer
+    Dim j As Integer
     If grdProtocolos.TextMatrix(grdProtocolos.RowSel, 8) = "NO" Then
         grdProtocolos.TextMatrix(grdProtocolos.RowSel, 8) = "SI"
         'CAMBIAR COLOR
         'backColor = &HC000&
         'foreColor = &HFFFFFF
-        For J = 0 To grdProtocolos.Cols - 1
-            grdProtocolos.Col = J
+        For j = 0 To grdProtocolos.Cols - 1
+            grdProtocolos.Col = j
             grdProtocolos.CellForeColor = &HFFFFFF
             grdProtocolos.CellBackColor = &H8000&
             grdProtocolos.CellFontBold = True
         Next
     Else
         grdProtocolos.TextMatrix(grdProtocolos.RowSel, 8) = "NO"
-        For J = 0 To grdProtocolos.Cols - 1
-            grdProtocolos.Col = J
+        For j = 0 To grdProtocolos.Cols - 1
+            grdProtocolos.Col = j
             grdProtocolos.CellForeColor = &H80000008
             grdProtocolos.CellBackColor = &H80000005
             grdProtocolos.CellFontBold = False
@@ -2704,7 +2705,7 @@ Private Sub txtBuscarCliDescri_LostFocus()
     End If
 End Sub
 Public Sub BuscarClientes(Txt As String, mQuien As String, Optional mCadena As String)
-    Dim cSQL As String
+    Dim csql As String
     Dim hSQL As String
     Dim B As CBusqueda
     Dim i, posicion As Integer
@@ -2712,14 +2713,14 @@ Public Sub BuscarClientes(Txt As String, mQuien As String, Optional mCadena As S
     
     Set B = New CBusqueda
     With B
-        cSQL = "SELECT CLI_RAZSOC, CLI_CODIGO,CLI_NRODOC"
-        cSQL = cSQL & " FROM CLIENTE C"
+        csql = "SELECT CLI_RAZSOC, CLI_CODIGO,CLI_NRODOC"
+        csql = csql & " FROM CLIENTE C"
         If mQuien = "CADENA" Then
-            cSQL = cSQL & " WHERE CLI_RAZSOC LIKE '" & Trim(mCadena) & "%'"
+            csql = csql & " WHERE CLI_RAZSOC LIKE '" & Trim(mCadena) & "%'"
         End If
         
         hSQL = "Nombre, Código, DNI"
-        .sql = cSQL
+        .sql = csql
         .Headers = hSQL
         .Field = "CLI_RAZSOC"
         campo1 = .Field
@@ -2765,7 +2766,7 @@ Private Sub txtfiltrop_GotFocus()
 End Sub
 
 Private Sub txtfiltrop_LostFocus()
-    grdProtocolos.Rows = 1
+    grdProtocolos.rows = 1
     cargo_protocolos
 End Sub
 
