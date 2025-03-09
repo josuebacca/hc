@@ -703,7 +703,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   104660993
+            Format          =   151650305
             CurrentDate     =   41098
          End
          Begin VB.Label Label19 
@@ -821,7 +821,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   104660993
+            Format          =   151650305
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHastaPedido 
@@ -835,7 +835,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   104660993
+            Format          =   151650305
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdPedidos 
@@ -1014,7 +1014,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   104660993
+            Format          =   151650305
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHastaImg 
@@ -1028,7 +1028,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   104660993
+            Format          =   151650305
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdImagenes 
@@ -1188,7 +1188,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   104660993
+            Format          =   151650305
             CurrentDate     =   43205
          End
          Begin VB.CommandButton cmdCancelar 
@@ -1225,7 +1225,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   104660993
+            Format          =   151650305
             CurrentDate     =   41098
          End
          Begin VB.CommandButton cmdAceptar 
@@ -1371,7 +1371,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   104660993
+            Format          =   151650305
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHasta 
@@ -1385,7 +1385,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   104660993
+            Format          =   151650305
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdConsultas 
@@ -1666,7 +1666,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   104660993
+            Format          =   151650305
             CurrentDate     =   41098
          End
          Begin VB.Label lblnroja 
@@ -1766,7 +1766,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Private Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" _
-(ByVal hwnd As Long, ByVal lpOperation As String, ByVal lpFile As String, _
+(ByVal hWnd As Long, ByVal lpOperation As String, ByVal lpFile As String, _
 ByVal lpParameters As String, ByVal lpDirectory As String, ByVal nShowCmd As Long) As Long
 
 Dim Rec2 As New ADODB.Recordset
@@ -1780,12 +1780,12 @@ Dim medicoSolicitante As String
 Dim yaBuscoLink As Boolean
 
 Private Sub ActualizoLinkPacienteSQL(link As String, cliNroDoc As String)
-    Dim csql As String
+    Dim cSQL As String
 
-    csql = "UPDATE CLIENTE SET "
-    csql = csql & "  CLI_LINKARCH= '" & link & "'"
-    csql = csql & " WHERE CLI_NRODOC  = " & XN(cliNroDoc)
-    DBConn.Execute csql
+    cSQL = "UPDATE CLIENTE SET "
+    cSQL = cSQL & "  CLI_LINKARCH= '" & link & "'"
+    cSQL = cSQL & " WHERE CLI_NRODOC  = " & XN(cliNroDoc)
+    DBConn.Execute cSQL
 End Sub
 Private Function getLinkFromPatientJSON(JsonString As String) As String
     Dim jsonObject As Object
@@ -1804,7 +1804,7 @@ Private Function getLinkFromPatientJSON(JsonString As String) As String
     End If
     getLinkFromPatientJSON = link
 End Function
-Public Sub GetPatientStudyLinkByDNI(nroDoc As String)
+Public Sub GetPatientStudyLinkByDNI(Nrodoc As String)
 
     Dim request As Object
     Dim responseText As String
@@ -1813,7 +1813,7 @@ Public Sub GetPatientStudyLinkByDNI(nroDoc As String)
     Dim endpoint As String
     Dim jsonBody As String
     
-    endpoint = "/api/v1/patient-by-dni/" & nroDoc
+    endpoint = "/api/v1/patient-by-dni/" & Nrodoc
     
     Set request = CreateObject("MSXML2.ServerXMLHTTP.6.0")
     
@@ -1829,7 +1829,7 @@ Public Sub GetPatientStudyLinkByDNI(nroDoc As String)
     
     If linkDrive <> "" Then
         'Guardo el link del paciente en la BD SQL
-        ActualizoLinkPacienteSQL linkDrive, nroDoc
+        ActualizoLinkPacienteSQL linkDrive, Nrodoc
         
         'Seteo el link en la variable global
         cliDriveLink = linkDrive
@@ -2642,6 +2642,9 @@ Private Sub cmdGenerarInforme_Click()
     birthDateFormatted = Format(fechaNacimiento, "yyyy-mm-dd")
     
     URL = portalURL & "?dni=" & txtBuscaCliente.Text & "&name=" & parsedName & "&birthDate=" & birthDateFormatted & "&doctorRemoteId=" & Doc
+    
+    ' Agrego apikey publica a la URL
+    URL = URL & "&publicApiKey=" & DIGOR_PUBLIC_API_KEY
     
     If txtDoctorSolicitante.Text <> "" Then
         medicoSolicitante = txtDoctorSolicitante
@@ -3507,7 +3510,7 @@ Private Sub txtBuscarCliDescri_LostFocus()
     End If
 End Sub
 Public Sub BuscarClientes(Txt As String, mQuien As String, Optional mCadena As String)
-    Dim csql As String
+    Dim cSQL As String
     Dim hSQL As String
     Dim B As CBusqueda
     Dim i, posicion As Integer
@@ -3515,14 +3518,14 @@ Public Sub BuscarClientes(Txt As String, mQuien As String, Optional mCadena As S
     
     Set B = New CBusqueda
     With B
-        csql = "SELECT CLI_RAZSOC, CLI_CODIGO,CLI_NRODOC, CLI_LINKARCH"
-        csql = csql & " FROM CLIENTE C"
+        cSQL = "SELECT CLI_RAZSOC, CLI_CODIGO,CLI_NRODOC, CLI_LINKARCH"
+        cSQL = cSQL & " FROM CLIENTE C"
         If mQuien = "CADENA" Then
-            csql = csql & " WHERE CLI_RAZSOC LIKE '" & Trim(mCadena) & "%'"
+            cSQL = cSQL & " WHERE CLI_RAZSOC LIKE '" & Trim(mCadena) & "%'"
         End If
         
         hSQL = "Nombre, Código, DNI"
-        .sql = csql
+        .sql = cSQL
         .Headers = hSQL
         .Field = "CLI_RAZSOC"
         campo1 = .Field
