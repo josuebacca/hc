@@ -105,7 +105,7 @@ Begin VB.Form ABMClientes
             _ExtentX        =   2566
             _ExtentY        =   556
             _Version        =   393216
-            Format          =   104660993
+            Format          =   151388161
             CurrentDate     =   40071
          End
          Begin VB.Label lblGenerandoCarpeta 
@@ -130,7 +130,7 @@ Begin VB.Form ABMClientes
          End
          Begin VB.Label lblExitoGenerarCarpetaPaciente 
             Caption         =   "Carpeta generada correctamente!"
-            ForeColor       =   &H0000C000&
+            ForeColor       =   &H00008000&
             Height          =   375
             Left            =   1560
             TabIndex        =   160
@@ -402,7 +402,7 @@ Begin VB.Form ABMClientes
          _ExtentY        =   556
          _Version        =   393216
          CheckBox        =   -1  'True
-         Format          =   104660993
+         Format          =   151388161
          CurrentDate     =   40071
       End
       Begin MSComCtl2.DTPicker DTFechaNac 
@@ -415,7 +415,7 @@ Begin VB.Form ABMClientes
          _ExtentY        =   556
          _Version        =   393216
          CheckBox        =   -1  'True
-         Format          =   104660993
+         Format          =   151388161
          CurrentDate     =   40071
       End
       Begin VB.Label Label1 
@@ -875,7 +875,7 @@ Begin VB.Form ABMClientes
             _ExtentY        =   556
             _Version        =   393216
             CheckBox        =   -1  'True
-            Format          =   104660993
+            Format          =   151388161
             CurrentDate     =   40070
          End
          Begin VB.TextBox txtcualca 
@@ -1254,7 +1254,7 @@ Begin VB.Form ABMClientes
             CalendarBackColor=   12648384
             CalendarForeColor=   0
             CalendarTitleBackColor=   12648384
-            Format          =   104660993
+            Format          =   151388161
             UpDown          =   -1  'True
             CurrentDate     =   40063
          End
@@ -1281,7 +1281,7 @@ Begin VB.Form ABMClientes
             CalendarTitleBackColor=   12648384
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   104660993
+            Format          =   151388161
             CurrentDate     =   40063
          End
          Begin VB.TextBox txtDescTra 
@@ -1706,7 +1706,7 @@ Begin VB.Form ABMClientes
             CalendarBackColor=   12648384
             CalendarForeColor=   0
             CalendarTitleBackColor=   12648384
-            Format          =   104660993
+            Format          =   151388161
             UpDown          =   -1  'True
             CurrentDate     =   40063
          End
@@ -2004,7 +2004,7 @@ Dim patientLinkDrive As String
 Function ActualizarListaBase(pMode As Integer)
     On Error GoTo moco
     Dim rec As ADODB.Recordset
-    Dim csql As String
+    Dim cSQL As String
     Dim i As Integer
     Dim auxListItem As ListItem
     Dim IndiceCampoID As Integer
@@ -2014,9 +2014,9 @@ Function ActualizarListaBase(pMode As Integer)
     
     'armo la cadena a ejecutar
     If InStr(1, vStringSQL, "WHERE") = 0 Then
-        csql = vStringSQL & " WHERE " & cCampoID & " = " & txtID.Text
+        cSQL = vStringSQL & " WHERE " & cCampoID & " = " & txtID.text
     Else
-        csql = vStringSQL & " AND " & cCampoID & " = " & txtID.Text
+        cSQL = vStringSQL & " AND " & cCampoID & " = " & txtID.text
     End If
     
     If pMode = 4 Then
@@ -2024,7 +2024,7 @@ Function ActualizarListaBase(pMode As Integer)
         Exit Function
     End If
     
-    rec.Open csql, DBConn, adOpenStatic, adLockOptimistic
+    rec.Open cSQL, DBConn, adOpenStatic, adLockOptimistic
     If (rec.BOF And rec.EOF) = 0 Then
         If rec.EOF = False Then
         
@@ -2033,7 +2033,7 @@ Function ActualizarListaBase(pMode As Integer)
             IndiceCampoID = 0
             For Each f In rec.Fields
                 OrdenCampo = OrdenCampo + 1
-                If UCase(f.name) = UCase(vDesFieldID) Then
+                If UCase(f.Name) = UCase(vDesFieldID) Then
                     IndiceCampoID = OrdenCampo - 1
                 End If
             Next f
@@ -2049,7 +2049,7 @@ Function ActualizarListaBase(pMode As Integer)
                             
                         Case 2
                             Set auxListItem = vListView.SelectedItem
-                            auxListItem.Text = rec.Fields(i)
+                            auxListItem.text = rec.Fields(i)
                     End Select
                 Else
                     auxListItem.SubItems(i) = IIf(IsNull(rec.Fields(i)), "", rec.Fields(i))
@@ -2257,7 +2257,7 @@ Function Validar(pMode As Integer) As Boolean
         '                     "Ingrese la Identificación del  " & cDesRegistro & " antes de aceptar.", vbCritical + vbOKOnly, App.Title
         '    txtID.SetFocus
         '    Exit Function
-        If txtNombre.Text = "" Then
+        If txtNombre.text = "" Then
             Beep
             MsgBox "Falta información." & Chr(13) & _
                              "Ingrese el Nombre del " & cDesRegistro & " antes de aceptar.", vbCritical + vbOKOnly, App.Title
@@ -2320,7 +2320,7 @@ Private Sub cboPais_Click()
 End Sub
 
 Private Sub cboPais_LostFocus()
-    If vMode = 2 And Pais = cboPais.Text Then
+    If vMode = 2 And Pais = cboPais.text Then
         Exit Sub
     End If
     Set Rec1 = New ADODB.Recordset
@@ -2352,7 +2352,7 @@ Private Sub cboProvincia_Click()
 End Sub
 
 Private Sub cboProvincia_LostFocus()
-    If vMode = 2 And Provincia = cboProvincia.Text Then
+    If vMode = 2 And Provincia = cboProvincia.text Then
         Exit Sub
     End If
     Set Rec1 = New ADODB.Recordset
@@ -2414,7 +2414,7 @@ End Sub
 
 Private Sub cmdAceptar_Click()
 
-    Dim csql As String
+    Dim cSQL As String
     Dim cSQLAnam As String
     
     Dim nuevoid As Long
@@ -2428,126 +2428,126 @@ Private Sub cmdAceptar_Click()
         DBConn.BeginTrans
         Select Case vMode
             Case 1 'nuevo
-                csql = "INSERT INTO " & cTabla
-                csql = csql & "     (CLI_RAZSOC, CLI_DNI, CLI_DOMICI, CLI_CUIT,"
-                csql = csql & " CLI_INGBRU, "
+                cSQL = "INSERT INTO " & cTabla
+                cSQL = cSQL & "     (CLI_RAZSOC, CLI_DNI, CLI_DOMICI, CLI_CUIT,"
+                cSQL = cSQL & " CLI_INGBRU, "
                 If Not IsNull(DTFechaNac.Value) Then
-                    csql = csql & " CLI_CUMPLE, "
+                    cSQL = cSQL & " CLI_CUMPLE, "
                 End If
-                csql = csql & " IVA_CODIGO, CLI_NRODOC,"
-                csql = csql & " CLI_TELEFONO, CLI_MAIL, CLI_CELULAR, CLI_CODPOS,"
-                csql = csql & " LOC_CODIGO, PRO_CODIGO, PAI_CODIGO, CLI_OBSERVA, "
-                csql = csql & " CLI_EDAD, CLI_OCUPACION, "
+                cSQL = cSQL & " IVA_CODIGO, CLI_NRODOC,"
+                cSQL = cSQL & " CLI_TELEFONO, CLI_MAIL, CLI_CELULAR, CLI_CODPOS,"
+                cSQL = cSQL & " LOC_CODIGO, PRO_CODIGO, PAI_CODIGO, CLI_OBSERVA, "
+                cSQL = cSQL & " CLI_EDAD, CLI_OCUPACION, "
                 
                 If Not IsNull(DTFechaPCons.Value) Then
-                    csql = csql & "CLI_FECPC,"
+                    cSQL = cSQL & "CLI_FECPC,"
                 End If
                 
-                csql = csql & "OS_NUMERO,CLI_NROAFIL, "
+                cSQL = cSQL & "OS_NUMERO,CLI_NROAFIL, "
                 
-                csql = csql & " CLI_MC, CLI_RELAC, CLI_AFA,CLI_APP,CLI_EFISICO, "
-                csql = csql & " CLI_DIAG, CLI_ESTCOM, CLI_PTEST,CLI_HC,CLI_MEDICA,CLI_FOTO,CLI_ASPCLI) "
+                cSQL = cSQL & " CLI_MC, CLI_RELAC, CLI_AFA,CLI_APP,CLI_EFISICO, "
+                cSQL = cSQL & " CLI_DIAG, CLI_ESTCOM, CLI_PTEST,CLI_HC,CLI_MEDICA,CLI_FOTO,CLI_ASPCLI) "
                 
-                csql = csql & " VALUES "
-                csql = csql & "     (" & XS(txtNombre.Text) & ", "
-                csql = csql & XN(txtDNI.Text) & ", "
-                csql = csql & XS(txtDomicilio.Text) & ", " & XS(txtCuit.Text) & ", "
-                csql = csql & XS(txtIngresosBrutos.Text) & ", "
+                cSQL = cSQL & " VALUES "
+                cSQL = cSQL & "     (" & XS(txtNombre.text) & ", "
+                cSQL = cSQL & XN(txtDNI.text) & ", "
+                cSQL = cSQL & XS(txtDomicilio.text) & ", " & XS(txtCuit.text) & ", "
+                cSQL = cSQL & XS(txtIngresosBrutos.text) & ", "
                 
                 If Not IsNull(DTFechaNac.Value) Then
-                    csql = csql & XDQ(DTFechaNac.Value) & ", "
+                    cSQL = cSQL & XDQ(DTFechaNac.Value) & ", "
                 End If
                 
-                csql = csql & cboIva.ItemData(cboIva.ListIndex) & ", "
-                csql = csql & XN(txtNroDoc.Text) & ", "
-                csql = csql & XS(txtTelefono.Text) & ", "
-                csql = csql & XS(txtMail.Text) & ", " & XS(txtCel.Text) & ", "
-                csql = csql & XS(txtCodPostal.Text) & ", "
-                csql = csql & cboLocalidad.ItemData(cboLocalidad.ListIndex) & ", "
-                csql = csql & cboProvincia.ItemData(cboProvincia.ListIndex) & ", "
-                csql = csql & cboPais.ItemData(cboPais.ListIndex) & ","
-                csql = csql & XS(Trim(txtObserva.Text)) & ","
-                csql = csql & XN(txtEdad.Text) & ", "
-                csql = csql & XS(Trim(txtOcupacion.Text)) & ","
+                cSQL = cSQL & cboIva.ItemData(cboIva.ListIndex) & ", "
+                cSQL = cSQL & XN(txtNroDoc.text) & ", "
+                cSQL = cSQL & XS(txtTelefono.text) & ", "
+                cSQL = cSQL & XS(txtMail.text) & ", " & XS(txtCel.text) & ", "
+                cSQL = cSQL & XS(txtCodPostal.text) & ", "
+                cSQL = cSQL & cboLocalidad.ItemData(cboLocalidad.ListIndex) & ", "
+                cSQL = cSQL & cboProvincia.ItemData(cboProvincia.ListIndex) & ", "
+                cSQL = cSQL & cboPais.ItemData(cboPais.ListIndex) & ","
+                cSQL = cSQL & XS(Trim(txtObserva.text)) & ","
+                cSQL = cSQL & XN(txtEdad.text) & ", "
+                cSQL = cSQL & XS(Trim(txtOcupacion.text)) & ","
                 
                 If Not IsNull(DTFechaPCons.Value) Then
-                    csql = csql & XDQ(DTFechaPCons.Value) & ", "
+                    cSQL = cSQL & XDQ(DTFechaPCons.Value) & ", "
                 End If
                 
-                csql = csql & XN(txtBuscaOS.Text) & ", "
-                csql = csql & XS(txtNAfiliado.Text) & ", "
+                cSQL = cSQL & XN(txtBuscaOS.text) & ", "
+                cSQL = cSQL & XS(txtNAfiliado.text) & ", "
                 
-                csql = csql & XSM(Trim(txtMC.Text)) & ","
-                csql = csql & XSM(Trim(txtRelac.Text)) & ","
-                csql = csql & XSM(Trim(txtAFA.Text)) & ","
-                csql = csql & XSM(Trim(txtAPP.Text)) & ","
-                csql = csql & XSM(Trim(txtEFisico.Text)) & ","
-                csql = csql & XSM(Trim(txtDiag.Text)) & ","
-                csql = csql & XSM(Trim(txtEstCom.Text)) & ","
-                csql = csql & XSM(Trim(txtPTest.Text)) & ","
-                csql = csql & XSM(Trim(txtHC.Text)) & ","
-                csql = csql & XSM(Trim(txtMedica.Text)) & ","
-                csql = csql & XS(txtimagen.Text) & ","
-                csql = csql & XS(txtAspCli.Text) & ")"
+                cSQL = cSQL & XSM(Trim(txtMC.text)) & ","
+                cSQL = cSQL & XSM(Trim(txtRelac.text)) & ","
+                cSQL = cSQL & XSM(Trim(txtAFA.text)) & ","
+                cSQL = cSQL & XSM(Trim(txtAPP.text)) & ","
+                cSQL = cSQL & XSM(Trim(txtEFisico.text)) & ","
+                cSQL = cSQL & XSM(Trim(txtDiag.text)) & ","
+                cSQL = cSQL & XSM(Trim(txtEstCom.text)) & ","
+                cSQL = cSQL & XSM(Trim(txtPTest.text)) & ","
+                cSQL = cSQL & XSM(Trim(txtHC.text)) & ","
+                cSQL = cSQL & XSM(Trim(txtMedica.text)) & ","
+                cSQL = cSQL & XS(txtimagen.text) & ","
+                cSQL = cSQL & XS(txtAspCli.text) & ")"
                 'anamnesis
                 'sql = InsertAnamnesis
                 
             Case 2 'editar
                 
-                csql = "UPDATE " & cTabla & " SET "
-                csql = csql & "  CLI_RAZSOC=" & XS(txtNombre.Text)
-                csql = csql & " ,CLI_DNI=" & XS(txtDNI.Text)
-                csql = csql & " ,CLI_DOMICI=" & XS(txtDomicilio.Text)
-                csql = csql & " ,CLI_CUIT=" & XS(txtCuit.Text)
-                csql = csql & " ,CLI_INGBRU=" & XS(txtIngresosBrutos.Text)
+                cSQL = "UPDATE " & cTabla & " SET "
+                cSQL = cSQL & "  CLI_RAZSOC=" & XS(txtNombre.text)
+                cSQL = cSQL & " ,CLI_DNI=" & XS(txtDNI.text)
+                cSQL = cSQL & " ,CLI_DOMICI=" & XS(txtDomicilio.text)
+                cSQL = cSQL & " ,CLI_CUIT=" & XS(txtCuit.text)
+                cSQL = cSQL & " ,CLI_INGBRU=" & XS(txtIngresosBrutos.text)
                 If Not IsNull(DTFechaNac.Value) Then
-                    csql = csql & " ,CLI_CUMPLE=" & XDQ(DTFechaNac.Value)
+                    cSQL = cSQL & " ,CLI_CUMPLE=" & XDQ(DTFechaNac.Value)
                 End If
-                csql = csql & " ,IVA_CODIGO=" & cboIva.ItemData(cboIva.ListIndex)
-                csql = csql & " ,CLI_TELEFONO=" & XS(txtTelefono.Text)
-                csql = csql & " ,CLI_MAIL=" & XS(txtMail.Text)
-                csql = csql & " ,CLI_CELULAR=" & XS(txtCel.Text)
-                csql = csql & " ,CLI_CODPOS=" & XS(txtCodPostal.Text)
-                csql = csql & " ,LOC_CODIGO=" & cboLocalidad.ItemData(cboLocalidad.ListIndex)
-                csql = csql & " ,PRO_CODIGO=" & cboProvincia.ItemData(cboProvincia.ListIndex)
-                csql = csql & " ,PAI_CODIGO=" & cboPais.ItemData(cboPais.ListIndex)
-                csql = csql & " ,CLI_OBSERVA=" & XS(Trim(txtObserva.Text))
-                csql = csql & " ,CLI_NRODOC=" & XN(txtNroDoc.Text)
-                csql = csql & " ,CLI_EDAD= " & XN(txtEdad.Text)
-                csql = csql & " ,CLI_OCUPACION=" & XS(Trim(txtOcupacion.Text))
+                cSQL = cSQL & " ,IVA_CODIGO=" & cboIva.ItemData(cboIva.ListIndex)
+                cSQL = cSQL & " ,CLI_TELEFONO=" & XS(txtTelefono.text)
+                cSQL = cSQL & " ,CLI_MAIL=" & XS(txtMail.text)
+                cSQL = cSQL & " ,CLI_CELULAR=" & XS(txtCel.text)
+                cSQL = cSQL & " ,CLI_CODPOS=" & XS(txtCodPostal.text)
+                cSQL = cSQL & " ,LOC_CODIGO=" & cboLocalidad.ItemData(cboLocalidad.ListIndex)
+                cSQL = cSQL & " ,PRO_CODIGO=" & cboProvincia.ItemData(cboProvincia.ListIndex)
+                cSQL = cSQL & " ,PAI_CODIGO=" & cboPais.ItemData(cboPais.ListIndex)
+                cSQL = cSQL & " ,CLI_OBSERVA=" & XS(Trim(txtObserva.text))
+                cSQL = cSQL & " ,CLI_NRODOC=" & XN(txtNroDoc.text)
+                cSQL = cSQL & " ,CLI_EDAD= " & XN(txtEdad.text)
+                cSQL = cSQL & " ,CLI_OCUPACION=" & XS(Trim(txtOcupacion.text))
                 If Not IsNull(DTFechaPCons.Value) Then
-                    csql = csql & " ,CLI_FECPC=" & XDQ(DTFechaPCons.Value)
+                    cSQL = cSQL & " ,CLI_FECPC=" & XDQ(DTFechaPCons.Value)
                 End If
-                csql = csql & " ,OS_NUMERO=" & XN(txtBuscaOS.Text)
-                csql = csql & " ,CLI_NROAFIL=" & XS(txtNAfiliado.Text)
+                cSQL = cSQL & " ,OS_NUMERO=" & XN(txtBuscaOS.text)
+                cSQL = cSQL & " ,CLI_NROAFIL=" & XS(txtNAfiliado.text)
                 
-                csql = csql & " ,CLI_MC=" & XSM(Trim(txtMC.Text))
-                csql = csql & " ,CLI_RELAC=" & XSM(Trim(txtRelac.Text))
-                csql = csql & " ,CLI_AFA=" & XSM(Trim(txtAFA.Text))
-                csql = csql & " ,CLI_APP=" & XSM(Trim(txtAPP.Text))
-                csql = csql & " ,CLI_EFISICO=" & XSM(Trim(txtEFisico.Text))
-                csql = csql & " ,CLI_DIAG=" & XSM(Trim(txtDiag.Text))
-                csql = csql & " ,CLI_ESTCOM=" & XSM(Trim(txtEstCom.Text))
-                csql = csql & " ,CLI_PTEST=" & XSM(Trim(txtPTest.Text))
-                csql = csql & " ,CLI_HC=" & XSM(Trim(txtHC.Text))
-                csql = csql & " ,CLI_MEDICA=" & XSM(Trim(txtMedica.Text))
-                csql = csql & " ,CLI_FOTO=" & XS(txtimagen.Text)
+                cSQL = cSQL & " ,CLI_MC=" & XSM(Trim(txtMC.text))
+                cSQL = cSQL & " ,CLI_RELAC=" & XSM(Trim(txtRelac.text))
+                cSQL = cSQL & " ,CLI_AFA=" & XSM(Trim(txtAFA.text))
+                cSQL = cSQL & " ,CLI_APP=" & XSM(Trim(txtAPP.text))
+                cSQL = cSQL & " ,CLI_EFISICO=" & XSM(Trim(txtEFisico.text))
+                cSQL = cSQL & " ,CLI_DIAG=" & XSM(Trim(txtDiag.text))
+                cSQL = cSQL & " ,CLI_ESTCOM=" & XSM(Trim(txtEstCom.text))
+                cSQL = cSQL & " ,CLI_PTEST=" & XSM(Trim(txtPTest.text))
+                cSQL = cSQL & " ,CLI_HC=" & XSM(Trim(txtHC.text))
+                cSQL = cSQL & " ,CLI_MEDICA=" & XSM(Trim(txtMedica.text))
+                cSQL = cSQL & " ,CLI_FOTO=" & XS(txtimagen.text)
                 'IMAGE1.DataField
-                csql = csql & " ,CLI_ASPCLI=" & XS(txtAspCli.Text)
-                csql = csql & " WHERE CLI_CODIGO  = " & XN(txtID.Text)
+                cSQL = cSQL & " ,CLI_ASPCLI=" & XS(txtAspCli.text)
+                cSQL = cSQL & " WHERE CLI_CODIGO  = " & XN(txtID.text)
                 
                 'sql = ActualizarAnamnesis
                 
             Case 4 'eliminar
-                csql = "DELETE FROM " & cTabla & " WHERE CLI_CODIGO  = " & XN(txtID.Text)
+                cSQL = "DELETE FROM " & cTabla & " WHERE CLI_CODIGO  = " & XN(txtID.text)
                 
                 'cSQLAnam = "DELETE FROM CLIENTE_ANAM WHERE CLI_CODIGO  = " & XN(txtID.Text)
                 'Eliminamos cliente de BD del servidor web
-                DeletePatientCurl "DELETE", "/api/v1/patient-by-dni/" & txtNroDoc.Text
+                DeletePatientCurl "DELETE", "/api/v1/patient-by-dni/" & txtNroDoc.text
                 
         End Select
         
-        DBConn.Execute csql
+        DBConn.Execute cSQL
         
         'comentado anamnesis
         'If cSQLAnam <> "" Then
@@ -2589,20 +2589,20 @@ Private Function InsertAnamnesis() As String
     sql = sql & "TR_CODIGO,CLA_CUADIA,CLA_OTROS)"
     
     sql = sql & " VALUES "
-    sql = sql & "     (" & XN(txtID.Text) & ", " & chkTomaMed.Value & ", "
-    sql = sql & XS(txtCualMe.Text) & ", "
-    sql = sql & XS(txtAlergia.Text) & ", " & chkAneste.Value & ", "
+    sql = sql & "     (" & XN(txtID.text) & ", " & chkTomaMed.Value & ", "
+    sql = sql & XS(txtCualMe.text) & ", "
+    sql = sql & XS(txtAlergia.text) & ", " & chkAneste.Value & ", "
     sql = sql & chktuhemo.Value & ", "
     sql = sql & chktarcic.Value & ", "
     sql = sql & chkDiabet.Value & ", "
     sql = sql & chkprealt.Value & ", "
     sql = sql & chkprebaj.Value & ", "
     sql = sql & chkEpilep.Value & ", "
-    sql = sql & chkEmbara.Value & ", " & XN(txtMeses.Text) & ", "
+    sql = sql & chkEmbara.Value & ", " & XN(txtMeses.text) & ", "
     sql = sql & chkLactan.Value & ", "
     sql = sql & chkhemofi.Value & ", "
     sql = sql & chkcardia.Value & ", "
-    sql = sql & XS(Trim(txtcualca.Text)) & ","
+    sql = sql & XS(Trim(txtcualca.text)) & ","
     sql = sql & chkmarcapaso.Value & ", "
     If Not IsNull(DTUltVis.Value) Then
         sql = sql & XDQ(DTUltVis.Value) & ","
@@ -2612,8 +2612,8 @@ Private Function InsertAnamnesis() As String
     Else
         sql = sql & "0" & ", "
     End If
-    sql = sql & XN(txtcuadia.Text) & ", "
-    sql = sql & XS(txtAnamOtros.Text) & ") "
+    sql = sql & XN(txtcuadia.text) & ", "
+    sql = sql & XS(txtAnamOtros.text) & ") "
     
     InsertAnamnesis = sql
     
@@ -2621,8 +2621,8 @@ End Function
 Private Function ActualizarAnamnesis() As String
     sql = "UPDATE CLIENTE_ANAM SET "
     sql = sql & "CLA_TOMMED = " & chkTomaMed.Value
-    sql = sql & ",CLA_CUALME = " & XS(txtCualMe.Text)
-    sql = sql & ",CLA_ALERGIA = " & XS(txtAlergia.Text)
+    sql = sql & ",CLA_CUALME = " & XS(txtCualMe.text)
+    sql = sql & ",CLA_ALERGIA = " & XS(txtAlergia.text)
     sql = sql & ",CLA_ANESTE = " & chkAneste.Value
     sql = sql & ",CLA_TUHEMO = " & chktuhemo.Value
     sql = sql & ",CLA_TARCIC = " & chktarcic.Value
@@ -2631,19 +2631,19 @@ Private Function ActualizarAnamnesis() As String
     sql = sql & ",CLA_PREBAJ = " & chkprebaj.Value
     sql = sql & ",CLA_EPILEP = " & chkEpilep.Value
     sql = sql & ",CLA_EMBARA = " & chkEmbara.Value
-    sql = sql & ",CLA_MESES = " & XN(txtMeses.Text)
+    sql = sql & ",CLA_MESES = " & XN(txtMeses.text)
     sql = sql & ",CLA_LACTAN = " & chkLactan.Value
     sql = sql & ",CLA_HEMOFI =" & chkhemofi.Value
     sql = sql & ",CLA_CARDIA = " & chkcardia.Value
-    sql = sql & ",CLA_CUALCA = " & XS(Trim(txtcualca.Text))
+    sql = sql & ",CLA_CUALCA = " & XS(Trim(txtcualca.text))
     sql = sql & ",CLA_MARCAP = " & chkmarcapaso.Value
     If Not IsNull(DTUltVis.Value) Then
         sql = sql & ",CLA_ULTVIS = " & XDQ(DTUltVis.Value)
     End If
     sql = sql & ",TR_CODIGO = " & cboAnamTrat.ItemData(cboAnamTrat.ListIndex)
-    sql = sql & ",CLA_CUADIA = " & XN(txtcuadia.Text)
-    sql = sql & ",CLA_OTROS = " & XS(txtAnamOtros.Text)
-    sql = sql & " WHERE CLI_CODIGO = " & XN(txtID.Text)
+    sql = sql & ",CLA_CUADIA = " & XN(txtcuadia.text)
+    sql = sql & ",CLA_OTROS = " & XS(txtAnamOtros.text)
+    sql = sql & " WHERE CLI_CODIGO = " & XN(txtID.text)
         
     ActualizarAnamnesis = sql
     
@@ -2667,7 +2667,7 @@ Private Function validarcclinico() As Boolean
     '    validarcclinico = False
     '    Exit Function
     'End If
-    If txtIndicaciones.Text = "" Then
+    If txtIndicaciones.text = "" Then
         MsgBox "Debe ingresar las Observaciones", vbExclamation, TIT_MSGBOX
         txtIndicaciones.SetFocus
         validarcclinico = False
@@ -2696,7 +2696,7 @@ Private Function validarcmedica() As Boolean
         validarcmedica = False
         Exit Function
     End If
-    If txtMedIndica.Text = "" Then
+    If txtMedIndica.text = "" Then
         MsgBox "Debe ingresar las Indicaciones", vbExclamation, TIT_MSGBOX
         txtMedIndica.SetFocus
         validarcmedica = False
@@ -2758,7 +2758,7 @@ Private Sub cmdAgregar_Click()
         
         
                 
-        If txtCCodigo.Text = "" Then
+        If txtCCodigo.text = "" Then
           
         ' Nuevo Curso Clinico
             rec.Open "SELECT MAX(CCL_NUMERO) AS MAXIMO FROM CCLINICO", DBConn, adOpenStatic, adLockOptimistic
@@ -2784,7 +2784,7 @@ Private Sub cmdAgregar_Click()
             If Not IsNull(DTFecPC.Value) Then
                 sql = sql & XDQ(DTFecPC.Value) & ","
             End If
-            sql = sql & XS(txtIndicaciones.Text) & ")"
+            sql = sql & XS(txtIndicaciones.text) & ")"
            
         Else
         ' Modifico Curso Clinico
@@ -2798,13 +2798,13 @@ Private Sub cmdAgregar_Click()
             If Not IsNull(DTFecPC.Value) Then
                 sql = sql & ",CCL_FECPC = " & XDQ(DTFecPC.Value)
             End If
-            sql = sql & " ,CCL_INDICA =" & XS(txtIndicaciones.Text)
-            sql = sql & " WHERE CCL_NUMERO = " & XN(txtCCodigo.Text)
+            sql = sql & " ,CCL_INDICA =" & XS(txtIndicaciones.text)
+            sql = sql & " WHERE CCL_NUMERO = " & XN(txtCCodigo.text)
                        
         End If
         DBConn.Execute sql
         DBConn.CommitTrans
-        CargarCClinico txtID.Text
+        CargarCClinico txtID.text
         LimpiarCClinico
         
     Exit Sub
@@ -2828,12 +2828,12 @@ Private Function LimpiarCClinico()
     End If
     
     'cboTratamiento.ListIndex = -1
-    txtIdTra.Text = ""
-    txtCodTra.Text = ""
-    txtDescTra.Text = ""
-    txtIndicaciones.Text = ""
-    txtAspCli.Text = ""
-    txtCCodigo.Text = ""
+    txtIdTra.text = ""
+    txtCodTra.text = ""
+    txtDescTra.text = ""
+    txtIndicaciones.text = ""
+    txtAspCli.text = ""
+    txtCCodigo.text = ""
     DTFecPC.Value = Null
 End Function
 Private Function LimpiarCMedica()
@@ -2845,12 +2845,12 @@ Private Function LimpiarCMedica()
         cboDoctor.ListIndex = -1
     End If
     cboMedica.ListIndex = -1
-    txtMedIndica.Text = ""
-    txtMedCodigo.Text = ""
+    txtMedIndica.text = ""
+    txtMedCodigo.text = ""
 End Function
 
 Private Sub cmdAyuda_Click()
-    Call WinHelp(Me.hwnd, App.Path & "\help\AYUDA.HLP", cdlHelpContext, 12)
+    Call WinHelp(Me.hWnd, App.Path & "\help\AYUDA.HLP", cdlHelpContext, 12)
 End Sub
 
 Private Sub cmdBuscaOS_Click()
@@ -2893,7 +2893,7 @@ Private Sub cmdFotos_Click()
         Or CommonDialog1.FileName Like "*.jpg" Then
             
             Image1.Picture = LoadPicture(CommonDialog1.FileName)
-            txtimagen.Text = CommonDialog1.FileName
+            txtimagen.text = CommonDialog1.FileName
             On Error GoTo 0
         Else
             MsgBox "El Archivo seleccionado no es válido", vbExclamation, Me.Caption
@@ -2902,7 +2902,7 @@ Private Sub cmdFotos_Click()
 End Sub
 
 Private Sub cmdGenerar_Click()
-    If cboTipoEstudio.Text = "" Then
+    If cboTipoEstudio.text = "" Then
         MsgBox "Seleccione el tipo de estudio", vbExclamation, "Información"
     Else
         cmdGenerar.Enabled = False
@@ -2945,7 +2945,7 @@ Private Sub cmdMedAgregar_Click()
         DBConn.BeginTrans
         
                         
-        If txtMedCodigo.Text = "" Then
+        If txtMedCodigo.text = "" Then
           
         ' Nueva Medicacion
             rec.Open "SELECT MAX(CME_NUMERO) AS MAXIMO FROM CMEDICA", DBConn, adOpenStatic, adLockOptimistic
@@ -2962,7 +2962,7 @@ Private Sub cmdMedAgregar_Click()
             sql = sql & txtID & ","
             sql = sql & cboMedDoc.ItemData(cboMedDoc.ListIndex) & ","
             sql = sql & cboMedica.ItemData(cboMedica.ListIndex) & ","
-            sql = sql & XS(txtMedIndica.Text) & ")"
+            sql = sql & XS(txtMedIndica.text) & ")"
                         
             
         Else
@@ -2974,14 +2974,14 @@ Private Sub cmdMedAgregar_Click()
             sql = sql & " ,CLI_CODIGO =" & XN(txtID)
             sql = sql & " ,VEN_CODIGO = " & cboMedDoc.ItemData(cboMedDoc.ListIndex)
             sql = sql & " ,MED_CODIGO = " & cboMedica.ItemData(cboMedica.ListIndex)
-            sql = sql & " ,CME_INDICA =" & XS(txtMedIndica.Text)
-            sql = sql & " WHERE CME_NUMERO = " & XN(txtMedCodigo.Text)
+            sql = sql & " ,CME_INDICA =" & XS(txtMedIndica.text)
+            sql = sql & " WHERE CME_NUMERO = " & XN(txtMedCodigo.text)
          
             
         End If
         DBConn.Execute sql
         DBConn.CommitTrans
-        CargarCMedica txtID.Text
+        CargarCMedica txtID.text
         LimpiarCMedica
         
     Exit Sub
@@ -3000,17 +3000,17 @@ Private Sub cmdMedNuevo_Click()
 End Sub
 
 Private Sub cmdMedQuitar_Click()
-    If txtMedCodigo.Text <> "" Then
+    If txtMedCodigo.text <> "" Then
         If MsgBox("¿Elimina la Mediación?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
     
         On Error GoTo HayErrorCMedica
         DBConn.BeginTrans
         
-        sql = "DELETE FROM CMEDICA WHERE CME_NUMERO =  " & XN(txtMedCodigo.Text)
+        sql = "DELETE FROM CMEDICA WHERE CME_NUMERO =  " & XN(txtMedCodigo.text)
     
         DBConn.Execute sql
         DBConn.CommitTrans
-        CargarCMedica txtID.Text
+        CargarCMedica txtID.text
         LimpiarCMedica
     End If
     
@@ -3029,17 +3029,17 @@ Private Sub CmdNuevo_Click()
 End Sub
 
 Private Sub cmdQuitar_Click()
-    If txtCCodigo.Text <> "" Then
+    If txtCCodigo.text <> "" Then
         If MsgBox("¿Elimina el Curso Clinico?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
     
         On Error GoTo HayErrorCClinico
         DBConn.BeginTrans
         
-        sql = "DELETE FROM CCLINICO WHERE CCL_NUMERO =  " & XN(txtCCodigo.Text)
+        sql = "DELETE FROM CCLINICO WHERE CCL_NUMERO =  " & XN(txtCCodigo.text)
     
         DBConn.Execute sql
         DBConn.CommitTrans
-        CargarCClinico txtID.Text
+        CargarCClinico txtID.text
         LimpiarCClinico
     End If
     
@@ -3142,7 +3142,7 @@ Private Sub chkcardia_Click()
     If chkcardia.Value = Checked Then
         AcCtrl txtcualca
     Else
-        txtcualca.Text = ""
+        txtcualca.text = ""
         DesacCtrl txtcualca
     End If
 End Sub
@@ -3156,7 +3156,7 @@ Private Sub chkEmbara_Click()
     If chkEmbara.Value = Checked Then
         AcCtrl txtMeses
     Else
-        txtMeses.Text = ""
+        txtMeses.text = ""
         DesacCtrl txtMeses
     End If
 End Sub
@@ -3226,7 +3226,7 @@ End Sub
 
 Private Sub DTFechaNac_LostFocus()
      If Not IsNull(DTFechaNac) Then
-        txtEdad.Text = Calculo_Edad(DTFechaNac)
+        txtEdad.text = Calculo_Edad(DTFechaNac)
      End If
 End Sub
 
@@ -3317,6 +3317,13 @@ Private Sub getLinkFromFoldersJSON(JsonString As String)
         errorPostStudyFolder = True
     End If
 End Sub
+Private Function CleanString(text As String) As String
+    text = Replace(text, vbCr, "")
+    text = Replace(text, vbLf, "")
+    text = Replace(text, vbTab, "")
+    CleanString = text
+End Function
+
 Public Sub PostPatientStudyLink()
 
     Dim request As Object
@@ -3331,8 +3338,8 @@ Public Sub PostPatientStudyLink()
     Set request = CreateObject("MSXML2.ServerXMLHTTP.6.0")
     
     ' Construcción del JSON a enviar
-    jsonBody = "{""patientName"": """ & txtNombre & """, " & _
-               """studyShortName"": """ & cboTipoEstudio.Text & """, " & _
+    jsonBody = "{""patientName"": """ & CleanString(txtNombre) & """, " & _
+               """studyShortName"": """ & cboTipoEstudio.text & """, " & _
                """studyDate"": """ & Format(dtFechaEstudio.Value, "yyyy-mm-dd") & """, " & _
                """patientDNI"": " & txtNroDoc & "}"
 
@@ -3354,7 +3361,7 @@ Public Sub PostPatientStudyLink()
             ActualizoLinkPacienteSQL patientLinkDrive
         End If
         
-        txtLinkPaciente.Text = patientLinkDrive
+        txtLinkPaciente.text = patientLinkDrive
         lblNoTieneLink.Visible = False
         cmdIrCarpetaPaciente.Enabled = True
     End If
@@ -3384,7 +3391,7 @@ Public Sub GetPatientStudyLinkByDNI()
     Dim endpoint As String
     Dim jsonBody As String
     
-    endpoint = "/api/v1/patient-by-dni/" & txtNroDoc.Text
+    endpoint = "/api/v1/patient-by-dni/" & txtNroDoc.text
     
     Set request = CreateObject("MSXML2.ServerXMLHTTP.6.0")
     
@@ -3398,11 +3405,13 @@ Public Sub GetPatientStudyLinkByDNI()
     'Obtengo el link del paciente
     linkDrive = getLinkFromPatientJSON(responseText)
     
-    If linkDrive <> "" Then
+    'Si el link del paciente en la BD del servidor web es distinto al que tengo
+    'en la BD local, actualizo con el del servidor web
+    If linkDrive <> txtLinkPaciente.text Then
         'Guardo el link del paciente en la BD SQL
         ActualizoLinkPacienteSQL linkDrive
         
-        txtLinkPaciente.Text = linkDrive
+        txtLinkPaciente.text = linkDrive
         lblNoTieneLink.Visible = False
         cmdIrCarpetaPaciente.Enabled = True
     End If
@@ -3411,19 +3420,19 @@ Public Sub GetPatientStudyLinkByDNI()
 
 End Sub
 Private Sub ActualizoLinkPacienteSQL(link As String)
-    Dim csql As String
+    Dim cSQL As String
 
-    csql = "UPDATE " & cTabla & " SET "
-    csql = csql & "  CLI_LINKARCH= '" & link & "'"
-    csql = csql & " WHERE CLI_CODIGO  = " & XN(txtID.Text)
-    DBConn.Execute csql
+    cSQL = "UPDATE " & cTabla & " SET "
+    cSQL = cSQL & "  CLI_LINKARCH= '" & link & "'"
+    cSQL = cSQL & " WHERE CLI_CODIGO  = " & XN(txtID.text)
+    DBConn.Execute cSQL
 End Sub
 
 
 
 Private Sub Form_Load()
 
-    Dim csql As String
+    Dim cSQL As String
     Dim hSQL As String
     Dim rec As ADODB.Recordset
     Set rec = New ADODB.Recordset
@@ -3439,8 +3448,8 @@ Private Sub Form_Load()
     
     'cargo el combo de PAIS
     cboPais.Clear
-    csql = "SELECT * FROM PAIS WHERE PAI_CODIGO=1 ORDER BY PAI_DESCRI"
-    rec.Open csql, DBConn, adOpenStatic, adLockOptimistic
+    cSQL = "SELECT * FROM PAIS WHERE PAI_CODIGO=1 ORDER BY PAI_DESCRI"
+    rec.Open cSQL, DBConn, adOpenStatic, adLockOptimistic
     If (rec.BOF And rec.EOF) = 0 Then
        Do While rec.EOF = False
           cboPais.AddItem Trim(rec!PAI_DESCRI)
@@ -3483,62 +3492,62 @@ Private Sub Form_Load()
                 'Call BuscaCodigoProxItemData(frmTurnos.cboDoctor.ItemData(frmTurnos.cboDoctor.ListIndex), cboDoctor)
                 'txtIdTra.Text = 1
                 
-                csql = "SELECT * FROM " & cTabla & "  WHERE CLI_CODIGO = " & gPaciente
+                cSQL = "SELECT * FROM " & cTabla & "  WHERE CLI_CODIGO = " & gPaciente
             Else
-                csql = "SELECT * FROM " & cTabla & "  WHERE CLI_CODIGO = " & XS(Mid(vFieldID, 2, Len(vFieldID) - 2))
+                cSQL = "SELECT * FROM " & cTabla & "  WHERE CLI_CODIGO = " & XS(Mid(vFieldID, 2, Len(vFieldID) - 2))
             End If
-            rec.Open csql, DBConn, adOpenStatic, adLockOptimistic
+            rec.Open cSQL, DBConn, adOpenStatic, adLockOptimistic
             If (rec.BOF And rec.EOF) = 0 Then
                 'si encontró el registro muestro los datos
-                txtID.Text = rec!CLI_CODIGO
-                txtNombre.Text = rec!CLI_RAZSOC
+                txtID.text = rec!CLI_CODIGO
+                txtNombre.text = rec!CLI_RAZSOC
                 
                 Call BuscaCodigoProxItemData(rec!IVA_CODIGO, cboIva)
-                txtCuit.Text = ChkNull(rec!CLI_CUIT)
-                txtIngresosBrutos.Text = ChkNull(rec!CLI_INGBRU)
+                txtCuit.text = ChkNull(rec!CLI_CUIT)
+                txtIngresosBrutos.text = ChkNull(rec!CLI_INGBRU)
                 DTFechaNac.Value = ChkNull(rec!CLI_CUMPLE)
                 
                 Call BuscaCodigoProxItemData(CInt(rec!PAI_CODIGO), cboPais)
                 cboPais_LostFocus
-                Pais = cboPais.Text
+                Pais = cboPais.text
                 
                 Call BuscaCodigoProxItemData(CInt(rec!PRO_CODIGO), cboProvincia)
                 cboProvincia_LostFocus
-                Provincia = cboProvincia.Text
+                Provincia = cboProvincia.text
                 
-                txtNroDoc.Text = ChkNull(rec!CLI_NRODOC)
+                txtNroDoc.text = ChkNull(rec!CLI_NRODOC)
                 Call BuscaCodigoProxItemData(CInt(rec!LOC_CODIGO), cboLocalidad)
-                txtDNI.Text = ChkNull(rec!CLI_DNI)
-                txtDomicilio.Text = ChkNull(rec!CLI_DOMICI)
-                txtTelefono.Text = ChkNull(rec!CLI_TELEFONO)
-                txtCel.Text = ChkNull(rec!CLI_CELULAR)
-                txtCodPostal.Text = ChkNull(rec!CLI_CODPOS)
-                txtMail.Text = ChkNull(rec!CLI_MAIL)
-                txtObserva.Text = Trim(ChkNull(rec!CLI_OBSERVA))
+                txtDNI.text = ChkNull(rec!CLI_DNI)
+                txtDomicilio.text = ChkNull(rec!CLI_DOMICI)
+                txtTelefono.text = ChkNull(rec!CLI_TELEFONO)
+                txtCel.text = ChkNull(rec!CLI_CELULAR)
+                txtCodPostal.text = ChkNull(rec!CLI_CODPOS)
+                txtMail.text = ChkNull(rec!CLI_MAIL)
+                txtObserva.text = Trim(ChkNull(rec!CLI_OBSERVA))
                 
-                txtEdad.Text = ChkNull(rec!CLI_EDAD)
-                txtOcupacion.Text = ChkNull(rec!CLI_OCUPACION)
+                txtEdad.text = ChkNull(rec!CLI_EDAD)
+                txtOcupacion.text = ChkNull(rec!CLI_OCUPACION)
                 DTFechaPCons.Value = ChkNull(rec!CLI_FECPC)
-                txtBuscaOS.Text = ChkNull(rec!OS_NUMERO)
+                txtBuscaOS.text = ChkNull(rec!OS_NUMERO)
                 txtBuscaOS_LostFocus
-                txtNAfiliado.Text = ChkNull(rec!CLI_NROAFIL)
+                txtNAfiliado.text = ChkNull(rec!CLI_NROAFIL)
                 
-                txtMC.Text = ChkNull(rec!CLI_MC)
-                txtRelac.Text = ChkNull(rec!CLI_RELAC)
-                txtAFA.Text = ChkNull(rec!CLI_AFA)
-                txtAPP.Text = ChkNull(rec!CLI_APP)
-                txtEFisico.Text = ChkNull(rec!CLI_EFISICO)
-                txtDiag.Text = ChkNull(rec!CLI_DIAG)
-                txtEstCom.Text = ChkNull(rec!CLI_ESTCOM)
-                txtPTest.Text = ChkNull(rec!CLI_PTEST)
-                txtHC.Text = ChkNull(rec!CLI_HC)
-                txtMedica.Text = ChkNull(rec!CLI_MEDICA)
+                txtMC.text = ChkNull(rec!CLI_MC)
+                txtRelac.text = ChkNull(rec!CLI_RELAC)
+                txtAFA.text = ChkNull(rec!CLI_AFA)
+                txtAPP.text = ChkNull(rec!CLI_APP)
+                txtEFisico.text = ChkNull(rec!CLI_EFISICO)
+                txtDiag.text = ChkNull(rec!CLI_DIAG)
+                txtEstCom.text = ChkNull(rec!CLI_ESTCOM)
+                txtPTest.text = ChkNull(rec!CLI_PTEST)
+                txtHC.text = ChkNull(rec!CLI_HC)
+                txtMedica.text = ChkNull(rec!CLI_MEDICA)
                 
-                txtimagen.Text = ChkNull(rec!CLI_FOTO)
-                If txtimagen.Text <> "" Then
-                    Image1.Picture = LoadPicture(txtimagen.Text)
+                txtimagen.text = ChkNull(rec!CLI_FOTO)
+                If txtimagen.text <> "" Then
+                    Image1.Picture = LoadPicture(txtimagen.text)
                 End If
-                txtAspCli.Text = ChkNull(rec!CLI_ASPCLI)
+                txtAspCli.text = ChkNull(rec!CLI_ASPCLI)
                 cargarAnamnesis
                 txtLinkPaciente = ChkNull(rec!CLI_LINKARCH)
             Else
@@ -3551,7 +3560,7 @@ Private Sub Form_Load()
     'establesco funcionalidad del form de datos
     SetMode vMode
     If vDNI <> "" Then
-        txtNroDoc.Text = vDNI
+        txtNroDoc.text = vDNI
     End If
     
     'Cargo combo tipos de estudio
@@ -3569,7 +3578,7 @@ Private Sub Form_Load()
     Next
     
     LimpiarSeccionDrive
-    If txtLinkPaciente = "" And vMode <> 1 Then
+    If vMode <> 1 Then
         GetPatientStudyLinkByDNI
     End If
     ColocoLinkPaciente
@@ -3802,11 +3811,11 @@ Private Sub grdCClinico_Click()
         DTFecha.Value = grdCClinico.TextMatrix(grdCClinico.RowSel, 0)
         Call BuscaCodigoProxItemData(grdCClinico.TextMatrix(grdCClinico.RowSel, 5), cboDoctor)
         'Call BuscaCodigoProxItemData(grdCClinico.TextMatrix(grdCClinico.RowSel, 4), cboTratamiento)
-        txtIdTra.Text = grdCClinico.TextMatrix(grdCClinico.RowSel, 4)
-        txtCodTra.Text = grdCClinico.TextMatrix(grdCClinico.RowSel, 8)
-        txtDescTra.Text = grdCClinico.TextMatrix(grdCClinico.RowSel, 1)
-        txtIndicaciones.Text = grdCClinico.TextMatrix(grdCClinico.RowSel, 2)
-        txtCCodigo.Text = grdCClinico.TextMatrix(grdCClinico.RowSel, 6)
+        txtIdTra.text = grdCClinico.TextMatrix(grdCClinico.RowSel, 4)
+        txtCodTra.text = grdCClinico.TextMatrix(grdCClinico.RowSel, 8)
+        txtDescTra.text = grdCClinico.TextMatrix(grdCClinico.RowSel, 1)
+        txtIndicaciones.text = grdCClinico.TextMatrix(grdCClinico.RowSel, 2)
+        txtCCodigo.text = grdCClinico.TextMatrix(grdCClinico.RowSel, 6)
         nCCRowSel = grdCClinico.RowSel
         DTFecPC.Value = grdCClinico.TextMatrix(grdCClinico.RowSel, 7)
     End If
@@ -3817,8 +3826,8 @@ Private Sub GrdCMedica_Click()
         DTMedFec.Value = GrdCMedica.TextMatrix(GrdCMedica.RowSel, 0)
         Call BuscaCodigoProxItemData(GrdCMedica.TextMatrix(GrdCMedica.RowSel, 5), cboMedDoc)
         Call BuscaCodigoProxItemData(GrdCMedica.TextMatrix(GrdCMedica.RowSel, 4), cboMedica)
-        txtMedIndica.Text = GrdCMedica.TextMatrix(GrdCMedica.RowSel, 2)
-        txtMedCodigo.Text = GrdCMedica.TextMatrix(GrdCMedica.RowSel, 6)
+        txtMedIndica.text = GrdCMedica.TextMatrix(GrdCMedica.RowSel, 2)
+        txtMedCodigo.text = GrdCMedica.TextMatrix(GrdCMedica.RowSel, 6)
         nCMRowSel = GrdCMedica.RowSel
     End If
 End Sub
@@ -3879,23 +3888,23 @@ Private Sub txtBuscaOS_KeyPress(KeyAscii As Integer)
 End Sub
 
 Private Sub txtBuscaOS_LostFocus()
-    If txtBuscaOS.Text <> "" Then
-        csql = "SELECT OS_NUMERO, OS_NOMBRE FROM OBRA_SOCIAL WHERE OS_NUMERO = " & XN(txtBuscaOS.Text)
+    If txtBuscaOS.text <> "" Then
+        cSQL = "SELECT OS_NUMERO, OS_NOMBRE FROM OBRA_SOCIAL WHERE OS_NUMERO = " & XN(txtBuscaOS.text)
         If rec.State = 1 Then
             rec.Close
         End If
-        rec.Open csql, DBConn, adOpenStatic, adLockOptimistic
+        rec.Open cSQL, DBConn, adOpenStatic, adLockOptimistic
         
         If rec.EOF = False Then
-            txtBuscaOS.Text = ChkNull(rec!OS_NUMERO)
-            txtBuscarOSNombre.Text = ChkNull(rec!OS_NOMBRE)
+            txtBuscaOS.text = ChkNull(rec!OS_NUMERO)
+            txtBuscarOSNombre.text = ChkNull(rec!OS_NOMBRE)
         Else
             MsgBox "Obra Social inexistente", vbExclamation, TIT_MSGBOX
             'txtBuscaOS.SetFocus
         End If
         rec.Close
     Else
-        txtBuscarOSNombre.Text = ""
+        txtBuscarOSNombre.text = ""
     End If
 End Sub
 
@@ -3914,9 +3923,9 @@ Private Sub txtBuscarOSNombre_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub txtBuscarOSNombre_LostFocus()
-    If txtBuscaOS.Text = "" And txtBuscarOSNombre.Text <> "" Then
+    If txtBuscaOS.text = "" And txtBuscarOSNombre.text <> "" Then
         Set rec = New ADODB.Recordset
-        sql = "SELECT OS_NUMERO,OS_NOMBRE FROM OBRA_SOCIAL WHERE OS_NOMBRE LIKE '" & Trim(txtBuscarOSNombre.Text) & "%'"
+        sql = "SELECT OS_NUMERO,OS_NOMBRE FROM OBRA_SOCIAL WHERE OS_NOMBRE LIKE '" & Trim(txtBuscarOSNombre.text) & "%'"
         rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
         If rec.EOF = False Then
             If rec.RecordCount > 1 Then
@@ -3924,8 +3933,8 @@ Private Sub txtBuscarOSNombre_LostFocus()
                 If rec.State = 1 Then rec.Close
                 txtBuscarOSNombre.SetFocus
             Else
-                txtBuscaOS.Text = rec!OS_NUMERO
-                txtBuscarOSNombre.Text = ChkNull(rec!OS_NOMBRE)
+                txtBuscaOS.text = rec!OS_NUMERO
+                txtBuscarOSNombre.text = ChkNull(rec!OS_NOMBRE)
             End If
             
         Else
@@ -3933,7 +3942,7 @@ Private Sub txtBuscarOSNombre_LostFocus()
             'preguntar si quiere agregarlo y abrir abm de tratamientos
             'MsgBox "Tratamiento inexistente", vbExclamation, TIT_MSGBOX
                 gObraS = 1
-                ABMObraSocial.txtDescri.Text = txtBuscarOSNombre.Text
+                ABMObraSocial.txtDescri.text = txtBuscarOSNombre.text
                 ABMObraSocial.Show vbModal
                 txtBuscarOSNombre.SetFocus
             Else
@@ -3943,8 +3952,8 @@ Private Sub txtBuscarOSNombre_LostFocus()
         End If
         If rec.State = 1 Then rec.Close
     End If
-    If txtBuscarOSNombre.Text = "" Then
-        txtBuscaOS.Text = ""
+    If txtBuscarOSNombre.text = "" Then
+        txtBuscaOS.text = ""
     End If
 End Sub
 
@@ -3961,8 +3970,8 @@ Private Sub txtCodPostal_KeyPress(KeyAscii As Integer)
 End Sub
 
 Private Sub txtCodTra_Change()
-    If txtCodTra.Text = "" Then
-        txtDescTra.Text = ""
+    If txtCodTra.text = "" Then
+        txtDescTra.text = ""
     End If
 End Sub
 
@@ -3981,8 +3990,8 @@ Private Sub txtCodTra_KeyPress(KeyAscii As Integer)
 End Sub
 
 Private Sub txtCodTra_LostFocus()
-    If txtCodTra.Text <> "" Then
-        sql = "SELECT TR_DESCRI,TR_CODIGO,TR_CODNUE FROM TRATAMIENTO WHERE TR_CODNUE LIKE '" & Trim(txtCodTra.Text) & "%'"
+    If txtCodTra.text <> "" Then
+        sql = "SELECT TR_DESCRI,TR_CODIGO,TR_CODNUE FROM TRATAMIENTO WHERE TR_CODNUE LIKE '" & Trim(txtCodTra.text) & "%'"
         If rec.State = 1 Then rec.Close
         rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
         If rec.EOF = False Then
@@ -3991,9 +4000,9 @@ Private Sub txtCodTra_LostFocus()
                 If rec.State = 1 Then rec.Close
                 txtDescTra.SetFocus
             Else
-                txtCodTra.Text = rec!TR_CODNUE
-                txtDescTra.Text = ChkNull(rec!TR_DESCRI)
-                txtIdTra.Text = rec!TR_CODIGO
+                txtCodTra.text = rec!TR_CODNUE
+                txtDescTra.text = ChkNull(rec!TR_DESCRI)
+                txtIdTra.text = rec!TR_CODIGO
             End If
         Else
             MsgBox "Tratamiento inexistente", vbExclamation, TIT_MSGBOX
@@ -4034,7 +4043,7 @@ Private Sub txtCuit_KeyUp(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub txtCuit_LostFocus()
-    If txtCuit.Text <> "" Then
+    If txtCuit.text <> "" Then
         'rutina de validación de CUIT
         If Not ValidoCuit(txtCuit) Then
             txtCuit.SetFocus
@@ -4044,8 +4053,8 @@ Private Sub txtCuit_LostFocus()
 End Sub
 
 Private Sub txtDescTra_Change()
-    If txtDescTra.Text = "" Then
-        txtCodTra.Text = ""
+    If txtDescTra.text = "" Then
+        txtCodTra.text = ""
     End If
 End Sub
 
@@ -4060,9 +4069,9 @@ Private Sub txtDescTra_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub txtDescTra_LostFocus()
-    If txtCodTra.Text = "" And txtDescTra.Text <> "" Then
+    If txtCodTra.text = "" And txtDescTra.text <> "" Then
         Set rec = New ADODB.Recordset
-        sql = "SELECT TR_CODNUE,TR_CODIGO,TR_DESCRI FROM TRATAMIENTO WHERE TR_DESCRI LIKE '" & Trim(txtDescTra.Text) & "%'"
+        sql = "SELECT TR_CODNUE,TR_CODIGO,TR_DESCRI FROM TRATAMIENTO WHERE TR_DESCRI LIKE '" & Trim(txtDescTra.text) & "%'"
         rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
         If rec.EOF = False Then
             If rec.RecordCount > 1 Then
@@ -4070,9 +4079,9 @@ Private Sub txtDescTra_LostFocus()
                 If rec.State = 1 Then rec.Close
                 txtDescTra.SetFocus
             Else
-                txtCodTra.Text = rec!TR_CODNUE
-                txtDescTra.Text = ChkNull(rec!TR_DESCRI)
-                txtIdTra.Text = rec!TR_CODIGO
+                txtCodTra.text = rec!TR_CODNUE
+                txtDescTra.text = ChkNull(rec!TR_DESCRI)
+                txtIdTra.text = rec!TR_CODIGO
             End If
             
         Else
@@ -4080,7 +4089,7 @@ Private Sub txtDescTra_LostFocus()
             'preguntar si quiere agregarlo y abrir abm de tratamientos
             'MsgBox "Tratamiento inexistente", vbExclamation, TIT_MSGBOX
                 gTrata = 1
-                ABMTratamiento.txtDescri.Text = txtDescTra.Text
+                ABMTratamiento.txtDescri.text = txtDescTra.text
                 ABMTratamiento.Show vbModal
                 txtDescTra.SetFocus
             Else
@@ -4222,35 +4231,35 @@ End Sub
 
 Private Sub txtID_LostFocus()
 
-    Dim csql As String
+    Dim cSQL As String
     Dim rec As ADODB.Recordset
     Set rec = New ADODB.Recordset
     
     If vMode = 1 Then ' si se esta usando en modo de nuevo registro
-        If txtID.Text = "" Then
+        If txtID.text = "" Then
             If cSugerirID = True Then
-                csql = "SELECT MAX(" & cCampoID & ") FROM " & cTabla
+                cSQL = "SELECT MAX(" & cCampoID & ") FROM " & cTabla
                 'cSQL = cSQL & " WHERE PAI_CODIGO = " & cboPais.ItemData(cboPais.ListIndex)
-                rec.Open csql, DBConn, adOpenStatic, adLockOptimistic
+                rec.Open cSQL, DBConn, adOpenStatic, adLockOptimistic
                 If (rec.BOF And rec.EOF) = 0 Then
                     If rec.Fields(0) > 0 Then
-                        txtID.Text = rec.Fields(0) + 1
+                        txtID.text = rec.Fields(0) + 1
                     Else
-                        txtID.Text = 1
+                        txtID.text = 1
                     End If
                 End If
             End If
         Else
             'verifico que no sea clave repetida
-            csql = "SELECT COUNT(*) FROM " & cTabla & " WHERE " & cCampoID & " = " & XN(txtID.Text)
+            cSQL = "SELECT COUNT(*) FROM " & cTabla & " WHERE " & cCampoID & " = " & XN(txtID.text)
             'cSQL = cSQL & " AND PAI_CODIGO = " & cboPais.ItemData(cboPais.ListIndex)
-            rec.Open csql, DBConn, adOpenStatic, adLockOptimistic
+            rec.Open cSQL, DBConn, adOpenStatic, adLockOptimistic
             If (rec.BOF And rec.EOF) = 0 Then
                 If rec.Fields(0) > 0 Then
                     Beep
                     MsgBox "Código de " & cDesRegistro & " repetido." & Chr(13) & _
                                      "El código ingresado Pertenece a otro registro de " & cDesRegistro & ".", vbCritical + vbOKOnly, App.Title
-                    txtID.Text = ""
+                    txtID.text = ""
                     txtID.SetFocus
                 End If
             End If
@@ -4307,7 +4316,7 @@ Private Sub txtTelefono_KeyPress(KeyAscii As Integer)
 End Sub
 
 Public Sub BuscarTratamientos(Txt As String, mQuien As String, Optional mCadena As String)
-    Dim csql As String
+    Dim cSQL As String
     Dim hSQL As String
     Dim B As CBusqueda
     Dim i, posicion As Integer
@@ -4315,18 +4324,18 @@ Public Sub BuscarTratamientos(Txt As String, mQuien As String, Optional mCadena 
         
     Set B = New CBusqueda
     With B
-        csql = "SELECT TR_CODNUE,TR_DESCRI, TR_CODIGO"
-        csql = csql & " FROM TRATAMIENTO "
+        cSQL = "SELECT TR_CODNUE,TR_DESCRI, TR_CODIGO"
+        cSQL = cSQL & " FROM TRATAMIENTO "
         If mQuien = "CADENA" Then
-            csql = csql & " WHERE TR_DESCRI LIKE '" & Trim(mCadena) & "%'"
+            cSQL = cSQL & " WHERE TR_DESCRI LIKE '" & Trim(mCadena) & "%'"
         Else
             If mCadena <> "" Then
-                csql = csql & " WHERE TR_CODNUE LIKE '" & Trim(mCadena) & "%'"
+                cSQL = cSQL & " WHERE TR_CODNUE LIKE '" & Trim(mCadena) & "%'"
             End If
         End If
         
         hSQL = "Codigo,Descripcion, Id"
-        .sql = csql
+        .sql = cSQL
         .Headers = hSQL
         .Field = "TR_CODNUE"
         campo1 = .Field
@@ -4344,7 +4353,7 @@ Public Sub BuscarTratamientos(Txt As String, mQuien As String, Optional mCadena 
         ' utilizar la coleccion de datos devueltos
         If .ResultFields.Count > 0 Then
             If Txt = "txtCodTra" Then
-                txtCodTra.Text = .ResultFields(1)
+                txtCodTra.text = .ResultFields(1)
                 txtCodTra_LostFocus
             Else
                 'txtBuscaCliente.Text = .ResultFields(2)
@@ -4357,7 +4366,7 @@ Public Sub BuscarTratamientos(Txt As String, mQuien As String, Optional mCadena 
     
 End Sub
 Public Sub BuscarOS(Txt As String, mQuien As String, Optional mCadena As String)
-    Dim csql As String
+    Dim cSQL As String
     Dim hSQL As String
     Dim B As CBusqueda
     Dim i, posicion As Integer
@@ -4365,14 +4374,14 @@ Public Sub BuscarOS(Txt As String, mQuien As String, Optional mCadena As String)
         
     Set B = New CBusqueda
     With B
-        csql = "SELECT OS_NOMBRE, OS_NUMERO"
-        csql = csql & " FROM OBRA_SOCIAL "
+        cSQL = "SELECT OS_NOMBRE, OS_NUMERO"
+        cSQL = cSQL & " FROM OBRA_SOCIAL "
         If mQuien = "CADENA" Then
-            csql = csql & " WHERE OS_NOMBRE LIKE '" & Trim(mCadena) & "%'"
+            cSQL = cSQL & " WHERE OS_NOMBRE LIKE '" & Trim(mCadena) & "%'"
         End If
         
         hSQL = "Nombre, Código"
-        .sql = csql
+        .sql = cSQL
         .Headers = hSQL
         .Field = "OS_NOMBRE"
         campo1 = .Field
@@ -4388,7 +4397,7 @@ Public Sub BuscarOS(Txt As String, mQuien As String, Optional mCadena As String)
         ' utilizar la coleccion de datos devueltos
         If .ResultFields.Count > 0 Then
             If Txt = "txtBuscaOS" Then
-                txtBuscaOS.Text = .ResultFields(2)
+                txtBuscaOS.text = .ResultFields(2)
                 txtBuscaOS_LostFocus
             Else
                 'txtBuscaCliente.Text = .ResultFields(2)

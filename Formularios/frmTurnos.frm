@@ -9,15 +9,39 @@ Begin VB.Form frmTurnos
    ClientHeight    =   9525
    ClientLeft      =   45
    ClientTop       =   435
-   ClientWidth     =   19410
+   ClientWidth     =   19725
    ForeColor       =   &H00000000&
    Icon            =   "frmTurnos.frx":0000
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    ScaleHeight     =   9525
-   ScaleWidth      =   19410
+   ScaleWidth      =   19725
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Frame fraListaEstudios 
+      Caption         =   "Lista de estudios"
+      Height          =   3135
+      Left            =   8040
+      TabIndex        =   63
+      Top             =   3120
+      Visible         =   0   'False
+      Width           =   3375
+      Begin VB.CommandButton cmdCerrarFraListaEstudios 
+         Caption         =   "&Cerrar"
+         Height          =   495
+         Left            =   960
+         TabIndex        =   65
+         Top             =   2520
+         Width           =   1455
+      End
+      Begin VB.ListBox listEstudios 
+         Height          =   1815
+         Left            =   240
+         TabIndex        =   64
+         Top             =   480
+         Width           =   2775
+      End
+   End
    Begin VB.CommandButton cmdDrive 
       BeginProperty Font 
          Name            =   "MS Sans Serif"
@@ -29,7 +53,7 @@ Begin VB.Form frmTurnos
          Strikethrough   =   0   'False
       EndProperty
       Height          =   495
-      Left            =   18480
+      Left            =   19080
       Picture         =   "frmTurnos.frx":030A
       Style           =   1  'Graphical
       TabIndex        =   62
@@ -40,7 +64,7 @@ Begin VB.Form frmTurnos
    Begin VB.CommandButton cmdProtocolos 
       Enabled         =   0   'False
       Height          =   495
-      Left            =   17400
+      Left            =   18000
       Picture         =   "frmTurnos.frx":13D4
       Style           =   1  'Graphical
       TabIndex        =   57
@@ -50,7 +74,7 @@ Begin VB.Form frmTurnos
    End
    Begin VB.CommandButton cmdCopiar 
       Height          =   495
-      Left            =   16440
+      Left            =   17040
       Picture         =   "frmTurnos.frx":30CE
       Style           =   1  'Graphical
       TabIndex        =   56
@@ -61,7 +85,7 @@ Begin VB.Form frmTurnos
    Begin VB.CommandButton cmdCortar 
       Enabled         =   0   'False
       Height          =   495
-      Left            =   16920
+      Left            =   17520
       Picture         =   "frmTurnos.frx":3458
       Style           =   1  'Graphical
       TabIndex        =   55
@@ -72,7 +96,7 @@ Begin VB.Form frmTurnos
    Begin VB.CommandButton cmdImpTurno 
       Enabled         =   0   'False
       Height          =   495
-      Left            =   15960
+      Left            =   16560
       Picture         =   "frmTurnos.frx":37E2
       Style           =   1  'Graphical
       TabIndex        =   54
@@ -82,7 +106,7 @@ Begin VB.Form frmTurnos
    End
    Begin VB.CommandButton cmdOcultar 
       Height          =   495
-      Left            =   17880
+      Left            =   18480
       TabIndex        =   53
       Top             =   50
       Width           =   495
@@ -97,7 +121,7 @@ Begin VB.Form frmTurnos
       _ExtentX        =   3201
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   104660993
+      Format          =   152043521
       CurrentDate     =   43340
    End
    Begin VB.Frame fraprotocolos 
@@ -847,7 +871,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   104660994
+         StartOfWeek     =   152043522
          CurrentDate     =   40049
       End
    End
@@ -857,8 +881,8 @@ Begin VB.Form frmTurnos
       TabIndex        =   13
       ToolTipText     =   "Doble Click para ver la Historia Clinica del Paciente"
       Top             =   765
-      Width           =   15525
-      _ExtentX        =   27384
+      Width           =   16005
+      _ExtentX        =   28231
       _ExtentY        =   14049
       _Version        =   393216
       Rows            =   25
@@ -1051,6 +1075,8 @@ Dim dFechaCopy As String
 Dim nDoctorCopy As String
 Dim sNameDoctorCopy As String
 Dim linkProtocolos As String
+Dim studiesDict As Variant
+Dim estudiosUrls As Object ' Dictionary para mapear índice -> URL
 
 
 Private Sub cboDesde_LostFocus()
@@ -1066,7 +1092,7 @@ Private Sub cboDoctor_Click()
     If cboDoctor.ListIndex <> -1 Then
         sql = "SELECT M.MOT_DESCRI"
             sql = sql & " FROM  MOTIVO_VENDEDOR MV,VENDEDOR V,MOTIVO M "
-            sql = sql & " WHERE V.VEN_NOMBRE = " & XS(cboDoctor.Text)
+            sql = sql & " WHERE V.VEN_NOMBRE = " & XS(cboDoctor.text)
             sql = sql & " AND V.VEN_CODIGO = MV.VEN_CODIGO"
             sql = sql & " AND MV.MOT_CODIGO = M.MOT_CODIGO"
             Rec1.Open sql, DBConn, adOpenStatic, adLockOptimistic
@@ -1084,7 +1110,7 @@ End Sub
 Private Sub cboDoctor_LostFocus()
     'LimpiarTurno
     LimpiarGrilla
-    BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
+    'BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
 End Sub
 
 Private Sub cbohasta_LostFocus()
@@ -1097,7 +1123,7 @@ Private Sub cbohasta_LostFocus()
     End If
 End Sub
 Private Function ValidarHorarioTurno() As Boolean
-If mebHoraH.Text <= mebHoraD.Text Then
+If mebHoraH.text <= mebHoraD.text Then
     MsgBox "La hora HASTA debe ser mayor que la hora DESDE", vbCritical, TIT_MSGBOX
 Else
 
@@ -1115,8 +1141,8 @@ Dim turdesde As Date
 Dim turhasta As Date
 Dim hasta As Date
 Dim desde As Date
-hasta = mebHoraH.Text
-desde = cboDesde.Text
+hasta = mebHoraH.text
+desde = cboDesde.text
 If grdGrilla.rows < 2 Then
     ValidarRangoTurno = True
 Else
@@ -1146,7 +1172,7 @@ Private Function ValidarTurno() As Boolean
 '        ValidarTurno = False
 '        Exit Function
     End If
-    If txtBuscaCliente.Text = "" Then
+    If txtBuscaCliente.text = "" Then
         MsgBox "No ha ingresado el paciente", vbCritical, TIT_MSGBOX
         txtBuscaCliente.SetFocus
         ValidarTurno = False
@@ -1158,19 +1184,19 @@ Private Function ValidarTurno() As Boolean
 '        ValidarTurno = False
 '        Exit Function
 '    End If
-    If mebHoraD.Text = "" Then
+    If mebHoraD.text = "" Then
         MsgBox "No ha ingresado la hora de comienzo del Turno", vbCritical, TIT_MSGBOX
         mebHoraD.SetFocus
         ValidarTurno = False
         Exit Function
     End If
-    If mebHoraH.Text = "" Then
+    If mebHoraH.text = "" Then
         MsgBox "No ha ingresado la hora de finalización del Turno", vbCritical, TIT_MSGBOX
         mebHoraH.SetFocus
         ValidarTurno = False
         Exit Function
     End If
-    If mebHoraD.Text >= mebHoraH.Text Then
+    If mebHoraD.text >= mebHoraH.text Then
         MsgBox "La hora HASTA debe ser mayor a la hora DESDE", vbCritical, TIT_MSGBOX
         mebHoraD.SetFocus
         ValidarTurno = False
@@ -1183,7 +1209,7 @@ Private Function actualizo_turno_impreso()
     sql = " UPDATE TURNOS SET TUR_IMPRESO = 1 "
     sql = sql & " WHERE "
     sql = sql & " TUR_FECHA = " & XDQ(fechaturno.Value)
-    sql = sql & " AND TUR_HORAD = '" & fechaturno.Value & " " & mebHoraD.Text & "'"
+    sql = sql & " AND TUR_HORAD = '" & fechaturno.Value & " " & mebHoraD.text & "'"
     sql = sql & " AND VEN_CODIGO = " & cboDoctor.ItemData(cboDoctor.ListIndex)
     DBConn.Execute sql
     
@@ -1199,16 +1225,16 @@ Private Function ImprimirTurno()
     Dim objWSH As Object
     
     
-    Cliente = Replace(txtBuscarCliDescri.Text, " ", "_")
+    Cliente = Replace(txtBuscarCliDescri.text, " ", "_")
     Fecha = Replace(MViewFecha.Value, "/", "")
     
-    sHoraD = mebHoraD.Text
+    sHoraD = mebHoraD.text
     sHoraD = Mid(mebHoraD, 1, 1)
     
     If sHoraD = "0" Then
-        sHoraD = Mid(mebHoraD.Text, 2, 4)
+        sHoraD = Mid(mebHoraD.text, 2, 4)
     Else
-        sHoraD = Mid(mebHoraD.Text, 1, 5)
+        sHoraD = Mid(mebHoraD.text, 1, 5)
     End If
     
     mNombreImpresora = Printer.DeviceName
@@ -1234,7 +1260,7 @@ Private Function ImprimirTurno()
 
     Rep.SelectionFormula = " {TURNOS.TUR_FECHA}= DATE (" & Mid(MViewFecha.Value, 7, 4) & "," & Mid(MViewFecha.Value, 4, 2) & "," & Mid(MViewFecha.Value, 1, 2) & ")"
     Rep.SelectionFormula = Rep.SelectionFormula & " AND {TURNOS.VEN_CODIGO}= " & cboDoctor.ItemData(cboDoctor.ListIndex)
-    Rep.SelectionFormula = Rep.SelectionFormula & " AND {TURNOS.CLI_CODIGO}= " & XN(txtCodigo.Text)
+    Rep.SelectionFormula = Rep.SelectionFormula & " AND {TURNOS.CLI_CODIGO}= " & XN(txtCodigo.text)
     'Rep.SelectionFormula = Rep.SelectionFormula & " AND {TURNOS.TUR_DESDE}= TIME (" & Mid(mebHoraD.Text, 1, 2) & "," & Mid(mebHoraD.Text, 4, 2) & ",00)"  '& grdGrilla.RowSel
 
     Rep.WindowState = crptMaximized
@@ -1308,7 +1334,7 @@ End Sub
 
 
 Private Sub cboMotivo_Click()
-    txtMotivo.Text = cboMotivo.Text
+    txtMotivo.text = cboMotivo.text
     
 End Sub
 
@@ -1377,17 +1403,17 @@ Private Sub cmdAgregar_Click()
     'nFilaH = mebHoraH.Text
     i = 0
     
-    sHoraDAux = mebHoraD.Text
+    sHoraDAux = mebHoraD.text
     'For i = 1 To nFilaH - nFilaD
         DBConn.BeginTrans
         
-        sHoraD = mebHoraD.Text
+        sHoraD = mebHoraD.text
         sHoraD = Mid(sHoraD, 1, 1)
         
         If sHoraD = "0" Then
-            sHoraD = Mid(mebHoraD.Text, 2, 4)
+            sHoraD = Mid(mebHoraD.text, 2, 4)
         Else
-            sHoraD = Trim(mebHoraD.Text)
+            sHoraD = Trim(mebHoraD.text)
         End If
         
         'ACA TENGO QUE HACER UN CONTROL POR CLAVES PRIMARIAS
@@ -1410,8 +1436,8 @@ Private Sub cmdAgregar_Click()
             sql = sql & XDQ(fechaturno.Value) & ",'"
             'sql = sql & Left(Trim(grdGrilla.TextMatrix(i + nFilaD, 0)), 5) & "#,#"
             'sql = sql & Right(Trim(grdGrilla.TextMatrix(i + nFilaD, 0)), 5) & "#,"
-            sql = sql & fechaturno.Value & " " & mebHoraD.Text & "','"
-            sql = sql & fechaturno.Value & " " & mebHoraH.Text & "',"
+            sql = sql & fechaturno.Value & " " & mebHoraD.text & "','"
+            sql = sql & fechaturno.Value & " " & mebHoraH.text & "',"
             sql = sql & cboDoctor.ItemData(cboDoctor.ListIndex) & ","
             sql = sql & XN(txtCodigo) & ","
             sql = sql & XS(txtMotivo) & ","
@@ -1419,12 +1445,12 @@ Private Sub cmdAgregar_Click()
             sql = sql & 0 & ","
             'veo si es particular o con  mutual el turno
             If optSI.Value = True Then
-                sql = sql & XS(txtOSocial.Text) & ","
+                sql = sql & XS(txtOSocial.text) & ","
             Else
                 sql = sql & XS("PARTICULAR") & ","
             End If
             'veo si el paciente tiene o no mutuaL
-            If txtOSocial.Text <> "" Then
+            If txtOSocial.text <> "" Then
                 sql = sql & XN("1") & ","
             Else
                 sql = sql & XN("0") & ","
@@ -1438,8 +1464,8 @@ Private Sub cmdAgregar_Click()
             Else
                 sql = sql & 0 & ","
             End If
-            sql = sql & XN(txtimporte.Text) & ","
-            sql = sql & XN(txtOrden.Text) & ","
+            sql = sql & XN(txtimporte.text) & ","
+            sql = sql & XN(txtOrden.text) & ","
             sql = sql & 0 & ")"
             
             
@@ -1451,35 +1477,35 @@ Private Sub cmdAgregar_Click()
             End If
             ' aca hago el update
             sql = "UPDATE TURNOS SET "
-            sql = sql & " CLI_CODIGO = " & XN(txtCodigo.Text) 'CAMBIAR CUANDO CARGUEMOS DNI
-            sql = sql & " ,TUR_HORAD = " & "'" & fechaturno.Value & " " & mebHoraD.Text & "'"
-            sql = sql & " ,TUR_HORAH = " & "'" & fechaturno.Value & " " & mebHoraH.Text & "'"
-            sql = sql & " ,TUR_MOTIVO =" & XS(txtMotivo.Text)
-            sql = sql & " ,TUR_DRSOLICITA =" & XS(txtDrSolicitante.Text)
+            sql = sql & " CLI_CODIGO = " & XN(txtCodigo.text) 'CAMBIAR CUANDO CARGUEMOS DNI
+            sql = sql & " ,TUR_HORAD = " & "'" & fechaturno.Value & " " & mebHoraD.text & "'"
+            sql = sql & " ,TUR_HORAH = " & "'" & fechaturno.Value & " " & mebHoraH.text & "'"
+            sql = sql & " ,TUR_MOTIVO =" & XS(txtMotivo.text)
+            sql = sql & " ,TUR_DRSOLICITA =" & XS(txtDrSolicitante.text)
             sql = sql & " ,TUR_FECALTA =" & XDQ(Date)
             If User <> 99 Then
                 sql = sql & " ,TUR_USER =" & User
             End If
-            sql = sql & " ,TUR_IMPORTE =" & XN(txtimporte.Text)
+            sql = sql & " ,TUR_IMPORTE =" & XN(txtimporte.text)
             'veo si es particular o con  mutual el turno
             If optSI.Value = True Then
-                sql = sql & " ,TUR_OSOCIAL =" & XS(txtOSocial.Text)
+                sql = sql & " ,TUR_OSOCIAL =" & XS(txtOSocial.text)
             Else
                 sql = sql & " ,TUR_OSOCIAL =" & XS("PARTICULAR")
             End If
             'veo si el paciente tiene o no mutuaL
-            If txtOSocial.Text <> "" Then
+            If txtOSocial.text <> "" Then
                 sql = sql & ",TUR_TIENEMUTUAL = " & XN(1)
             Else
                 sql = sql & ",TUR_TIENEMUTUAL = " & XN(0)
             End If
                     
-            sql = sql & ",TUR_ORDEN = " & XN(txtOrden.Text)
+            sql = sql & ",TUR_ORDEN = " & XN(txtOrden.text)
                         
             
             sql = sql & " WHERE "
             sql = sql & " TUR_FECHA = " & XDQ(fechaturno.Value)
-            sql = sql & " AND TUR_HORAD = '" & fechaturno.Value & " " & mebHoraD.Text & "'"
+            sql = sql & " AND TUR_HORAD = '" & fechaturno.Value & " " & mebHoraD.text & "'"
             sql = sql & " AND VEN_CODIGO = " & cboDoctor.ItemData(cboDoctor.ListIndex)
             
         End If
@@ -1490,12 +1516,12 @@ Private Sub cmdAgregar_Click()
              'VER Q HAGO ACA
             'cboDesde.ListIndex = cboDesde.ListIndex + 1
         'Next
-        mebHoraD.Text = sHoraDAux
+        mebHoraD.text = sHoraDAux
         ' busco fecha nacimiento y calculo la edad
         Fecha = fechaturno.Value
         sql = "SELECT CLI_CUMPLE"
         sql = sql & " FROM  CLIENTE "
-        sql = sql & " WHERE CLI_CODIGO = " & XN(txtCodigo.Text)
+        sql = sql & " WHERE CLI_CODIGO = " & XN(txtCodigo.text)
         rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
         If Not (IsNull(rec!CLI_CUMPLE)) Then
                 If rec.EOF = False Then
@@ -1510,7 +1536,7 @@ Private Sub cmdAgregar_Click()
         rec.Close
         sql = "UPDATE CLIENTE SET"
         sql = sql & " CLI_EDAD=" & edad
-        sql = sql & " WHERE CLI_CODIGO=" & txtCodigo.Text
+        sql = sql & " WHERE CLI_CODIGO=" & txtCodigo.text
         DBConn.Execute sql
         
         DBConn.CommitTrans
@@ -1562,20 +1588,20 @@ Private Sub CmdBuscar_Click()
 End Sub
 Private Sub LimpiarTurno()
     fraprotocolos.Visible = False
-    txtBuscaCliente.Text = ""
+    txtBuscaCliente.text = ""
     txtBuscaCliente.ToolTipText = ""
-    txtCodigo.Text = ""
-    txtTelefono.Text = ""
-    txtcelular.Text = ""
-    txtOSocial.Text = ""
-    txtBuscarCliDescri.Text = ""
-    txtMotivo.Text = ""
-    txtDrSolicitante.Text = ""
+    txtCodigo.text = ""
+    txtTelefono.text = ""
+    txtcelular.text = ""
+    txtOSocial.text = ""
+    txtBuscarCliDescri.text = ""
+    txtMotivo.text = ""
+    txtDrSolicitante.text = ""
     'cboDesde.ListIndex = -1
     'cbohasta.ListIndex = -1
-    mebHoraD.Text = "__:__"
-    mebHoraH.Text = "__:__"
-    txtimporte.Text = "0,00"
+    mebHoraD.text = "__:__"
+    mebHoraH.text = "__:__"
+    txtimporte.text = "0,00"
     txtBuscaCliente.SetFocus
     cmdImpTurno.Enabled = False
     cmdCopiar.Enabled = True
@@ -1588,7 +1614,11 @@ Private Sub LimpiarTurno()
     Else
         cmdAgregar.Enabled = False
     End If
-    txtOrden.Text = ""
+    txtOrden.text = ""
+End Sub
+
+Private Sub cmdCerrarFraListaEstudios_Click()
+    fraListaEstudios.Visible = False
 End Sub
 
 Private Sub cmdCopiar_Click()
@@ -1603,17 +1633,17 @@ Private Sub cmdCopiar_Click()
     optSI.Enabled = True
     If grdGrilla.rows > 1 Then
        If grdGrilla.TextMatrix(grdGrilla.RowSel, 1) <> "" Then
-           txtBuscaCliente.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 11)
+           txtBuscaCliente.text = grdGrilla.TextMatrix(grdGrilla.RowSel, 11)
            'txtBuscaCliente_LostFocus
-           txtCodigo.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 9)
-           txtBuscarCliDescri.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 1)
-           txtTelefono.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 3)
-           txtcelular.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 4)
-           txtOSocial.Text = BuscarOSocial(txtCodigo.Text) 'grdGrilla.TextMatrix(grdGrilla.RowSel, 5)
+           txtCodigo.text = grdGrilla.TextMatrix(grdGrilla.RowSel, 9)
+           txtBuscarCliDescri.text = grdGrilla.TextMatrix(grdGrilla.RowSel, 1)
+           txtTelefono.text = grdGrilla.TextMatrix(grdGrilla.RowSel, 3)
+           txtcelular.text = grdGrilla.TextMatrix(grdGrilla.RowSel, 4)
+           txtOSocial.text = BuscarOSocial(txtCodigo.text) 'grdGrilla.TextMatrix(grdGrilla.RowSel, 5)
            
            'verifico si el paciente tiene mutual
            ' If Chk0(grdGrilla.TextMatrix(grdGrilla.RowSel, 13)) <> 1 Then 'si no tiene mutual el paciente
-          If txtOSocial.Text = "" Then
+          If txtOSocial.text = "" Then
                optSI.Enabled = False
                optNO.Value = True
             Else
@@ -1630,44 +1660,44 @@ Private Sub cmdCopiar_Click()
                 optSI.Value = True
            End If
           
-           txtMotivo.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 6)
-           txtDrSolicitante.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 7)
+           txtMotivo.text = grdGrilla.TextMatrix(grdGrilla.RowSel, 6)
+           txtDrSolicitante.text = grdGrilla.TextMatrix(grdGrilla.RowSel, 7)
            BuscaDescriProx Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5), cboDesde
            BuscaDescriProx Right(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5), cbohasta
            
-           mebHoraD.Text = Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5)
-           mebHoraH.Text = Right(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5)
+           mebHoraD.text = Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5)
+           mebHoraH.text = Right(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5)
            
            'If Chk0(grdGrilla.TextMatrix(grdGrilla.RowSel, 13)) = 0 Then
            '    optSI.Enabled = False
            'End If
 
            If User = 1 Then
-               txtimporte.Text = Valido_Importe(grdGrilla.TextMatrix(grdGrilla.RowSel, 14))
+               txtimporte.text = Valido_Importe(grdGrilla.TextMatrix(grdGrilla.RowSel, 14))
            Else
-               txtimporte.Text = "0,00"
+               txtimporte.text = "0,00"
            End If
-           txtOrden.Text = grdGrilla.TextMatrix(grdGrilla.RowSel, 15)
+           txtOrden.text = grdGrilla.TextMatrix(grdGrilla.RowSel, 15)
            
            cmdImpTurno.Enabled = True
            cmdProtocolos.Enabled = True
            cmdCortar.Enabled = True
            cmdCopiar.Enabled = True
        Else
-           If txtBuscaCliente.Text <> "" Then
+           If txtBuscaCliente.text <> "" Then
                MViewFecha.Value = Date
-               txtBuscaCliente.Text = ""
-               txtCodigo.Text = ""
-               txtBuscarCliDescri.Text = ""
-               txtTelefono.Text = ""
-               txtOSocial.Text = ""
-               txtMotivo.Text = ""
+               txtBuscaCliente.text = ""
+               txtCodigo.text = ""
+               txtBuscarCliDescri.text = ""
+               txtTelefono.text = ""
+               txtOSocial.text = ""
+               txtMotivo.text = ""
                cboDesde.ListIndex = -1
                cbohasta.ListIndex = -1
-               mebHoraD.Text = ""
-               mebHoraH.Text = ""
+               mebHoraD.text = ""
+               mebHoraH.text = ""
                
-               txtimporte.Text = "0,00"
+               txtimporte.text = "0,00"
            End If
        End If
     End If
@@ -1675,13 +1705,13 @@ Private Sub cmdCopiar_Click()
 End Sub
 
 Private Sub cmdCortar_Click()
-    If MsgBox("Esta a punto de Cortar los " & lbldiaTurno.Caption & " " & Chr(13) & " del Doctor: " & cboDoctor.Text & _
+    If MsgBox("Esta a punto de Cortar los " & lbldiaTurno.Caption & " " & Chr(13) & " del Doctor: " & cboDoctor.text & _
     " Â¿Confirma Cortar los Turnos?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
     
     sAction = "CORTAR"
     dFechaCopy = MViewFecha.Value
     nDoctorCopy = cboDoctor.ItemData(cboDoctor.ListIndex)
-    sNameDoctorCopy = cboDoctor.Text
+    sNameDoctorCopy = cboDoctor.text
 End Sub
 
 Private Sub cmdDrive_Click()
@@ -1710,7 +1740,7 @@ Private Sub cmdespera_Click()
 End Sub
 
 Private Sub cmdImpTurno_Click()
-    If txtBuscaCliente.Text <> "" Then
+    If txtBuscaCliente.text <> "" Then
         ImprimirTurno
     Else
         MsgBox "Seleccione un turno a imprimir", vbInformation, TIT_MSGBOX
@@ -1832,7 +1862,7 @@ Private Sub cmdNuevoPaciente_Click()
     'If txtCodigo.Text = "" Then
         vMode = 1
         'gPaciente = "" 'txtCodigo.Text
-        vDNI = txtBuscaCliente.Text
+        vDNI = txtBuscaCliente.text
         ABMClientes.Show vbModal
         txtBuscaCliente.SetFocus
     'End If
@@ -1876,7 +1906,7 @@ Private Sub cmdQuitar_Click()
     'Controlar que se pueda eliminar el turno
     'Borrar de la Grilla
     'Borrar de la BD
-    If txtCodigo.Text <> "" Then
+    If txtCodigo.text <> "" Then
         If grdGrilla.TextMatrix(grdGrilla.RowSel, 1) <> "" Then
             If MsgBox("¿Confirma Eiminar el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
                 
@@ -1964,7 +1994,7 @@ Private Sub cmdReport_Click()
             sql = sql & i & ","
             sql = sql & XS(grdGrilla.TextMatrix(i, 0)) & ","
             sql = sql & XDQ(MViewFecha.Value) & ","
-            sql = sql & XS(cboDoctor.Text) & ","
+            sql = sql & XS(cboDoctor.text) & ","
             sql = sql & XS(grdGrilla.TextMatrix(i, 1)) & ","
             sql = sql & XS(grdGrilla.TextMatrix(i, 2)) & ","
             sql = sql & XS(grdGrilla.TextMatrix(i, 3)) & ","
@@ -2016,7 +2046,7 @@ End Sub
 Private Sub cmdSalirP_Click()
     fraprotocolos.Visible = False
     limpiar_protocolos
-    txtfiltrop.Text = ""
+    txtfiltrop.text = ""
 End Sub
 Private Function limpiar_protocolos()
     Dim i, j As Integer
@@ -2049,6 +2079,214 @@ Private Sub Form_KeyPress(KeyAscii As Integer)
     End If
 End Sub
 
+Public Sub GetStudiesLoadedByDate()
+
+    Dim request As Object
+    Dim responseText As String
+    Dim linkDrive As String
+    Dim jsonBodyToSend As String
+    Dim endpoint As String
+    Dim jsonBody As String
+    
+    endpoint = "/api/v1/studies?date=" & Format(MViewFecha.Value, "yyyy-mm-dd")
+    
+    Set request = CreateObject("MSXML2.ServerXMLHTTP.6.0")
+    
+    request.Open "GET", DIGOR_CORE_URL & endpoint, False    'populates object fields
+    request.setRequestHeader "Authorization", "Bearer " & DIGOR_PUBLIC_API_KEY
+    request.setRequestHeader "Content-Type", "application/json"
+
+    request.send
+    responseText = request.responseText
+    
+    Set request = Nothing
+    
+    ActualizarInfoEstudiosTurnos responseText
+
+End Sub
+Private Function parseStudiesJSON(JsonString As String) As Variant
+    Dim jsonObject As Object
+    Dim dataArray As Object
+    Dim i As Integer
+    Dim dni As String
+    Dim name As String
+    Dim link As String
+    Dim studiesArray As Variant
+    Dim fullName As String
+    Dim nameParts() As String
+    
+    ' Parseamos el JSON
+    Set jsonObject = JsonConverter.ParseJson(JsonString)
+    
+    ' Verificamos que el campo "studies" exista
+    If Not jsonObject.Exists("studies") Then
+        MsgBox "Error: No se encontró el campo 'studies' en la respuesta JSON.", vbCritical
+        Exit Function
+    End If
+    
+    ' Convertimos en colección
+    Set dataArray = jsonObject("studies")
+    
+    ' Verificar si realmente es una colección indexada
+    If Not IsArray(dataArray) And Not TypeName(dataArray) = "Collection" Then
+        MsgBox "Error: El campo 'studies' no es una colección indexada.", vbCritical
+        Exit Function
+    End If
+
+    ' Verificar que el array no esté vacío
+    If dataArray.Count = 0 Then
+        MsgBox "Advertencia: No hay estudios en la respuesta JSON.", vbExclamation
+        Exit Function
+    End If
+
+    ' Redimensionamos el array
+    ReDim studiesArray(dataArray.Count - 1, 2)
+
+    ' Llenamos el array
+    For i = 1 To dataArray.Count ' OJO: Si la colección empieza en 1, ajustamos el índice
+        If Not dataArray(i).Exists("patientDNI") Then
+            MsgBox "Error: El objeto en la posición " & i & " no tiene 'patientDNI'.", vbCritical
+            Exit Function
+        End If
+        
+        dni = dataArray(i)("patientDNI")
+        
+        fullName = dataArray(i)("name")
+        nameParts = Split(fullName, " ") ' Divide la cadena por espacios
+        name = nameParts(0) ' solo el prefijo, sin la fecha
+        
+        link = dataArray(i)("link")
+        
+        studiesArray(i - 1, 0) = dni
+        studiesArray(i - 1, 1) = name
+        studiesArray(i - 1, 2) = link
+    Next i
+    
+    parseStudiesJSON = studiesArray
+End Function
+Private Sub buildStudiesDict(studiesArray As Variant)
+    Dim i As Integer
+    Dim dni As String
+    Dim studyInfo As String
+    Dim studyName As String
+    Dim studyLink As String
+    
+    ' Creamos un nuevo Dictionary
+    Set studiesDict = CreateObject("Scripting.Dictionary")
+    
+    ' Iteramos sobre el JSON
+    For i = LBound(studiesArray) To UBound(studiesArray)
+        dni = studiesArray(i, 0)
+        studyName = studiesArray(i, 1)
+        studyLink = studiesArray(i, 2)
+    
+        ' Si el DNI ya existe, agregamos el estudio a su colección
+        If studiesDict.Exists(dni) Then
+            studiesDict(dni).Add studiesDict(dni).Count, Array(studyName, studyLink)
+        Else
+            ' Si no existe, creamos una nueva Collection y la agregamos al diccionario
+            Dim newCollection As Object
+            Set newCollection = CreateObject("Scripting.Dictionary") ' Esto estaba mal antes
+    
+            newCollection.Add newCollection.Count, Array(studyName, studyLink)
+            studiesDict.Add dni, newCollection
+        End If
+    Next i
+
+End Sub
+
+
+Private Sub ActualizarInfoEstudiosTurnos(JsonString As String)
+    
+    ' Simulación de la respuesta del servidor con estudios
+    Dim studiesArray As Variant
+    Dim jsonObject As Object
+    Dim success As String
+    
+    'Validamos respuesta exitosa del servidor
+    Set jsonObject = JsonConverter.ParseJson(JsonString)
+    
+    success = jsonObject("success")
+    
+    If success <> "Verdadero" Then
+        Exit Sub
+    End If
+    
+    studiesArray = parseStudiesJSON(JsonString)
+    
+    'Almacenar estudios en dicc por DNI
+    buildStudiesDict studiesArray
+    
+    ' Ahora recorremos la grilla y marcamos los turnos que tienen estudios
+    Dim j As Integer
+    For j = 1 To grdGrilla.rows - 1
+        Dim turnoDNI As String
+        turnoDNI = grdGrilla.TextMatrix(j, 11)
+        If studiesDict.Exists(turnoDNI) Then
+            grdGrilla.TextMatrix(j, 18) = "Ver"
+        Else
+            grdGrilla.TextMatrix(j, 18) = "No"
+        End If
+    Next j
+
+End Sub
+' Evento de la grilla cuando el usuario hace clic en una celda
+Private Sub grdGrilla_Click()
+    Dim fila As Integer
+    Dim dni As String
+    Dim estudios As Variant
+    Dim estudio As Variant
+    Dim i As Integer
+
+    fila = grdGrilla.row ' Obtiene la fila seleccionada
+
+    ' Verifica si hizo clic en la columna de Estudios
+    If grdGrilla.Col = 18 Then
+        If grdGrilla.text = "Ver" Then
+            dni = grdGrilla.TextMatrix(fila, 11)
+            
+            If studiesDict.Exists(dni) Then
+                Set estudios = studiesDict(dni) ' Ahora estudios es un Dictionary
+            
+                ' Limpiamos la lista antes de agregar nuevos elementos
+                listEstudios.Clear
+                
+                Set estudiosUrls = CreateObject("Scripting.Dictionary")
+            
+                Dim key As Variant
+                For Each key In estudios.keys
+                    listEstudios.AddItem estudios(key)(0) ' Nombre del estudio
+                    estudiosUrls(listEstudios.NewIndex) = estudios(key)(1) ' Guardar la URL con el índice
+                Next key
+            
+                ' Mostramos el frame con la lista de estudios
+                fraListaEstudios.Visible = True
+            End If
+
+        End If
+    End If
+End Sub
+
+' Evento cuando se hace clic en un estudio en la lista
+Private Sub listEstudios_Click()
+    irAEstudio
+End Sub
+Private Sub irAEstudio()
+    Dim link As String
+    
+    If listEstudios.ListIndex <> -1 Then
+        ' Obtiene el link del estudio seleccionado
+        link = estudiosUrls(listEstudios.ListIndex)
+        If link <> "" Then
+            ' Abre la URL en el navegador
+            Shell "explorer " & link, vbNormalFocus
+        End If
+    End If
+End Sub
+Private Sub bcmdCerrarFraListaEstudios_Click()
+    fraListaEstudios.Visible = False
+End Sub
+
 Private Sub Form_Load()
     Set rec = New ADODB.Recordset
     Set Rec1 = New ADODB.Recordset
@@ -2064,7 +2302,7 @@ Private Sub Form_Load()
     configurogrilla
     LlenarComboDoctor
     LlenarComboHoras
-    BuscarTurnos Date, cboDoctor.ItemData(cboDoctor.ListIndex)
+    'BuscarTurnos Date, cboDoctor.ItemData(cboDoctor.ListIndex)
     ActivoGrid = 1
     If User = 1 Then
         cmdAgregar.Enabled = True
@@ -2082,6 +2320,8 @@ Private Sub Form_Load()
     End If
     
     cargo_protocolos
+    
+    fraListaEstudios.Visible = False
 End Sub
 Private Sub LimpiarGrilla()
     grdGrilla.rows = 1
@@ -2102,8 +2342,8 @@ End Sub
 Private Function cargo_protocolos()
     
     sql = "SELECT * FROM TIPO_IMAGEN"
-    If txtfiltrop.Text <> "" Then
-        sql = sql & " WHERE TIP_NOMBRE LIKE '%" & txtfiltrop.Text & "%'"
+    If txtfiltrop.text <> "" Then
+        sql = sql & " WHERE TIP_NOMBRE LIKE '%" & txtfiltrop.text & "%'"
     End If
     rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
     If rec.EOF = False Then
@@ -2224,14 +2464,15 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
             rec.MoveNext
         Loop
     End If
-    txtTotal.Text = total
-    txtTotal.Text = Valido_Importe(txtTotal.Text)
+    txtTotal.text = total
+    txtTotal.text = Valido_Importe(txtTotal.text)
     
     rec.Close
     grdGrilla.Col = 10
     If grdGrilla.row > 1 Then
         grdGrilla.row = 1
     End If
+    GetStudiesLoadedByDate
     'txtEdit.Visible = True
 End Sub
 Private Function cambiocolor(asistio As Integer)
@@ -2344,10 +2585,10 @@ Private Function configurogrilla()
     Dim minutos As Integer
     Dim minutos_sig As Integer
     Dim cont As Integer
-    grdGrilla.FormatString = "^Horas|<Paciente|<Edad|<Telefono|<Celular|<Obra Social|<Motivo|Dr Solicitante|>Doctor|>Cod Pac|>Asistio|DNI|TUR_DESDE|TieneMutual|Importe|Orden|Impreso|Drive"
+    grdGrilla.FormatString = "^Horas|<Paciente|<Edad|<Telefono|<Celular|<Obra Social|<Motivo|Dr Solicitante|>Doctor|>Cod Pac|>Asistio|DNI|TUR_DESDE|TieneMutual|Importe|Orden|Impreso|Drive|Estudios"
     grdGrilla.ColWidth(0) = 1400 'HORAS
     grdGrilla.ColWidth(1) = 2500 'PACIENTE
-    grdGrilla.ColWidth(2) = 700 'EDAD
+    grdGrilla.ColWidth(2) = 500 'EDAD
     grdGrilla.ColWidth(3) = 2200 'CELULAR/TELEFONO
     grdGrilla.ColWidth(4) = 0 'CELULAR
     grdGrilla.ColWidth(5) = 1800 'O SOCIAL
@@ -2362,7 +2603,7 @@ Private Function configurogrilla()
     'If User = 1 Then 'ESTA CONFIGURACION LA TOMA DEL INI
     If mNomUser = "DIGOR" Then 'ESTA CONFIGURACION LA TOMA DEL USUARIO LOGUEADO
         grdGrilla.ColWidth(14) = 1200 'Importe
-        grdGrilla.ColWidth(15) = 650 'ORDEN
+        grdGrilla.ColWidth(15) = 600 'ORDEN
         grdGrilla.ColWidth(16) = 0 'IMPRESO
     Else
         'oculto la columna de importe para los doctores
@@ -2371,8 +2612,9 @@ Private Function configurogrilla()
         grdGrilla.ColWidth(16) = 0 'IMPRESO
     End If
     grdGrilla.ColWidth(17) = 600 'TIENE LINK DRIVE
+    grdGrilla.ColWidth(18) = 900 'TIENE ESTUDIOS CARGADOS
     
-    grdGrilla.Cols = 18
+    grdGrilla.Cols = 19
     grdGrilla.BorderStyle = flexBorderNone
     grdGrilla.row = 0
     For i = 0 To grdGrilla.Cols - 1
@@ -2504,21 +2746,25 @@ Private Sub grdProtocolos_KeyDown(KeyCode As Integer, Shift As Integer)
     End If
 End Sub
 
+Private Sub listEstudios_DblClick()
+    irAEstudio
+End Sub
+
 Private Sub mebHoraD_LostFocus()
-    If Mid(mebHoraD.Text, 1, 2) = "__" And Mid(mebHoraD.Text, 4, 2) <> "__" Then
-        mebHoraD.Text = "00:" & Mid(mebHoraD.Text, 4, 2)
+    If Mid(mebHoraD.text, 1, 2) = "__" And Mid(mebHoraD.text, 4, 2) <> "__" Then
+        mebHoraD.text = "00:" & Mid(mebHoraD.text, 4, 2)
     End If
-    If Mid(mebHoraD.Text, 4, 2) = "__" And Mid(mebHoraD.Text, 1, 2) <> "__" Then
-        mebHoraD.Text = Mid(mebHoraD.Text, 1, 2) & ":00"
+    If Mid(mebHoraD.text, 4, 2) = "__" And Mid(mebHoraD.text, 1, 2) <> "__" Then
+        mebHoraD.text = Mid(mebHoraD.text, 1, 2) & ":00"
     End If
 End Sub
 
 Private Sub mebHoraH_LostFocus()
-    If Mid(mebHoraH.Text, 1, 2) = "__" And Mid(mebHoraH.Text, 4, 2) <> "__" Then
-        mebHoraH.Text = "00:" & Mid(mebHoraH.Text, 4, 2)
+    If Mid(mebHoraH.text, 1, 2) = "__" And Mid(mebHoraH.text, 4, 2) <> "__" Then
+        mebHoraH.text = "00:" & Mid(mebHoraH.text, 4, 2)
     End If
-    If Mid(mebHoraH.Text, 4, 2) = "__" And Mid(mebHoraH.Text, 1, 2) <> "__" Then
-        mebHoraH.Text = Mid(mebHoraH.Text, 1, 2) & ":00"
+    If Mid(mebHoraH.text, 4, 2) = "__" And Mid(mebHoraH.text, 1, 2) <> "__" Then
+        mebHoraH.text = Mid(mebHoraH.text, 1, 2) & ":00"
     End If
 End Sub
 
@@ -2530,6 +2776,7 @@ Private Sub MViewFecha_DateClick(ByVal DateClicked As Date)
     LimpiarGrilla
     'LimpiarTurno
     BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
+
 End Sub
 Private Sub configurodia(Fecha As Date)
     Dim DIA As Integer
@@ -2567,13 +2814,13 @@ Private Sub optSI_Click()
 End Sub
 
 Private Sub txtBuscaCliente_Change()
-    If txtBuscaCliente.Text = "" Then
-        txtBuscarCliDescri.Text = ""
-        txtCodigo.Text = ""
-        txtTelefono.Text = ""
-        txtOSocial.Text = ""
+    If txtBuscaCliente.text = "" Then
+        txtBuscarCliDescri.text = ""
+        txtCodigo.text = ""
+        txtTelefono.text = ""
+        txtOSocial.text = ""
     End If
-    If Len(Trim(txtBuscaCliente.Text)) < 7 Then
+    If Len(Trim(txtBuscaCliente.text)) < 7 Then
         txtBuscaCliente.ToolTipText = "Numero de Paciente"
     Else
         txtBuscaCliente.ToolTipText = "DNI"
@@ -2595,13 +2842,13 @@ Private Sub txtBuscaCliente_KeyPress(KeyAscii As Integer)
     KeyAscii = CarNumeroEntero(KeyAscii)
 End Sub
 Private Sub txtBuscaCliente_LostFocus()
-    If txtBuscaCliente.Text <> "" Then
+    If txtBuscaCliente.text <> "" Then
         Set rec = New ADODB.Recordset
         sql = "SELECT CLI_CODIGO, CLI_RAZSOC,CLI_NRODOC,CLI_TELEFONO,OS_NUMERO,CLI_CELULAR"
         sql = sql & " FROM CLIENTE"
         sql = sql & " WHERE "
-        If txtBuscaCliente.Text <> "" Then
-            If Len(Trim(txtBuscaCliente.Text)) < 7 Then
+        If txtBuscaCliente.text <> "" Then
+            If Len(Trim(txtBuscaCliente.text)) < 7 Then
                 sql = sql & " CLI_CODIGO=" & XN(txtBuscaCliente)
             Else
                 sql = sql & " CLI_NRODOC=" & XN(txtBuscaCliente)
@@ -2613,11 +2860,11 @@ Private Sub txtBuscaCliente_LostFocus()
         rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
         If rec.EOF = False Then
             'txtBuscaCliente.Text = rec!CLI_NRODOC
-            txtBuscarCliDescri.Text = rec!CLI_RAZSOC
-            txtCodigo.Text = rec!CLI_CODIGO
-            txtTelefono.Text = ChkNull(rec!CLI_TELEFONO)
-            txtcelular.Text = ChkNull(rec!CLI_CELULAR)
-            txtOSocial.Text = BuscarOSocial(rec!CLI_CODIGO)
+            txtBuscarCliDescri.text = rec!CLI_RAZSOC
+            txtCodigo.text = rec!CLI_CODIGO
+            txtTelefono.text = ChkNull(rec!CLI_TELEFONO)
+            txtcelular.text = ChkNull(rec!CLI_CELULAR)
+            txtOSocial.text = BuscarOSocial(rec!CLI_CODIGO)
             If IsNull(rec!OS_NUMERO) Then
                 optSI.Enabled = False
                 optNO.Value = True
@@ -2636,12 +2883,12 @@ Private Sub txtBuscaCliente_LostFocus()
 End Sub
 
 Private Sub txtBuscarCliDescri_Change()
-    If txtBuscarCliDescri.Text = "" Then
-        txtBuscaCliente.Text = ""
-        txtCodigo.Text = ""
-        txtTelefono.Text = ""
-        txtcelular.Text = ""
-        txtOSocial.Text = ""
+    If txtBuscarCliDescri.text = "" Then
+        txtBuscaCliente.text = ""
+        txtCodigo.text = ""
+        txtTelefono.text = ""
+        txtcelular.text = ""
+        txtOSocial.text = ""
     End If
         
 End Sub
@@ -2662,13 +2909,13 @@ Private Sub txtBuscarCliDescri_KeyPress(KeyAscii As Integer)
 End Sub
 
 Private Sub txtBuscarCliDescri_LostFocus()
-    If txtBuscaCliente.Text = "" And txtBuscarCliDescri.Text <> "" Then
+    If txtBuscaCliente.text = "" And txtBuscarCliDescri.text <> "" Then
         Set rec = New ADODB.Recordset
         sql = "SELECT CLI_CODIGO, CLI_RAZSOC,CLI_NRODOC,CLI_TELEFONO, CLI_CELULAR"
         sql = sql & " FROM CLIENTE"
         sql = sql & " WHERE "
-        If txtBuscaCliente.Text <> "" Then
-            If Len(Trim(txtBuscaCliente.Text)) < 7 Then
+        If txtBuscaCliente.text <> "" Then
+            If Len(Trim(txtBuscaCliente.text)) < 7 Then
                 sql = sql & " CLI_CODIGO=" & XN(txtBuscaCliente)
             Else
                 sql = sql & " CLI_NRODOC=" & XN(txtBuscaCliente)
@@ -2680,21 +2927,21 @@ Private Sub txtBuscarCliDescri_LostFocus()
         rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
         If rec.EOF = False Then
             If rec.RecordCount > 1 Then
-                BuscarClientes "txtBuscaCliente", "CADENA", Trim(txtBuscarCliDescri.Text)
+                BuscarClientes "txtBuscaCliente", "CADENA", Trim(txtBuscarCliDescri.text)
                 If rec.State = 1 Then rec.Close
                 txtBuscarCliDescri.SetFocus
             Else
                 'txtBuscaCliente.Text = rec!CLI_DNI
-                If Len(Trim(txtBuscaCliente.Text)) < 7 Then
-                    txtBuscaCliente.Text = rec!CLI_CODIGO
+                If Len(Trim(txtBuscaCliente.text)) < 7 Then
+                    txtBuscaCliente.text = rec!CLI_CODIGO
                 Else
-                    txtBuscaCliente.Text = rec!CLI_NRODOC
+                    txtBuscaCliente.text = rec!CLI_NRODOC
                 End If
                 'txtBuscaCliente.Text = rec!CLI_NRODOC
-                txtBuscarCliDescri.Text = rec!CLI_RAZSOC
-                txtCodigo.Text = rec!CLI_CODIGO
-                txtTelefono.Text = ChkNull(rec!CLI_TELEFONO)
-                txtcelular.Text = ChkNull(rec!CLI_CELULAR)
+                txtBuscarCliDescri.text = rec!CLI_RAZSOC
+                txtCodigo.text = rec!CLI_CODIGO
+                txtTelefono.text = ChkNull(rec!CLI_TELEFONO)
+                txtcelular.text = ChkNull(rec!CLI_CELULAR)
             End If
             ActivoGrid = 0
         Else
@@ -2705,7 +2952,7 @@ Private Sub txtBuscarCliDescri_LostFocus()
     End If
 End Sub
 Public Sub BuscarClientes(Txt As String, mQuien As String, Optional mCadena As String)
-    Dim csql As String
+    Dim cSQL As String
     Dim hSQL As String
     Dim B As CBusqueda
     Dim i, posicion As Integer
@@ -2713,14 +2960,14 @@ Public Sub BuscarClientes(Txt As String, mQuien As String, Optional mCadena As S
     
     Set B = New CBusqueda
     With B
-        csql = "SELECT CLI_RAZSOC, CLI_CODIGO,CLI_NRODOC"
-        csql = csql & " FROM CLIENTE C"
+        cSQL = "SELECT CLI_RAZSOC, CLI_CODIGO,CLI_NRODOC"
+        cSQL = cSQL & " FROM CLIENTE C"
         If mQuien = "CADENA" Then
-            csql = csql & " WHERE CLI_RAZSOC LIKE '" & Trim(mCadena) & "%'"
+            cSQL = cSQL & " WHERE CLI_RAZSOC LIKE '" & Trim(mCadena) & "%'"
         End If
         
         hSQL = "Nombre, CÃ³digo, DNI"
-        .sql = csql
+        .sql = cSQL
         .Headers = hSQL
         .Field = "CLI_RAZSOC"
         campo1 = .Field
@@ -2742,11 +2989,11 @@ Public Sub BuscarClientes(Txt As String, mQuien As String, Optional mCadena As S
                 'txtCodCli_LostFocus
             Else
                 If .ResultFields(3) = "" Then
-                    txtBuscaCliente.Text = .ResultFields(2)
-                    txtCodigo.Text = .ResultFields(3)
+                    txtBuscaCliente.text = .ResultFields(2)
+                    txtCodigo.text = .ResultFields(3)
                 Else
-                    txtBuscaCliente.Text = .ResultFields(3)
-                    txtCodigo.Text = .ResultFields(3)
+                    txtBuscaCliente.text = .ResultFields(3)
+                    txtCodigo.text = .ResultFields(3)
                 End If
                 txtBuscaCliente_LostFocus
             End If
@@ -2779,8 +3026,8 @@ Private Sub txtimporte_KeyPress(KeyAscii As Integer)
 End Sub
 
 Private Sub txtimporte_LostFocus()
-    If txtimporte.Text <> "" Then
-        txtimporte.Text = Valido_Importe(txtimporte)
+    If txtimporte.text <> "" Then
+        txtimporte.text = Valido_Importe(txtimporte)
     End If
 End Sub
 

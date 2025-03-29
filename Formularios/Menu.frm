@@ -29,60 +29,50 @@ Begin VB.MDIForm Menu
       BeginProperty Buttons {0713E452-850A-101B-AFC0-4210102A8DA7} 
          NumButtons      =   10
          BeginProperty Button1 {0713F354-850A-101B-AFC0-4210102A8DA7} 
-            Key             =   ""
             Object.Tag             =   ""
             Style           =   3
             MixedState      =   -1  'True
          EndProperty
          BeginProperty Button2 {0713F354-850A-101B-AFC0-4210102A8DA7} 
-            Key             =   ""
             Object.ToolTipText     =   "Salir"
             Object.Tag             =   ""
             ImageIndex      =   1
             Object.Width           =   1e-4
          EndProperty
          BeginProperty Button3 {0713F354-850A-101B-AFC0-4210102A8DA7} 
-            Key             =   ""
             Object.ToolTipText     =   "Turnos"
             Object.Tag             =   ""
             ImageIndex      =   2
          EndProperty
          BeginProperty Button4 {0713F354-850A-101B-AFC0-4210102A8DA7} 
-            Key             =   ""
             Object.ToolTipText     =   "Pacientes"
             Object.Tag             =   ""
             ImageIndex      =   3
          EndProperty
          BeginProperty Button5 {0713F354-850A-101B-AFC0-4210102A8DA7} 
-            Key             =   ""
             Object.Tag             =   ""
             Style           =   3
          EndProperty
          BeginProperty Button6 {0713F354-850A-101B-AFC0-4210102A8DA7} 
-            Key             =   ""
             Object.ToolTipText     =   "Tratamientos"
             Object.Tag             =   ""
             ImageIndex      =   4
          EndProperty
          BeginProperty Button7 {0713F354-850A-101B-AFC0-4210102A8DA7} 
-            Key             =   ""
             Object.ToolTipText     =   "Medicamentos"
             Object.Tag             =   ""
             ImageIndex      =   5
          EndProperty
          BeginProperty Button8 {0713F354-850A-101B-AFC0-4210102A8DA7} 
-            Key             =   ""
             Object.Tag             =   ""
             Style           =   3
          EndProperty
          BeginProperty Button9 {0713F354-850A-101B-AFC0-4210102A8DA7} 
-            Key             =   ""
             Object.ToolTipText     =   "Cumpleaños"
             Object.Tag             =   ""
             ImageIndex      =   6
          EndProperty
          BeginProperty Button10 {0713F354-850A-101B-AFC0-4210102A8DA7} 
-            Key             =   ""
             Object.ToolTipText     =   "Control"
             Object.Tag             =   ""
             ImageIndex      =   7
@@ -204,26 +194,20 @@ Begin VB.MDIForm Menu
             Bevel           =   2
             Object.Width           =   6526
             MinWidth        =   6526
-            TextSave        =   ""
-            Key             =   ""
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel2 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
             Object.Width           =   7673
             MinWidth        =   7673
-            TextSave        =   ""
-            Key             =   ""
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel3 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
             Style           =   2
             Alignment       =   1
             Bevel           =   2
-            Enabled         =   0   'False
             Object.Width           =   1587
             MinWidth        =   1587
             TextSave        =   "NÚM"
-            Key             =   ""
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel4 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
@@ -234,7 +218,6 @@ Begin VB.MDIForm Menu
             Object.Width           =   1587
             MinWidth        =   1587
             TextSave        =   "MAYÚS"
-            Key             =   ""
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel5 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
@@ -243,8 +226,7 @@ Begin VB.MDIForm Menu
             Bevel           =   2
             Object.Width           =   1587
             MinWidth        =   1587
-            TextSave        =   "14:07"
-            Key             =   ""
+            TextSave        =   "12:21"
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel6 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
@@ -253,8 +235,7 @@ Begin VB.MDIForm Menu
             Bevel           =   2
             Object.Width           =   1940
             MinWidth        =   1940
-            TextSave        =   "15/12/2024"
-            Key             =   ""
+            TextSave        =   "18/03/2025"
             Object.Tag             =   ""
          EndProperty
       EndProperty
@@ -437,6 +418,9 @@ Begin VB.MDIForm Menu
       End
       Begin VB.Menu mnuRepPacientes 
          Caption         =   "Pacientes"
+      End
+      Begin VB.Menu mnuRepEstudios 
+         Caption         =   "Estudios"
       End
    End
    Begin VB.Menu mnuMantenimiento 
@@ -749,13 +733,13 @@ Private Sub mnuconectar_Click()
     Me.mnuconectar.Enabled = False
 End Sub
 
-Public Sub mnuContextABM_Click(Index As Integer)
+Public Sub mnuContextABM_Click(index As Integer)
 
 Dim auxListView As ListView
 Dim auxModo As Integer
     
     auxModo = 0
-    Select Case Index
+    Select Case index
         Case 0 'nuevo
             auxModo = 1
         Case 1 'editar
@@ -774,13 +758,13 @@ Dim auxModo As Integer
         auxDllActiva.FormDatos.Show vbModal
     Else
         'si es una acción de edición de datos
-        Select Case Index
+        Select Case index
             Case 4 'refresh
                 Screen.MousePointer = vbHourglass
                 With auxDllActiva
                     Set auxListView = .FormBase.lstvLista
                     CargarListView .FormBase, auxListView, .sql, .FieldID, .HeaderSQL, .FormBase.ImgLstLista
-                    .FormBase.sBarEstado.Panels(1).Text = auxListView.ListItems.Count & " Registro(s)"
+                    .FormBase.sBarEstado.Panels(1).text = auxListView.ListItems.Count & " Registro(s)"
                 End With
                 Screen.MousePointer = vbDefault
 
@@ -1095,6 +1079,10 @@ Private Sub mnuProtocolos_Click()
     vABMProtocolos.Show
 End Sub
 
+Private Sub mnuRepEstudios_Click()
+frmReporteEstudios.Show
+End Sub
+
 Private Sub mnuRestArchivos_Click()
     With frmRestaurarBD
         .Caption = "Restaurar Archivos"
@@ -1161,7 +1149,7 @@ Private Sub Motivo_Click()
 End Sub
 
 Private Sub tbrPrincipal_ButtonClick(ByVal Button As ComctlLib.Button)
-    Select Case Button.Index
+    Select Case Button.index
         Case 2: Call mnuArcSal_Click
         Case 3: Call mnuAsignarTurnos_Click
         Case 4: Call mnuArchivoActualizaciones_Click
@@ -1228,7 +1216,7 @@ Public Sub BuscarClientes(Txt As String, mQuien As String, Optional mCadena As S
                 'txtCliente.Text = .ResultFields(2)
                 'txtCliente_LostFocus
             Else
-                txtPaciente.Text = .ResultFields(3)
+                txtPaciente.text = .ResultFields(3)
                 txtPaciente_LostFocus
             End If
         End If
@@ -1240,12 +1228,12 @@ End Sub
 Private Sub txtPaciente_LostFocus()
     Set Rec2 = New ADODB.Recordset
     
-    If txtPaciente.Text <> "" Then
+    If txtPaciente.text <> "" Then
         Set Rec2 = New ADODB.Recordset
         sql = "SELECT CLI_CODIGO, CLI_RAZSOC,CLI_NRODOC"
         sql = sql & " FROM CLIENTE"
         sql = sql & " WHERE "
-        If txtPaciente.Text <> "" Then
+        If txtPaciente.text <> "" Then
             sql = sql & " CLI_NRODOC=" & XN(txtPaciente)
         Else
             sql = sql & " CLI_RAZSOC LIKE '" & Trim(txtPaciente) & "%'"
@@ -1255,20 +1243,20 @@ Private Sub txtPaciente_LostFocus()
             ' aca entra al formulario que tiene que contener
             ' la HC, Turnos, Presupuestos del cliente
             ' Pagos y Cobros
-            frmDatosClientes.txtDNI.Text = Rec2!CLI_NRODOC
+            frmDatosClientes.txtDNI.text = Rec2!CLI_NRODOC
             frmDatosClientes.txtDNI.ToolTipText = Rec2!CLI_CODIGO
             frmDatosClientes.Caption = "Paciente: " & Rec2!CLI_RAZSOC
             frmDatosClientes.lblPaciente = Rec2!CLI_RAZSOC
             If frmDatosClientes.Visible = False Then
                 frmDatosClientes.Show vbModal
-                txtPaciente.Text = ""
+                txtPaciente.text = ""
             End If
             'txtDesCli.Text = rec!CLI_RAZSOC
             'txtcodigo.Text = rec!CLI_CODIGO
         Else
             MsgBox "El Paciente no existe", vbExclamation, TIT_MSGBOX
             txtPaciente.SetFocus
-            txtPaciente.Text = ""
+            txtPaciente.text = ""
         End If
         If Rec2.State = 1 Then
             Rec2.Close
