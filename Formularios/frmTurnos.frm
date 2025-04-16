@@ -121,7 +121,7 @@ Begin VB.Form frmTurnos
       _ExtentX        =   3201
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   152043521
+      Format          =   151715841
       CurrentDate     =   43340
    End
    Begin VB.Frame fraprotocolos 
@@ -861,7 +861,7 @@ Begin VB.Form frmTurnos
       Width           =   3495
       Begin MSComCtl2.MonthView MViewFecha 
          Height          =   2370
-         Left            =   400
+         Left            =   405
          TabIndex        =   0
          Top             =   180
          Width           =   2595
@@ -871,7 +871,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   152043522
+         StartOfWeek     =   151715842
          CurrentDate     =   40049
       End
    End
@@ -1102,15 +1102,17 @@ Private Sub cboDoctor_Click()
         Loop
         Rec1.Close
     End If
+    LimpiarGrilla
+    BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
 End Sub
 Private Sub LimpiarComboMotivo()
     cboMotivo.Clear
 End Sub
 
-Private Sub cboDoctor_LostFocus()
+Private Sub cboDoctor_Change()
     'LimpiarTurno
     LimpiarGrilla
-    'BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
+    BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
 End Sub
 
 Private Sub cbohasta_LostFocus()
@@ -2091,7 +2093,22 @@ Public Sub GetStudiesLoadedByDate()
     endpoint = "/api/v1/studies?date=" & Format(MViewFecha.Value, "yyyy-mm-dd")
     
     Set request = CreateObject("MSXML2.ServerXMLHTTP.6.0")
+    'Set request = CreateObject("WinHttp.WinHttpRequest.5.1")
+    'Set request = CreateObject("MSXML2.XMLHTTP")
     
+    ' Forzar TLS 1.2
+    'request.Option(6) = 268435456 ' WINHTTP_OPTION_SECURE_PROTOCOLS = TLS 1.2
+    'request.Option(9) = &H80000000 ' WINHTTP_OPTION_ENABLE_TLS12
+
+    'request.Option(9) = 2048 ' TLS 1.2
+    'request.Option(6) = True ' Deshabilita la caché
+    'request.Option(9) = 0    ' Modo síncrono
+    'request.Option(4) = 13056 ' Ignorar errores SSL
+
+    ' ?? Fuerza el uso de TLS 1.2
+    'request.Option(2) = 268435456
+    'request.SetOption 2, 268435456  ' MSXML Option(2) = SecureProtocols, 268435456 = TLS 1.2
+
     request.Open "GET", DIGOR_CORE_URL & endpoint, False    'populates object fields
     request.setRequestHeader "Authorization", "Bearer " & DIGOR_PUBLIC_API_KEY
     request.setRequestHeader "Content-Type", "application/json"
@@ -2129,13 +2146,13 @@ Private Function parseStudiesJSON(JsonString As String) As Variant
     
     ' Verificar si realmente es una colección indexada
     If Not IsArray(dataArray) And Not TypeName(dataArray) = "Collection" Then
-        MsgBox "Error: El campo 'studies' no es una colección indexada.", vbCritical
+       ' MsgBox "Error: El campo 'studies' no es una colección indexada.", vbCritical
         Exit Function
     End If
 
     ' Verificar que el array no esté vacío
     If dataArray.Count = 0 Then
-        MsgBox "Advertencia: No hay estudios en la respuesta JSON.", vbExclamation
+        'MsgBox "Advertencia: No hay estudios en la respuesta JSON.", vbExclamation
         Exit Function
     End If
 
@@ -2165,35 +2182,40 @@ Private Function parseStudiesJSON(JsonString As String) As Variant
     parseStudiesJSON = studiesArray
 End Function
 Private Sub buildStudiesDict(studiesArray As Variant)
+    ' Verificar si studiesArray está vacío
+    If IsEmpty(studiesArray) Then
+        Set studiesDict = CreateObject("Scripting.Dictionary")
+        Exit Sub
+    End If
+
     Dim i As Integer
     Dim dni As String
-    Dim studyInfo As String
     Dim studyName As String
     Dim studyLink As String
-    
+
     ' Creamos un nuevo Dictionary
     Set studiesDict = CreateObject("Scripting.Dictionary")
-    
+
     ' Iteramos sobre el JSON
     For i = LBound(studiesArray) To UBound(studiesArray)
         dni = studiesArray(i, 0)
         studyName = studiesArray(i, 1)
         studyLink = studiesArray(i, 2)
-    
+
         ' Si el DNI ya existe, agregamos el estudio a su colección
         If studiesDict.Exists(dni) Then
             studiesDict(dni).Add studiesDict(dni).Count, Array(studyName, studyLink)
         Else
             ' Si no existe, creamos una nueva Collection y la agregamos al diccionario
             Dim newCollection As Object
-            Set newCollection = CreateObject("Scripting.Dictionary") ' Esto estaba mal antes
-    
+            Set newCollection = CreateObject("Scripting.Dictionary")
+
             newCollection.Add newCollection.Count, Array(studyName, studyLink)
             studiesDict.Add dni, newCollection
         End If
     Next i
-
 End Sub
+
 
 
 Private Sub ActualizarInfoEstudiosTurnos(JsonString As String)
@@ -2232,18 +2254,18 @@ Private Sub ActualizarInfoEstudiosTurnos(JsonString As String)
 End Sub
 ' Evento de la grilla cuando el usuario hace clic en una celda
 Private Sub grdGrilla_Click()
-    Dim fila As Integer
+    Dim Fila As Integer
     Dim dni As String
     Dim estudios As Variant
     Dim estudio As Variant
     Dim i As Integer
 
-    fila = grdGrilla.row ' Obtiene la fila seleccionada
+    Fila = grdGrilla.row ' Obtiene la fila seleccionada
 
     ' Verifica si hizo clic en la columna de Estudios
     If grdGrilla.Col = 18 Then
         If grdGrilla.text = "Ver" Then
-            dni = grdGrilla.TextMatrix(fila, 11)
+            dni = grdGrilla.TextMatrix(Fila, 11)
             
             If studiesDict.Exists(dni) Then
                 Set estudios = studiesDict(dni) ' Ahora estudios es un Dictionary
@@ -2530,6 +2552,8 @@ Private Sub LlenarComboDoctor()
             cboDoctor.ItemData(cboDoctor.NewIndex) = rec!VEN_CODIGO
             rec.MoveNext
         Loop
+        'coloco el close aca xq lo va a usar el metodo de buscarturnos que se aciva al hacer: cboDoctor.ListIndex = 0
+        rec.Close
         If mNomUser = "A" Or mNomUser = "DIGOR" Or mNomUser = "PILI" Then
             cboDoctor.ListIndex = 0
         Else
@@ -2537,7 +2561,7 @@ Private Sub LlenarComboDoctor()
         End If
         
     End If
-    rec.Close
+    'rec.Close
 End Sub
 Private Sub LlenarComboHoras()
     Dim cItems As Integer

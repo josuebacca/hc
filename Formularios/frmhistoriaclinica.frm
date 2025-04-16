@@ -703,7 +703,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   152043521
+            Format          =   151388161
             CurrentDate     =   41098
          End
          Begin VB.Label Label19 
@@ -821,7 +821,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   152043521
+            Format          =   151388161
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHastaPedido 
@@ -835,7 +835,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   152043521
+            Format          =   151388161
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdPedidos 
@@ -1014,7 +1014,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   152043521
+            Format          =   151388161
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHastaImg 
@@ -1028,7 +1028,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   152043521
+            Format          =   151388161
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdImagenes 
@@ -1188,7 +1188,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   152043521
+            Format          =   151388161
             CurrentDate     =   43205
          End
          Begin VB.CommandButton cmdCancelar 
@@ -1225,7 +1225,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   152043521
+            Format          =   151388161
             CurrentDate     =   41098
          End
          Begin VB.CommandButton cmdAceptar 
@@ -1371,7 +1371,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   152043521
+            Format          =   151388161
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHasta 
@@ -1385,7 +1385,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   152043521
+            Format          =   151388161
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdConsultas 
@@ -1666,7 +1666,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   152043521
+            Format          =   151388161
             CurrentDate     =   41098
          End
          Begin VB.Label lblnroja 
@@ -3213,26 +3213,26 @@ Private Sub grdConsultas_Click()
     End If
     
 End Sub
-Private Function cargo_protocolo(fila As Integer)
+Private Function cargo_protocolo(Fila As Integer)
     If grdImagenes.rows > 1 Then
-        FechaImg.Value = grdImagenes.TextMatrix(fila, 0)
-        BuscaCodigoProxItemData grdImagenes.TextMatrix(fila, 5), cboDocImg
+        FechaImg.Value = grdImagenes.TextMatrix(Fila, 0)
+        BuscaCodigoProxItemData grdImagenes.TextMatrix(Fila, 5), cboDocImg
         'codigo del nombre de la imagen
-        BuscaCodigoProxItemData grdImagenes.TextMatrix(fila, 4), cboImg
+        BuscaCodigoProxItemData grdImagenes.TextMatrix(Fila, 4), cboImg
         'cboDocImg.ListIndex = grdImagenes.TextMatrix(fila, 5)
         
         'OJO ACA VER COMO CARGAMOS LA MATRIZ
-        txtImgDescri(0).text = grdImagenes.TextMatrix(fila, 3)
-        txtImgDescri(1).text = grdImagenes.TextMatrix(fila, 7)
-        txtImgDescri(2).text = grdImagenes.TextMatrix(fila, 8)
-        txtImgDescri(3).text = grdImagenes.TextMatrix(fila, 9)
-        txtImgDescri(4).text = grdImagenes.TextMatrix(fila, 10)
-        txtImgDescri(5).text = grdImagenes.TextMatrix(fila, 11)
+        txtImgDescri(0).text = grdImagenes.TextMatrix(Fila, 3)
+        txtImgDescri(1).text = grdImagenes.TextMatrix(Fila, 7)
+        txtImgDescri(2).text = grdImagenes.TextMatrix(Fila, 8)
+        txtImgDescri(3).text = grdImagenes.TextMatrix(Fila, 9)
+        txtImgDescri(4).text = grdImagenes.TextMatrix(Fila, 10)
+        txtImgDescri(5).text = grdImagenes.TextMatrix(Fila, 11)
         
         lblnroja.Caption = "Hoja 1"
         muestro_ImgDescri 1
                 
-        txtNroImg.text = grdImagenes.TextMatrix(fila, 6)
+        txtNroImg.text = grdImagenes.TextMatrix(Fila, 6)
          'ESTO LO HAGO PARA HABILITAR EL ACEPTAR DE LA CONSULTA MEDICA
         If cboDocImg.ItemData(cboDocImg.ListIndex) = Int(Doc) Then
             cmdAceptarImg.Enabled = True
