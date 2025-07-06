@@ -47,6 +47,14 @@ Begin VB.Form ABMClientes
       TabIndex        =   126
       Top             =   0
       Width           =   11175
+      Begin VB.TextBox txtPlan 
+         Height          =   315
+         Left            =   1650
+         MaxLength       =   25
+         TabIndex        =   167
+         Top             =   6120
+         Width           =   2115
+      End
       Begin VB.Frame fraGenerarCarpetaEstudio 
          Caption         =   "Generar carpeta de estudio"
          Height          =   3615
@@ -417,6 +425,16 @@ Begin VB.Form ABMClientes
          CheckBox        =   -1  'True
          Format          =   151715841
          CurrentDate     =   40071
+      End
+      Begin VB.Label Label1 
+         AutoSize        =   -1  'True
+         Caption         =   "Plan:"
+         Height          =   195
+         Index           =   28
+         Left            =   480
+         TabIndex        =   168
+         Top             =   6165
+         Width           =   360
       End
       Begin VB.Label Label1 
          AutoSize        =   -1  'True
@@ -2020,7 +2038,7 @@ Function ActualizarListaBase(pMode As Integer)
     End If
     
     If pMode = 4 Then
-        vListView.ListItems.Remove vListView.SelectedItem.index
+        vListView.ListItems.Remove vListView.SelectedItem.Index
         Exit Function
     End If
     
@@ -2103,6 +2121,7 @@ Function SetMode(pMode As Integer)
             AcCtrlx cmdBuscaOS
             AcCtrlx txtBuscarOSNombre
             AcCtrlx txtNAfiliado
+            AcCtrlx txtPlan
             
             AcCtrlx txtMC
             AcCtrlx txtRelac
@@ -2164,6 +2183,7 @@ Function SetMode(pMode As Integer)
             DesacCtrlx cmdBuscaOS
             DesacCtrlx txtBuscarOSNombre
             DesacCtrlx txtNAfiliado
+            DesacCtrlx txtPlan
             
             DesacCtrlx txtMC
             DesacCtrlx txtRelac
@@ -2476,6 +2496,7 @@ Private Sub cmdAceptar_Click()
                 
                 cSQL = cSQL & XN(txtBuscaOS.text) & ", "
                 cSQL = cSQL & XS(txtNAfiliado.text) & ", "
+                cSQL = cSQL & XS(txtPlan.text) & ", "
                 
                 cSQL = cSQL & XSM(Trim(txtMC.text)) & ","
                 cSQL = cSQL & XSM(Trim(txtRelac.text)) & ","
@@ -2520,7 +2541,7 @@ Private Sub cmdAceptar_Click()
                 End If
                 cSQL = cSQL & " ,OS_NUMERO=" & XN(txtBuscaOS.text)
                 cSQL = cSQL & " ,CLI_NROAFIL=" & XS(txtNAfiliado.text)
-                
+                cSQL = cSQL & " ,CLI_PLAN=" & XS(txtPlan.text)
                 cSQL = cSQL & " ,CLI_MC=" & XSM(Trim(txtMC.text))
                 cSQL = cSQL & " ,CLI_RELAC=" & XSM(Trim(txtRelac.text))
                 cSQL = cSQL & " ,CLI_AFA=" & XSM(Trim(txtAFA.text))
@@ -3055,8 +3076,8 @@ HayErrorCClinico:
 End Sub
 
 Private Sub Command1_Click()
-    Dim x As Integer
-    x = 2
+    Dim X As Integer
+    X = 2
     sql = "SELECT * FROM XX"
     rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
     If rec.EOF = False Then
@@ -3064,7 +3085,7 @@ Private Sub Command1_Click()
             sql = "INSERT INTO CLIENTE (CLI_CODIGO,CLI_RAZSOC,"
             sql = sql & " CLI_DOMICI,CLI_TELEFONO,CLI_CELULAR,CLI_MAIL,CLI_CUMPLE,"
             sql = sql & " IVA_CODIGO,PAI_CODIGO,PRO_CODIGO,LOC_CODIGO,CLI_NRODOC) VALUES ("
-            sql = sql & x & ","
+            sql = sql & X & ","
             sql = sql & "'" & Trim(rec!apellido) & " " & Trim(rec!Nombre) & "',"
             sql = sql & XS(rec!DIRECCION) & ","
             sql = sql & XS(rec!te) & ","
@@ -3074,7 +3095,7 @@ Private Sub Command1_Click()
             sql = sql & buscaloc(Trim(rec!CIUDAD)) & ","
             sql = sql & XN(rec!dni) & ")"
             DBConn.Execute sql
-            x = x + 1
+            X = X + 1
             rec.MoveNext
         Loop
     End If
@@ -3531,6 +3552,7 @@ Private Sub Form_Load()
                 txtBuscaOS.text = ChkNull(rec!OS_NUMERO)
                 txtBuscaOS_LostFocus
                 txtNAfiliado.text = ChkNull(rec!CLI_NROAFIL)
+                txtPlan.text = ChkNull(rec!CLI_PLAN)
                 
                 txtMC.text = ChkNull(rec!CLI_MC)
                 txtRelac.text = ChkNull(rec!CLI_RELAC)
@@ -4216,6 +4238,9 @@ Private Sub txtMeses_Change()
 End Sub
 
 Private Sub txtNAfiliado_Change()
+    cmdAceptar.Enabled = True
+End Sub
+Private Sub txtPlan_Change()
     cmdAceptar.Enabled = True
 End Sub
 
