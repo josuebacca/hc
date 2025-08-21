@@ -540,17 +540,17 @@ Begin VB.Form frmhistoriaclinica
       TabCaption(1)   =   "Ecografias / Protocolos"
       TabPicture(1)   =   "frmhistoriaclinica.frx":3AF4
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "Frame2"
-      Tab(1).Control(1)=   "cmdEliminarEco"
+      Tab(1).Control(0)=   "cmdzoom(1)"
+      Tab(1).Control(1)=   "Frame7"
       Tab(1).Control(2)=   "cmdAgregarEco"
-      Tab(1).Control(3)=   "Frame7"
-      Tab(1).Control(4)=   "cmdzoom(1)"
+      Tab(1).Control(3)=   "cmdEliminarEco"
+      Tab(1).Control(4)=   "Frame2"
       Tab(1).ControlCount=   5
       TabCaption(2)   =   "Pedidos"
       TabPicture(2)   =   "frmhistoriaclinica.frx":3B10
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "Frame8"
-      Tab(2).Control(1)=   "Frame9"
+      Tab(2).Control(0)=   "Frame9"
+      Tab(2).Control(1)=   "Frame8"
       Tab(2).ControlCount=   2
       Begin VB.CommandButton cmdzoom 
          Caption         =   "+"
@@ -703,7 +703,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   151388161
+            Format          =   154468353
             CurrentDate     =   41098
          End
          Begin VB.Label Label19 
@@ -821,7 +821,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   151388161
+            Format          =   154468353
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHastaPedido 
@@ -835,7 +835,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   151388161
+            Format          =   154468353
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdPedidos 
@@ -1014,7 +1014,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   151388161
+            Format          =   154468353
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHastaImg 
@@ -1028,7 +1028,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   151388161
+            Format          =   154468353
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdImagenes 
@@ -1188,7 +1188,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   151388161
+            Format          =   154468353
             CurrentDate     =   43205
          End
          Begin VB.CommandButton cmdCancelar 
@@ -1225,7 +1225,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   151388161
+            Format          =   154468353
             CurrentDate     =   41098
          End
          Begin VB.CommandButton cmdAceptar 
@@ -1371,7 +1371,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   151388161
+            Format          =   154468353
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHasta 
@@ -1385,7 +1385,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   151388161
+            Format          =   154468353
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdConsultas 
@@ -1666,7 +1666,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   151388161
+            Format          =   154468353
             CurrentDate     =   41098
          End
          Begin VB.Label lblnroja 
@@ -1778,6 +1778,10 @@ Dim cliDriveLink As String
 Dim fechaNacimiento As Date
 Dim medicoSolicitante As String
 Dim yaBuscoLink As Boolean
+Dim ObraSocialClienteNombre As String
+Dim ObraSocialClienteNroAfiliado As String
+Dim ObraSocialClientePlan As String
+
 
 Private Sub ActualizoLinkPacienteSQL(link As String, cliNroDoc As String)
     Dim cSQL As String
@@ -2629,14 +2633,16 @@ Function URLEncode(ByVal str As String) As String
 
     URLEncode = encoded
 End Function
-
 Private Sub cmdGenerarInforme_Click()
     Dim portalURL As String
     Dim parsedName As String
     Dim birthDateFormatted As String
     Dim formattedMedicoSolicita As String
     Dim URL As String
-        
+    
+    Dim memberId As String
+    Dim planValue As String
+    
     portalURL = "https://digorentregadigital.com/cargar-estudio-paciente"
     parsedName = Replace(txtBuscarCliDescri, " ", "%20")
     birthDateFormatted = Format(fechaNacimiento, "yyyy-mm-dd")
@@ -2653,9 +2659,47 @@ Private Sub cmdGenerarInforme_Click()
         formattedMedicoSolicita = Replace(medicoSolicitante, " ", "%20")
         URL = URL & "&requesterPersonal=" & formattedMedicoSolicita
     End If
-
+    
+    ' -------------------------------
+    ' Nuevos parámetros de obra social
+    ' -------------------------------
+    
+    ' patientInsuranceName
+    If ObraSocialClienteNombre <> "" Then
+        URL = URL & "&patientInsuranceName=" & Replace(ObraSocialClienteNombre, " ", "%20")
+    End If
+    
+    ' patientInsuranceMemberId + lógica de plan
+    If ObraSocialClienteNroAfiliado <> "" Then
+        Dim parts() As String
+        parts = Split(Trim(ObraSocialClienteNroAfiliado), " ")
+        
+        ' siempre asignamos el primer token como memberId
+        memberId = parts(0)
+        URL = URL & "&patientInsuranceMemberId=" & Replace(memberId, " ", "%20")
+        
+        ' si no hay plan en la variable ObraSocialClientePlan, pero sí viene en el nroAfiliado como segundo token
+        If ObraSocialClientePlan = "" And UBound(parts) >= 1 Then
+            planValue = parts(1)
+        Else
+            planValue = ObraSocialClientePlan
+        End If
+        
+        ' agregamos el plan si lo tenemos
+        If planValue <> "" Then
+            URL = URL & "&patientInsurancePlan=" & Replace(planValue, " ", "%20")
+        End If
+    Else
+        ' si no tiene memberId pero sí plan escrito aparte
+        If ObraSocialClientePlan <> "" Then
+            URL = URL & "&patientInsurancePlan=" & Replace(ObraSocialClientePlan, " ", "%20")
+        End If
+    End If
+    
+    ' Abrir URL
     ShellExecute 0, "open", URL, vbNullString, vbNullString, 1
 End Sub
+
 
 Private Sub cmdImprimirEco_Click()
     cmdAceptarImg_Click
@@ -2879,9 +2923,15 @@ Private Sub cmdSiguiente_Click()
             Loop
         End If
         Rec2.Close
+        
+        'Busco OS del paciente
+        
     Else
         MsgBox "Seleccione el Doctor", vbInformation, TIT_MSGBOX
     End If
+
+End Sub
+Private Sub BuscarOSPaciente(cliCodigo As String)
 
 End Sub
 
@@ -3378,7 +3428,7 @@ Private Sub txtBuscaCliente_LostFocus()
     Dim cumple As Variant
     If txtBuscaCliente.text <> "" Then
         Set rec = New ADODB.Recordset
-        sql = "SELECT CLI_CODIGO, CLI_RAZSOC,CLI_NRODOC,CLI_TELEFONO,CLI_CELULAR,CLI_NROAFIL,CLI_CUMPLE,CLI_EDAD, CLI_LINKARCH"
+        sql = "SELECT CLI_CODIGO, CLI_RAZSOC,CLI_NRODOC,CLI_TELEFONO,CLI_CELULAR,CLI_NROAFIL,CLI_CUMPLE,CLI_EDAD,CLI_LINKARCH, CLI_PLAN"
         sql = sql & " FROM CLIENTE"
         sql = sql & " WHERE "
         If txtBuscaCliente.text <> "" Then
@@ -3408,11 +3458,17 @@ Private Sub txtBuscaCliente_LostFocus()
             '    txtTelefono.Text = ChkNull(rec!CLI_CELULAR)
             'End If
             'ATENCION CON O SIN OBRA SOCIAL
+            
+            ' Busco OS cliente
+            ObraSocialClienteNombre = BuscarOSocial(txtCodigo.text)
+            ObraSocialClienteNroAfiliado = ChkNull(rec!CLI_NROAFIL)
+            ObraSocialClientePlan = ChkNull(rec!CLI_PLAN)
             If TurOSocial = "PARTICULAR" Then
                 txtOSocial.text = "PARTICULAR"
             Else
-                txtOSocial.text = BuscarOSocial(txtCodigo.text) & " - " & ChkNull(rec!CLI_NROAFIL)
+                txtOSocial.text = ObraSocialClienteNombre & " - " & ChkNull(rec!CLI_NROAFIL) & ChkNull(rec!CLI_PLAN)
             End If
+            
             'Calculo_Edad Chk0(rec!CLI_CUMPLE)
             txtEdad.text = ChkNull(rec!CLI_EDAD)
             cumple = ChkNull(rec!CLI_CUMPLE)
@@ -3588,6 +3644,17 @@ Private Function LimpiarConsulta()
     
 End Function
 
+Private Function SanitizarGrilla(ByVal Valor As Variant) As String
+    If IsNull(Valor) Then
+        SanitizarGrilla = ""
+    Else
+        Dim texto As String
+        texto = CStr(Valor)
+        texto = Replace(texto, vbTab, " ") ' Solo quitamos el tabulador
+        ' No tocamos vbCrLf (salto de línea) para que se muestre bien si lo usás en otro lado
+        SanitizarGrilla = texto
+    End If
+End Function
 Private Function CargarConsultasAnteriores()
     Dim sColor As String
     Dim USUARIO As String
@@ -3610,7 +3677,7 @@ Private Function CargarConsultasAnteriores()
     If Rec1.EOF = False Then
         Do While Rec1.EOF = False
             grdConsultas.AddItem Rec1!CCL_FECHA & Chr(9) & Rec1!VEN_NOMBRE & Chr(9) & Rec1!CCL_MOTIVO & Chr(9) & _
-                                 Rec1!CCL_INDICA & Chr(9) & Rec1!CCL_FECPC & Chr(9) & Rec1!VEN_CODIGO & Chr(9) & _
+                                  SanitizarGrilla(Rec1!CCL_INDICA) & Chr(9) & Rec1!CCL_FECPC & Chr(9) & Rec1!VEN_CODIGO & Chr(9) & _
                                  Rec1!CCL_NUMERO & Chr(9) & "" & Chr(9) & ChkNull(Rec1!CCL_HORA)
                                        
             Rec1.MoveNext
@@ -3659,7 +3726,7 @@ Private Sub TxtCodigo_LostFocus()
     Dim años As Integer
     If txtCodigo.text <> "" Then
         Set rec = New ADODB.Recordset
-        sql = "SELECT TOP 1 CLI_CODIGO, CLI_RAZSOC,CLI_NRODOC,CLI_TELEFONO,CLI_NROAFIL,CLI_CUMPLE,CLI_EDAD, CLI_LINKARCH"
+        sql = "SELECT TOP 1 CLI_CODIGO, CLI_RAZSOC,CLI_NRODOC,CLI_TELEFONO,CLI_NROAFIL,CLI_CUMPLE,CLI_EDAD, CLI_LINKARCH, CLI_PLAN"
         sql = sql & " FROM CLIENTE"
         sql = sql & " WHERE "
         sql = sql & " CLI_CODIGO=" & XN(txtCodigo)
@@ -3674,11 +3741,16 @@ Private Sub TxtCodigo_LostFocus()
             If cliDriveLink = "" And yaBuscoLink = False Then
                 GetPatientStudyLinkByDNI ChkNull(rec!CLI_NRODOC)
             End If
+            
+            'Busco OS cliente
+            ObraSocialClienteNombre = BuscarOSocial(txtCodigo.text)
+            ObraSocialClienteNroAfiliado = ChkNull(rec!CLI_NROAFIL)
+            ObraSocialClientePlan = ChkNull(rec!CLI_PLAN)
                         
             If TurOSocial = "PARTICULAR" Then
                 txtOSocial.text = "PARTICULAR"
             Else
-                txtOSocial.text = BuscarOSocial(txtCodigo.text) & " - " & ChkNull(rec!CLI_NROAFIL)
+                txtOSocial.text = ObraSocialClienteNombre & " - " & ChkNull(rec!CLI_NROAFIL) & ChkNull(rec!CLI_PLAN)
             End If
             'calculo de edad
             'BuscarProxPaciente
