@@ -194,11 +194,13 @@ Begin VB.MDIForm Menu
             Bevel           =   2
             Object.Width           =   6526
             MinWidth        =   6526
+            TextSave        =   ""
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel2 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
             Object.Width           =   7673
             MinWidth        =   7673
+            TextSave        =   ""
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel3 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
@@ -226,7 +228,7 @@ Begin VB.MDIForm Menu
             Bevel           =   2
             Object.Width           =   1587
             MinWidth        =   1587
-            TextSave        =   "12:21"
+            TextSave        =   "19:20"
             Object.Tag             =   ""
          EndProperty
          BeginProperty Panel6 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
@@ -235,7 +237,7 @@ Begin VB.MDIForm Menu
             Bevel           =   2
             Object.Width           =   1940
             MinWidth        =   1940
-            TextSave        =   "18/03/2025"
+            TextSave        =   "23/03/2026"
             Object.Tag             =   ""
          EndProperty
       EndProperty
@@ -421,6 +423,9 @@ Begin VB.MDIForm Menu
       End
       Begin VB.Menu mnuRepEstudios 
          Caption         =   "Estudios"
+      End
+      Begin VB.Menu mnuTurnosEliminados 
+         Caption         =   "Turnos Eliminados"
       End
    End
    Begin VB.Menu mnuMantenimiento 
@@ -1122,6 +1127,10 @@ Private Sub mnuTratamientos_Click()
     vABMTratamiento.Show
 End Sub
 
+Private Sub mnuTurnosEliminados_Click()
+frmTurnosEliminados.Show
+End Sub
+
 Private Sub mnuUsuario_Click()
     FrmUsuarios.Show vbModal
 End Sub
@@ -1161,6 +1170,10 @@ Private Sub tbrPrincipal_ButtonClick(ByVal Button As ComctlLib.Button)
     End Select
 End Sub
 
+
+Private Sub turnosEliminados_Click()
+frmTurnosEliminados.Show
+End Sub
 
 Private Sub txtPaciente_GotFocus()
     SelecTexto txtPaciente
@@ -1374,20 +1387,20 @@ Private Sub Timer1_Timer()
     
     Static Anterior As Boolean
     Static tamañoLetrero As Single
-    Static X As Single
+    Static x As Single
     If Not Anterior Then
         tamañoLetrero = Menu.Picture2.TextWidth(Letrero)
         Anterior = True
-        X = Menu.Picture2.ScaleWidth
+        x = Menu.Picture2.ScaleWidth
     End If
     Menu.Picture2.Cls
-    Menu.Picture2.CurrentX = X
+    Menu.Picture2.CurrentX = x
     Menu.Picture2.CurrentY = 100
 'Para cambiar el tipo de letra
     Menu.Picture2.FontName = "Arial"
     Menu.Picture2.FontBold = True
     Menu.Picture2.Print Letrero
-    X = X - 25
-    If X < -tamañoLetrero Then X = Menu.Picture2.ScaleWidth
+    x = x - 25
+    If x < -tamañoLetrero Then x = Menu.Picture2.ScaleWidth
 End Sub
 

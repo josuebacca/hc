@@ -219,7 +219,7 @@ Public Sub PERMISOS(USUARIO As String)
             Do While Not r.EOF
                 For i = 0 To Menu.Controls.Count - 1
                     If TypeName(Menu.Controls(i)) = "Menu" Then
-                        If UCase(Trim(Menu.Controls(i).Name)) = UCase(Trim(r!PRM_OPMENU)) Then
+                        If UCase(Trim(Menu.Controls(i).name)) = UCase(Trim(r!PRM_OPMENU)) Then
                             Menu.Controls(i).Enabled = True
                         End If
                     End If
@@ -254,7 +254,7 @@ Private Sub cmdAceptar_Click()
 
     sql = "SELECT * FROM USUARIO WHERE " & _
           "USU_NOMBRE = '" & Trim(TxtUsuario) & "' AND " & _
-           "USU_CLAVE = '" & Trim(TxtClave) & "'"
+           "USU_CLAVE = '" & Trim(txtClave) & "'"
     rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
     If rec.RecordCount <> 1 Then
         sql = "La contraseña de usuario NO ES CORRECTA !" & Chr(13) & Chr(13)
@@ -268,8 +268,8 @@ Private Sub cmdAceptar_Click()
             'si ya pifió 3 veces salgo del Sistema
             cmdSalir_Click
         Else
-            TxtClave.SelStart = 0
-            TxtClave.SelLength = Len(TxtClave)
+            txtClave.SelStart = 0
+            txtClave.SelLength = Len(txtClave)
             TxtUsuario.SetFocus
             CUANTAS_VECES = CUANTAS_VECES + 1
         End If
@@ -280,7 +280,7 @@ Private Sub cmdAceptar_Click()
         Label1(1).Refresh
         'muestro un figureti de coneccion
         mNomUser = Trim(TxtUsuario)
-        mPassword = Trim(TxtClave)
+        mPassword = Trim(txtClave)
         'BUSCO SUCURSALES---
            BuscoNroSucursal
         '-----------------
@@ -311,7 +311,7 @@ Private Sub Form_Load()
     CUANTAS_VECES = 1
 End Sub
 
-Private Sub TxtClave_KeyPress(KeyAscii As Integer)
+Private Sub txtClave_KeyPress(KeyAscii As Integer)
     KeyAscii = CarTexto(KeyAscii)
     If KeyAscii = vbKeyReturn Then
         cmdAceptar_Click

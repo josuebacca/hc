@@ -161,7 +161,7 @@ Begin VB.Form frmListadoCantVendidasVendedor
          _Version        =   393216
          CheckBox        =   -1  'True
          DateIsNull      =   -1  'True
-         Format          =   142278657
+         Format          =   152109057
          CurrentDate     =   43233
       End
       Begin MSComCtl2.DTPicker FechaHasta 
@@ -175,7 +175,7 @@ Begin VB.Form frmListadoCantVendidasVendedor
          _Version        =   393216
          CheckBox        =   -1  'True
          DateIsNull      =   -1  'True
-         Format          =   142278657
+         Format          =   152109057
          CurrentDate     =   43233
       End
       Begin VB.Label Label7 
@@ -599,6 +599,7 @@ Private Sub BuscarAtenciones()
     sql = sql & " WHERE T.CLI_CODIGO = C.CLI_CODIGO"
     sql = sql & " AND T.VEN_CODIGO = V.VEN_CODIGO"
     sql = sql & " AND T.TUR_ASISTIO = 1" 'BUSCAMOS LOS TURNOS QUE ASISTIERON
+    sql = sql & " AND T.DELETED_AT IS NULL"
     If FechaDesde.Value <> "" Then
         sql = sql & " AND T.TUR_FECHA >= " & XDQ(FechaDesde.Value)
     End If
@@ -609,10 +610,10 @@ Private Sub BuscarAtenciones()
         sql = sql & " AND T.VEN_CODIGO = " & cboVendedor.ItemData(cboVendedor.ListIndex)
     End If
     If cboOSocial.List(cboOSocial.ListIndex) <> "(Todos)" Then
-        sql = sql & " AND T.TUR_OSOCIAL LIKE '" & cboOSocial.Text & "'"
+        sql = sql & " AND T.TUR_OSOCIAL LIKE '" & cboOSocial.text & "'"
     End If
-    If txtCodigo.Text <> "" Then
-        sql = sql & " AND T.CLI_CODIGO LIKE " & txtCodigo.Text
+    If txtCodigo.text <> "" Then
+        sql = sql & " AND T.CLI_CODIGO LIKE " & txtCodigo.text
     End If
     sql = sql & " ORDER BY T.TUR_FECHA,T.TUR_HORAD"
     rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
@@ -689,7 +690,7 @@ Private Sub cmdAceptar_Click()
     End If
     
     If cboOSocial.List(cboOSocial.ListIndex) <> "(Todos)" Then
-        Rep.Formulas(1) = "OBRA_SOCIAL='" & " Obra Social: " & cboOSocial.Text & "'"
+        Rep.Formulas(1) = "OBRA_SOCIAL='" & " Obra Social: " & cboOSocial.text & "'"
     Else
         Rep.Formulas(1) = "OBRA_SOCIAL='" & " Obra Social: " & " Todas " & "'"
     End If
@@ -783,13 +784,13 @@ Private Sub txtBuscaCliente_KeyPress(KeyAscii As Integer)
 End Sub
 
 Private Sub txtBuscaCliente_LostFocus()
-    If txtBuscaCliente.Text <> "" Then
+    If txtBuscaCliente.text <> "" Then
         Set rec = New ADODB.Recordset
         sql = "SELECT CLI_CODIGO, CLI_RAZSOC,CLI_NRODOC,CLI_TELEFONO,CLI_NROAFIL,CLI_CUMPLE,CLI_EDAD"
         sql = sql & " FROM CLIENTE"
         sql = sql & " WHERE "
-        If txtBuscaCliente.Text <> "" Then
-            If Len(Trim(txtBuscaCliente.Text)) < 7 Then
+        If txtBuscaCliente.text <> "" Then
+            If Len(Trim(txtBuscaCliente.text)) < 7 Then
                 sql = sql & " CLI_CODIGO=" & XN(txtCodigo)
             Else
                 sql = sql & " CLI_NRODOC=" & XN(txtBuscaCliente)
@@ -800,8 +801,8 @@ Private Sub txtBuscaCliente_LostFocus()
         End If
         rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
         If rec.EOF = False Then
-            txtBuscarCliDescri.Text = rec!CLI_RAZSOC
-            txtCodigo.Text = rec!CLI_CODIGO
+            txtBuscarCliDescri.text = rec!CLI_RAZSOC
+            txtCodigo.text = rec!CLI_CODIGO
             
         Else
             MsgBox "El Paciente no existe", vbExclamation, TIT_MSGBOX
@@ -826,12 +827,12 @@ Private Sub txtBuscaOS_KeyPress(KeyAscii As Integer)
 End Sub
 
 Private Sub txtBuscaOS_LostFocus()
-    If txtBuscaOS.Text <> "" Then
-        cSQL = "SELECT OS_NUMERO, OS_NOMBRE FROM OBRA_SOCIAL WHERE OS_NUMERO = " & XN(txtBuscaOS.Text)
+    If txtBuscaOS.text <> "" Then
+        cSQL = "SELECT OS_NUMERO, OS_NOMBRE FROM OBRA_SOCIAL WHERE OS_NUMERO = " & XN(txtBuscaOS.text)
         rec.Open cSQL, DBConn, adOpenStatic, adLockOptimistic
         If rec.EOF = False Then
-            txtBuscaOS.Text = ChkNull(rec!OS_NUMERO)
-            txtBuscarOSNombre.Text = ChkNull(rec!OS_NOMBRE)
+            txtBuscaOS.text = ChkNull(rec!OS_NUMERO)
+            txtBuscarOSNombre.text = ChkNull(rec!OS_NOMBRE)
         Else
             MsgBox "Obra Social inexistente", vbExclamation, TIT_MSGBOX
             'txtBuscaOS.SetFocus
@@ -862,9 +863,9 @@ Private Sub txtBuscarOSNombre_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub txtBuscarOSNombre_LostFocus()
-    If txtBuscaOS.Text = "" And txtBuscarOSNombre.Text <> "" Then
+    If txtBuscaOS.text = "" And txtBuscarOSNombre.text <> "" Then
         Set rec = New ADODB.Recordset
-        sql = "SELECT OS_NUMERO,OS_NOMBRE FROM OBRA_SOCIAL WHERE OS_NOMBRE LIKE '" & Trim(txtBuscarOSNombre.Text) & "%'"
+        sql = "SELECT OS_NUMERO,OS_NOMBRE FROM OBRA_SOCIAL WHERE OS_NOMBRE LIKE '" & Trim(txtBuscarOSNombre.text) & "%'"
         rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
         If rec.EOF = False Then
             If rec.RecordCount > 1 Then
@@ -872,8 +873,8 @@ Private Sub txtBuscarOSNombre_LostFocus()
                 If rec.State = 1 Then rec.Close
                 txtBuscarOSNombre.SetFocus
             Else
-                txtBuscaOS.Text = rec!OS_NUMERO
-                txtBuscarOSNombre.Text = ChkNull(rec!OS_NOMBRE)
+                txtBuscaOS.text = rec!OS_NUMERO
+                txtBuscarOSNombre.text = ChkNull(rec!OS_NOMBRE)
             End If
             
         Else
@@ -881,7 +882,7 @@ Private Sub txtBuscarOSNombre_LostFocus()
             'preguntar si quiere agregarlo y abrir abm de tratamientos
             'MsgBox "Tratamiento inexistente", vbExclamation, TIT_MSGBOX
                 gObraS = 1
-                ABMObraSocial.txtDescri.Text = txtBuscarOSNombre.Text
+                ABMObraSocial.txtDescri.text = txtBuscarOSNombre.text
                 ABMObraSocial.Show vbModal
                 txtBuscarOSNombre.SetFocus
             Else
@@ -924,7 +925,7 @@ Public Sub BuscarOS(Txt As String, mQuien As String, Optional mCadena As String)
         ' utilizar la coleccion de datos devueltos
         If .ResultFields.Count > 0 Then
             If Txt = "txtBuscaOS" Then
-                txtBuscaOS.Text = .ResultFields(2)
+                txtBuscaOS.text = .ResultFields(2)
                 txtBuscaOS_LostFocus
             Else
                 'txtBuscaCliente.Text = .ResultFields(2)
@@ -970,14 +971,14 @@ Public Sub BuscarClientes(Txt As String, mQuien As String, Optional mCadena As S
         ' utilizar la coleccion de datos devueltos
         If .ResultFields.Count > 0 Then
             If Txt = "txtcodCli" Then
-                txtCodigo.Text = .ResultFields(2)
+                txtCodigo.text = .ResultFields(2)
                 'txtCodCli_LostFocus
             Else
                 If .ResultFields(3) = "" Then
-                    txtBuscaCliente.Text = .ResultFields(2)
-                    txtCodigo.Text = .ResultFields(2)
+                    txtBuscaCliente.text = .ResultFields(2)
+                    txtCodigo.text = .ResultFields(2)
                 Else
-                    txtBuscaCliente.Text = .ResultFields(3)
+                    txtBuscaCliente.text = .ResultFields(3)
                 End If
                 txtBuscaCliente_LostFocus
             End If
