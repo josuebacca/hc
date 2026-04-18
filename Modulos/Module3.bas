@@ -68,7 +68,7 @@ Sub AcCtrl(CtrlName As Control)
     If TypeOf CtrlName Is CheckBox Then
         'CtrlName.BackColor = &H8000000F
     Else
-        CtrlName.BackColor = QBColor(15) 'blanco
+        CtrlName.backColor = QBColor(15) 'blanco
     End If
     
     'CtrlName.TabStop = True
@@ -126,7 +126,7 @@ Sub DesacCtrl(CtrlName As Control)
     If TypeOf CtrlName Is TextBox Or _
        TypeOf CtrlName Is ComboBox Then
             
-        If Trim(CtrlName.Text) = "" Then
+        If Trim(CtrlName.text) = "" Then
             CtrlName.Enabled = False
             CtrlName.TabStop = False
         Else
@@ -139,7 +139,7 @@ Sub DesacCtrl(CtrlName As Control)
         CtrlName.TabStop = False
     End If
     
-    CtrlName.BackColor = QBColor(7) 'gris
+    CtrlName.backColor = QBColor(7) 'gris
     'CtrlName.TabStop = False
 
 End Sub
@@ -172,6 +172,7 @@ End Sub
 
 Public Sub CargarListView(ByRef pForm As Form, ByRef lvwSource As ListView, ByVal sql As String, Optional IDReg As String, Optional pHeaderSQL As String, Optional pImgList As Variant, Optional pMaxRec As Long)
 
+Debug.Print "Cargando ListView:", Now
     'Carga un control de tipo ListView a partir de un string SQL dado como parametro
     'Parámetro: lvwSource es el control que será cargado
     '                       SQL es el string SQL a utilizar
@@ -272,6 +273,7 @@ Public Sub CargarListView(ByRef pForm As Form, ByRef lvwSource As ListView, ByVa
                 End Select
             
                 If IndiceCampo = 0 Then
+                 Debug.Print "AGREGA ITEM"
                     lvwSource.ColumnHeaders.Add , , TextHeader, lvwSource.Width / 5
                 Else
                     lvwSource.ColumnHeaders.Add , , TextHeader, lvwSource.Width / 5, AlinColumna
@@ -301,9 +303,9 @@ Public Sub CargarListView(ByRef pForm As Form, ByRef lvwSource As ListView, ByVa
                 
                 If IndiceCampo <= HastaCampo Then
                     If IndiceCampo = 0 Then
-                        lvwSource.ColumnHeaders.Add , , f.Name, lvwSource.Width / 5
+                        lvwSource.ColumnHeaders.Add , , f.name, lvwSource.Width / 5
                     Else
-                        lvwSource.ColumnHeaders.Add , , f.Name, lvwSource.Width / 5, AlinColumna
+                        lvwSource.ColumnHeaders.Add , , f.name, lvwSource.Width / 5, AlinColumna
                     End If
                     
                     'guardo el ancho del texto del header
@@ -319,66 +321,62 @@ Public Sub CargarListView(ByRef pForm As Form, ByRef lvwSource As ListView, ByVa
         
         ' cargo los items y subitems de la lista
         While Not vRec.EOF
+
+    Dim keyItem As String
+    
+    ' Generar key segura (opcional)
+    If Not IsMissing(IDReg) And Trim(IDReg) <> "" Then
+        keyItem = "K" & vRec.Fields(CantCampos - 1)
+    Else
+        keyItem = ""
+    End If
+
+    ' Crear item UNA sola vez
+    If Not IsMissing(pImgList) Then
+        Set itmX = lvwSource.ListItems.Add(, keyItem, "", 1)
+        itmX.Icon = 1
+        itmX.SmallIcon = 1
+    Else
+        Set itmX = lvwSource.ListItems.Add(, keyItem, "")
+    End If
+
+    ' Cargar columnas
+    For IndiceCampo = 0 To HastaCampo
         
-            For IndiceCampo = 0 To HastaCampo ' por cada campo
-            
-                'preparo formato del campo a mostrar
-                If IsNull(vRec.Fields(IndiceCampo)) Then
-                    DatoMostrar = ""
-                Else
-                    Select Case vRec.Fields(IndiceCampo).Type
-                        Case dbSqlNumeric
-                        'Case 6
-                            DatoMostrar = Format(vRec.Fields(IndiceCampo), "0.00")
-                        Case dbSqlDate
-                            DatoMostrar = CDate(Format(vRec.Fields(IndiceCampo), "DD/MM/YYYY"))
-                        Case dbSqlInt, dbSqlSmallint
-                            DatoMostrar = vRec.Fields(IndiceCampo)
-                        Case dbSqlChar, dbSqlVarchar
-                            DatoMostrar = vRec.Fields(IndiceCampo)
-                        Case Else
-                            DatoMostrar = vRec.Fields(IndiceCampo)
-                    End Select
-                End If
-            
-                'muestro el campo formateado
-                If IndiceCampo = 0 Then
-                    'si es el primero, lo agrego como ITEM
-                    
-                    If Not IsMissing(pImgList) Then
-                        If IsMissing(IDReg) Or Trim(IDReg) = "" Then
-                            Set itmX = lvwSource.ListItems.Add(, , DatoMostrar, 1)
-                        Else
-                            Set itmX = lvwSource.ListItems.Add(, "'" & vRec.Fields(CantCampos - 1) & "'", DatoMostrar, 1)
-                        End If
-                        itmX.Icon = 1
-                        itmX.SmallIcon = 1
-                    Else
-                        If IsMissing(IDReg) Or Trim(IDReg) = "" Then
-                            Set itmX = lvwSource.ListItems.Add(, , DatoMostrar)
-                        Else
-                            Set itmX = lvwSource.ListItems.Add(, "'" & vRec.Fields(CantCampos - 1) & "'", DatoMostrar)
-                        End If
-                    End If
-                Else
-                    'si no es el primero, lo agrego como SUBITEM
-                    itmX.SubItems(IndiceCampo) = DatoMostrar
-                End If
-                
-                ' calculo el ancho y mantengo guardado el ancho mayor para asignarlo luego como el de la columna
-                If IndiceCampo = 0 Then
-                    IconoWidth = 250
-                Else
-                    IconoWidth = 0
-                End If
-                
-                If pForm.TextWidth(DatoMostrar) + IconoWidth > ArrWidthColumn(IndiceCampo) Then
-                    ArrWidthColumn(IndiceCampo) = pForm.TextWidth(DatoMostrar) + IconoWidth
-                End If
-                
-            Next IndiceCampo
-            vRec.MoveNext
-        Wend
+        If IsNull(vRec.Fields(IndiceCampo)) Then
+            DatoMostrar = ""
+        Else
+            Select Case vRec.Fields(IndiceCampo).Type
+                Case dbSqlNumeric
+                    DatoMostrar = Format(vRec.Fields(IndiceCampo), "0.00")
+                Case dbSqlDate
+                    DatoMostrar = Format(vRec.Fields(IndiceCampo), "dd/mm/yyyy")
+                Case Else
+                    DatoMostrar = vRec.Fields(IndiceCampo)
+            End Select
+        End If
+
+        If IndiceCampo = 0 Then
+            itmX.text = DatoMostrar
+        Else
+            itmX.SubItems(IndiceCampo) = DatoMostrar
+        End If
+
+        ' cálculo de ancho
+        If IndiceCampo = 0 Then
+            IconoWidth = 250
+        Else
+            IconoWidth = 0
+        End If
+
+        If pForm.TextWidth(DatoMostrar) + IconoWidth > ArrWidthColumn(IndiceCampo) Then
+            ArrWidthColumn(IndiceCampo) = pForm.TextWidth(DatoMostrar) + IconoWidth
+        End If
+
+    Next IndiceCampo
+
+    vRec.MoveNext
+Wend
             
         ' ajusto el tamaño de las columnas
         For IndiceColumna = 0 To HastaCampo
