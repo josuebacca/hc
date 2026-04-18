@@ -455,7 +455,7 @@ Private Sub Form_Load()
     
     If vMode <> 1 Then
         If vFieldID <> "0" Then
-            cSQL = "SELECT * FROM " & cTabla & "  WHERE LOC_CODIGO = " & Right(vFieldID, Len(vFieldID) - 1)
+            cSQL = "SELECT * FROM " & cTabla & "  WHERE LOC_CODIGO = " & vFieldID
             cSQL = cSQL & " AND PRO_CODIGO = " & Mid(vFieldID1, 1, 10)
             cSQL = cSQL & " AND PAI_CODIGO = " & Mid(vFieldID2, 1, 10)
             rec.Open cSQL, DBConn, adOpenStatic, adLockOptimistic

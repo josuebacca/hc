@@ -113,7 +113,7 @@ Begin VB.Form ABMClientes
             _ExtentX        =   2566
             _ExtentY        =   556
             _Version        =   393216
-            Format          =   154140673
+            Format          =   152043521
             CurrentDate     =   40071
          End
          Begin VB.Label lblGenerandoCarpeta 
@@ -410,7 +410,7 @@ Begin VB.Form ABMClientes
          _ExtentY        =   556
          _Version        =   393216
          CheckBox        =   -1  'True
-         Format          =   154140673
+         Format          =   152043521
          CurrentDate     =   40071
       End
       Begin MSComCtl2.DTPicker DTFechaNac 
@@ -423,7 +423,7 @@ Begin VB.Form ABMClientes
          _ExtentY        =   556
          _Version        =   393216
          CheckBox        =   -1  'True
-         Format          =   154140673
+         Format          =   152043521
          CurrentDate     =   40071
       End
       Begin VB.Label Label1 
@@ -893,7 +893,7 @@ Begin VB.Form ABMClientes
             _ExtentY        =   556
             _Version        =   393216
             CheckBox        =   -1  'True
-            Format          =   154140673
+            Format          =   152043521
             CurrentDate     =   40070
          End
          Begin VB.TextBox txtcualca 
@@ -1272,7 +1272,7 @@ Begin VB.Form ABMClientes
             CalendarBackColor=   12648384
             CalendarForeColor=   0
             CalendarTitleBackColor=   12648384
-            Format          =   154140673
+            Format          =   152043521
             UpDown          =   -1  'True
             CurrentDate     =   40063
          End
@@ -1299,7 +1299,7 @@ Begin VB.Form ABMClientes
             CalendarTitleBackColor=   12648384
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   154140673
+            Format          =   152043521
             CurrentDate     =   40063
          End
          Begin VB.TextBox txtDescTra 
@@ -1724,7 +1724,7 @@ Begin VB.Form ABMClientes
             CalendarBackColor=   12648384
             CalendarForeColor=   0
             CalendarTitleBackColor=   12648384
-            Format          =   154140673
+            Format          =   152043521
             UpDown          =   -1  'True
             CurrentDate     =   40063
          End
@@ -3076,8 +3076,8 @@ HayErrorCClinico:
 End Sub
 
 Private Sub Command1_Click()
-    Dim x As Integer
-    x = 2
+    Dim X As Integer
+    X = 2
     sql = "SELECT * FROM XX"
     rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
     If rec.EOF = False Then
@@ -3085,7 +3085,7 @@ Private Sub Command1_Click()
             sql = "INSERT INTO CLIENTE (CLI_CODIGO,CLI_RAZSOC,"
             sql = sql & " CLI_DOMICI,CLI_TELEFONO,CLI_CELULAR,CLI_MAIL,CLI_CUMPLE,"
             sql = sql & " IVA_CODIGO,PAI_CODIGO,PRO_CODIGO,LOC_CODIGO,CLI_NRODOC) VALUES ("
-            sql = sql & x & ","
+            sql = sql & X & ","
             sql = sql & "'" & Trim(rec!apellido) & " " & Trim(rec!Nombre) & "',"
             sql = sql & XS(rec!DIRECCION) & ","
             sql = sql & XS(rec!te) & ","
@@ -3095,7 +3095,7 @@ Private Sub Command1_Click()
             sql = sql & buscaloc(Trim(rec!CIUDAD)) & ","
             sql = sql & XN(rec!dni) & ")"
             DBConn.Execute sql
-            x = x + 1
+            X = X + 1
             rec.MoveNext
         Loop
     End If
