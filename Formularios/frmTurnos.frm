@@ -143,7 +143,7 @@ Begin VB.Form frmTurnos
       _ExtentX        =   3201
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   152109057
+      Format          =   152174593
       CurrentDate     =   43340
    End
    Begin VB.Frame fraprotocolos 
@@ -933,7 +933,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   152109058
+         StartOfWeek     =   152174594
          CurrentDate     =   40049
       End
    End
@@ -1900,16 +1900,17 @@ Open ruta & "Turnos_" & _
      For Output As #archivo
 
 ' Header
-Print #archivo, "Phone,Name,fecha,hora,profesional"
+Print #archivo, "Nombre,Telefono,Fecha,Hora,Medico,Enviado"
 
 Do While Not rs.EOF
 
-    linea = obtenerCelular(ChkNull(rs!CLI_CELULAR)) & "," & _
-            LimpiarCSV(rs!CLI_RAZSOC) & "," & _
-            Format(rs!TUR_FECHA, "dd/mm/yyyy") & "," & _
+    linea = LimpiarCSV(rs!CLI_RAZSOC) & "," & _
+            obtenerCelular(ChkNull(rs!CLI_CELULAR)) & "," & _
+            Format(rs!TUR_FECHA, "YYYY-MM-DD") & "," & _
             Format(rs!TUR_HORAD, "hh:nn") & "," & _
-            LimpiarCSV(rs!VEN_NOMBRE)
-
+            LimpiarCSV(rs!VEN_NOMBRE) & "," & _
+            "NO"
+            
     Print #archivo, linea
 
     rs.MoveNext
