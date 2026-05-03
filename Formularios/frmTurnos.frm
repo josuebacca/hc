@@ -143,7 +143,7 @@ Begin VB.Form frmTurnos
       _ExtentX        =   3201
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   151650305
+      Format          =   152109057
       CurrentDate     =   43340
    End
    Begin VB.Frame fraprotocolos 
@@ -933,7 +933,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   151650306
+         StartOfWeek     =   152109058
          CurrentDate     =   40049
       End
    End
@@ -1844,16 +1844,16 @@ Private Sub cmdespera_Click()
     End If
 End Sub
 'FUNCIONES AUXILIARES PARA CSV RECORDATORIOS
-Function LimpiarNombreArchivo(txt As String) As String
-    txt = Replace(txt, " ", "_")
-    txt = Replace(txt, "/", "")
-    txt = Replace(txt, "\", "")
-    txt = Replace(txt, ":", "")
-    LimpiarNombreArchivo = txt
+Function LimpiarNombreArchivo(Txt As String) As String
+    Txt = Replace(Txt, " ", "_")
+    Txt = Replace(Txt, "/", "")
+    Txt = Replace(Txt, "\", "")
+    Txt = Replace(Txt, ":", "")
+    LimpiarNombreArchivo = Txt
 End Function
-Function LimpiarCSV(txt As String) As String
-    txt = Replace(txt, ",", " ")
-    LimpiarCSV = txt
+Function LimpiarCSV(Txt As String) As String
+    Txt = Replace(Txt, ",", " ")
+    LimpiarCSV = Txt
 End Function
 
 Private Sub cmdExcel_Click()
@@ -2673,7 +2673,7 @@ Private Function obtenerCelular(celular As String)
 
     res = ""
     If celular <> "" Then
-        res = "549" & celular
+        res = "+54" & celular
     End If
     obtenerCelular = res
     
@@ -3258,7 +3258,7 @@ Private Sub txtBuscarCliDescri_LostFocus()
         If rec.State = 1 Then rec.Close
     End If
 End Sub
-Public Sub BuscarClientes(txt As String, mQuien As String, Optional mCadena As String)
+Public Sub BuscarClientes(Txt As String, mQuien As String, Optional mCadena As String)
     Dim cSQL As String
     Dim hSQL As String
     Dim B As CBusqueda
@@ -3291,7 +3291,7 @@ Public Sub BuscarClientes(txt As String, mQuien As String, Optional mCadena As S
 
         ' utilizar la coleccion de datos devueltos
         If .ResultFields.Count > 0 Then
-            If txt = "txtcodCli" Then
+            If Txt = "txtcodCli" Then
                 'txtcodCli.Text = .ResultFields(2)
                 'txtCodCli_LostFocus
             Else
