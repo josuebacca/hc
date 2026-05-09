@@ -251,7 +251,7 @@ Function SetMode(pMode As Integer)
             DesacCtrl txtID
             DesacCtrl txtDescri
         Case 4
-            cmdAceptar.Enabled = True
+            cmdAceptar.Enabled = False
             Me.Caption = "Eliminando Localidad..."
             DesacCtrl txtID
             DesacCtrl txtDescri
@@ -338,6 +338,11 @@ Private Sub cmdAceptar_Click()
 
     Dim cSQL As String
     
+    If vMode = 4 Then
+        MsgBox "No esta permitido borrar localidades", vbOKOnly + vbCritical, TIT_MSGBOX
+        Unload Me
+    End If
+    
     If Validar(vMode) = True Then
         
         On Error GoTo ErrorTran
@@ -364,7 +369,6 @@ Private Sub cmdAceptar_Click()
                 cSQL = cSQL & " AND PRO_CODIGO = " & cboProvincia.ItemData(cboProvincia.ListIndex)
             
             Case 4 'eliminar
-            
                 cSQL = "DELETE FROM " & cTabla & " WHERE LOC_CODIGO  = " & XN(txtID.text)
                 cSQL = cSQL & " AND PAI_CODIGO = " & cboPais.ItemData(cboPais.ListIndex)
                 cSQL = cSQL & " AND PRO_CODIGO = " & cboProvincia.ItemData(cboProvincia.ListIndex)

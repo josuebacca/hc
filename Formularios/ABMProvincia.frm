@@ -143,13 +143,13 @@ Function ActualizarListaBase(pMode As Integer)
     
     'armo la cadena a ejecutar
     If InStr(1, vStringSQL, "WHERE") = 0 Then
-        cSQL = vStringSQL & " WHERE " & cCampoID & " = " & txtID.Text
+        cSQL = vStringSQL & " WHERE " & cCampoID & " = " & txtID.text
     Else
-        cSQL = vStringSQL & " AND " & cCampoID & " = " & txtID.Text
+        cSQL = vStringSQL & " AND " & cCampoID & " = " & txtID.text
     End If
     
     If pMode = 4 Then
-        vListView.ListItems.Remove vListView.SelectedItem.Index
+        vListView.ListItems.Remove vListView.SelectedItem.index
         Exit Function
     End If
     
@@ -162,7 +162,7 @@ Function ActualizarListaBase(pMode As Integer)
             IndiceCampoID = 0
             For Each f In rec.Fields
                 OrdenCampo = OrdenCampo + 1
-                If UCase(f.Name) = UCase(vDesFieldID) Then
+                If UCase(f.name) = UCase(vDesFieldID) Then
                     IndiceCampoID = OrdenCampo - 1
                 End If
             Next f
@@ -178,7 +178,7 @@ Function ActualizarListaBase(pMode As Integer)
                             
                         Case 2
                             Set auxListItem = vListView.SelectedItem
-                            auxListItem.Text = rec.Fields(i)
+                            auxListItem.text = rec.Fields(i)
                     End Select
                 Else
                     auxListItem.SubItems(i) = IIf(IsNull(rec.Fields(i)), "", rec.Fields(i))
@@ -228,7 +228,7 @@ Function SetMode(pMode As Integer)
             DesacCtrl txtID
             DesacCtrl txtDescri
         Case 4
-            cmdAceptar.Enabled = True
+            cmdAceptar.Enabled = False
             Me.Caption = "Eliminando Provincia..."
             DesacCtrl txtID
             DesacCtrl txtDescri
@@ -247,7 +247,7 @@ Public Function SetWindow(pWindow As Form, pSQL As String, pMode As Integer, pLi
     'valor del campo identificador de registro seleccionado (0 si es un reg. nuevo)
     If vMode <> 1 Then
         If vListView.SelectedItem.Selected = True Then
-            vFieldID = vListView.SelectedItem.Key
+            vFieldID = vListView.SelectedItem.key
             vFieldID1 = vListView.SelectedItem.SubItems(3)
         Else
             vFieldID = 0
@@ -263,13 +263,13 @@ Function Validar(pMode As Integer) As Boolean
 
     If pMode <> 4 Then
         Validar = False
-        If txtID.Text = "" Then
+        If txtID.text = "" Then
             Beep
             MsgBox "Falta información." & Chr(13) & _
                              "Ingrese la Identificación del Provincia antes de aceptar.", vbCritical + vbOKOnly, App.Title
             txtID.SetFocus
             Exit Function
-        ElseIf txtDescri.Text = "" Then
+        ElseIf txtDescri.text = "" Then
             Beep
             MsgBox "Falta información." & Chr(13) & _
                              "Ingrese la descripción del Provincia antes de aceptar.", vbCritical + vbOKOnly, App.Title
@@ -306,18 +306,18 @@ Private Sub cmdAceptar_Click()
                 cSQL = cSQL & "     (PAI_CODIGO, PRO_CODIGO ,PRO_DESCRI) "
                 cSQL = cSQL & "VALUES "
                 cSQL = cSQL & "     (" & cboPais.ItemData(cboPais.ListIndex) & ", "
-                cSQL = cSQL & XN(txtID.Text) & ", " & XS(txtDescri.Text) & ") "
+                cSQL = cSQL & XN(txtID.text) & ", " & XS(txtDescri.text) & ") "
             
             Case 2 'editar
                 
                 cSQL = "UPDATE " & cTabla & " SET "
-                cSQL = cSQL & "     PRO_DESCRI = " & XS(txtDescri.Text)
-                cSQL = cSQL & " WHERE PRO_CODIGO  = " & XN(txtID.Text)
+                cSQL = cSQL & "     PRO_DESCRI = " & XS(txtDescri.text)
+                cSQL = cSQL & " WHERE PRO_CODIGO  = " & XN(txtID.text)
                 cSQL = cSQL & " AND PAI_CODIGO = " & cboPais.ItemData(cboPais.ListIndex)
             
             Case 4 'eliminar
             
-                cSQL = "DELETE FROM " & cTabla & " WHERE PRO_CODIGO  = " & XN(txtID.Text)
+                cSQL = "DELETE FROM " & cTabla & " WHERE PRO_CODIGO  = " & XN(txtID.text)
                 cSQL = cSQL & " AND PAI_CODIGO = " & cboPais.ItemData(cboPais.ListIndex)
             
         End Select
@@ -412,8 +412,8 @@ Private Sub Form_Load()
             If (rec.BOF And rec.EOF) = 0 Then
                 'si encontró el registro muestro los datos
                 Call BuscaCodigoProxItemData(CInt(rec!PAI_CODIGO), cboPais)
-                txtID.Text = rec!PRO_CODIGO
-                txtDescri.Text = rec!PRO_DESCRI
+                txtID.text = rec!PRO_CODIGO
+                txtDescri.text = rec!PRO_DESCRI
             Else
                 Beep
                 MsgBox "Imposible encontrar el registro seleccionado.", vbCritical + vbOKOnly, App.Title
@@ -452,22 +452,22 @@ Private Sub txtID_LostFocus()
     Set rec = New ADODB.Recordset
     
     If vMode = 1 Then ' si se esta usando en modo de nuevo registro
-        If txtID.Text = "" Then
+        If txtID.text = "" Then
             If cSugerirID = True Then
                 cSQL = "SELECT MAX(" & cCampoID & ") FROM " & cTabla
                 'cSQL = cSQL & " WHERE PAI_CODIGO = " & cboPais.ItemData(cboPais.ListIndex)
                 rec.Open cSQL, DBConn, adOpenStatic, adLockOptimistic
                 If (rec.BOF And rec.EOF) = 0 Then
                     If rec.Fields(0) > 0 Then
-                        txtID.Text = rec.Fields(0) + 1
+                        txtID.text = rec.Fields(0) + 1
                     Else
-                        txtID.Text = 1
+                        txtID.text = 1
                     End If
                 End If
             End If
         Else
             'verifico que no sea clave repetida
-            cSQL = "SELECT COUNT(*) FROM " & cTabla & " WHERE " & cCampoID & " = " & XN(txtID.Text)
+            cSQL = "SELECT COUNT(*) FROM " & cTabla & " WHERE " & cCampoID & " = " & XN(txtID.text)
             'cSQL = cSQL & " AND PAI_CODIGO = " & cboPais.ItemData(cboPais.ListIndex)
             rec.Open cSQL, DBConn, adOpenStatic, adLockOptimistic
             If (rec.BOF And rec.EOF) = 0 Then
@@ -475,7 +475,7 @@ Private Sub txtID_LostFocus()
                     Beep
                     MsgBox "Código de " & cDesRegistro & " repetido." & Chr(13) & _
                                      "El código ingresado Pertenece a otro registro de " & cDesRegistro & ".", vbCritical + vbOKOnly, App.Title
-                    txtID.Text = ""
+                    txtID.text = ""
                     txtID.SetFocus
                 End If
             End If
