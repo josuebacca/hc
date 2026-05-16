@@ -21,16 +21,17 @@ Begin VB.Form frmTurnos
    Begin VB.CommandButton cmdExportarTurno 
       Caption         =   "&Exportar turno"
       Height          =   735
-      Left            =   8040
+      Left            =   9000
       Picture         =   "frmTurnos.frx":030A
       Style           =   1  'Graphical
       TabIndex        =   70
       ToolTipText     =   "Listado de Turnos del dia por Doctor"
       Top             =   9240
+      Visible         =   0   'False
       Width           =   1215
    End
    Begin VB.CommandButton cmdExcel 
-      Caption         =   "&Recordatorios"
+      Caption         =   "&Exportar turnero"
       Height          =   735
       Left            =   5040
       Picture         =   "frmTurnos.frx":0FD4
@@ -38,13 +39,13 @@ Begin VB.Form frmTurnos
       TabIndex        =   69
       ToolTipText     =   "Listado de Turnos del dia por Doctor"
       Top             =   9240
-      Width           =   1095
+      Width           =   1335
    End
    Begin VB.CommandButton cmdSalir 
       Caption         =   "&Salir"
       Height          =   735
-      Left            =   7080
-      Picture         =   "frmTurnos.frx":189E
+      Left            =   7320
+      Picture         =   "frmTurnos.frx":1C9E
       Style           =   1  'Graphical
       TabIndex        =   68
       Top             =   9240
@@ -87,7 +88,7 @@ Begin VB.Form frmTurnos
       Height          =   495
       Left            =   18960
       MaskColor       =   &H00FFFFFF&
-      Picture         =   "frmTurnos.frx":28E0
+      Picture         =   "frmTurnos.frx":2CE0
       Style           =   1  'Graphical
       TabIndex        =   63
       ToolTipText     =   "Ir a protocolos"
@@ -98,7 +99,7 @@ Begin VB.Form frmTurnos
       Enabled         =   0   'False
       Height          =   495
       Left            =   18000
-      Picture         =   "frmTurnos.frx":39AA
+      Picture         =   "frmTurnos.frx":3DAA
       Style           =   1  'Graphical
       TabIndex        =   58
       ToolTipText     =   "Protocolos"
@@ -108,7 +109,7 @@ Begin VB.Form frmTurnos
    Begin VB.CommandButton cmdCopiar 
       Height          =   495
       Left            =   17040
-      Picture         =   "frmTurnos.frx":56A4
+      Picture         =   "frmTurnos.frx":5AA4
       Style           =   1  'Graphical
       TabIndex        =   57
       ToolTipText     =   "Copiar Turnos"
@@ -119,7 +120,7 @@ Begin VB.Form frmTurnos
       Enabled         =   0   'False
       Height          =   495
       Left            =   17520
-      Picture         =   "frmTurnos.frx":5A2E
+      Picture         =   "frmTurnos.frx":5E2E
       Style           =   1  'Graphical
       TabIndex        =   56
       ToolTipText     =   "Cortar Turnos"
@@ -130,7 +131,7 @@ Begin VB.Form frmTurnos
       Enabled         =   0   'False
       Height          =   495
       Left            =   16560
-      Picture         =   "frmTurnos.frx":5DB8
+      Picture         =   "frmTurnos.frx":61B8
       Style           =   1  'Graphical
       TabIndex        =   55
       ToolTipText     =   "ImprimirTurno"
@@ -154,7 +155,7 @@ Begin VB.Form frmTurnos
       _ExtentX        =   3201
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   154664961
+      Format          =   151781377
       CurrentDate     =   43340
    End
    Begin VB.Frame fraprotocolos 
@@ -290,8 +291,8 @@ Begin VB.Form frmTurnos
    Begin VB.CommandButton cmdInforTurno 
       Caption         =   "&Información"
       Height          =   735
-      Left            =   6120
-      Picture         =   "frmTurnos.frx":B9CA
+      Left            =   6360
+      Picture         =   "frmTurnos.frx":BDCA
       Style           =   1  'Graphical
       TabIndex        =   16
       Top             =   9240
@@ -301,7 +302,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Reporte"
       Height          =   735
       Left            =   4080
-      Picture         =   "frmTurnos.frx":11C54
+      Picture         =   "frmTurnos.frx":12054
       Style           =   1  'Graphical
       TabIndex        =   26
       ToolTipText     =   "Listado de Turnos del dia por Doctor"
@@ -312,7 +313,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Nuevo"
       Height          =   735
       Left            =   3120
-      Picture         =   "frmTurnos.frx":1291E
+      Picture         =   "frmTurnos.frx":12D1E
       Style           =   1  'Graphical
       TabIndex        =   27
       Top             =   9240
@@ -322,7 +323,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Buscar Turnos"
       Height          =   735
       Left            =   2160
-      Picture         =   "frmTurnos.frx":13960
+      Picture         =   "frmTurnos.frx":13D60
       Style           =   1  'Graphical
       TabIndex        =   24
       Top             =   9240
@@ -944,7 +945,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   154664962
+         StartOfWeek     =   151781378
          CurrentDate     =   40049
       End
    End
@@ -997,7 +998,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Quitar"
       Height          =   735
       Left            =   1200
-      Picture         =   "frmTurnos.frx":13CEA
+      Picture         =   "frmTurnos.frx":140EA
       Style           =   1  'Graphical
       TabIndex        =   15
       Top             =   9240
@@ -1007,7 +1008,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Agregar"
       Height          =   735
       Left            =   240
-      Picture         =   "frmTurnos.frx":14D2C
+      Picture         =   "frmTurnos.frx":1512C
       Style           =   1  'Graphical
       TabIndex        =   13
       Top             =   9240
