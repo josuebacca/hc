@@ -18,11 +18,22 @@ Begin VB.Form frmTurnos
    ScaleHeight     =   10050
    ScaleWidth      =   19725
    StartUpPosition =   2  'CenterScreen
+   Begin VB.CommandButton cmdExportarTurno 
+      Caption         =   "&Exportar turno"
+      Height          =   735
+      Left            =   8040
+      Picture         =   "frmTurnos.frx":030A
+      Style           =   1  'Graphical
+      TabIndex        =   70
+      ToolTipText     =   "Listado de Turnos del dia por Doctor"
+      Top             =   9240
+      Width           =   1215
+   End
    Begin VB.CommandButton cmdExcel 
       Caption         =   "&Recordatorios"
       Height          =   735
       Left            =   5040
-      Picture         =   "frmTurnos.frx":030A
+      Picture         =   "frmTurnos.frx":0FD4
       Style           =   1  'Graphical
       TabIndex        =   69
       ToolTipText     =   "Listado de Turnos del dia por Doctor"
@@ -33,7 +44,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Salir"
       Height          =   735
       Left            =   7080
-      Picture         =   "frmTurnos.frx":0BD4
+      Picture         =   "frmTurnos.frx":189E
       Style           =   1  'Graphical
       TabIndex        =   68
       Top             =   9240
@@ -76,7 +87,7 @@ Begin VB.Form frmTurnos
       Height          =   495
       Left            =   18960
       MaskColor       =   &H00FFFFFF&
-      Picture         =   "frmTurnos.frx":1C16
+      Picture         =   "frmTurnos.frx":28E0
       Style           =   1  'Graphical
       TabIndex        =   63
       ToolTipText     =   "Ir a protocolos"
@@ -87,7 +98,7 @@ Begin VB.Form frmTurnos
       Enabled         =   0   'False
       Height          =   495
       Left            =   18000
-      Picture         =   "frmTurnos.frx":2CE0
+      Picture         =   "frmTurnos.frx":39AA
       Style           =   1  'Graphical
       TabIndex        =   58
       ToolTipText     =   "Protocolos"
@@ -97,7 +108,7 @@ Begin VB.Form frmTurnos
    Begin VB.CommandButton cmdCopiar 
       Height          =   495
       Left            =   17040
-      Picture         =   "frmTurnos.frx":49DA
+      Picture         =   "frmTurnos.frx":56A4
       Style           =   1  'Graphical
       TabIndex        =   57
       ToolTipText     =   "Copiar Turnos"
@@ -108,7 +119,7 @@ Begin VB.Form frmTurnos
       Enabled         =   0   'False
       Height          =   495
       Left            =   17520
-      Picture         =   "frmTurnos.frx":4D64
+      Picture         =   "frmTurnos.frx":5A2E
       Style           =   1  'Graphical
       TabIndex        =   56
       ToolTipText     =   "Cortar Turnos"
@@ -119,7 +130,7 @@ Begin VB.Form frmTurnos
       Enabled         =   0   'False
       Height          =   495
       Left            =   16560
-      Picture         =   "frmTurnos.frx":50EE
+      Picture         =   "frmTurnos.frx":5DB8
       Style           =   1  'Graphical
       TabIndex        =   55
       ToolTipText     =   "ImprimirTurno"
@@ -143,7 +154,7 @@ Begin VB.Form frmTurnos
       _ExtentX        =   3201
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   152174593
+      Format          =   154664961
       CurrentDate     =   43340
    End
    Begin VB.Frame fraprotocolos 
@@ -280,7 +291,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Información"
       Height          =   735
       Left            =   6120
-      Picture         =   "frmTurnos.frx":AD00
+      Picture         =   "frmTurnos.frx":B9CA
       Style           =   1  'Graphical
       TabIndex        =   16
       Top             =   9240
@@ -290,7 +301,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Reporte"
       Height          =   735
       Left            =   4080
-      Picture         =   "frmTurnos.frx":10F8A
+      Picture         =   "frmTurnos.frx":11C54
       Style           =   1  'Graphical
       TabIndex        =   26
       ToolTipText     =   "Listado de Turnos del dia por Doctor"
@@ -301,7 +312,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Nuevo"
       Height          =   735
       Left            =   3120
-      Picture         =   "frmTurnos.frx":11C54
+      Picture         =   "frmTurnos.frx":1291E
       Style           =   1  'Graphical
       TabIndex        =   27
       Top             =   9240
@@ -311,7 +322,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Buscar Turnos"
       Height          =   735
       Left            =   2160
-      Picture         =   "frmTurnos.frx":12C96
+      Picture         =   "frmTurnos.frx":13960
       Style           =   1  'Graphical
       TabIndex        =   24
       Top             =   9240
@@ -933,7 +944,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   152174594
+         StartOfWeek     =   154664962
          CurrentDate     =   40049
       End
    End
@@ -986,7 +997,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Quitar"
       Height          =   735
       Left            =   1200
-      Picture         =   "frmTurnos.frx":13020
+      Picture         =   "frmTurnos.frx":13CEA
       Style           =   1  'Graphical
       TabIndex        =   15
       Top             =   9240
@@ -996,7 +1007,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Agregar"
       Height          =   735
       Left            =   240
-      Picture         =   "frmTurnos.frx":14062
+      Picture         =   "frmTurnos.frx":14D2C
       Style           =   1  'Graphical
       TabIndex        =   13
       Top             =   9240
@@ -1923,6 +1934,73 @@ rs.Close
 MsgBox "Archivo generado correctamente.", vbInformation
 End Sub
 
+Private Sub cmdExportarTurno_Click()
+    Dim archivo As Integer
+    Dim ruta As String
+    Dim linea As String
+    Dim medicoNombre As String
+    Dim fechaSeleccionada As Date
+    Dim filaSeleccionada As Long
+    Dim nombreCliente As String
+    Dim razSoc As String
+    Dim telefonoCliente As String
+    Dim fechaturno As String
+    Dim horaTurno As String
+    Dim nombreMedico As String
+    
+    ' Validar que hay una fila seleccionada en la grilla
+    If grdGrilla.row < grdGrilla.FixedRows Then
+        MsgBox "Debe seleccionar un turno de la grilla.", vbExclamation, "Atención"
+        Exit Sub
+    End If
+    
+    ' Validar que la grilla tiene datos
+    If grdGrilla.rows <= grdGrilla.FixedRows Then
+        MsgBox "No hay turnos disponibles en la grilla.", vbExclamation, "Atención"
+        Exit Sub
+    End If
+    
+    ' Obtener fila seleccionada
+    filaSeleccionada = grdGrilla.row
+    
+    ' Extraer datos de la grilla (ajustar índices de columna según tu grilla)
+    ' Ejemplo asumiendo columnas: 0=Nombre, 1=Teléfono, 2=Fecha, 3=Hora, 4=Médico
+     horaTurno = Left(grdGrilla.TextMatrix(filaSeleccionada, 0), 5)      ' HORAS
+    nombreCliente = grdGrilla.TextMatrix(filaSeleccionada, 1)    ' PACIENTE
+    razSoc = grdGrilla.TextMatrix(filaSeleccionada, 1)    ' PACIENTE
+    telefonoCliente = grdGrilla.TextMatrix(filaSeleccionada, 3)  ' CELULAR/TELEFONO
+    
+    ' Datos desde UI
+    nombreMedico = cboDoctor.text
+    fechaSeleccionada = MViewFecha.Value
+    
+    ' Crear ruta y archivo
+    ruta = "D:\ws\DIGOR\Cancelaciones\"
+    archivo = FreeFile
+    
+    
+    Open ruta & "Turno_" & _
+         LimpiarNombreArchivo(nombreCliente) & "_" & _
+         Format(fechaSeleccionada, "dd-mm-yyyy") & ".csv" _
+         For Output As #archivo
+    
+    ' Header
+    Print #archivo, "Nombre,Telefono,Fecha,Hora,Medico,Enviado"
+    
+    ' Escribir solo la fila seleccionada
+    linea = LimpiarCSV(razSoc) & "," & _
+            obtenerCelular(telefonoCliente) & "," & _
+            Format(fechaSeleccionada, "YYYY-MM-DD") & "," & _
+            Format(horaTurno, "hh:nn") & "," & _
+            LimpiarCSV(nombreMedico) & "," & _
+            "NO"
+            
+    Print #archivo, linea
+    
+    Close #archivo
+    
+    MsgBox "Archivo generado correctamente para el turno seleccionado.", vbInformation, "Éxito"
+End Sub
 Private Sub cmdImpTurno_Click()
     If txtBuscaCliente.text <> "" Then
         ImprimirTurno
@@ -2136,7 +2214,7 @@ Private Sub cmdProtocolos_Click()
 End Sub
 Private Function ObtenerUsuarioCodigoActual(clave As String) As Long
 
-    Dim item As Variant
+    Dim Item As Variant
     Dim obj As ClsLLave
 
     If dictLlaves Is Nothing Then
@@ -2144,8 +2222,8 @@ Private Function ObtenerUsuarioCodigoActual(clave As String) As Long
         Exit Function
     End If
 
-    For Each item In dictLlaves.Items
-        Set obj = item
+    For Each Item In dictLlaves.Items
+        Set obj = Item
 
         If Trim(obj.Valor) = Trim(clave) Then
             ObtenerUsuarioCodigoActual = obj.Codigo
