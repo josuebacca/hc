@@ -13,4 +13,5 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Public Codigo As Long
 Public Valor As String
-Public Usuario As String
+Public USUARIO As String
+Public activa As Boolean

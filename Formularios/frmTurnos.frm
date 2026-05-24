@@ -155,7 +155,7 @@ Begin VB.Form frmTurnos
       _ExtentX        =   3201
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   151781377
+      Format          =   151715841
       CurrentDate     =   43340
    End
    Begin VB.Frame fraprotocolos 
@@ -945,7 +945,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   151781378
+         StartOfWeek     =   151715842
          CurrentDate     =   40049
       End
    End
@@ -1164,6 +1164,8 @@ End Sub
 
 Private Sub cboDoctor_Click()
     LimpiarComboMotivo
+    'Buscar link drive
+    BuscarLinkDrive
     If cboDoctor.ListIndex <> -1 Then
         sql = "SELECT M.MOT_DESCRI"
             sql = sql & " FROM  MOTIVO_VENDEDOR MV,VENDEDOR V,MOTIVO M "
@@ -1179,15 +1181,30 @@ Private Sub cboDoctor_Click()
     End If
     LimpiarGrilla
     BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
+
 End Sub
 Private Sub LimpiarComboMotivo()
     cboMotivo.Clear
+End Sub
+Private Sub LimpiarComboDoctor()
+    cboDoctor.Clear
+End Sub
+Private Sub BuscarLinkDrive()
+    sql = "SELECT VEN_CODIGO, VEN_LINKPROT FROM VENDEDOR"
+    sql = sql & " WHERE VEN_CODIGO= " & cboDoctor.ItemData(cboDoctor.ListIndex)
+    rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
+
+    If rec.EOF = False Then
+       linkProtocolos = ChkNull(rec!VEN_LINKPROT)
+    End If
+    rec.Close
 End Sub
 
 Private Sub cboDoctor_Change()
     'LimpiarTurno
     LimpiarGrilla
     BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
+
 End Sub
 
 Private Sub cbohasta_LostFocus()
@@ -2226,7 +2243,7 @@ Private Function ObtenerUsuarioCodigoActual(clave As String) As Long
     For Each Item In dictLlaves.Items
         Set obj = Item
 
-        If Trim(obj.Valor) = Trim(clave) Then
+        If Trim(obj.Valor) = Trim(clave) And Item.activa = "Verdadero" Then
             ObtenerUsuarioCodigoActual = obj.Codigo
             Exit Function
         End If
@@ -2400,10 +2417,11 @@ End Sub
 Public Sub CargarLlavesUsuarios()
 
     Dim obj As ClsLLave
+    Dim inactiva As String
 
     Set dictLlaves = CreateObject("Scripting.Dictionary")
 
-    sql = "SELECT LLA_CODIGO, LLA_VALOR, LLA_USUARIO FROM LLAVE_USUARIO"
+    sql = "SELECT * FROM LLAVE_USUARIO"
     Rec1.Open sql, DBConn
 
     Do While Not Rec1.EOF
@@ -2413,6 +2431,7 @@ Public Sub CargarLlavesUsuarios()
         obj.Codigo = Rec1!LLA_CODIGO
         obj.Valor = Trim(CStr(Rec1!LLA_VALOR))
         obj.USUARIO = Rec1!LLA_USUARIO
+        obj.activa = Rec1!activa
 
         dictLlaves.Add obj.Codigo, obj
 
@@ -2881,25 +2900,16 @@ End Function
 
 
 Private Sub LlenarComboDoctor()
+    LimpiarComboDoctor
      'BUSCO CODIGO DE DOCTOR POR NOMBRE DE USUARIO
-    sql = "SELECT VEN_CODIGO, VEN_LINKPROT FROM VENDEDOR"
-    sql = sql & " WHERE PR_CODIGO > 1"
-    If mNomUser = "A" Or mNomUser = "DIGOR" Or mNomUser = "PILI" Then
-        sql = sql & " AND VEN_NOMBRE LIKE '" & "SILVANA" & "%'"
-    Else
-        sql = sql & " AND VEN_NOMBRE LIKE '" & mNomUser & "%'"
-    End If
-    rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
-    If rec.EOF = False Then
-        User = rec!VEN_CODIGO
-        linkProtocolos = ChkNull(rec!VEN_LINKPROT)
-    End If
-    rec.Close
-
     sql = "SELECT * FROM VENDEDOR"
-    sql = sql & " WHERE PR_CODIGO > 1 and VEN_ESTADO = 'N'"
-    sql = sql & " ORDER BY VEN_CODIGO"
+    sql = sql & " WHERE PR_CODIGO > 1 and VEN_ESTADO = 'N' "
+    If mNomUser <> "A" And mNomUser <> "DIGOR" Then
+        sql = sql & " AND VEN_NOMBRE LIKE '%" & mNomUser & "%'"
+    End If
+    sql = sql & " order by VEN_CODIGO"
     rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
+    
     If rec.EOF = False Then
         'cboFactura1.AddItem "(Todas)"
         cboDoctor.AddItem ""
@@ -2910,12 +2920,7 @@ Private Sub LlenarComboDoctor()
         Loop
         'coloco el close aca xq lo va a usar el metodo de buscarturnos que se aciva al hacer: cboDoctor.ListIndex = 0
         rec.Close
-        If mNomUser = "A" Or mNomUser = "DIGOR" Or mNomUser = "PILI" Then
-            cboDoctor.ListIndex = 0
-        Else
-            Call BuscaCodigoProxItemData(XN(User), cboDoctor)
-        End If
-        
+        cboDoctor.ListIndex = 0
     End If
     'rec.Close
 End Sub
@@ -2981,7 +2986,7 @@ Private Function configurogrilla()
     grdGrilla.ColWidth(12) = 0 'TUR_DESDE
     grdGrilla.ColWidth(13) = 0 'TUR_TIENEMUTUAL
     'If User = 1 Then 'ESTA CONFIGURACION LA TOMA DEL INI
-    If mNomUser = "DIGOR" Then 'ESTA CONFIGURACION LA TOMA DEL USUARIO LOGUEADO
+    If mNomUser = "DIGOR" Or mNomUser = "SILVANA" Then 'ESTA CONFIGURACION LA TOMA DEL USUARIO LOGUEADO
         grdGrilla.ColWidth(14) = 1200 'Importe
         grdGrilla.ColWidth(15) = 600 'ORDEN
         grdGrilla.ColWidth(16) = 0 'IMPRESO

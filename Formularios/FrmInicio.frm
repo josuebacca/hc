@@ -129,6 +129,35 @@ Option Explicit
 Dim CUANTAS_VECES As Integer
 Dim rec As ADODB.Recordset
 Dim sql As String
+Dim dictLlaves As Object
+Public Sub CargarLlavesUsuarios()
+
+    Dim obj As ClsLLave
+    Dim inactiva As String
+    
+    Set rec = New ADODB.Recordset
+    Set dictLlaves = CreateObject("Scripting.Dictionary")
+
+    sql = "SELECT * FROM LLAVE_USUARIO"
+    rec.Open sql, DBConn
+
+    Do While Not rec.EOF
+
+        Set obj = New ClsLLave
+
+        obj.Codigo = rec!LLA_CODIGO
+        obj.Valor = Trim(CStr(rec!LLA_VALOR))
+        obj.USUARIO = rec!LLA_USUARIO
+        obj.activa = rec!activa
+
+        dictLlaves.Add obj.Codigo, obj
+
+        rec.MoveNext
+    Loop
+
+    rec.Close
+
+End Sub
 
 Public Sub Conexion()
     Dim sPathBase As String
@@ -230,10 +259,36 @@ Public Sub PERMISOS(USUARIO As String)
         r.Close
     End If
 End Sub
+Private Function ObtenerUsuarioCodigoActual(clave As String) As Long
 
+    Dim Item As Variant
+    Dim obj As ClsLLave
+
+    If dictLlaves Is Nothing Then
+        MsgBox "Las llaves no están cargadas.", vbCritical
+        Exit Function
+    End If
+
+    For Each Item In dictLlaves.Items
+        Set obj = Item
+
+        If Trim(obj.Valor) = Trim(clave) And Item.activa = "Verdadero" Then
+            ObtenerUsuarioCodigoActual = obj.Codigo
+            Exit Function
+        End If
+    Next
+
+    ObtenerUsuarioCodigoActual = 0 ' no encontrado
+
+End Function
 
 Private Sub cmdAceptar_Click()
     
+    'Variables para validacion de llave
+    Dim Frm As New frmIngresarClave
+    Dim clave As String
+    Dim usuarioActual As Long
+    ''''''''''''''''''''''''''''
     Set rec = New ADODB.Recordset
     mNomUser = Trim(TxtUsuario)
     
@@ -251,10 +306,10 @@ Private Sub cmdAceptar_Click()
         TxtUsuario.SetFocus
         Exit Sub
     End If
-
+    
     sql = "SELECT * FROM USUARIO WHERE " & _
           "USU_NOMBRE = '" & Trim(TxtUsuario) & "' AND " & _
-           "USU_CLAVE = '" & Trim(txtClave) & "'"
+           "USU_CLAVE = '" & Trim(TxtClave) & "'"
     rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
     If rec.RecordCount <> 1 Then
         sql = "La contraseña de usuario NO ES CORRECTA !" & Chr(13) & Chr(13)
@@ -268,8 +323,8 @@ Private Sub cmdAceptar_Click()
             'si ya pifió 3 veces salgo del Sistema
             cmdSalir_Click
         Else
-            txtClave.SelStart = 0
-            txtClave.SelLength = Len(txtClave)
+            TxtClave.SelStart = 0
+            TxtClave.SelLength = Len(TxtClave)
             TxtUsuario.SetFocus
             CUANTAS_VECES = CUANTAS_VECES + 1
         End If
@@ -280,16 +335,43 @@ Private Sub cmdAceptar_Click()
         Label1(1).Refresh
         'muestro un figureti de coneccion
         mNomUser = Trim(TxtUsuario)
-        mPassword = Trim(txtClave)
+        mPassword = Trim(TxtClave)
         'BUSCO SUCURSALES---
            BuscoNroSucursal
-        '-----------------
+           
+           
+           
+        '----LLAVES USUARIO SI ES DIGOR-------
+        
+        CargarLlavesUsuarios
+        If Trim(TxtUsuario) = "DIGOR" Then
+            Frm.Show vbModal
+        
+            clave = Frm.ClaveIngresada
+            
+            Unload Frm
+            Set Frm = Nothing
+            
+            If Trim(clave) = "" Then
+                MsgBox "Operación cancelada. No se ingresó clave.", vbExclamation
+                Exit Sub
+            End If
+            
+            ' 3. Buscar clave en diccionario
+            usuarioActual = ObtenerUsuarioCodigoActual(clave)
+            
+            If usuarioActual = 0 Then
+                MsgBox "Operación cancelada. Clave inexistente.", vbExclamation
+                Exit Sub
+            End If
+    
+        End If
         Unload Me
             Set FrmInicio = Nothing
                 End If
 End Sub
 Private Sub CmdAceptar_GotFocus()
-    cmdAceptar.FontBold = True
+    CmdAceptar.FontBold = True
 End Sub
 
 Private Sub cmdSalir_Click()
@@ -297,7 +379,7 @@ Private Sub cmdSalir_Click()
 End Sub
 
 Private Sub CmdSalir_GotFocus()
-    cmdSalir.FontBold = True
+    CmdSalir.FontBold = True
 End Sub
 
 Private Sub Form_KeyPress(KeyAscii As Integer)
@@ -311,7 +393,7 @@ Private Sub Form_Load()
     CUANTAS_VECES = 1
 End Sub
 
-Private Sub txtClave_KeyPress(KeyAscii As Integer)
+Private Sub TxtClave_KeyPress(KeyAscii As Integer)
     KeyAscii = CarTexto(KeyAscii)
     If KeyAscii = vbKeyReturn Then
         cmdAceptar_Click

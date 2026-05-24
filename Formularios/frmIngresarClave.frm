@@ -1,12 +1,12 @@
 VERSION 5.00
 Begin VB.Form frmIngresarClave 
    Caption         =   "Ingresar clave"
-   ClientHeight    =   2580
+   ClientHeight    =   2295
    ClientLeft      =   120
    ClientTop       =   465
    ClientWidth     =   4905
    LinkTopic       =   "Form1"
-   ScaleHeight     =   2580
+   ScaleHeight     =   2295
    ScaleWidth      =   4905
    StartUpPosition =   3  'Windows Default
    Begin VB.CommandButton cmdAceptar 
@@ -17,8 +17,8 @@ Begin VB.Form frmIngresarClave
       Left            =   1560
       Picture         =   "frmIngresarClave.frx":030A
       Style           =   1  'Graphical
-      TabIndex        =   3
-      Top             =   1560
+      TabIndex        =   2
+      Top             =   1200
       Width           =   1200
    End
    Begin VB.CommandButton cmdCancelar 
@@ -28,8 +28,8 @@ Begin VB.Form frmIngresarClave
       Left            =   2775
       Picture         =   "frmIngresarClave.frx":091E
       Style           =   1  'Graphical
-      TabIndex        =   2
-      Top             =   1560
+      TabIndex        =   3
+      Top             =   1200
       Width           =   1200
    End
    Begin VB.TextBox txtClave 
@@ -43,12 +43,11 @@ Begin VB.Form frmIngresarClave
          Strikethrough   =   0   'False
       EndProperty
       Height          =   315
-      Left            =   240
+      Left            =   360
       MaxLength       =   100
       MultiLine       =   -1  'True
       TabIndex        =   1
-      Tag             =   "Descripción"
-      Top             =   840
+      Top             =   720
       Width           =   2415
    End
    Begin VB.Label Label1 
@@ -62,11 +61,11 @@ Begin VB.Form frmIngresarClave
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   495
+      Height          =   255
       Left            =   240
       TabIndex        =   0
-      Top             =   120
-      Width           =   3735
+      Top             =   240
+      Width           =   3615
    End
 End
 Attribute VB_Name = "frmIngresarClave"
@@ -85,7 +84,10 @@ Private Sub cmdAceptar_Click()
     Me.Hide
 End Sub
 
-Private Sub cmdCancelar_Click()
+Private Sub CmdCancelar_Click()
     ClaveIngresada = ""
     Me.Hide
+End Sub
+Private Sub Form_Activate()
+    txtClave.SetFocus
 End Sub
