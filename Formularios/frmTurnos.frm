@@ -21,7 +21,7 @@ Begin VB.Form frmTurnos
    Begin VB.CommandButton cmdExportarTurno 
       Caption         =   "&Exportar turno"
       Height          =   735
-      Left            =   9000
+      Left            =   10320
       Picture         =   "frmTurnos.frx":030A
       Style           =   1  'Graphical
       TabIndex        =   70
@@ -155,7 +155,7 @@ Begin VB.Form frmTurnos
       _ExtentX        =   3201
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   151715841
+      Format          =   152240129
       CurrentDate     =   43340
    End
    Begin VB.Frame fraprotocolos 
@@ -945,7 +945,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   151715842
+         StartOfWeek     =   152240130
          CurrentDate     =   40049
       End
    End
@@ -1474,8 +1474,257 @@ Private Sub cmdAceptarP_Click()
         frmhistoriaclinica.Show vbModal
     End If
 End Sub
-
 Private Sub cmdAgregar_Click()
+    Dim nFilaD As Integer
+    Dim nFilaH As Integer
+    Dim sHoraD As String
+    Dim sHoraDAux As String
+    Dim años, edad As Integer
+    Dim Fecha As Date
+    Dim usuarioCodigoActual As Long
+    Dim clave As String
+    Dim Frm As New frmIngresarClave
+    '[NUEVO]
+    Dim idTurnoHistorico As Long
+    Dim accionCodigo As Integer
+    Dim bEsInsert As Boolean
+    Dim RecAux As ADODB.Recordset
+    '[FIN NUEVO]
+    
+    'Validar los campos requeridos
+    If ValidarTurno = False Then Exit Sub
+    'If ValidarHorarioTurno = False Then Exit Sub
+    If MsgBox("¿Confirma el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+     
+    'Pedir clave
+    Frm.Show vbModal
+    
+    clave = Frm.ClaveIngresada
+    
+    Unload Frm
+    Set Frm = Nothing
+    
+    If Trim(clave) = "" Then
+        MsgBox "Operación cancelada. No se ingresó clave.", vbExclamation
+        Exit Sub
+    End If
+    
+    ' 3. Buscar clave en diccionario
+    usuarioCodigoActual = ObtenerUsuarioCodigoActual(clave)
+    
+    If usuarioCodigoActual = 0 Then
+        MsgBox "Operación cancelada. Clave inexistente.", vbExclamation
+        Exit Sub
+    End If
+    
+    'agregar teniendo en cuentas loc combos de horas
+    On Error GoTo HayErrorTurno
+    
+    grdGrilla.HighLight = flexHighlightAlways
+    
+    i = 0
+    
+    sHoraDAux = mebHoraD.text
+    
+        DBConn.BeginTrans
+        
+        sHoraD = mebHoraD.text
+        sHoraD = Mid(sHoraD, 1, 1)
+        
+        If sHoraD = "0" Then
+            sHoraD = Mid(mebHoraD.text, 2, 4)
+        Else
+            sHoraD = Trim(mebHoraD.text)
+        End If
+        
+        'ACA TENGO QUE HACER UN CONTROL POR CLAVES PRIMARIAS
+        sql = "SELECT * FROM TURNOS"
+        sql = sql & " WHERE TUR_FECHA = " & XDQ(fechaturno.Value)
+        sql = sql & " AND TUR_HORAD = '" & fechaturno.Value & " " & sHoraD & "'"
+        sql = sql & " AND VEN_CODIGO = " & cboDoctor.ItemData(cboDoctor.ListIndex)
+        sql = sql & " AND DELETED_AT IS NULL"
+        rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
+        
+        usuarioCodigoActual = ObtenerUsuarioCodigoActual(clave)
+        
+        If Not rec.EOF = False Then
+            '[NUEVO]
+            bEsInsert = True
+            accionCodigo = 1
+            '[FIN NUEVO]
+            
+            sql = "INSERT INTO TURNOS"
+            sql = sql & " (TUR_FECHA, TUR_HORAD,TUR_HORAH,"
+            sql = sql & " VEN_CODIGO,CLI_CODIGO,TUR_MOTIVO,TUR_DRSOLICITA,TUR_OBSERV, TUR_ASISTIO,TUR_OSOCIAL,TUR_TIENEMUTUAL,"
+                sql = sql & " TUR_USER, "
+            sql = sql & " TUR_FECALTA, TUR_DESDE, TUR_IMPORTE, TUR_ORDEN, TUR_IMPRESO, CREADO_POR)"
+            sql = sql & " VALUES ("
+            sql = sql & XDQ(fechaturno.Value) & ",'"
+            sql = sql & fechaturno.Value & " " & mebHoraD.text & "','"
+            sql = sql & fechaturno.Value & " " & mebHoraH.text & "',"
+            sql = sql & cboDoctor.ItemData(cboDoctor.ListIndex) & ","
+            sql = sql & XN(txtCodigo) & ","
+            sql = sql & XS(txtMotivo) & ","
+            sql = sql & XS(txtDrSolicitante) & ","
+            sql = sql & XS(txtObservaciones) & ","
+            sql = sql & 0 & ","
+            'veo si es particular o con mutual el turno
+            If optSI.Value = True Then
+                sql = sql & XS(txtOSocial.text) & ","
+            Else
+                sql = sql & XS("PARTICULAR") & ","
+            End If
+            'veo si el paciente tiene o no mutual
+            If txtOSocial.text <> "" Then
+                sql = sql & XN("1") & ","
+            Else
+                sql = sql & XN("0") & ","
+            End If
+            sql = sql & User & ","
+            sql = sql & XDQ(Date) & ","
+            If i = 1 Then
+                sql = sql & 1 & ","
+            Else
+                sql = sql & 0 & ","
+            End If
+            sql = sql & XN(txtimporte.text) & ","
+            sql = sql & XN(txtOrden.text) & ","
+            sql = sql & 0 & ","
+            sql = sql & usuarioCodigoActual
+            sql = sql & ")"
+            
+        Else
+            
+            If MsgBox("Ya hay un turno para ese horario ¿Confirma la Modificación del Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then
+                rec.Close
+                Exit Sub
+            End If
+            
+            '[NUEVO] Capturar ID_TURNO antes de cerrar rec (solo si existe el campo)
+            bEsInsert = False
+            accionCodigo = 6
+            If Not IsNull(rec!ID_TURNO) Then
+                idTurnoHistorico = rec!ID_TURNO
+            End If
+            '[FIN NUEVO]
+            
+            ' aca hago el update
+            sql = "UPDATE TURNOS SET "
+            sql = sql & " CLI_CODIGO = " & XN(txtCodigo.text)
+            sql = sql & " ,TUR_HORAD = " & "'" & fechaturno.Value & " " & mebHoraD.text & "'"
+            sql = sql & " ,TUR_HORAH = " & "'" & fechaturno.Value & " " & mebHoraH.text & "'"
+            sql = sql & " ,TUR_MOTIVO =" & XS(txtMotivo.text)
+            sql = sql & " ,TUR_DRSOLICITA =" & XS(txtDrSolicitante.text)
+            sql = sql & " ,TUR_FECALTA =" & XDQ(Date)
+            If User <> 99 Then
+                sql = sql & " ,TUR_USER =" & User
+            End If
+            sql = sql & " ,TUR_IMPORTE =" & XN(txtimporte.text)
+            'veo si es particular o con mutual el turno
+            If optSI.Value = True Then
+                sql = sql & " ,TUR_OSOCIAL =" & XS(txtOSocial.text)
+            Else
+                sql = sql & " ,TUR_OSOCIAL =" & XS("PARTICULAR")
+            End If
+            'veo si el paciente tiene o no mutual
+            If txtOSocial.text <> "" Then
+                sql = sql & ",TUR_TIENEMUTUAL = " & XN(1)
+            Else
+                sql = sql & ",TUR_TIENEMUTUAL = " & XN(0)
+            End If
+            sql = sql & ",TUR_ORDEN = " & XN(txtOrden.text)
+            sql = sql & " ,TUR_OBSERV =" & XS(txtObservaciones.text)
+            'Auditoria
+            sql = sql & " ,UPDATED_AT = GETDATE() "
+            sql = sql & " ,ACTUALIZADO_POR = " & usuarioCodigoActual
+            sql = sql & " WHERE "
+            sql = sql & " TUR_FECHA = " & XDQ(fechaturno.Value)
+            sql = sql & " AND TUR_HORAD = '" & fechaturno.Value & " " & mebHoraD.text & "'"
+            sql = sql & " AND VEN_CODIGO = " & cboDoctor.ItemData(cboDoctor.ListIndex)
+            sql = sql & " AND DELETED_AT IS NULL"
+            
+        End If
+
+        rec.Close
+        DBConn.Execute sql
+        
+        '[NUEVO] Registrar en HISTORICO_TURNO
+        If bEsInsert Then
+            'Obtengo el ID_TURNO recién generado buscando por los campos únicos del registro
+            sql = "SELECT ID_TURNO FROM TURNOS"
+            sql = sql & " WHERE TUR_FECHA = " & XDQ(fechaturno.Value)
+            sql = sql & " AND TUR_HORAD = '" & fechaturno.Value & " " & mebHoraD.text & "'"
+            sql = sql & " AND VEN_CODIGO = " & cboDoctor.ItemData(cboDoctor.ListIndex)
+            sql = sql & " AND DELETED_AT IS NULL"
+            Set RecAux = New ADODB.Recordset
+            RecAux.Open sql, DBConn, adOpenStatic, adLockOptimistic
+            If Not RecAux.EOF Then
+                If Not IsNull(RecAux!ID_TURNO) Then
+                    idTurnoHistorico = RecAux!ID_TURNO
+                End If
+            End If
+            RecAux.Close
+            Set RecAux = Nothing
+        End If
+        
+        If idTurnoHistorico > 0 Then
+            sql = "INSERT INTO HISTORICO_TURNO (ID_TURNO, ACCION_CODIGO)"
+            sql = sql & " VALUES (" & idTurnoHistorico & ", " & accionCodigo & ")"
+            DBConn.Execute sql
+        End If
+        '[FIN NUEVO]
+        
+        mebHoraD.text = sHoraDAux
+        ' busco fecha nacimiento y calculo la edad
+        Fecha = fechaturno.Value
+        sql = "SELECT CLI_CUMPLE"
+        sql = sql & " FROM  CLIENTE "
+        sql = sql & " WHERE CLI_CODIGO = " & XN(txtCodigo.text)
+        rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
+        If Not (IsNull(rec!CLI_CUMPLE)) Then
+            If rec.EOF = False Then
+                años = Year(Date) - Year(rec!CLI_CUMPLE)
+                If Month(Fecha) < Month(rec!CLI_CUMPLE) Then años = años - 1
+                If Month(Now) = Month(rec!CLI_CUMPLE) And Day(Fecha) < Day(rec!CLI_CUMPLE) Then años = años - 1
+                edad = años
+            End If
+        Else
+            edad = 0
+        End If
+        rec.Close
+        sql = "UPDATE CLIENTE SET"
+        sql = sql & " CLI_EDAD=" & edad
+        sql = sql & " WHERE CLI_CODIGO=" & txtCodigo.text
+        DBConn.Execute sql
+        
+        DBConn.CommitTrans
+        BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
+    
+        If MsgBox("¿Desea imprimir el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then
+            LimpiarTurno
+            Exit Sub
+        End If
+        
+        ImprimirTurno
+        LimpiarTurno
+            
+    Exit Sub
+    
+HayErrorTurno:
+    Screen.MousePointer = vbNormal
+    If rec.State = 1 Then rec.Close
+    If Rec1.State = 1 Then Rec1.Close
+    '[NUEVO]
+    If Not RecAux Is Nothing Then
+        If RecAux.State = 1 Then RecAux.Close
+    End If
+    '[FIN NUEVO]
+    'DBConn.RollbackTrans
+    MsgBox Err.Description, vbCritical, TIT_MSGBOX
+    
+End Sub
+
+Private Sub cmdAgregarviejo_Click()
     Dim nFilaD As Integer
     Dim nFilaH As Integer
     Dim sHoraD As String
@@ -1697,6 +1946,11 @@ HayErrorTurno:
 End Sub
 
 Private Sub cmdatendido_Click()
+    '[NUEVO]
+    Dim idTurnoHistorico As Long
+    Dim RecAux As ADODB.Recordset
+    '[FIN NUEVO]
+    
     If grdGrilla.RowSel <> 0 Then
         'atendido
         grdGrilla.TextMatrix(grdGrilla.RowSel, 10) = 1
@@ -1711,6 +1965,28 @@ Private Sub cmdatendido_Click()
         sql = sql & " AND TUR_HORAD = '" & fechaturno.Value & " " & Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5) & "'"
         sql = sql & " AND VEN_CODIGO = " & XN(grdGrilla.TextMatrix(grdGrilla.RowSel, 8))
         DBConn.Execute sql
+        
+        '[NUEVO] CREO HISTORICO DE PENDIENTE
+        sql = "SELECT ID_TURNO FROM TURNOS"
+        sql = sql & " WHERE TUR_FECHA = " & XDQ(MViewFecha.Value)
+        sql = sql & " AND TUR_HORAD = '" & fechaturno.Value & " " & Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5) & "'"
+        sql = sql & " AND VEN_CODIGO = " & XN(grdGrilla.TextMatrix(grdGrilla.RowSel, 8))
+        Set RecAux = New ADODB.Recordset
+        RecAux.Open sql, DBConn, adOpenStatic, adLockOptimistic
+        If Not RecAux.EOF Then
+            If Not IsNull(RecAux!ID_TURNO) Then
+                idTurnoHistorico = RecAux!ID_TURNO
+            End If
+        End If
+        RecAux.Close
+        Set RecAux = Nothing
+        
+        If idTurnoHistorico > 0 Then
+            sql = "INSERT INTO HISTORICO_TURNO (ID_TURNO, ACCION_CODIGO)"
+            sql = sql & " VALUES (" & idTurnoHistorico & ", 2)" '2 Atendido
+            DBConn.Execute sql
+        End If
+        '[FIN NUEVO]
     End If
 End Sub
 
@@ -1741,7 +2017,7 @@ Private Sub LimpiarTurno()
     cmdProtocolos.Enabled = False
     optSI.Enabled = True
     cboMotivo.ListIndex = -1
-    If User = 1 Then
+    If mNomUser = "DIGOR" Or mNomUser = "SILVANA" Then
         cmdAgregar.Enabled = True
     Else
         cmdAgregar.Enabled = False
@@ -1804,7 +2080,7 @@ Private Sub cmdCopiar_Click()
            '    optSI.Enabled = False
            'End If
 
-           If User = 1 Then
+           If mNomUser = "DIGOR" Or mNomUser = "SILVANA" Then
                txtimporte.text = Valido_Importe(grdGrilla.TextMatrix(grdGrilla.RowSel, 14))
            Else
                txtimporte.text = "0,00"
@@ -1857,6 +2133,12 @@ Private Sub cmdDrive_Click()
 End Sub
 
 Private Sub cmdespera_Click()
+
+    '[NUEVO]
+    Dim idTurnoHistorico As Long
+    Dim RecAux As ADODB.Recordset
+    '[FIN NUEVO]
+    
     If grdGrilla.RowSel <> 0 Then
         'en espera
         grdGrilla.TextMatrix(grdGrilla.RowSel, 10) = 2
@@ -1870,6 +2152,29 @@ Private Sub cmdespera_Click()
         sql = sql & " AND TUR_HORAD = '" & fechaturno.Value & " " & Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5) & "'"
         sql = sql & " AND VEN_CODIGO = " & XN(grdGrilla.TextMatrix(grdGrilla.RowSel, 8))
         DBConn.Execute sql
+        
+        
+        '[NUEVO] CREO HISTORICO DE PENDIENTE
+        sql = "SELECT ID_TURNO FROM TURNOS"
+        sql = sql & " WHERE TUR_FECHA = " & XDQ(MViewFecha.Value)
+        sql = sql & " AND TUR_HORAD = '" & fechaturno.Value & " " & Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5) & "'"
+        sql = sql & " AND VEN_CODIGO = " & XN(grdGrilla.TextMatrix(grdGrilla.RowSel, 8))
+        Set RecAux = New ADODB.Recordset
+        RecAux.Open sql, DBConn, adOpenStatic, adLockOptimistic
+        If Not RecAux.EOF Then
+            If Not IsNull(RecAux!ID_TURNO) Then
+                idTurnoHistorico = RecAux!ID_TURNO
+            End If
+        End If
+        RecAux.Close
+        Set RecAux = Nothing
+        
+        If idTurnoHistorico > 0 Then
+            sql = "INSERT INTO HISTORICO_TURNO (ID_TURNO, ACCION_CODIGO)"
+            sql = sql & " VALUES (" & idTurnoHistorico & ", 3)" '3 EN ESPERA
+            DBConn.Execute sql
+        End If
+        '[FIN NUEVO]
     End If
 End Sub
 'FUNCIONES AUXILIARES PARA CSV RECORDATORIOS
@@ -2208,6 +2513,11 @@ Private Sub cmdOcultar_Click()
 End Sub
 
 Private Sub cmdpendiente_Click()
+    '[NUEVO]
+    Dim idTurnoHistorico As Long
+    Dim RecAux As ADODB.Recordset
+    '[FIN NUEVO]
+    
     If grdGrilla.RowSel <> 0 Then
         'pendiente
         grdGrilla.TextMatrix(grdGrilla.RowSel, 10) = 0
@@ -2221,6 +2531,29 @@ Private Sub cmdpendiente_Click()
         sql = sql & " AND TUR_HORAD = '" & fechaturno.Value & " " & Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5) & "'"
         sql = sql & " AND VEN_CODIGO = " & XN(grdGrilla.TextMatrix(grdGrilla.RowSel, 8))
         DBConn.Execute sql
+        
+        '[NUEVO] CREO HISTORICO DE PENDIENTE
+        sql = "SELECT ID_TURNO FROM TURNOS"
+        sql = sql & " WHERE TUR_FECHA = " & XDQ(MViewFecha.Value)
+        sql = sql & " AND TUR_HORAD = '" & fechaturno.Value & " " & Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5) & "'"
+        sql = sql & " AND VEN_CODIGO = " & XN(grdGrilla.TextMatrix(grdGrilla.RowSel, 8))
+        Set RecAux = New ADODB.Recordset
+        RecAux.Open sql, DBConn, adOpenStatic, adLockOptimistic
+        If Not RecAux.EOF Then
+            If Not IsNull(RecAux!ID_TURNO) Then
+                idTurnoHistorico = RecAux!ID_TURNO
+            End If
+        End If
+        RecAux.Close
+        Set RecAux = Nothing
+        
+        If idTurnoHistorico > 0 Then
+            sql = "INSERT INTO HISTORICO_TURNO (ID_TURNO, ACCION_CODIGO)"
+            sql = sql & " VALUES (" & idTurnoHistorico & ", 4)" '4 PENDIENTE
+            DBConn.Execute sql
+        End If
+        '[FIN NUEVO]
+        
     End If
 End Sub
 
@@ -2260,6 +2593,11 @@ Private Sub cmdQuitar_Click()
     Dim clave As String
     Dim usuarioActual As Long
     Dim Frm As New frmIngresarClave
+    '[NUEVO]
+    Dim idTurnoHistorico As Long
+    Dim RecAux As ADODB.Recordset
+    '[FIN NUEVO]
+    
     If txtCodigo.text <> "" Then
         If grdGrilla.TextMatrix(grdGrilla.RowSel, 1) <> "" Then
             ' 1. Pedir confirmación
@@ -2286,10 +2624,28 @@ Private Sub cmdQuitar_Click()
                 Exit Sub
             End If
             
+            '[NUEVO] Obtengo ID_TURNO ANTES del borrado lógico, mientras DELETED_AT aún es NULL
+            sql = "SELECT ID_TURNO FROM TURNOS"
+            sql = sql & " WHERE TUR_FECHA = " & XDQ(MViewFecha.Value)
+            sql = sql & " AND TUR_HORAD = '" & fechaturno.Value & " " & Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5) & "'"
+            sql = sql & " AND VEN_CODIGO = " & cboDoctor.ItemData(cboDoctor.ListIndex)
+            sql = sql & " AND CLI_CODIGO = " & grdGrilla.TextMatrix(grdGrilla.RowSel, 9)
+            sql = sql & " AND DELETED_AT IS NULL"
+            Set RecAux = New ADODB.Recordset
+            RecAux.Open sql, DBConn, adOpenStatic, adLockOptimistic
+            If Not RecAux.EOF Then
+                If Not IsNull(RecAux!ID_TURNO) Then
+                    idTurnoHistorico = RecAux!ID_TURNO
+                End If
+            End If
+            RecAux.Close
+            Set RecAux = Nothing
+            '[FIN NUEVO]
+            
             ' 5. Soft delete
             sql = "UPDATE TURNOS SET"
             sql = sql & " DELETED_AT = GETDATE(),"
-            sql = sql & " BORRADO_POR = " & usuarioActual ' <-- este valor lo tenés que tener vos
+            sql = sql & " BORRADO_POR = " & usuarioActual
             sql = sql & " WHERE"
             sql = sql & " TUR_FECHA = " & XDQ(MViewFecha.Value)
             sql = sql & " AND TUR_HORAD = '" & fechaturno.Value & " " & Left(Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 0)), 5) & "'"
@@ -2298,6 +2654,14 @@ Private Sub cmdQuitar_Click()
             sql = sql & " AND DELETED_AT IS NULL" 'importante para no re-borrar
             
             DBConn.Execute sql
+            
+            '[NUEVO] Registro en histórico luego del borrado
+            If idTurnoHistorico > 0 Then
+                sql = "INSERT INTO HISTORICO_TURNO (ID_TURNO, ACCION_CODIGO)"
+                sql = sql & " VALUES (" & idTurnoHistorico & ", 5)"
+                DBConn.Execute sql
+            End If
+            '[FIN NUEVO]
         
             If grdGrilla.rows = 2 Then
                 grdGrilla.rows = 1
@@ -2305,10 +2669,10 @@ Private Sub cmdQuitar_Click()
                 grdGrilla.RemoveItem (grdGrilla.RowSel)
             End If
         End If
-    LimpiarTurno
-Else
-    MsgBox "Seleccione un turno", vbExclamation, TIT_MSGBOX
-End If
+        LimpiarTurno
+    Else
+        MsgBox "Seleccione un turno", vbExclamation, TIT_MSGBOX
+    End If
 End Sub
 
 Private Sub cmdReport_Click()
@@ -2687,19 +3051,21 @@ Private Sub Form_Load()
     LlenarComboHoras
     'BuscarTurnos Date, cboDoctor.ItemData(cboDoctor.ListIndex)
     ActivoGrid = 1
-    If User = 1 Then
+    If mNomUser = "DIGOR" Or mNomUser = "SILVANA" Or mNomUser = "JAVIER" Then
         cmdAgregar.Enabled = True
         cmdAgregar.Enabled = True
         lblimporte.Visible = True
         txtimporte.Visible = True
         lbltotal.Visible = True
         txtTotal.Visible = True
+        cmdOcultar.Enabled = True
     Else
         cmdAgregar.Enabled = False
         lblimporte.Visible = False
         txtimporte.Visible = False
         lbltotal.Visible = False
         txtTotal.Visible = False
+        cmdOcultar.Enabled = False
     End If
     
     cargo_protocolos
