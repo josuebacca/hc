@@ -14,6 +14,7 @@ Public Doc As String
 Public DIGOR_CORE_URL As String
 Public DIGOR_PUBLIC_API_KEY As String
 Public SERVIDOR_REPORTES As String
+Public TURNOS_EXPORTADOS_DIR As String
 
 
 Public Sub LeoIni()
@@ -72,6 +73,9 @@ Do While Not EOF(1)
                 
             Case "SERVIDOR_REPORTES"
                 SERVIDOR_REPORTES = ValVar
+                
+            Case "TURNOS_EXPORTADOS_DIR"
+                    TURNOS_EXPORTADOS_DIR = ValVar
 
             
         End Select
