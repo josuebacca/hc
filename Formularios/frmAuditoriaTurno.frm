@@ -115,7 +115,7 @@ End Sub
 
 Private Sub CargarHistorial()
     Dim rec As ADODB.Recordset
-    Dim Fila As Integer
+    Dim fila As Integer
     Dim sHoraDesde As String
     Dim sHoraHasta As String
     
@@ -140,7 +140,7 @@ Private Sub CargarHistorial()
 
     grdHistorial.row = 0
     For i = 0 To grdHistorial.Cols - 1
-        grdHistorial.Col = i
+        grdHistorial.col = i
         grdHistorial.CellForeColor = &HFFFFFF 'FUENTE COLOR BLANCO
         grdHistorial.CellBackColor = &H808080    'GRIS OSCURO
         grdHistorial.CellFontBold = True
@@ -172,7 +172,7 @@ Private Sub CargarHistorial()
     If Not rec.EOF Then
         Do While Not rec.EOF
             grdHistorial.AddItem ""
-            Fila = grdHistorial.rows - 1
+            fila = grdHistorial.rows - 1
             
             ' Horario: muestro solo la parte de la hora de los campos datetime
             sHoraDesde = ""
@@ -183,46 +183,46 @@ Private Sub CargarHistorial()
             If Not IsNull(rec!HORA_HASTA) Then
                 sHoraHasta = Format(CDate(rec!HORA_HASTA), "HH:MM")
             End If
-            grdHistorial.TextMatrix(Fila, 0) = sHoraDesde & " - " & sHoraHasta
+            grdHistorial.TextMatrix(fila, 0) = sHoraDesde & " - " & sHoraHasta
             
             ' Importe
-            If Not IsNull(rec!Importe) Then
-                grdHistorial.TextMatrix(Fila, 1) = Format(rec!Importe, "0.00")
+            If Not IsNull(rec!importe) Then
+                grdHistorial.TextMatrix(fila, 1) = Format(rec!importe, "0.00")
             End If
             
             ' Motivo
             If Not IsNull(rec!ACCION_DESCRI) Then
-                grdHistorial.TextMatrix(Fila, 2) = ChkNull(rec!Motivo)
+                grdHistorial.TextMatrix(fila, 2) = ChkNull(rec!Motivo)
             End If
             
             ' Orden
             If Not IsNull(rec!ACCION_DESCRI) Then
-                grdHistorial.TextMatrix(Fila, 3) = ChkNull(rec!orden)
+                grdHistorial.TextMatrix(fila, 3) = ChkNull(rec!orden)
             End If
             
             ' Estado
             If Not IsNull(rec!ESTADO_DESCRI) Then
-                grdHistorial.TextMatrix(Fila, 4) = ChkNull(rec!ESTADO_DESCRI)
+                grdHistorial.TextMatrix(fila, 4) = ChkNull(rec!ESTADO_DESCRI)
             End If
             
             ' Usuario
             If Not IsNull(rec!USU_NOMBRE) Then
-                grdHistorial.TextMatrix(Fila, 5) = ChkNull(rec!USU_NOMBRE)
+                grdHistorial.TextMatrix(fila, 5) = ChkNull(rec!USU_NOMBRE)
             End If
             
             ' Acción
             If Not IsNull(rec!ACCION_DESCRI) Then
-                grdHistorial.TextMatrix(Fila, 6) = rec!ACCION_DESCRI
+                grdHistorial.TextMatrix(fila, 6) = rec!ACCION_DESCRI
             End If
             
             ' Fecha y hora de la acción
             If Not IsNull(rec!ACCION_FECHA) Then
-                grdHistorial.TextMatrix(Fila, 7) = Format(CDate(rec!ACCION_FECHA), "DD/MM/YYYY HH:MM")
+                grdHistorial.TextMatrix(fila, 7) = Format(CDate(rec!ACCION_FECHA), "DD/MM/YYYY HH:MM")
             End If
             
             ' Llave
             If Not IsNull(rec!LLA_USUARIO) Then
-                grdHistorial.TextMatrix(Fila, 8) = rec!LLA_USUARIO
+                grdHistorial.TextMatrix(fila, 8) = rec!LLA_USUARIO
             End If
             
             rec.MoveNext

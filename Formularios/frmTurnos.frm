@@ -154,7 +154,7 @@ Begin VB.Form frmTurnos
       _ExtentX        =   3201
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   153747457
+      Format          =   135069697
       CurrentDate     =   43340
    End
    Begin VB.Frame fraprotocolos 
@@ -944,7 +944,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   153747458
+         StartOfWeek     =   135069698
          CurrentDate     =   40049
       End
    End
@@ -2786,6 +2786,14 @@ Private Sub cmdQuitar_Click()
 End Sub
 
 Private Sub cmdReport_Click()
+    Dim Frm As New frmReporteTurnos
+    
+    Frm.Inicializar MViewFecha.Value, _
+                    cboDoctor.ItemData(cboDoctor.ListIndex), _
+                    cboDoctor.text
+    Frm.Show vbModal
+End Sub
+Private Sub cmdReport1_Click()
     Dim ultimoimporte As Double
     Dim ultimoid As Integer
     'If txtCodCliente.Text = "" Or GrillaAplicar.Rows = 1 Then Exit Sub
@@ -2864,7 +2872,7 @@ Private Function limpiar_protocolos()
         grdProtocolos.TextMatrix(i, 3) = "NO"
         For j = 0 To grdProtocolos.Cols - 1
             grdProtocolos.row = i
-            grdProtocolos.Col = j
+            grdProtocolos.col = j
             grdProtocolos.CellForeColor = &H80000008
             grdProtocolos.CellBackColor = &H80000005
             grdProtocolos.CellFontBold = False
@@ -3089,18 +3097,18 @@ Private Sub ActualizarInfoEstudiosTurnos(JsonString As String)
 End Sub
 ' Evento de la grilla cuando el usuario hace clic en una celda
 Private Sub grdGrilla_Click()
-    Dim Fila As Integer
+    Dim fila As Integer
     Dim dni As String
     Dim estudios As Variant
     Dim estudio As Variant
     Dim i As Integer
 
-    Fila = grdGrilla.row ' Obtiene la fila seleccionada
+    fila = grdGrilla.row ' Obtiene la fila seleccionada
 
     ' Verifica si hizo clic en la columna de Estudios
-    If grdGrilla.Col = 18 Then
+    If grdGrilla.col = 18 Then
         If grdGrilla.text = "Ver" Then
-            dni = grdGrilla.TextMatrix(Fila, 11)
+            dni = grdGrilla.TextMatrix(fila, 11)
             
             If studiesDict.Exists(dni) Then
                 Set estudios = studiesDict(dni) ' Ahora estudios es un Dictionary
@@ -3324,7 +3332,7 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
                 
             total = total + Chk0(rec!TUR_IMPORTE)
             'COLOR DE COLUMNA 1
-            grdGrilla.Col = 0
+            grdGrilla.col = 0
             grdGrilla.row = i
             grdGrilla.CellForeColor = &HFFFFFF 'FUENTE COLOR BLANCO
             grdGrilla.CellBackColor = &H808080    'GRIS OSCURO
@@ -3334,7 +3342,7 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
             'COLOR DE FILAS
             grdGrilla.row = i
             For j = 1 To grdGrilla.Cols - 1
-                grdGrilla.Col = j
+                grdGrilla.col = j
                 grdGrilla.CellForeColor = foreColor       'FUENTE COLOR NEGRO
                 grdGrilla.CellBackColor = backColor      'ROSA
                 grdGrilla.CellFontBold = True
@@ -3348,7 +3356,7 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
     txtTotal.text = Valido_Importe(txtTotal.text)
     
     rec.Close
-    grdGrilla.Col = 10
+    grdGrilla.col = 10
     If grdGrilla.row > 1 Then
         grdGrilla.row = 1
     End If
@@ -3373,7 +3381,7 @@ Private Function cambiocolor(asistio As Integer)
     
     grdGrilla.row = grdGrilla.RowSel
     For j = 1 To grdGrilla.Cols - 1
-        grdGrilla.Col = j
+        grdGrilla.col = j
         grdGrilla.CellForeColor = foreColor       'FUENTE COLOR NEGRO
         grdGrilla.CellBackColor = backColor      'ROSA
         grdGrilla.CellFontBold = True
@@ -3490,7 +3498,7 @@ Private Function configurogrilla()
     grdGrilla.BorderStyle = flexBorderNone
     grdGrilla.row = 0
     For i = 0 To grdGrilla.Cols - 1
-        grdGrilla.Col = i
+        grdGrilla.col = i
         grdGrilla.CellForeColor = &HFFFFFF 'FUENTE COLOR BLANCO
         grdGrilla.CellBackColor = &H808080    'GRIS OSCURO
         grdGrilla.CellFontBold = True
@@ -3505,7 +3513,7 @@ Private Function configurogrilla()
     grdGrilla.rows = (hHasta - hDesde) * 12 + 1
     
     For i = 1 To grdGrilla.rows - 1
-        grdGrilla.Col = 0
+        grdGrilla.col = 0
         grdGrilla.row = i
         'grdGrilla.CellForeColor = &HFFFFFF 'FUENTE COLOR BLANCO
         'grdGrilla.CellBackColor = &H808080    'GRIS OSCURO
@@ -3596,7 +3604,7 @@ Private Sub grdProtocolos_DblClick()
         'backColor = &HC000&
         'foreColor = &HFFFFFF
         For j = 0 To grdProtocolos.Cols - 1
-            grdProtocolos.Col = j
+            grdProtocolos.col = j
             grdProtocolos.CellForeColor = &HFFFFFF
             grdProtocolos.CellBackColor = &H8000&
             grdProtocolos.CellFontBold = True
@@ -3604,7 +3612,7 @@ Private Sub grdProtocolos_DblClick()
     Else
         grdProtocolos.TextMatrix(grdProtocolos.RowSel, 8) = "NO"
         For j = 0 To grdProtocolos.Cols - 1
-            grdProtocolos.Col = j
+            grdProtocolos.col = j
             grdProtocolos.CellForeColor = &H80000008
             grdProtocolos.CellBackColor = &H80000005
             grdProtocolos.CellFontBold = False
