@@ -154,7 +154,7 @@ Begin VB.Form frmTurnos
       _ExtentX        =   3201
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   135069697
+      Format          =   151977985
       CurrentDate     =   43340
    End
    Begin VB.Frame fraprotocolos 
@@ -944,7 +944,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   135069698
+         StartOfWeek     =   151977986
          CurrentDate     =   40049
       End
    End
@@ -2793,7 +2793,7 @@ Private Sub cmdReport_Click()
                     cboDoctor.text
     Frm.Show vbModal
 End Sub
-Private Sub cmdReport1_Click()
+Private Sub cmdReport_old_Click()
     Dim ultimoimporte As Double
     Dim ultimoid As Integer
     'If txtCodCliente.Text = "" Or GrillaAplicar.Rows = 1 Then Exit Sub
@@ -3097,18 +3097,18 @@ Private Sub ActualizarInfoEstudiosTurnos(JsonString As String)
 End Sub
 ' Evento de la grilla cuando el usuario hace clic en una celda
 Private Sub grdGrilla_Click()
-    Dim fila As Integer
+    Dim Fila As Integer
     Dim dni As String
     Dim estudios As Variant
     Dim estudio As Variant
     Dim i As Integer
 
-    fila = grdGrilla.row ' Obtiene la fila seleccionada
+    Fila = grdGrilla.row ' Obtiene la fila seleccionada
 
     ' Verifica si hizo clic en la columna de Estudios
     If grdGrilla.col = 18 Then
         If grdGrilla.text = "Ver" Then
-            dni = grdGrilla.TextMatrix(fila, 11)
+            dni = grdGrilla.TextMatrix(Fila, 11)
             
             If studiesDict.Exists(dni) Then
                 Set estudios = studiesDict(dni) ' Ahora estudios es un Dictionary
@@ -3191,6 +3191,7 @@ Private Sub Form_Load()
         cmdInforTurno.Enabled = False
         cmdExportarTurno.Enabled = False
         cmdExcel.Enabled = False
+        cmdReport.Enabled = False
     End If
     
     cargo_protocolos

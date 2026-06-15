@@ -28,7 +28,7 @@ Begin VB.Form frmCalendario
       BackColor       =   -2147483633
       Appearance      =   1
       MonthBackColor  =   15925247
-      StartOfWeek     =   136445953
+      StartOfWeek     =   135397377
       CurrentDate     =   37455
    End
 End
