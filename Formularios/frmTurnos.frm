@@ -233,7 +233,7 @@ Begin VB.Form frmTurnos
       _ExtentX        =   3201
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   150863873
+      Format          =   152109057
       CurrentDate     =   43340
    End
    Begin VB.Frame fraprotocolos 
@@ -1023,7 +1023,7 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   150863874
+         StartOfWeek     =   152109058
          CurrentDate     =   40049
       End
    End
@@ -1092,7 +1092,7 @@ Begin VB.Form frmTurnos
       Top             =   9240
       Width           =   975
    End
-   Begin VB.Label Label15 
+   Begin VB.Label lblTamanioSlot 
       AutoSize        =   -1  'True
       Caption         =   "Duración de turnos"
       BeginProperty Font 
@@ -2268,6 +2268,12 @@ optNO.Enabled = True
 End Sub
 
 Private Sub cmdCopiar_Click()
+    Dim turnovalido As Boolean
+    turnovalido = validarTurnoSeleccionado
+    If turnovalido = False Then
+        MsgBox "Seleccione un turno cargado para Copiar", vbExclamation, "Información"
+        Exit Sub
+    End If
     colocarModoCreacionTurno
     CopiarTurno
 End Sub
@@ -2291,10 +2297,17 @@ Private Sub cmdDrive_Click()
 End Sub
 
 Private Sub cmdEditar_Click()
+    Dim turnovalido As Boolean
+    turnovalido = validarTurnoSeleccionado
+    If turnovalido = False Then
+        MsgBox "Seleccione un turno cargado para Editar", vbExclamation, "Información"
+        Exit Sub
+    End If
     colocarModoEdicionTurno
     CopiarTurno
 End Sub
 Private Sub colocarModoCreacionTurno()
+    If validarTurnoSeleccionado = False Then Exit Sub
     modoActualizacionTurno = 0 'MODO creacion
     cmdAgregar.Caption = "&" & "Agregar"
 End Sub
@@ -2302,6 +2315,11 @@ Private Sub colocarModoEdicionTurno()
     modoActualizacionTurno = 1 'MODO EDICION
     cmdAgregar.Caption = "&" & "Editar"
 End Sub
+Private Function validarTurnoSeleccionado() As Boolean
+Dim codigoCli As String
+codigoCli = grdGrilla.TextMatrix(grdGrilla.RowSel, 9)
+validarTurnoSeleccionado = codigoCli <> ""
+End Function
 
 Private Sub cmdespera_Click()
 
@@ -3469,6 +3487,8 @@ Private Sub DeshabilitarTurnero()
      cmdEditar.Enabled = False
      cmdCopiar.Enabled = False
      cboMotivo.Enabled = False
+    cboTamanioSlot.Visible = False
+     lblTamanioSlot.Visible = False
 End Sub
 Private Sub HabilitarTurnero()
     txtBuscaCliente.text = ""
@@ -3501,6 +3521,9 @@ Private Sub HabilitarTurnero()
      cmdEditar.Enabled = True
      cmdCopiar.Enabled = True
      cboMotivo.Enabled = True
+     
+     cboTamanioSlot.Visible = True
+     lblTamanioSlot.Visible = True
 End Sub
 ' ------------------------------------------------------------------
 '  5. BUSCAR TURNOS (versión con slots solo para huecos libres)
@@ -3571,7 +3594,7 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
         Exit Sub
     End If
     
-    If mNomUser = "DIGOR" Or mNomUser = "SILVANA" Then
+    If mNomUser = "DIGOR" Then
         HabilitarTurnero
         cmdHorariosAtencion.Visible = True
     Else
@@ -3626,7 +3649,7 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
     ' =============================================================
     '  MODO CON SLOTS (doctor tiene horarios configurados)
     ' =============================================================
-    If tieneBloques And (mNomUser = "DIGOR" Or mNomUser = "SILVANA") Then
+    If tieneBloques And mNomUser = "DIGOR" Then
         
         ' ---------------------------------------------------------
         '  PASO 1: Cargar turnos existentes en arrays
