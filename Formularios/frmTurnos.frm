@@ -18,11 +18,90 @@ Begin VB.Form frmTurnos
    ScaleHeight     =   10050
    ScaleWidth      =   19725
    StartUpPosition =   2  'CenterScreen
+   Begin VB.CommandButton cmdEditar 
+      Height          =   495
+      Left            =   16560
+      Picture         =   "frmTurnos.frx":030A
+      Style           =   1  'Graphical
+      TabIndex        =   77
+      ToolTipText     =   "Editar Turno"
+      Top             =   50
+      Width           =   495
+   End
+   Begin VB.ComboBox cboTamanioSlot 
+      BackColor       =   &H00C0FFC0&
+      BeginProperty Font 
+         Name            =   "Verdana"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   360
+      Left            =   9240
+      Style           =   2  'Dropdown List
+      TabIndex        =   76
+      Top             =   480
+      Width           =   2700
+   End
+   Begin VB.Frame fraDisponibilidad 
+      Caption         =   "Horarios de atención"
+      Height          =   6975
+      Left            =   12240
+      TabIndex        =   72
+      Top             =   960
+      Visible         =   0   'False
+      Width           =   7335
+      Begin VB.CommandButton cmdCerrarDisp 
+         Caption         =   "&Cerrar"
+         Height          =   495
+         Left            =   3120
+         TabIndex        =   74
+         Top             =   6360
+         Width           =   1455
+      End
+      Begin MSFlexGridLib.MSFlexGrid grdDisponibilidad 
+         Height          =   5910
+         Left            =   120
+         TabIndex        =   73
+         Top             =   360
+         Width           =   7140
+         _ExtentX        =   12594
+         _ExtentY        =   10425
+         _Version        =   393216
+         Cols            =   3
+         FixedCols       =   0
+         RowHeightMin    =   280
+         BackColorSel    =   16761024
+         AllowBigSelection=   -1  'True
+         FocusRect       =   0
+         SelectionMode   =   1
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Tahoma"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+      End
+   End
+   Begin VB.CommandButton cmdHorariosAtencion 
+      Caption         =   "&Horarios de atención"
+      Height          =   495
+      Left            =   14280
+      TabIndex        =   71
+      Top             =   0
+      Width           =   1695
+   End
    Begin VB.CommandButton cmdExportarTurno 
       Caption         =   "&Exportar turno"
       Height          =   735
       Left            =   6360
-      Picture         =   "frmTurnos.frx":030A
+      Picture         =   "frmTurnos.frx":134C
       Style           =   1  'Graphical
       TabIndex        =   70
       ToolTipText     =   "Listado de Turnos del dia por Doctor"
@@ -33,7 +112,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Exportar turnero"
       Height          =   735
       Left            =   5040
-      Picture         =   "frmTurnos.frx":0FD4
+      Picture         =   "frmTurnos.frx":2016
       Style           =   1  'Graphical
       TabIndex        =   69
       ToolTipText     =   "Listado de Turnos del dia por Doctor"
@@ -44,7 +123,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Salir"
       Height          =   735
       Left            =   8520
-      Picture         =   "frmTurnos.frx":1C9E
+      Picture         =   "frmTurnos.frx":2CE0
       Style           =   1  'Graphical
       TabIndex        =   68
       Top             =   9240
@@ -87,7 +166,7 @@ Begin VB.Form frmTurnos
       Height          =   495
       Left            =   18960
       MaskColor       =   &H00FFFFFF&
-      Picture         =   "frmTurnos.frx":2CE0
+      Picture         =   "frmTurnos.frx":3D22
       Style           =   1  'Graphical
       TabIndex        =   63
       ToolTipText     =   "Ir a protocolos"
@@ -98,7 +177,7 @@ Begin VB.Form frmTurnos
       Enabled         =   0   'False
       Height          =   495
       Left            =   18000
-      Picture         =   "frmTurnos.frx":3DAA
+      Picture         =   "frmTurnos.frx":4DEC
       Style           =   1  'Graphical
       TabIndex        =   58
       ToolTipText     =   "Protocolos"
@@ -108,10 +187,10 @@ Begin VB.Form frmTurnos
    Begin VB.CommandButton cmdCopiar 
       Height          =   495
       Left            =   17040
-      Picture         =   "frmTurnos.frx":5AA4
+      Picture         =   "frmTurnos.frx":6AE6
       Style           =   1  'Graphical
       TabIndex        =   57
-      ToolTipText     =   "Copiar Turnos"
+      ToolTipText     =   "Copiar Turno"
       Top             =   50
       Width           =   495
    End
@@ -119,7 +198,7 @@ Begin VB.Form frmTurnos
       Enabled         =   0   'False
       Height          =   495
       Left            =   17520
-      Picture         =   "frmTurnos.frx":5E2E
+      Picture         =   "frmTurnos.frx":6E70
       Style           =   1  'Graphical
       TabIndex        =   56
       ToolTipText     =   "Cortar Turnos"
@@ -129,8 +208,8 @@ Begin VB.Form frmTurnos
    Begin VB.CommandButton cmdImpTurno 
       Enabled         =   0   'False
       Height          =   495
-      Left            =   16560
-      Picture         =   "frmTurnos.frx":61B8
+      Left            =   16080
+      Picture         =   "frmTurnos.frx":71FA
       Style           =   1  'Graphical
       TabIndex        =   55
       ToolTipText     =   "ImprimirTurno"
@@ -154,7 +233,7 @@ Begin VB.Form frmTurnos
       _ExtentX        =   3201
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   151977985
+      Format          =   150863873
       CurrentDate     =   43340
    End
    Begin VB.Frame fraprotocolos 
@@ -169,7 +248,7 @@ Begin VB.Form frmTurnos
          Strikethrough   =   0   'False
       EndProperty
       Height          =   8655
-      Left            =   10920
+      Left            =   10200
       TabIndex        =   45
       Top             =   720
       Visible         =   0   'False
@@ -283,7 +362,7 @@ Begin VB.Form frmTurnos
       MaxLength       =   50
       TabIndex        =   35
       Tag             =   "DescripciÃ³n"
-      Top             =   8880
+      Top             =   9240
       Visible         =   0   'False
       Width           =   1500
    End
@@ -291,7 +370,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Historial"
       Height          =   735
       Left            =   7560
-      Picture         =   "frmTurnos.frx":BDCA
+      Picture         =   "frmTurnos.frx":CE0C
       Style           =   1  'Graphical
       TabIndex        =   16
       Top             =   9240
@@ -301,7 +380,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Reporte"
       Height          =   735
       Left            =   4080
-      Picture         =   "frmTurnos.frx":12054
+      Picture         =   "frmTurnos.frx":13096
       Style           =   1  'Graphical
       TabIndex        =   26
       ToolTipText     =   "Listado de Turnos del dia por Doctor"
@@ -312,7 +391,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Nuevo"
       Height          =   735
       Left            =   3120
-      Picture         =   "frmTurnos.frx":12D1E
+      Picture         =   "frmTurnos.frx":13D60
       Style           =   1  'Graphical
       TabIndex        =   27
       Top             =   9240
@@ -322,7 +401,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Buscar Turnos"
       Height          =   735
       Left            =   2160
-      Picture         =   "frmTurnos.frx":13D60
+      Picture         =   "frmTurnos.frx":14DA2
       Style           =   1  'Graphical
       TabIndex        =   24
       Top             =   9240
@@ -944,19 +1023,19 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   151977986
+         StartOfWeek     =   150863874
          CurrentDate     =   40049
       End
    End
    Begin MSFlexGridLib.MSFlexGrid grdGrilla 
-      Height          =   7965
+      Height          =   8325
       Left            =   3720
       TabIndex        =   14
       ToolTipText     =   "Doble Click para ver la Historia Clinica del Paciente"
-      Top             =   765
+      Top             =   885
       Width           =   16005
       _ExtentX        =   28231
-      _ExtentY        =   14049
+      _ExtentY        =   14684
       _Version        =   393216
       Rows            =   25
       Cols            =   6
@@ -997,7 +1076,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Quitar"
       Height          =   735
       Left            =   1200
-      Picture         =   "frmTurnos.frx":140EA
+      Picture         =   "frmTurnos.frx":1512C
       Style           =   1  'Graphical
       TabIndex        =   15
       Top             =   9240
@@ -1007,11 +1086,29 @@ Begin VB.Form frmTurnos
       Caption         =   "&Agregar"
       Height          =   735
       Left            =   240
-      Picture         =   "frmTurnos.frx":1512C
+      Picture         =   "frmTurnos.frx":1616E
       Style           =   1  'Graphical
       TabIndex        =   13
       Top             =   9240
       Width           =   975
+   End
+   Begin VB.Label Label15 
+      AutoSize        =   -1  'True
+      Caption         =   "Duración de turnos"
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   195
+      Left            =   7440
+      TabIndex        =   75
+      Top             =   480
+      Width           =   1620
    End
    Begin VB.Label lbltotal 
       Alignment       =   1  'Right Justify
@@ -1031,7 +1128,7 @@ Begin VB.Form frmTurnos
       Height          =   405
       Left            =   14100
       TabIndex        =   38
-      Top             =   8880
+      Top             =   9240
       Visible         =   0   'False
       Width           =   1500
    End
@@ -1096,9 +1193,9 @@ Begin VB.Form frmTurnos
          Strikethrough   =   0   'False
       EndProperty
       Height          =   195
-      Left            =   8880
+      Left            =   12000
       TabIndex        =   28
-      Top             =   450
+      Top             =   570
       Width           =   2685
    End
    Begin VB.Label lbldiaTurno 
@@ -1128,7 +1225,7 @@ Begin VB.Form frmTurnos
       Height          =   375
       Left            =   3720
       Top             =   60
-      Width           =   12045
+      Width           =   10485
    End
 End
 Attribute VB_Name = "frmTurnos"
@@ -1151,6 +1248,112 @@ Dim linkProtocolos As String
 Dim studiesDict As Variant
 Dim estudiosUrls As Object ' Dictionary para mapear índice -> URL
 Dim dictLlaves As Object
+Dim dicHorariosDoc As Object   ' Scripting.Dictionary
+Dim modoActualizacionTurno As Integer
+
+' ------------------------------------------------------------------
+'  1. CONSTANTES DE COLORES (agregar a nivel formulario)
+' ------------------------------------------------------------------
+Const COLOR_DISPONIBLE_BACK As Long = &HFFF8F0     ' celeste muy suave, casi blanco
+Const COLOR_DISPONIBLE_FORE As Long = &H80000008    ' texto del sistema (negro)
+Const COLOR_FUERA_BACK As Long = &HE0E0E0           ' gris claro
+Const COLOR_FUERA_FORE As Long = &HA0A0A0           ' gris medio
+' ------------------------------------------------------------------
+'  2. FUNCIONES AUXILIARES
+' ------------------------------------------------------------------
+
+' Convierte "08:30" ? 510 (minutos desde medianoche)
+Private Function HoraAMinutos(ByVal Hora As String) As Integer
+    HoraAMinutos = CInt(Left(Hora, 2)) * 60 + CInt(Right(Hora, 2))
+End Function
+
+' Convierte 510 ? "08:30"
+Private Function MinutosAHora(ByVal minutos As Integer) As String
+    MinutosAHora = Format(minutos \ 60, "00") & ":" & Format(minutos Mod 60, "00")
+End Function
+
+' Verifica si una hora cae dentro de algún bloque de atención
+' bloquesStr tiene formato "08:00-12:00;14:00-18:00"
+Private Function EsHorarioAtencion(ByVal horaSlot As String, ByVal bloquesStr As String) As Boolean
+    Dim bloques() As String
+    Dim rango() As String
+    Dim B As Integer
+    
+    EsHorarioAtencion = False
+    bloques = Split(bloquesStr, ";")
+    
+    For B = 0 To UBound(bloques)
+        rango = Split(bloques(B), "-")
+        ' El slot está en atención si su inicio cae dentro del bloque
+        If horaSlot >= rango(0) And horaSlot < rango(1) Then
+            EsHorarioAtencion = True
+            Exit Function
+        End If
+    Next B
+End Function
+' ------------------------------------------------------------------
+'  3. CONFIGURACIÓN DEL COMBO DE TAMAÑO DE SLOT
+'     Llamar desde Form_Load
+' ------------------------------------------------------------------
+Private Sub ConfigurarCboTamanioSlot()
+    cboTamanioSlot.Clear
+        cboTamanioSlot.AddItem "5 min"
+    cboTamanioSlot.ItemData(cboTamanioSlot.NewIndex) = 5
+        cboTamanioSlot.AddItem "10 min"
+    cboTamanioSlot.ItemData(cboTamanioSlot.NewIndex) = 10
+    cboTamanioSlot.AddItem "15 min"
+    cboTamanioSlot.ItemData(cboTamanioSlot.NewIndex) = 15
+    cboTamanioSlot.AddItem "20 min"
+    cboTamanioSlot.ItemData(cboTamanioSlot.NewIndex) = 20
+    cboTamanioSlot.AddItem "30 min"
+    cboTamanioSlot.ItemData(cboTamanioSlot.NewIndex) = 30
+    cboTamanioSlot.AddItem "45 min"
+    cboTamanioSlot.ItemData(cboTamanioSlot.NewIndex) = 45
+    cboTamanioSlot.AddItem "1 hora"
+    cboTamanioSlot.ItemData(cboTamanioSlot.NewIndex) = 60
+    cboTamanioSlot.ListIndex = 2   ' default: 30 min
+End Sub
+
+' Al cambiar el tamaño de slot, refrescar la grilla.
+' Reemplazar con las variables reales de fecha y doctor actual.
+Private Sub cboTamanioSlot_Click()
+If cboDoctor.text <> "" Then
+    BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
+End If
+
+End Sub
+
+
+' ------------------------------------------------------------------
+'  4. ARMAR FILA VACÍA (21 columnas)
+' ------------------------------------------------------------------
+Private Function ArmarFilaSlotVacia(ByVal horaDesde As String, _
+                                     ByVal horaHasta As String, _
+                                     ByVal texto As String) As String
+    Dim Fila As String
+    Fila = horaDesde & " a " & horaHasta _
+         & Chr(9) & texto _
+         & Chr(9) & "" _
+         & Chr(9) & "" _
+         & Chr(9) & "" _
+         & Chr(9) & "" _
+         & Chr(9) & "" _
+         & Chr(9) & "" _
+         & Chr(9) & "" _
+         & Chr(9) & "" _
+         & Chr(9) & "" _
+         & Chr(9) & "" _
+         & Chr(9) & "" _
+         & Chr(9) & "" _
+         & Chr(9) & "" _
+         & Chr(9) & "" _
+         & Chr(9) & "" _
+         & Chr(9) & "" _
+         & Chr(9) & "" _
+         & Chr(9) & "" _
+         & Chr(9) & ""
+    ArmarFilaSlotVacia = Fila
+End Function
 
 
 Private Sub cboDesde_LostFocus()
@@ -1179,8 +1382,44 @@ Private Sub cboDoctor_Click()
         Rec1.Close
     End If
     LimpiarGrilla
+    CargarHorariosDoctor cboDoctor.ItemData(cboDoctor.ListIndex)
     BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
 
+End Sub
+Public Sub CargarHorariosDoctor(vencod As Integer)
+    Dim recH As ADODB.Recordset
+    Dim sqlH As String
+    Dim clave As String
+
+    ' Crear o limpiar el diccionario
+    Set dicHorariosDoc = CreateObject("Scripting.Dictionary")
+
+    Set recH = New ADODB.Recordset
+    sqlH = "SELECT HOR_DIASEMANA, HOR_HORAINICIO, HOR_HORAFIN" _
+         & " FROM HORARIO_VENDEDOR" _
+         & " WHERE VEN_CODIGO = " & vencod _
+         & " ORDER BY HOR_DIASEMANA, HOR_HORAINICIO"
+
+    recH.Open sqlH, DBConn, adOpenStatic, adLockReadOnly
+
+    Do While recH.EOF = False
+        clave = CStr(recH!HOR_DIASEMANA)
+
+        If dicHorariosDoc.Exists(clave) Then
+            ' Otro bloque más para este día (ej: mañana y tarde)
+            dicHorariosDoc(clave) = dicHorariosDoc(clave) & ";" _
+                & Trim(recH!HOR_HORAINICIO) & "-" & Trim(recH!HOR_HORAFIN)
+        Else
+            ' Primer bloque de este día
+            dicHorariosDoc.Add clave, _
+                Trim(recH!HOR_HORAINICIO) & "-" & Trim(recH!HOR_HORAFIN)
+        End If
+
+        recH.MoveNext
+    Loop
+
+    recH.Close
+    Set recH = Nothing
 End Sub
 Private Sub LimpiarComboMotivo()
     cboMotivo.Clear
@@ -1473,17 +1712,22 @@ Private Sub cmdAceptarP_Click()
         frmhistoriaclinica.Show vbModal
     End If
 End Sub
+' ============================================================
+' VARIABLE PÚBLICA DEL FORMULARIO (declarar en la sección General)
+' Public modoActualizacionTurno As Integer  ' 0 = Creación, 1 = Edición
+' ============================================================
+
 Private Sub cmdAgregar_Click()
     Dim nFilaD As Integer
     Dim nFilaH As Integer
     Dim sHoraD As String
     Dim sHoraDAux As String
-    Dim años, edad As Integer
+    Dim años As Integer, edad As Integer
     Dim Fecha As Date
     Dim usuarioCodigoActual As Long
     Dim clave As String
     Dim Frm As New frmIngresarClave
-    '[NUEVO]
+    
     Dim idTurnoHistorico As Long
     Dim accionCodigo As Integer
     Dim bEsInsert As Boolean
@@ -1493,23 +1737,68 @@ Private Sub cmdAgregar_Click()
     Dim sHoraDesde As String
     Dim sHoraHasta As String
     
-    Dim codigoAccion As Integer
-    
     Dim sEstado As String
-    '[FIN NUEVO]
+    
+    Dim venCodigo As Integer
+    venCodigo = cboDoctor.ItemData(cboDoctor.ListIndex)
+    Dim puedeAtender As Boolean
     
     Dim asistio As String
     
-    'Validar los campos requeridos
+    ' ID_TURNO del turno seleccionado (solo relevante en modo edición)
+    Dim idTurnoSeleccionado As Long
+    idTurnoSeleccionado = 0
+    
+    ' CLI_CODIGO del turno seleccionado en la grilla (para validación de solapamiento)
+    Dim cliCodigoGrilla As Long
+    cliCodigoGrilla = 0
+    
+    If modoActualizacionTurno = 1 Then
+        ' Modo edición: obtener ID_TURNO y CLI_CODIGO de la grilla
+        If grdGrilla.RowSel > 0 Then
+            If Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 20)) <> "" Then
+                idTurnoSeleccionado = CLng(grdGrilla.TextMatrix(grdGrilla.RowSel, 20))
+            End If
+            If Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 9)) <> "" Then
+                cliCodigoGrilla = CLng(grdGrilla.TextMatrix(grdGrilla.RowSel, 9))
+            End If
+        End If
+        
+        If idTurnoSeleccionado = 0 Then
+            MsgBox "No se pudo obtener el turno seleccionado para editar.", vbExclamation, TIT_MSGBOX
+            colocarModoCreacionTurno
+            Exit Sub
+        End If
+    End If
+    
+    ' Validar disponibilidad del doctor
+    puedeAtender = DoctorPuedeAtender(MViewFecha.Value, venCodigo, mebHoraD, mebHoraH)
+    
+    If puedeAtender = False Then
+        MsgBox "El doctor no está disponible en el horario ingresado. Elija otra hora desde y hasta", vbExclamation
+        Exit Sub
+    End If
+    
+    ' Validar campos requeridos
     If ValidarTurno = False Then Exit Sub
-    'If ValidarHorarioTurno = False Then Exit Sub
-    If MsgBox("¿Confirma el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
-     
-    'Pedir clave
+    
+    ' Validar solapamiento con turnos de DISTINTO cliente
+    If ValidarSolapamientoTurno(fechaturno.Value, mebHoraD.text, mebHoraH.text, _
+                                 venCodigo, CLng(txtCodigo.text), idTurnoSeleccionado) = False Then
+        MsgBox "Ya existe un turno de otro paciente en ese horario. Las horas se solapan.", vbExclamation, TIT_MSGBOX
+        Exit Sub
+    End If
+    
+    ' Confirmar operación
+    If modoActualizacionTurno = 1 Then
+        If MsgBox("¿Confirma la modificación del Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+    Else
+        If MsgBox("¿Confirma el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
+    End If
+    
+    ' Pedir clave
     Frm.Show vbModal
-    
     clave = Frm.ClaveIngresada
-    
     Unload Frm
     Set Frm = Nothing
     
@@ -1518,7 +1807,6 @@ Private Sub cmdAgregar_Click()
         Exit Sub
     End If
     
-    ' 3. Buscar clave en diccionario
     usuarioCodigoActual = ObtenerUsuarioCodigoActual(clave)
     
     If usuarioCodigoActual = 0 Then
@@ -1526,467 +1814,283 @@ Private Sub cmdAgregar_Click()
         Exit Sub
     End If
     
-    'agregar teniendo en cuentas loc combos de horas
     On Error GoTo HayErrorTurno
     
     grdGrilla.HighLight = flexHighlightAlways
     
     i = 0
-    
     sHoraDAux = mebHoraD.text
     
-        DBConn.BeginTrans
-        
-        sHoraD = mebHoraD.text
-        sHoraD = Mid(sHoraD, 1, 1)
-        
-        If sHoraD = "0" Then
-            sHoraD = Mid(mebHoraD.text, 2, 4)
-        Else
-            sHoraD = Trim(mebHoraD.text)
-        End If
-        
-        'ACA TENGO QUE HACER UN CONTROL POR CLAVES PRIMARIAS
-        sql = "SELECT * FROM TURNOS"
-        sql = sql & " WHERE TUR_FECHA = " & XDQ(fechaturno.Value)
-        sql = sql & " AND TUR_HORAD = '" & fechaturno.Value & " " & sHoraD & "'"
-        sql = sql & " AND VEN_CODIGO = " & cboDoctor.ItemData(cboDoctor.ListIndex)
-        sql = sql & " AND DELETED_AT IS NULL"
-        rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
-        
-        usuarioCodigoActual = ObtenerUsuarioCodigoActual(clave)
-        
-        'Si tiene orden, se pone en espera
-        If txtOrden <> "" Then
-            asistio = 2
-        Else
-            asistio = 0
-        End If
-        
-        If Not rec.EOF = False Then
-            '[NUEVO]
-            bEsInsert = True
-            accionCodigo = 1
-            '[FIN NUEVO]
-            
-            
-            sql = "INSERT INTO TURNOS"
-            sql = sql & " (TUR_FECHA, TUR_HORAD,TUR_HORAH,"
-            sql = sql & " VEN_CODIGO,CLI_CODIGO,TUR_MOTIVO,TUR_DRSOLICITA,TUR_OBSERV, TUR_ASISTIO,TUR_OSOCIAL,TUR_TIENEMUTUAL,"
-                sql = sql & " TUR_USER, "
-            sql = sql & " TUR_FECALTA, TUR_DESDE, TUR_IMPORTE, TUR_ORDEN, TUR_IMPRESO, CREADO_POR)"
-            sql = sql & " VALUES ("
-            sql = sql & XDQ(fechaturno.Value) & ",'"
-            sql = sql & fechaturno.Value & " " & mebHoraD.text & "','"
-            sql = sql & fechaturno.Value & " " & mebHoraH.text & "',"
-            sql = sql & cboDoctor.ItemData(cboDoctor.ListIndex) & ","
-            sql = sql & XN(txtCodigo) & ","
-            sql = sql & XS(txtMotivo) & ","
-            sql = sql & XS(txtDrSolicitante) & ","
-            sql = sql & XS(txtObservaciones) & ","
-            sql = sql & asistio & ","
-            'veo si es particular o con mutual el turno
-            If optSI.Value = True Then
-                sql = sql & XS(txtOSocial.text) & ","
-            Else
-                sql = sql & XS("PARTICULAR") & ","
-            End If
-            'veo si el paciente tiene o no mutual
-            If txtOSocial.text <> "" Then
-                sql = sql & XN("1") & ","
-            Else
-                sql = sql & XN("0") & ","
-            End If
-            sql = sql & User & ","
-            sql = sql & XDQ(Date) & ","
-            If i = 1 Then
-                sql = sql & 1 & ","
-            Else
-                sql = sql & 0 & ","
-            End If
-            sql = sql & XN(txtimporte.text) & ","
-            sql = sql & XN(txtOrden.text) & ","
-            sql = sql & 0 & ","
-            sql = sql & usuarioCodigoActual
-            sql = sql & ")"
-            
-        Else
-            
-            If MsgBox("Ya hay un turno para ese horario ¿Confirma la Modificación del Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then
-                rec.Close
-                Exit Sub
-            End If
-            
-            '[NUEVO] Capturar ID_TURNO antes de cerrar rec (solo si existe el campo)
-            bEsInsert = False
-            accionCodigo = 6
-            If Not IsNull(rec!ID_TURNO) Then
-                idTurnoHistorico = rec!ID_TURNO
-            End If
-            If Not IsNull(rec!ID_TURNO) Then idTurnoHistorico = rec!ID_TURNO
-            If Not IsNull(rec!TUR_IMPORTE) Then dImporte = rec!TUR_IMPORTE
-            If Not IsNull(rec!TUR_HORAD) Then sHoraDesde = rec!TUR_HORAD
-            If Not IsNull(rec!TUR_HORAH) Then sHoraHasta = rec!TUR_HORAH
-            asistio = rec!TUR_ASISTIO
-            '[FIN NUEVO]
-            
-            ' aca hago el update
-            sql = "UPDATE TURNOS SET "
-            sql = sql & " CLI_CODIGO = " & XN(txtCodigo.text)
-            sql = sql & " ,TUR_HORAD = " & "'" & fechaturno.Value & " " & mebHoraD.text & "'"
-            sql = sql & " ,TUR_HORAH = " & "'" & fechaturno.Value & " " & mebHoraH.text & "'"
-            sql = sql & " ,TUR_MOTIVO =" & XS(txtMotivo.text)
-            sql = sql & " ,TUR_DRSOLICITA =" & XS(txtDrSolicitante.text)
-            sql = sql & " ,TUR_FECALTA =" & XDQ(Date)
-            If User <> 99 Then
-                sql = sql & " ,TUR_USER =" & User
-            End If
-            sql = sql & " ,TUR_IMPORTE =" & XN(txtimporte.text)
-            'veo si es particular o con mutual el turno
-            If optSI.Value = True Then
-                sql = sql & " ,TUR_OSOCIAL =" & XS(txtOSocial.text)
-            Else
-                sql = sql & " ,TUR_OSOCIAL =" & XS("PARTICULAR")
-            End If
-            'veo si el paciente tiene o no mutual
-            If txtOSocial.text <> "" Then
-                sql = sql & ",TUR_TIENEMUTUAL = " & XN(1)
-            Else
-                sql = sql & ",TUR_TIENEMUTUAL = " & XN(0)
-            End If
-            sql = sql & ",TUR_ORDEN = " & XN(txtOrden.text)
-            sql = sql & " ,TUR_OBSERV =" & XS(txtObservaciones.text)
-            'Si estoy editando y tiene orden, se pone en espera
-            If txtOrden <> "" And asistio = 0 Then
-                asistio = 2
-                sql = sql & " ,TUR_ASISTIO =" & asistio
-            End If
-            'Auditoria
-            sql = sql & " ,UPDATED_AT = GETDATE() "
-            sql = sql & " ,ACTUALIZADO_POR = " & usuarioCodigoActual
-            sql = sql & " WHERE "
-            sql = sql & " TUR_FECHA = " & XDQ(fechaturno.Value)
-            sql = sql & " AND TUR_HORAD = '" & fechaturno.Value & " " & mebHoraD.text & "'"
-            sql = sql & " AND VEN_CODIGO = " & cboDoctor.ItemData(cboDoctor.ListIndex)
-            sql = sql & " AND DELETED_AT IS NULL"
-            
-        End If
-
-        rec.Close
-        DBConn.Execute sql
-        
-        '[NUEVO] Registrar en HISTORICO_TURNO
-        If bEsInsert Then
-            'Obtengo el ID_TURNO recién generado buscando por los campos únicos del registro
-            sql = "SELECT ID_TURNO, TUR_IMPORTE, TUR_HORAD, TUR_HORAH, TUR_ASISTIO FROM TURNOS"
-            sql = sql & " WHERE TUR_FECHA = " & XDQ(fechaturno.Value)
-            sql = sql & " AND TUR_HORAD = '" & fechaturno.Value & " " & mebHoraD.text & "'"
-            sql = sql & " AND VEN_CODIGO = " & cboDoctor.ItemData(cboDoctor.ListIndex)
-            sql = sql & " AND DELETED_AT IS NULL"
-            Set RecAux = New ADODB.Recordset
-            RecAux.Open sql, DBConn, adOpenStatic, adLockOptimistic
-            If Not RecAux.EOF Then
-                If Not IsNull(RecAux!ID_TURNO) Then
-                    idTurnoHistorico = RecAux!ID_TURNO
-                End If
-                
-            End If
-            RecAux.Close
-            Set RecAux = Nothing
-        End If
-        
-        If idTurnoHistorico > 0 Then
-            If bEsInsert Then
-                accionCodigo = 1
-            Else
-                accionCodigo = 6
-            End If
-            'Como aca estamos actualizando/creando turno, tenemos que colocar los valores
-            'de los inputs y no los que trae el turno ya cargados
-            sql = "INSERT INTO HISTORICO_TURNO (ID_TURNO, ACCION_CODIGO, IMPORTE, HORA_DESDE, HORA_HASTA, ORDEN, MOTIVO, USU_NOMBRE, ESTADO_CODIGO, LLA_CODIGO)"
-            sql = sql & " VALUES (" & idTurnoHistorico & ", " & accionCodigo & ", " 'Creacion o modificacion turno
-            sql = sql & XN(txtimporte.text) & ", "
-            sql = sql & " '" & fechaturno.Value & " " & mebHoraD.text & "'" & ", "
-            sql = sql & " '" & fechaturno.Value & " " & mebHoraH.text & "'" & ", "
-            sql = sql & XS(txtOrden.text) & ", "
-            sql = sql & XS(txtMotivo.text) & ", "
-            sql = sql & XS(mNomUser) & ", "
-            sql = sql & XN(asistio) & ", "
-            sql = sql & usuarioCodigoActual & ")"
-            DBConn.Execute sql
-        End If
-        '[FIN NUEVO]
-        
-        mebHoraD.text = sHoraDAux
-        ' busco fecha nacimiento y calculo la edad
-        Fecha = fechaturno.Value
-        sql = "SELECT CLI_CUMPLE"
-        sql = sql & " FROM  CLIENTE "
-        sql = sql & " WHERE CLI_CODIGO = " & XN(txtCodigo.text)
-        rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
-        If Not (IsNull(rec!CLI_CUMPLE)) Then
-            If rec.EOF = False Then
-                años = Year(Date) - Year(rec!CLI_CUMPLE)
-                If Month(Fecha) < Month(rec!CLI_CUMPLE) Then años = años - 1
-                If Month(Now) = Month(rec!CLI_CUMPLE) And Day(Fecha) < Day(rec!CLI_CUMPLE) Then años = años - 1
-                edad = años
-            End If
-        Else
-            edad = 0
-        End If
-        rec.Close
-        sql = "UPDATE CLIENTE SET"
-        sql = sql & " CLI_EDAD=" & edad
-        sql = sql & " WHERE CLI_CODIGO=" & txtCodigo.text
-        DBConn.Execute sql
-        
-        DBConn.CommitTrans
-        BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
+    DBConn.BeginTrans
     
-        If MsgBox("¿Desea imprimir el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then
-            LimpiarTurno
-            Exit Sub
+    sHoraD = mebHoraD.text
+    sHoraD = Mid(sHoraD, 1, 1)
+    If sHoraD = "0" Then
+        sHoraD = Mid(mebHoraD.text, 2, 4)
+    Else
+        sHoraD = Trim(mebHoraD.text)
+    End If
+    
+    ' Determinar si tiene orden => estado en espera
+    If txtOrden <> "" Then
+        asistio = 2
+    Else
+        asistio = 0
+    End If
+    
+    ' =============================================
+    ' MODO CREACIÓN (modoActualizacionTurno = 0)
+    ' =============================================
+    If modoActualizacionTurno = 0 Then
+        bEsInsert = True
+        accionCodigo = 1
+        
+        sql = "INSERT INTO TURNOS"
+        sql = sql & " (TUR_FECHA, TUR_HORAD, TUR_HORAH,"
+        sql = sql & " VEN_CODIGO, CLI_CODIGO, TUR_MOTIVO, TUR_DRSOLICITA, TUR_OBSERV, TUR_ASISTIO, TUR_OSOCIAL, TUR_TIENEMUTUAL,"
+        sql = sql & " TUR_USER,"
+        sql = sql & " TUR_FECALTA, TUR_DESDE, TUR_IMPORTE, TUR_ORDEN, TUR_IMPRESO, CREADO_POR)"
+        sql = sql & " VALUES ("
+        sql = sql & XDQ(fechaturno.Value) & ",'"
+        sql = sql & fechaturno.Value & " " & mebHoraD.text & "','"
+        sql = sql & fechaturno.Value & " " & mebHoraH.text & "',"
+        sql = sql & cboDoctor.ItemData(cboDoctor.ListIndex) & ","
+        sql = sql & XN(txtCodigo) & ","
+        sql = sql & XS(txtMotivo) & ","
+        sql = sql & XS(txtDrSolicitante) & ","
+        sql = sql & XS(txtObservaciones) & ","
+        sql = sql & asistio & ","
+        If optSI.Value = True Then
+            sql = sql & XS(txtOSocial.text) & ","
+        Else
+            sql = sql & XS("PARTICULAR") & ","
+        End If
+        If txtOSocial.text <> "" Then
+            sql = sql & XN("1") & ","
+        Else
+            sql = sql & XN("0") & ","
+        End If
+        sql = sql & User & ","
+        sql = sql & XDQ(Date) & ","
+        If i = 1 Then
+            sql = sql & 1 & ","
+        Else
+            sql = sql & 0 & ","
+        End If
+        sql = sql & XN(txtimporte.text) & ","
+        sql = sql & XN(txtOrden.text) & ","
+        sql = sql & 0 & ","
+        sql = sql & usuarioCodigoActual
+        sql = sql & ")"
+        
+        DBConn.Execute sql
+        
+        ' Obtener el ID_TURNO recién generado
+        sql = "SELECT ID_TURNO FROM TURNOS"
+        sql = sql & " WHERE TUR_FECHA = " & XDQ(fechaturno.Value)
+        sql = sql & " AND TUR_HORAD = '" & fechaturno.Value & " " & mebHoraD.text & "'"
+        sql = sql & " AND VEN_CODIGO = " & cboDoctor.ItemData(cboDoctor.ListIndex)
+        sql = sql & " AND CLI_CODIGO = " & XN(txtCodigo)
+        sql = sql & " AND DELETED_AT IS NULL"
+        Set RecAux = New ADODB.Recordset
+        RecAux.Open sql, DBConn, adOpenStatic, adLockOptimistic
+        If Not RecAux.EOF Then
+            If Not IsNull(RecAux!ID_TURNO) Then
+                idTurnoHistorico = RecAux!ID_TURNO
+            End If
+        End If
+        RecAux.Close
+        Set RecAux = Nothing
+    
+    ' =============================================
+    ' MODO EDICIÓN (modoActualizacionTurno = 1)
+    ' =============================================
+    Else
+        bEsInsert = False
+        accionCodigo = 6
+        idTurnoHistorico = idTurnoSeleccionado
+        
+        ' Si estoy editando y tiene orden y estaba sin asistir, poner en espera
+        ' Primero obtengo el asistio actual del turno
+        sql = "SELECT TUR_ASISTIO FROM TURNOS WHERE ID_TURNO = " & idTurnoSeleccionado & " AND DELETED_AT IS NULL"
+        Set RecAux = New ADODB.Recordset
+        RecAux.Open sql, DBConn, adOpenStatic, adLockOptimistic
+        If Not RecAux.EOF Then
+            If Not IsNull(RecAux!TUR_ASISTIO) Then
+                Dim asistioActual As String
+                asistioActual = RecAux!TUR_ASISTIO
+            End If
+        End If
+        RecAux.Close
+        Set RecAux = Nothing
+        
+        ' Si tiene orden y estaba sin asistir, poner en espera
+        If txtOrden <> "" And asistioActual = "0" Then
+            asistio = 2
+        ElseIf txtOrden = "" Then
+            asistio = 0
+        Else
+            asistio = asistioActual
         End If
         
-        ImprimirTurno
+        sql = "UPDATE TURNOS SET "
+        sql = sql & " CLI_CODIGO = " & XN(txtCodigo.text)
+        sql = sql & " ,TUR_HORAD = '" & fechaturno.Value & " " & mebHoraD.text & "'"
+        sql = sql & " ,TUR_HORAH = '" & fechaturno.Value & " " & mebHoraH.text & "'"
+        sql = sql & " ,TUR_MOTIVO = " & XS(txtMotivo.text)
+        sql = sql & " ,TUR_DRSOLICITA = " & XS(txtDrSolicitante.text)
+        sql = sql & " ,TUR_FECALTA = " & XDQ(Date)
+        If User <> 99 Then
+            sql = sql & " ,TUR_USER = " & User
+        End If
+        sql = sql & " ,TUR_IMPORTE = " & XN(txtimporte.text)
+        If optSI.Value = True Then
+            sql = sql & " ,TUR_OSOCIAL = " & XS(txtOSocial.text)
+        Else
+            sql = sql & " ,TUR_OSOCIAL = " & XS("PARTICULAR")
+        End If
+        If txtOSocial.text <> "" Then
+            sql = sql & " ,TUR_TIENEMUTUAL = " & XN(1)
+        Else
+            sql = sql & " ,TUR_TIENEMUTUAL = " & XN(0)
+        End If
+        sql = sql & " ,TUR_ORDEN = " & XN(txtOrden.text)
+        sql = sql & " ,TUR_OBSERV = " & XS(txtObservaciones.text)
+        sql = sql & " ,TUR_ASISTIO = " & asistio
+        sql = sql & " ,UPDATED_AT = GETDATE()"
+        sql = sql & " ,ACTUALIZADO_POR = " & usuarioCodigoActual
+        sql = sql & " WHERE ID_TURNO = " & idTurnoSeleccionado
+        sql = sql & " AND DELETED_AT IS NULL"
+        
+        DBConn.Execute sql
+    End If
+    
+    ' =============================================
+    ' REGISTRAR EN HISTORICO_TURNO
+    ' =============================================
+    If idTurnoHistorico > 0 Then
+        sql = "INSERT INTO HISTORICO_TURNO (ID_TURNO, ACCION_CODIGO, IMPORTE, HORA_DESDE, HORA_HASTA, ORDEN, MOTIVO, USU_NOMBRE, ESTADO_CODIGO, LLA_CODIGO)"
+        sql = sql & " VALUES (" & idTurnoHistorico & ", " & accionCodigo & ", "
+        sql = sql & XN(txtimporte.text) & ", "
+        sql = sql & "'" & fechaturno.Value & " " & mebHoraD.text & "'" & ", "
+        sql = sql & "'" & fechaturno.Value & " " & mebHoraH.text & "'" & ", "
+        sql = sql & XS(txtOrden.text) & ", "
+        sql = sql & XS(txtMotivo.text) & ", "
+        sql = sql & XS(mNomUser) & ", "
+        sql = sql & XN(asistio) & ", "
+        sql = sql & usuarioCodigoActual & ")"
+        DBConn.Execute sql
+    End If
+    
+    mebHoraD.text = sHoraDAux
+    
+    ' =============================================
+    ' CALCULAR Y ACTUALIZAR EDAD DEL PACIENTE
+    ' =============================================
+    Fecha = fechaturno.Value
+    sql = "SELECT CLI_CUMPLE"
+    sql = sql & " FROM CLIENTE"
+    sql = sql & " WHERE CLI_CODIGO = " & XN(txtCodigo.text)
+    rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
+    If Not (IsNull(rec!CLI_CUMPLE)) Then
+        If rec.EOF = False Then
+            años = Year(Date) - Year(rec!CLI_CUMPLE)
+            If Month(Fecha) < Month(rec!CLI_CUMPLE) Then años = años - 1
+            If Month(Now) = Month(rec!CLI_CUMPLE) And Day(Fecha) < Day(rec!CLI_CUMPLE) Then años = años - 1
+            edad = años
+        End If
+    Else
+        edad = 0
+    End If
+    rec.Close
+    sql = "UPDATE CLIENTE SET"
+    sql = sql & " CLI_EDAD=" & edad
+    sql = sql & " WHERE CLI_CODIGO=" & txtCodigo.text
+    DBConn.Execute sql
+    
+    DBConn.CommitTrans
+    BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
+    
+    ' =============================================
+    ' VOLVER A MODO CREACIÓN
+    ' =============================================
+    colocarModoCreacionTurno
+
+    If MsgBox("¿Desea imprimir el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then
         LimpiarTurno
-            
+        Exit Sub
+    End If
+    
+    ImprimirTurno
+    LimpiarTurno
+        
     Exit Sub
     
 HayErrorTurno:
     Screen.MousePointer = vbNormal
     If rec.State = 1 Then rec.Close
     If Rec1.State = 1 Then Rec1.Close
-    '[NUEVO]
     If Not RecAux Is Nothing Then
         If RecAux.State = 1 Then RecAux.Close
     End If
-    '[FIN NUEVO]
-    'DBConn.RollbackTrans
+    DBConn.RollbackTrans
+    modoActualizacionTurno = 0  ' Volver a modo creación ante error
     MsgBox Err.Description, vbCritical, TIT_MSGBOX
     
 End Sub
 
-Private Sub cmdAgregarviejo_Click()
-    Dim nFilaD As Integer
-    Dim nFilaH As Integer
-    Dim sHoraD As String
-    Dim sHoraDAux As String
-    Dim años, edad As Integer
-    Dim Fecha As Date
-    Dim usuarioCodigoActual As Long
-    Dim clave As String
-    Dim Frm As New frmIngresarClave
-    
-    'Validar los campos requeridos
-    If ValidarTurno = False Then Exit Sub
-    'If ValidarHorarioTurno = False Then Exit Sub
-    If MsgBox("¿Confirma el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
-     
-    'Pedir clave
-    Frm.Show vbModal
-    
-    clave = Frm.ClaveIngresada
-    
-    Unload Frm
-    Set Frm = Nothing
-    
-    If Trim(clave) = "" Then
-        MsgBox "Operación cancelada. No se ingresó clave.", vbExclamation
-        Exit Sub
-    End If
-    
-    ' 3. Buscar clave en diccionario
-    usuarioCodigoActual = ObtenerUsuarioCodigoActual(clave)
-    
-    If usuarioCodigoActual = 0 Then
-        MsgBox "Operación cancelada. Clave inexistente.", vbExclamation
-        Exit Sub
-    End If
-    'agregar teniendo en cuentas loc combos de horas
-    On Error GoTo HayErrorTurno
-    
-    grdGrilla.HighLight = flexHighlightAlways
-    
-    'nFilaD = cboDesde.ListIndex
-    'nFilaH = cbohasta.ListIndex
-    'nFilaD = mebHoraD.Text
-    'nFilaH = mebHoraH.Text
-    i = 0
-    
-    sHoraDAux = mebHoraD.text
-    'For i = 1 To nFilaH - nFilaD
-        DBConn.BeginTrans
-        
-        sHoraD = mebHoraD.text
-        sHoraD = Mid(sHoraD, 1, 1)
-        
-        If sHoraD = "0" Then
-            sHoraD = Mid(mebHoraD.text, 2, 4)
-        Else
-            sHoraD = Trim(mebHoraD.text)
-        End If
-        
-        'ACA TENGO QUE HACER UN CONTROL POR CLAVES PRIMARIAS
-        sql = "SELECT * FROM TURNOS"
-        sql = sql & " WHERE TUR_FECHA = " & XDQ(fechaturno.Value)
-        sql = sql & " AND TUR_HORAD = '" & fechaturno.Value & " " & sHoraD & "'"
-        sql = sql & " AND VEN_CODIGO = " & cboDoctor.ItemData(cboDoctor.ListIndex)
-        sql = sql & " AND DELETED_AT IS NULL"
-        'sql = sql & " AND CLI_CODIGO = " & XN(txtCodigo.Text)
-        rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
-        
-        usuarioCodigoActual = ObtenerUsuarioCodigoActual(clave)
-        
-        If Not rec.EOF = False Then
-            sql = "INSERT INTO TURNOS"
-            sql = sql & " (TUR_FECHA, TUR_HORAD,TUR_HORAH,"
-            sql = sql & " VEN_CODIGO,CLI_CODIGO,TUR_MOTIVO,TUR_DRSOLICITA,TUR_OBSERV, TUR_ASISTIO,TUR_OSOCIAL,TUR_TIENEMUTUAL,"
-            'If User <> 99 Then
-                sql = sql & " TUR_USER, "
-            'End If
-            sql = sql & " TUR_FECALTA, TUR_DESDE, TUR_IMPORTE, TUR_ORDEN, TUR_IMPRESO, CREADO_POR)"
-            sql = sql & " VALUES ("
-            sql = sql & XDQ(fechaturno.Value) & ",'"
-            'sql = sql & Left(Trim(grdGrilla.TextMatrix(i + nFilaD, 0)), 5) & "#,#"
-            'sql = sql & Right(Trim(grdGrilla.TextMatrix(i + nFilaD, 0)), 5) & "#,"
-            sql = sql & fechaturno.Value & " " & mebHoraD.text & "','"
-            sql = sql & fechaturno.Value & " " & mebHoraH.text & "',"
-            sql = sql & cboDoctor.ItemData(cboDoctor.ListIndex) & ","
-            sql = sql & XN(txtCodigo) & ","
-            sql = sql & XS(txtMotivo) & ","
-            sql = sql & XS(txtDrSolicitante) & ","
-            sql = sql & XS(txtObservaciones) & ","
-            sql = sql & 0 & ","
-            'veo si es particular o con  mutual el turno
-            If optSI.Value = True Then
-                sql = sql & XS(txtOSocial.text) & ","
-            Else
-                sql = sql & XS("PARTICULAR") & ","
-            End If
-            'veo si el paciente tiene o no mutuaL
-            If txtOSocial.text <> "" Then
-                sql = sql & XN("1") & ","
-            Else
-                sql = sql & XN("0") & ","
-            End If
-            'If User <> 99 Then
-                sql = sql & User & ","
-            'End If
-            sql = sql & XDQ(Date) & ","
-            If i = 1 Then
-                sql = sql & 1 & ","
-            Else
-                sql = sql & 0 & ","
-            End If
-            sql = sql & XN(txtimporte.text) & ","
-            sql = sql & XN(txtOrden.text) & ","
-            sql = sql & 0 & ","
-            sql = sql & usuarioCodigoActual
-            sql = sql & ")"
-            
-            
-        Else
-            
-            If MsgBox("Ya hay un turno para ese horario ¿Confirma la Modificación del Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then
-                rec.Close
-                Exit Sub
-            End If
-            ' aca hago el update
-            sql = "UPDATE TURNOS SET "
-            sql = sql & " CLI_CODIGO = " & XN(txtCodigo.text) 'CAMBIAR CUANDO CARGUEMOS DNI
-            sql = sql & " ,TUR_HORAD = " & "'" & fechaturno.Value & " " & mebHoraD.text & "'"
-            sql = sql & " ,TUR_HORAH = " & "'" & fechaturno.Value & " " & mebHoraH.text & "'"
-            sql = sql & " ,TUR_MOTIVO =" & XS(txtMotivo.text)
-            sql = sql & " ,TUR_DRSOLICITA =" & XS(txtDrSolicitante.text)
-            sql = sql & " ,TUR_FECALTA =" & XDQ(Date)
-            If User <> 99 Then
-                sql = sql & " ,TUR_USER =" & User
-            End If
-            sql = sql & " ,TUR_IMPORTE =" & XN(txtimporte.text)
-            'veo si es particular o con  mutual el turno
-            If optSI.Value = True Then
-                sql = sql & " ,TUR_OSOCIAL =" & XS(txtOSocial.text)
-            Else
-                sql = sql & " ,TUR_OSOCIAL =" & XS("PARTICULAR")
-            End If
-            'veo si el paciente tiene o no mutuaL
-            If txtOSocial.text <> "" Then
-                sql = sql & ",TUR_TIENEMUTUAL = " & XN(1)
-            Else
-                sql = sql & ",TUR_TIENEMUTUAL = " & XN(0)
-            End If
-                    
-            sql = sql & ",TUR_ORDEN = " & XN(txtOrden.text)
-            
-            sql = sql & " ,TUR_OBSERV =" & XS(txtObservaciones.text)
-            
-            'Auditoria
-            sql = sql & " ,UPDATED_AT = GETDATE() "
-            sql = sql & " ,ACTUALIZADO_POR = " & usuarioCodigoActual
-            
-            sql = sql & " WHERE "
-            sql = sql & " TUR_FECHA = " & XDQ(fechaturno.Value)
-            sql = sql & " AND TUR_HORAD = '" & fechaturno.Value & " " & mebHoraD.text & "'"
-            sql = sql & " AND VEN_CODIGO = " & cboDoctor.ItemData(cboDoctor.ListIndex)
-            sql = sql & " AND DELETED_AT IS NULL"
-            
-        End If
 
-        
-        rec.Close
-        DBConn.Execute sql
-             'VER Q HAGO ACA
-            'cboDesde.ListIndex = cboDesde.ListIndex + 1
-        'Next
-        mebHoraD.text = sHoraDAux
-        ' busco fecha nacimiento y calculo la edad
-        Fecha = fechaturno.Value
-        sql = "SELECT CLI_CUMPLE"
-        sql = sql & " FROM  CLIENTE "
-        sql = sql & " WHERE CLI_CODIGO = " & XN(txtCodigo.text)
-        rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
-        If Not (IsNull(rec!CLI_CUMPLE)) Then
-                If rec.EOF = False Then
-                    años = Year(Date) - Year(rec!CLI_CUMPLE)
-                    If Month(Fecha) < Month(rec!CLI_CUMPLE) Then años = años - 1 'todavia no ha llegado el mes de su cumple
-                    If Month(Now) = Month(rec!CLI_CUMPLE) And Day(Fecha) < Day(rec!CLI_CUMPLE) Then años = años - 1 'es el mes pero no ha llegado el dia de su cumple
-                    edad = años
-                End If
-            Else
-                edad = 0
-            End If
-        rec.Close
-        sql = "UPDATE CLIENTE SET"
-        sql = sql & " CLI_EDAD=" & edad
-        sql = sql & " WHERE CLI_CODIGO=" & txtCodigo.text
-        DBConn.Execute sql
-        
-        DBConn.CommitTrans
-        BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
+' ============================================================
+' FUNCIÓN DE VALIDACIÓN DE SOLAPAMIENTO
+' Valida que no exista un turno de DISTINTO CLI_CODIGO
+' con horas solapadas para el mismo VEN_CODIGO y fecha.
+' En modo edición, excluye el turno actual (idTurnoExcluir > 0).
+' Retorna True si NO hay solapamiento (puede continuar).
+' Retorna False si HAY solapamiento (debe frenar).
+' ============================================================
+Private Function ValidarSolapamientoTurno(ByVal sFecha As String, _
+                                           ByVal sHoraD As String, _
+                                           ByVal sHoraH As String, _
+                                           ByVal venCodigo As Integer, _
+                                           ByVal cliCodigo As Long, _
+                                           ByVal idTurnoExcluir As Long) As Boolean
+    Dim recVal As New ADODB.Recordset
+    Dim sqlVal As String
     
-        If MsgBox("¿Desea imprimir el Turno?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then
-'
+    ' Armar las fechas/hora completas para comparar
+    Dim sDesde As String
+    Dim sHasta As String
+    sDesde = sFecha & " " & sHoraD
+    sHasta = sFecha & " " & sHoraH
     
-            LimpiarTurno
-            Exit Sub
-        End If
-        
-        ImprimirTurno
-        LimpiarTurno
-            
-    Exit Sub
+    ' Buscar turnos de DISTINTO cliente cuyas horas se solapen
+    ' Solapamiento: TUR_HORAD < @HoraHasta AND TUR_HORAH > @HoraDesde
+    sqlVal = "SELECT ID_TURNO FROM TURNOS"
+    sqlVal = sqlVal & " WHERE TUR_FECHA = " & XDQ(sFecha)
+    sqlVal = sqlVal & " AND VEN_CODIGO = " & venCodigo
+    sqlVal = sqlVal & " AND CLI_CODIGO <> " & cliCodigo
+    sqlVal = sqlVal & " AND TUR_HORAD < '" & sHasta & "'"
+    sqlVal = sqlVal & " AND TUR_HORAH > '" & sDesde & "'"
+    sqlVal = sqlVal & " AND DELETED_AT IS NULL"
     
-HayErrorTurno:
-    Screen.MousePointer = vbNormal
-    If rec.State = 1 Then rec.Close
-    If Rec1.State = 1 Then Rec1.Close
-    'DBConn.RollbackTrans
-    MsgBox Err.Description, vbCritical, TIT_MSGBOX
+    ' En modo edición, excluir el turno que estoy editando
+    If idTurnoExcluir > 0 Then
+        sqlVal = sqlVal & " AND ID_TURNO <> " & idTurnoExcluir
+    End If
     
-    'agregar columnas en la grilla, para guardar el codigo de doctor, paciente
+    recVal.Open sqlVal, DBConn, adOpenStatic, adLockOptimistic
     
-End Sub
+    If recVal.EOF Then
+        ' No hay solapamiento
+        ValidarSolapamientoTurno = True
+    Else
+        ' Hay solapamiento
+        ValidarSolapamientoTurno = False
+    End If
+    
+    recVal.Close
+    Set recVal = Nothing
+End Function
 
 Private Sub cmdatendido_Click()
     '[NUEVO]
@@ -2080,27 +2184,14 @@ Private Sub LimpiarTurno()
     cmdProtocolos.Enabled = False
     optSI.Enabled = True
     cboMotivo.ListIndex = -1
-    If mNomUser = "DIGOR" Or mNomUser = "SILVANA" Then
-        cmdAgregar.Enabled = True
-    Else
-        cmdAgregar.Enabled = False
-    End If
     txtOrden.text = ""
 End Sub
 
 Private Sub cmdCerrarFraListaEstudios_Click()
     fraListaEstudios.Visible = False
 End Sub
-
-Private Sub cmdCopiar_Click()
-'    If MsgBox("Esta a punto de  Copiar los " & lbldiaTurno.Caption & " " & Chr(13) & " del Doctor: " & cboDoctor.Text & _
-'    " Â¿Confirma Copiar los Turnos?", vbQuestion + vbYesNo, TIT_MSGBOX) = vbNo Then Exit Sub
-'
-'    sAction = "COPIAR"
-'    dFechaCopy = MViewFecha.Value
-'    nDoctorCopy = cboDoctor.ItemData(cboDoctor.ListIndex)
-'    sNameDoctorCopy = cboDoctor.Text
-    optNO.Enabled = True
+Private Sub CopiarTurno()
+optNO.Enabled = True
     optSI.Enabled = True
     If grdGrilla.rows > 1 Then
        If grdGrilla.TextMatrix(grdGrilla.RowSel, 1) <> "" Then
@@ -2174,7 +2265,11 @@ Private Sub cmdCopiar_Click()
            End If
        End If
     End If
+End Sub
 
+Private Sub cmdCopiar_Click()
+    colocarModoCreacionTurno
+    CopiarTurno
 End Sub
 
 Private Sub cmdCortar_Click()
@@ -2193,6 +2288,19 @@ Private Sub cmdDrive_Click()
     Else
         MsgBox "No tienes configurado el link a los protocolos. Por favor contacta al administrador", vbExclamation, "Información"
     End If
+End Sub
+
+Private Sub cmdEditar_Click()
+    colocarModoEdicionTurno
+    CopiarTurno
+End Sub
+Private Sub colocarModoCreacionTurno()
+    modoActualizacionTurno = 0 'MODO creacion
+    cmdAgregar.Caption = "&" & "Agregar"
+End Sub
+Private Sub colocarModoEdicionTurno()
+    modoActualizacionTurno = 1 'MODO EDICION
+    cmdAgregar.Caption = "&" & "Editar"
 End Sub
 
 Private Sub cmdespera_Click()
@@ -3090,11 +3198,16 @@ Private Sub ActualizarInfoEstudiosTurnos(JsonString As String)
         If studiesDict.Exists(turnoDNI) Then
             grdGrilla.TextMatrix(j, 18) = "Ver"
         Else
-            grdGrilla.TextMatrix(j, 18) = "No"
+            If turnoDNI = "" Then
+                grdGrilla.TextMatrix(j, 18) = "" 'ESPACIO LIBRE
+            Else
+                grdGrilla.TextMatrix(j, 18) = "No"
+            End If
+            
         End If
     Next j
-
 End Sub
+
 ' Evento de la grilla cuando el usuario hace clic en una celda
 Private Sub grdGrilla_Click()
     Dim Fila As Integer
@@ -3159,6 +3272,8 @@ Private Sub Form_Load()
     
     Call Centrar_pantalla(Me)
     
+    ConfigurarCboTamanioSlot
+    
     MViewFecha.Value = Date
     fechaturno.Value = Date
     'MsgBox WeekdayName(7, False)
@@ -3167,11 +3282,8 @@ Private Sub Form_Load()
     configurogrilla
     LlenarComboDoctor
     LlenarComboHoras
-    'BuscarTurnos Date, cboDoctor.ItemData(cboDoctor.ListIndex)
     ActivoGrid = 1
     If mNomUser = "DIGOR" Or mNomUser = "SILVANA" Or mNomUser = "JAVIER" Then
-        cmdAgregar.Enabled = True
-        cmdAgregar.Enabled = True
         lblimporte.Visible = True
         txtimporte.Visible = True
         lbltotal.Visible = True
@@ -3179,7 +3291,6 @@ Private Sub Form_Load()
         cmdOcultar.Enabled = True
         cmdInforTurno.Enabled = True
     Else
-        cmdAgregar.Enabled = False
         lblimporte.Visible = False
         txtimporte.Visible = False
         lbltotal.Visible = False
@@ -3187,18 +3298,12 @@ Private Sub Form_Load()
         cmdOcultar.Enabled = False
     End If
     
-    If mNomUser <> "DIGOR" And mNomUser <> "SILVANA" Then
-        cmdInforTurno.Enabled = False
-        cmdExportarTurno.Enabled = False
-        cmdExcel.Enabled = False
-        cmdReport.Enabled = False
-    End If
-    
     cargo_protocolos
     
     CargarLlavesUsuarios
     
     fraListaEstudios.Visible = False
+    colocarModoCreacionTurno
 End Sub
 Private Sub LimpiarGrilla()
     grdGrilla.rows = 1
@@ -3278,81 +3383,595 @@ Private Function obtenerTieneLinkDrive(link As String)
     
     obtenerTieneLinkDrive = res
 End Function
+'VALIDAR QUE EL DOCTOR ATIENE EL DIA SELECCIONADO
+Public Function DoctorAtiendeElDia(Fecha As Date) As Boolean
+    Dim diaSemana As Integer
+
+    DoctorAtiendeElDia = True   ' default: permitir
+
+    ' Sin diccionario o vacío = doctor sin horarios cargados, no restringir
+    If dicHorariosDoc Is Nothing Then Exit Function
+    If dicHorariosDoc.Count = 0 Then Exit Function
+
+    ' vbMonday hace que 1=Lunes ... 7=Domingo
+    diaSemana = Weekday(Fecha, vbMonday)
+
+    DoctorAtiendeElDia = dicHorariosDoc.Exists(CStr(diaSemana))
+End Function
+Public Function DoctorPuedeAtender(Fecha As Date, vencod As Integer, _
+                                   horaDesde As String, horaHasta As String) As Boolean
+    Dim diaSemana As Integer
+    Dim clave As String
+    Dim bloques() As String
+    Dim rango() As String
+    Dim i As Integer
+
+    DoctorPuedeAtender = True   ' default: si no hay horarios cargados, permitir
+
+    If dicHorariosDoc Is Nothing Then Exit Function
+    If dicHorariosDoc.Count = 0 Then Exit Function
+
+    diaSemana = Weekday(Fecha, vbMonday)   ' 1=Lunes ... 7=Domingo
+    clave = CStr(diaSemana)
+
+    ' Si el día no existe en el diccionario, no atiende
+    If Not dicHorariosDoc.Exists(clave) Then
+        DoctorPuedeAtender = False
+        Exit Function
+    End If
+
+    ' Recorrer los bloques del día ("08:00-12:00;14:00-18:00")
+    ' El turno debe estar CONTENIDO dentro de al menos un bloque
+    bloques = Split(dicHorariosDoc(clave), ";")
+
+    For i = 0 To UBound(bloques)
+        rango = Split(bloques(i), "-")    ' rango(0)="08:00"  rango(1)="12:00"
+        If horaDesde >= rango(0) And horaHasta <= rango(1) Then
+            DoctorPuedeAtender = True
+            Exit Function
+        End If
+    Next i
+
+    ' No encajó en ningún bloque
+    DoctorPuedeAtender = False
+
+End Function
+Private Sub DeshabilitarTurnero()
+    txtBuscaCliente.text = ""
+     txtBuscaCliente.Enabled = False
+     txtCodigo.text = ""
+     txtCodigo.Enabled = False
+     txtBuscarCliDescri.text = ""
+     txtBuscarCliDescri.Enabled = False
+     txtTelefono.text = ""
+     txtTelefono.Enabled = False
+     txtOSocial.text = ""
+     txtOSocial.Enabled = False
+     txtMotivo.text = ""
+     txtMotivo.Enabled = False
+     cboDesde.ListIndex = -1
+     cboDesde.Enabled = False
+     cbohasta.ListIndex = -1
+     cbohasta.Enabled = False
+     mebHoraD.text = "__:__"
+     mebHoraD.Enabled = False
+     mebHoraH.text = "__:__"
+     mebHoraH.Enabled = False
+     txtimporte.text = "0,00"
+     txtimporte.Enabled = False
+     txtMotivo.Enabled = False
+     txtMotivo.text = ""
+     
+     cmdAgregar.Enabled = False
+     cmdQuitar.Enabled = False
+     cmdOcultar.Enabled = False
+     cmdNuevoPaciente.Enabled = False
+     cmdEditar.Enabled = False
+     cmdCopiar.Enabled = False
+     cboMotivo.Enabled = False
+End Sub
+Private Sub HabilitarTurnero()
+    txtBuscaCliente.text = ""
+    txtBuscaCliente.Enabled = True
+    txtCodigo.text = ""
+    txtCodigo.Enabled = True
+    txtBuscarCliDescri.text = ""
+    txtBuscarCliDescri.Enabled = True
+    txtTelefono.text = ""
+    txtTelefono.Enabled = True
+    txtOSocial.text = ""
+    txtOSocial.Enabled = True
+    txtMotivo.text = ""
+    txtMotivo.Enabled = True
+    cboDesde.ListIndex = -1
+    cboDesde.Enabled = True
+    cbohasta.ListIndex = -1
+    cbohasta.Enabled = True
+    mebHoraD.text = "__:__"
+    mebHoraD.Enabled = True
+    mebHoraH.text = "__:__"
+    mebHoraH.Enabled = True
+    txtimporte.text = "0,00"
+    txtimporte.Enabled = True
+
+    cmdAgregar.Enabled = True
+    cmdQuitar.Enabled = True
+    cmdOcultar.Enabled = True
+    cmdNuevoPaciente.Enabled = True
+     cmdEditar.Enabled = True
+     cmdCopiar.Enabled = True
+     cboMotivo.Enabled = True
+End Sub
+' ------------------------------------------------------------------
+'  5. BUSCAR TURNOS (versión con slots solo para huecos libres)
+' ------------------------------------------------------------------
 Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
-    Dim foreColor As String
-    Dim backColor As String
+    Dim foreColor As Long
+    Dim backColor As Long
     Dim total As Double
     Dim años As Integer
     Dim edad As Integer
     Dim impreso As String
-    sql = "SELECT TOP 100 T.*,V.VEN_NOMBRE,C.CLI_RAZSOC,C.CLI_NRODOC,C.CLI_TELEFONO,C.CLI_CELULAR,C.CLI_CUMPLE, C.CLI_LINKARCH, T.ID_TURNO"
-    sql = sql & " FROM TURNOS T, VENDEDOR V, CLIENTE C"
-    sql = sql & " WHERE T.CLI_CODIGO = C.CLI_CODIGO"
-    sql = sql & " AND T.VEN_CODIGO = V.VEN_CODIGO"
-    sql = sql & " AND T.TUR_FECHA = " & XDQ(Fecha)
-    sql = sql & " AND T.VEN_CODIGO = " & Doc
-    sql = sql & " AND T.DELETED_AT IS NULL"
-    sql = sql & " ORDER BY T.TUR_HORAD"
-    rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
-    grdGrilla.rows = 1
-    If rec.EOF = False Then
-        i = 1
-        Do While rec.EOF = False
-            Select Case rec!TUR_ASISTIO
-            Case 0
-                backColor = &H800080
-                foreColor = &HFFFFFF
-            Case 1
-                backColor = &H8000&
-                foreColor = &HFFFFFF
-            Case 2
-                backColor = &HC0C0&
-                foreColor = &H80000008
-            End Select
-                    
-            'calculo edad de paciente
-            If Not (IsNull(rec!CLI_CUMPLE)) Then
-                If rec.EOF = False Then
-                    años = Year(Date) - Year(rec!CLI_CUMPLE)
-                    If Month(Fecha) < Month(rec!CLI_CUMPLE) Then años = años - 1 'todavia no ha llegado el mes de su cumple
-                    If Month(Now) = Month(rec!CLI_CUMPLE) And Day(Fecha) < Day(rec!CLI_CUMPLE) Then años = años - 1 'es el mes pero no ha llegado el dia de su cumple
-                    edad = años
-                End If
-            Else
-                edad = 0
-            End If
-            If Chk0(rec!TUR_IMPRESO) = 1 Then
-                impreso = "SI"
-            Else
-                impreso = "NO"
-            End If
-            
-            grdGrilla.AddItem Format(rec!TUR_HORAD, "hh:mm") & " a " & Format(rec!TUR_HORAH, "hh:mm") & Chr(9) & rec!CLI_RAZSOC & Chr(9) & edad & Chr(9) & obtenerTelefonoGrila(ChkNull(rec!CLI_CELULAR), ChkNull(rec!CLI_TELEFONO)) & Chr(9) & " " & Chr(9) & rec!TUR_OSOCIAL & Chr(9) & ChkNull(rec!TUR_MOTIVO) & Chr(9) & _
-                                     ChkNull(rec!TUR_DRSOLICITA) & Chr(9) & rec!VEN_CODIGO & Chr(9) & rec!CLI_CODIGO & Chr(9) & rec!TUR_ASISTIO & Chr(9) & ChkNull(rec!CLI_NRODOC) & Chr(9) & ChkNull(rec!TUR_DESDE) & Chr(9) & rec!TUR_TIENEMUTUAL & Chr(9) & Format(Chk0(rec!TUR_IMPORTE), "#,##0.00") & Chr(9) & ChkNull(rec!tur_orden) & Chr(9) & impreso & Chr(9) & obtenerTieneLinkDrive(ChkNull(rec!CLI_LINKARCH)) & Chr(9) & "" & Chr(9) & ChkNull(rec!TUR_OBSERV) & Chr(9) & _
-                                     ChkNull(rec!ID_TURNO)
-                
-            total = total + Chk0(rec!TUR_IMPORTE)
-            'COLOR DE COLUMNA 1
-            grdGrilla.col = 0
-            grdGrilla.row = i
-            grdGrilla.CellForeColor = &HFFFFFF 'FUENTE COLOR BLANCO
-            grdGrilla.CellBackColor = &H808080    'GRIS OSCURO
-            grdGrilla.CellFontBold = True
-            
-            
-            'COLOR DE FILAS
-            grdGrilla.row = i
-            For j = 1 To grdGrilla.Cols - 1
-                grdGrilla.col = j
-                grdGrilla.CellForeColor = foreColor       'FUENTE COLOR NEGRO
-                grdGrilla.CellBackColor = backColor      'ROSA
-                grdGrilla.CellFontBold = True
-            Next
-            
-            i = i + 1
-            rec.MoveNext
-        Loop
+    
+    ' --- Variables de slot ---
+    Dim tamanioSlot As Integer
+    Dim minInicio As Integer
+    Dim minFin As Integer
+    Dim currentMin As Integer
+    Dim slotEndMin As Integer
+    
+    ' --- Variables de disponibilidad ---
+    Dim DIA As Integer
+    Dim diaNombre As String
+    Dim claveDia As String
+    Dim bloquesStr As String
+    Dim tieneBloques As Boolean
+    Dim bloques() As String
+    Dim rango() As String
+    
+    ' --- Bloques parseados a arrays de minutos ---
+    Dim blkStart() As Integer
+    Dim blkEnd() As Integer
+    Dim blkCount As Integer
+    
+    ' --- Arrays para turnos en memoria ---
+    Dim turHoraD() As String
+    Dim turHoraH() As String
+    Dim turAsistio() As Integer
+    Dim turDatosStr() As String
+    Dim turImporte() As Double
+    Dim turCount As Integer
+    
+    ' --- Variables auxiliares ---
+    Dim idx As Integer
+    Dim B As Integer
+    Dim k As Integer
+    Dim turnoEncontrado As Boolean
+    Dim turnoIdx As Integer
+    Dim inBlock As Boolean
+    Dim currentBlock As Integer
+    Dim nextBlockStart As Integer
+    Dim turStartMin As Integer
+    Dim turEndMin As Integer
+    
+    Dim turMostrado() As Boolean
+    Dim menorFinTurno As Integer
+    
+    
+    ' =============================================================
+    '  DÍA Y VALIDACIÓN DE DISPONIBILIDAD
+    ' =============================================================
+    DIA = Weekday(Fecha, vbMonday)
+    diaNombre = UCase(Left(WeekdayName(DIA, False), 1)) _
+              & Mid(WeekdayName(DIA, False), 2)
+    
+    If Not DoctorAtiendeElDia(Fecha) Then
+        lbldiaTurno.Caption = "El doctor no está disponible los días " & diaNombre
+        DeshabilitarTurnero
+        Exit Sub
     End If
+    
+    If mNomUser = "DIGOR" Or mNomUser = "SILVANA" Then
+        HabilitarTurnero
+        cmdHorariosAtencion.Visible = True
+    Else
+        DeshabilitarTurnero
+        cmdHorariosAtencion.Visible = False
+    End If
+
+    lbldiaTurno.Caption = "Turnos del dia " & diaNombre & " " & Day(MViewFecha.Value) & " de " & MonthName(Month(MViewFecha.Value), False) & " de " & Year(MViewFecha.Value)
+    
+    
+    ' =============================================================
+    '  TAMAÑO DE SLOT
+    ' =============================================================
+    If cboTamanioSlot.ListIndex = -1 Then
+        tamanioSlot = 30
+    Else
+        tamanioSlot = cboTamanioSlot.ItemData(cboTamanioSlot.ListIndex)
+    End If
+    
+    
+    ' =============================================================
+    '  OBTENER BLOQUES DE ATENCIÓN DEL DÍA
+    ' =============================================================
+    claveDia = CStr(DIA)
+    tieneBloques = False
+    
+    If Not dicHorariosDoc Is Nothing Then
+        If dicHorariosDoc.Count > 0 Then
+            If dicHorariosDoc.Exists(claveDia) Then
+                bloquesStr = dicHorariosDoc(claveDia)
+                tieneBloques = True
+            End If
+        End If
+    End If
+    
+    
+    ' =============================================================
+    '  CONSULTA DE TURNOS EXISTENTES
+    ' =============================================================
+    sql = "SELECT TOP 100 T.*,V.VEN_NOMBRE,C.CLI_RAZSOC,C.CLI_NRODOC," _
+        & "C.CLI_TELEFONO,C.CLI_CELULAR,C.CLI_CUMPLE, C.CLI_LINKARCH, T.ID_TURNO" _
+        & " FROM TURNOS T, VENDEDOR V, CLIENTE C" _
+        & " WHERE T.CLI_CODIGO = C.CLI_CODIGO" _
+        & " AND T.VEN_CODIGO = V.VEN_CODIGO" _
+        & " AND T.TUR_FECHA = " & XDQ(Fecha) _
+        & " AND T.VEN_CODIGO = " & Doc _
+        & " AND T.DELETED_AT IS NULL" _
+        & " ORDER BY T.TUR_HORAD"
+    rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
+    
+    
+    ' =============================================================
+    '  MODO CON SLOTS (doctor tiene horarios configurados)
+    ' =============================================================
+    If tieneBloques And (mNomUser = "DIGOR" Or mNomUser = "SILVANA") Then
+        
+        ' ---------------------------------------------------------
+        '  PASO 1: Cargar turnos existentes en arrays
+        ' ---------------------------------------------------------
+        turCount = 0
+        
+        If rec.EOF = False Then
+            turCount = rec.RecordCount
+            
+            ReDim turHoraD(1 To turCount)
+            ReDim turHoraH(1 To turCount)
+            ReDim turAsistio(1 To turCount)
+            ReDim turDatosStr(1 To turCount)
+            ReDim turImporte(1 To turCount)
+            
+            idx = 1
+            Do While rec.EOF = False
+                turHoraD(idx) = Format(rec!TUR_HORAD, "hh:mm")
+                turHoraH(idx) = Format(rec!TUR_HORAH, "hh:mm")
+                turAsistio(idx) = rec!TUR_ASISTIO
+                turImporte(idx) = Chk0(rec!TUR_IMPORTE)
+                
+                ' Calcular edad
+                If Not (IsNull(rec!CLI_CUMPLE)) Then
+                    años = Year(Date) - Year(rec!CLI_CUMPLE)
+                    If Month(Fecha) < Month(rec!CLI_CUMPLE) Then años = años - 1
+                    If Month(Now) = Month(rec!CLI_CUMPLE) And _
+                       Day(Fecha) < Day(rec!CLI_CUMPLE) Then años = años - 1
+                    edad = años
+                Else
+                    edad = 0
+                End If
+                
+                If Chk0(rec!TUR_IMPRESO) = 1 Then
+                    impreso = "SI"
+                Else
+                    impreso = "NO"
+                End If
+                
+                ' Cols 1 a 20 (SIN col 0, la hora se pone al agregar)
+                turDatosStr(idx) = _
+                    rec!CLI_RAZSOC & Chr(9) & _
+                    edad & Chr(9) & _
+                    obtenerTelefonoGrila(ChkNull(rec!CLI_CELULAR), _
+                                         ChkNull(rec!CLI_TELEFONO)) & Chr(9) & _
+                    " " & Chr(9) & _
+                    rec!TUR_OSOCIAL & Chr(9) & _
+                    ChkNull(rec!TUR_MOTIVO) & Chr(9) & _
+                    ChkNull(rec!TUR_DRSOLICITA) & Chr(9) & _
+                    rec!VEN_CODIGO & Chr(9) & _
+                    rec!CLI_CODIGO & Chr(9) & _
+                    rec!TUR_ASISTIO & Chr(9) & _
+                    ChkNull(rec!CLI_NRODOC) & Chr(9) & _
+                    ChkNull(rec!TUR_DESDE) & Chr(9) & _
+                    rec!TUR_TIENEMUTUAL & Chr(9) & _
+                    Format(Chk0(rec!TUR_IMPORTE), "#,##0.00") & Chr(9) & _
+                    ChkNull(rec!tur_orden) & Chr(9) & _
+                    impreso & Chr(9) & _
+                    obtenerTieneLinkDrive(ChkNull(rec!CLI_LINKARCH)) & Chr(9) & _
+                    "" & Chr(9) & _
+                    ChkNull(rec!TUR_OBSERV) & Chr(9) & _
+                    ChkNull(rec!ID_TURNO)
+                
+                idx = idx + 1
+                rec.MoveNext
+            Loop
+        End If
+        ' Marcar todos como no mostrados
+        If turCount > 0 Then
+            ReDim turMostrado(1 To turCount)
+            For k = 1 To turCount
+                turMostrado(k) = False
+            Next k
+        End If
+        
+        
+        ' ---------------------------------------------------------
+        '  PASO 2: Parsear bloques a arrays de minutos
+        '          y calcular rango total
+        ' ---------------------------------------------------------
+        bloques = Split(bloquesStr, ";")
+        blkCount = UBound(bloques) + 1
+        ReDim blkStart(0 To blkCount - 1)
+        ReDim blkEnd(0 To blkCount - 1)
+        
+        minInicio = 1440
+        minFin = 0
+        
+        For B = 0 To blkCount - 1
+            rango = Split(bloques(B), "-")
+            blkStart(B) = HoraAMinutos(rango(0))
+            blkEnd(B) = HoraAMinutos(rango(1))
+            If blkStart(B) < minInicio Then minInicio = blkStart(B)
+            If blkEnd(B) > minFin Then minFin = blkEnd(B)
+        Next B
+        
+        
+        ' ---------------------------------------------------------
+        '  PASO 3: Recorrer línea de tiempo y armar la grilla
+        '
+        '  En cada posición:
+        '    ¿Hay un turno que cubre este momento?
+        '       ? UNA fila con el rango real del turno, avanzar al fin
+        '    ¿Estoy dentro de un bloque de atención sin turno?
+        '       ? UNA fila "Disponible" del tamaño del slot
+        '    ¿Estoy fuera de todo bloque?
+        '       ? UNA fila "Fuera de horario" hasta el próximo bloque
+        ' ---------------------------------------------------------
+        ' ---------------------------------------------------------
+        '  PASO 3: Recorrer línea de tiempo y armar la grilla
+        ' ---------------------------------------------------------
+        grdGrilla.rows = 1
+        i = 1
+        total = 0
+        currentMin = minInicio
+        
+        Do While currentMin < minFin
+            
+            ' --- Buscar TODOS los turnos que cubren este momento ---
+            menorFinTurno = minFin
+            turnoEncontrado = False
+            
+            For k = 1 To turCount
+                If Not turMostrado(k) Then
+                    turStartMin = HoraAMinutos(turHoraD(k))
+                    turEndMin = HoraAMinutos(turHoraH(k))
+                    
+                    If turStartMin <= currentMin And turEndMin > currentMin Then
+                        turnoEncontrado = True
+                        turMostrado(k) = True
+                        
+                        ' Agregar fila del turno
+                        grdGrilla.AddItem turHoraD(k) & " a " _
+                            & turHoraH(k) & Chr(9) & turDatosStr(k)
+                        total = total + turImporte(k)
+                        
+                        ' Color según asistencia
+                        Select Case turAsistio(k)
+                            Case 0
+                                backColor = &H800080: foreColor = &HFFFFFF
+                            Case 1
+                                backColor = &H8000&:  foreColor = &HFFFFFF
+                            Case 2
+                                backColor = &HC0C0&:  foreColor = &H80000008
+                        End Select
+                        
+                        ' Colorear la fila
+                        grdGrilla.row = i
+                        grdGrilla.col = 0
+                        grdGrilla.CellForeColor = &HFFFFFF
+                        grdGrilla.CellBackColor = &H808080
+                        grdGrilla.CellFontBold = True
+                        For j = 1 To grdGrilla.Cols - 1
+                            grdGrilla.col = j
+                            grdGrilla.CellForeColor = foreColor
+                            grdGrilla.CellBackColor = backColor
+                            grdGrilla.CellFontBold = True
+                        Next j
+                        
+                        i = i + 1
+                        
+                        ' Rastrear el menor fin para saber hasta dónde avanzar
+                        If turEndMin < menorFinTurno Then menorFinTurno = turEndMin
+                    End If
+                End If
+            Next k
+            
+            
+            If turnoEncontrado Then
+                ' Avanzar al fin del turno más corto encontrado
+                currentMin = menorFinTurno
+            
+            Else
+                ' --- No hay turnos: ¿estoy en bloque de atención? ---
+                inBlock = False
+                For B = 0 To blkCount - 1
+                    If currentMin >= blkStart(B) And currentMin < blkEnd(B) Then
+                        inBlock = True
+                        currentBlock = B
+                        Exit For
+                    End If
+                Next B
+                
+                If inBlock Then
+                    ' ===========================
+                    '  DISPONIBLE (1 slot)
+                    ' ===========================
+                    slotEndMin = currentMin + tamanioSlot
+                    
+                    If slotEndMin > blkEnd(currentBlock) Then
+                        slotEndMin = blkEnd(currentBlock)
+                    End If
+                    
+                    ' No pisar el inicio del próximo turno no mostrado
+                    For k = 1 To turCount
+                        If Not turMostrado(k) Then
+                            turStartMin = HoraAMinutos(turHoraD(k))
+                            If turStartMin > currentMin And turStartMin < slotEndMin Then
+                                slotEndMin = turStartMin
+                            End If
+                        End If
+                    Next k
+                    
+                    grdGrilla.AddItem ArmarFilaSlotVacia( _
+                        MinutosAHora(currentMin), _
+                        MinutosAHora(slotEndMin), "Disponible")
+                    
+                    backColor = COLOR_DISPONIBLE_BACK
+                    foreColor = COLOR_DISPONIBLE_FORE
+                    
+                    ' Colorear la fila
+                    grdGrilla.row = i
+                    grdGrilla.col = 0
+                    grdGrilla.CellForeColor = &HFFFFFF
+                    grdGrilla.CellBackColor = &H808080
+                    grdGrilla.CellFontBold = True
+                    For j = 1 To grdGrilla.Cols - 1
+                        grdGrilla.col = j
+                        grdGrilla.CellForeColor = foreColor
+                        grdGrilla.CellBackColor = backColor
+                        grdGrilla.CellFontBold = True
+                    Next j
+                    
+                    i = i + 1
+                    currentMin = slotEndMin
+                
+                Else
+                    ' ===========================
+                    '  FUERA DE HORARIO (1 fila)
+                    ' ===========================
+                    nextBlockStart = minFin
+                    For B = 0 To blkCount - 1
+                        If blkStart(B) > currentMin And blkStart(B) < nextBlockStart Then
+                            nextBlockStart = blkStart(B)
+                        End If
+                    Next B
+                    
+                    grdGrilla.AddItem ArmarFilaSlotVacia( _
+                        MinutosAHora(currentMin), _
+                        MinutosAHora(nextBlockStart), "Fuera de horario")
+                    
+                    backColor = COLOR_FUERA_BACK
+                    foreColor = COLOR_FUERA_FORE
+                    
+                    ' Colorear la fila
+                    grdGrilla.row = i
+                    grdGrilla.col = 0
+                    grdGrilla.CellForeColor = &HFFFFFF
+                    grdGrilla.CellBackColor = &H808080
+                    grdGrilla.CellFontBold = True
+                    For j = 1 To grdGrilla.Cols - 1
+                        grdGrilla.col = j
+                        grdGrilla.CellForeColor = foreColor
+                        grdGrilla.CellBackColor = backColor
+                        grdGrilla.CellFontBold = True
+                    Next j
+                    
+                    i = i + 1
+                    currentMin = nextBlockStart
+                End If
+            End If
+        Loop
+    
+    
+    ' =============================================================
+    '  MODO SIN SLOTS (fallback: doctor sin horarios configurados)
+    ' =============================================================
+    Else
+        grdGrilla.rows = 1
+        If rec.EOF = False Then
+            i = 1
+            Do While rec.EOF = False
+                Select Case rec!TUR_ASISTIO
+                    Case 0
+                        backColor = &H800080
+                        foreColor = &HFFFFFF
+                    Case 1
+                        backColor = &H8000&
+                        foreColor = &HFFFFFF
+                    Case 2
+                        backColor = &HC0C0&
+                        foreColor = &H80000008
+                End Select
+                
+                If Not (IsNull(rec!CLI_CUMPLE)) Then
+                    If rec.EOF = False Then
+                        años = Year(Date) - Year(rec!CLI_CUMPLE)
+                        If Month(Fecha) < Month(rec!CLI_CUMPLE) Then años = años - 1
+                        If Month(Now) = Month(rec!CLI_CUMPLE) And _
+                           Day(Fecha) < Day(rec!CLI_CUMPLE) Then años = años - 1
+                        edad = años
+                    End If
+                Else
+                    edad = 0
+                End If
+                
+                If Chk0(rec!TUR_IMPRESO) = 1 Then
+                    impreso = "SI"
+                Else
+                    impreso = "NO"
+                End If
+                
+                grdGrilla.AddItem Format(rec!TUR_HORAD, "hh:mm") & " a " & _
+                    Format(rec!TUR_HORAH, "hh:mm") & Chr(9) & _
+                    rec!CLI_RAZSOC & Chr(9) & edad & Chr(9) & _
+                    obtenerTelefonoGrila(ChkNull(rec!CLI_CELULAR), _
+                        ChkNull(rec!CLI_TELEFONO)) & Chr(9) & _
+                    " " & Chr(9) & rec!TUR_OSOCIAL & Chr(9) & _
+                    ChkNull(rec!TUR_MOTIVO) & Chr(9) & _
+                    ChkNull(rec!TUR_DRSOLICITA) & Chr(9) & _
+                    rec!VEN_CODIGO & Chr(9) & rec!CLI_CODIGO & Chr(9) & _
+                    rec!TUR_ASISTIO & Chr(9) & ChkNull(rec!CLI_NRODOC) & Chr(9) & _
+                    ChkNull(rec!TUR_DESDE) & Chr(9) & rec!TUR_TIENEMUTUAL & Chr(9) & _
+                    Format(Chk0(rec!TUR_IMPORTE), "#,##0.00") & Chr(9) & _
+                    ChkNull(rec!tur_orden) & Chr(9) & impreso & Chr(9) & _
+                    obtenerTieneLinkDrive(ChkNull(rec!CLI_LINKARCH)) & Chr(9) & _
+                    "" & Chr(9) & ChkNull(rec!TUR_OBSERV) & Chr(9) & _
+                    ChkNull(rec!ID_TURNO)
+                
+                total = total + Chk0(rec!TUR_IMPORTE)
+                
+                grdGrilla.col = 0
+                grdGrilla.row = i
+                grdGrilla.CellForeColor = &HFFFFFF
+                grdGrilla.CellBackColor = &H808080
+                grdGrilla.CellFontBold = True
+                
+                grdGrilla.row = i
+                For j = 1 To grdGrilla.Cols - 1
+                    grdGrilla.col = j
+                    grdGrilla.CellForeColor = foreColor
+                    grdGrilla.CellBackColor = backColor
+                    grdGrilla.CellFontBold = True
+                Next j
+                
+                i = i + 1
+                rec.MoveNext
+            Loop
+        End If
+    End If
+    
+    
+    ' =============================================================
+    '  CIERRE COMÚN
+    ' =============================================================
     txtTotal.text = total
     txtTotal.text = Valido_Importe(txtTotal.text)
     
@@ -3362,7 +3981,7 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
         grdGrilla.row = 1
     End If
     GetStudiesLoadedByDate
-    'txtEdit.Visible = True
+    
 End Sub
 Private Function cambiocolor(asistio As Integer)
     Dim foreColor As String
@@ -3560,6 +4179,10 @@ Private Function configurogrilla()
 End Function
 
 Private Sub GRDGrilla_DblClick()
+    'Sino ho hay turno, no rediriko a historia clinia
+    If grdGrilla.TextMatrix(grdGrilla.RowSel, 9) = "" Then
+        Exit Sub
+    End If
      'BUSCO CODIGO DE DOCTOR POR NOMBRE DE USUARIO logeado
     sql = "SELECT VEN_CODIGO FROM VENDEDOR"
     sql = sql & " WHERE PR_CODIGO > 1 "
@@ -3926,4 +4549,112 @@ End Sub
 
 Private Sub txtOrden_KeyPress(KeyAscii As Integer)
     KeyAscii = CarNumeroDecimal(txtOrden, KeyAscii)
+End Sub
+
+' ---------------------------------------------------------------
+'  Arma la grilla con la disponibilidad de los 7 días
+'  usando el diccionario ya cargado (dicHorariosDoc)
+' ---------------------------------------------------------------
+Private Sub MostrarDisponibilidad()
+    Dim i As Integer
+    Dim j As Integer
+    Dim clave As String
+    Dim horarios As String
+    Dim bloques() As String
+    Dim rango() As String
+
+    With grdDisponibilidad
+        .rows = 1
+        .Cols = 2
+        .FormatString = "Día|Horarios"
+        .ColWidth(0) = 1500
+        .ColWidth(1) = 5400
+        .BorderStyle = flexBorderNone
+        .SelectionMode = flexSelectionByRow
+
+        ' Formato encabezado
+        .row = 0
+        Dim c As Integer
+        For c = 0 To 1
+            .col = c
+            .CellForeColor = &HFFFFFF
+            .CellBackColor = &H808080
+            .CellFontBold = True
+        Next c
+    End With
+
+    ' Una fila por día de la semana
+    For i = 1 To 7
+        clave = CStr(i)
+
+        If dicHorariosDoc Is Nothing Then
+            horarios = "Sin datos"
+        ElseIf dicHorariosDoc.Count = 0 Then
+            horarios = "Sin datos"
+        ElseIf dicHorariosDoc.Exists(clave) Then
+            ' Formatear bloques: "08:00-12:00;14:00-18:00" ? "08:00 a 12:00 / 14:00 a 18:00"
+            bloques = Split(dicHorariosDoc(clave), ";")
+            horarios = ""
+            For j = 0 To UBound(bloques)
+                rango = Split(bloques(j), "-")
+                If horarios <> "" Then horarios = horarios & "  /  "
+                horarios = horarios & rango(0) & " a " & rango(1)
+            Next j
+        Else
+            horarios = "No atiende"
+        End If
+
+        grdDisponibilidad.AddItem NombreDiaSemana(i) & Chr(9) & horarios
+
+        ' Colorear según si atiende o no
+        grdDisponibilidad.row = i
+        grdDisponibilidad.col = 0
+        grdDisponibilidad.CellFontBold = True
+
+        grdDisponibilidad.col = 1
+        If Not dicHorariosDoc Is Nothing Then
+            If dicHorariosDoc.Exists(clave) Then
+                grdDisponibilidad.CellBackColor = &HC0FFC0    ' verde claro
+                grdDisponibilidad.CellForeColor = &H80000008  ' negro
+            Else
+                grdDisponibilidad.CellBackColor = &HC0C0C0    ' gris
+                grdDisponibilidad.CellForeColor = &H808080    ' gris oscuro
+            End If
+        End If
+    Next i
+
+    fraDisponibilidad.Visible = True
+    fraDisponibilidad.ZOrder 0   ' traer al frente
+End Sub
+' ---------------------------------------------------------------
+'  Auxiliar: número de día ? nombre
+' ---------------------------------------------------------------
+Private Function NombreDiaSemana(numDia As Integer) As String
+    Select Case numDia
+        Case 1: NombreDiaSemana = "Lunes"
+        Case 2: NombreDiaSemana = "Martes"
+        Case 3: NombreDiaSemana = "Miércoles"
+        Case 4: NombreDiaSemana = "Jueves"
+        Case 5: NombreDiaSemana = "Viernes"
+        Case 6: NombreDiaSemana = "Sábado"
+        Case 7: NombreDiaSemana = "Domingo"
+    End Select
+End Function
+' ---------------------------------------------------------------
+'  Botón "Horarios de atención"
+' ---------------------------------------------------------------
+Private Sub cmdHorariosAtencion_Click()
+    If fraDisponibilidad.Visible Then
+        fraDisponibilidad.Visible = False
+    Else
+        MostrarDisponibilidad
+    End If
+End Sub
+
+
+' ---------------------------------------------------------------
+'  Botón "Cerrar" dentro del frame
+' ---------------------------------------------------------------
+Private Sub cmdCerrarDisp_Click()
+    fraDisponibilidad.Visible = False
 End Sub

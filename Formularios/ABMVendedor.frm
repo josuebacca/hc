@@ -1,12 +1,13 @@
 VERSION 5.00
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "MSFLXGRD.OCX"
+Object = "{C932BA88-4374-101B-A56C-00AA003668DC}#1.1#0"; "MSMASK32.OCX"
 Begin VB.Form ABMVendedor 
    BorderStyle     =   3  'Fixed Dialog
    ClientHeight    =   7185
    ClientLeft      =   2700
    ClientTop       =   2625
-   ClientWidth     =   7275
+   ClientWidth     =   7305
    BeginProperty Font 
       Name            =   "Tahoma"
       Size            =   8.25
@@ -22,14 +23,14 @@ Begin VB.Form ABMVendedor
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   7185
-   ScaleWidth      =   7275
+   ScaleWidth      =   7305
    ShowInTaskbar   =   0   'False
    Begin VB.CheckBox chkVenEstado 
       Caption         =   "Dar de Baja"
       Height          =   285
-      Left            =   1065
+      Left            =   705
       TabIndex        =   0
-      Top             =   6120
+      Top             =   6360
       Width           =   1140
    End
    Begin VB.CommandButton cmdAyuda 
@@ -37,7 +38,7 @@ Begin VB.Form ABMVendedor
       Left            =   240
       Picture         =   "ABMVendedor.frx":000C
       Style           =   1  'Graphical
-      TabIndex        =   3
+      TabIndex        =   4
       Top             =   6495
       Visible         =   0   'False
       Width           =   330
@@ -46,7 +47,7 @@ Begin VB.Form ABMVendedor
       Caption         =   "&Cerrar"
       Height          =   345
       Left            =   3150
-      TabIndex        =   2
+      TabIndex        =   3
       Top             =   6495
       Width           =   1300
    End
@@ -59,20 +60,19 @@ Begin VB.Form ABMVendedor
       Width           =   1300
    End
    Begin TabDlg.SSTab tabVendedor 
-      Height          =   5895
+      Height          =   6135
       Left            =   120
-      TabIndex        =   4
+      TabIndex        =   2
       Top             =   120
-      Width           =   6795
-      _ExtentX        =   11986
-      _ExtentY        =   10398
+      Width           =   7155
+      _ExtentX        =   12621
+      _ExtentY        =   10821
       _Version        =   393216
-      Tabs            =   2
-      TabsPerRow      =   2
+      Tab             =   2
       TabHeight       =   520
       TabCaption(0)   =   "Datos"
       TabPicture(0)   =   "ABMVendedor.frx":0156
-      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).ControlEnabled=   0   'False
       Tab(0).Control(0)=   "Label1(0)"
       Tab(0).Control(0).Enabled=   0   'False
       Tab(0).Control(1)=   "Label2"
@@ -144,183 +144,309 @@ Begin VB.Form ABMVendedor
       Tab(1).Control(4)=   "Label4"
       Tab(1).Control(5)=   "Label3"
       Tab(1).ControlCount=   6
+      TabCaption(2)   =   "Horarios"
+      TabPicture(2)   =   "ABMVendedor.frx":018E
+      Tab(2).ControlEnabled=   -1  'True
+      Tab(2).Control(0)=   "Label5"
+      Tab(2).Control(0).Enabled=   0   'False
+      Tab(2).Control(1)=   "Label6"
+      Tab(2).Control(1).Enabled=   0   'False
+      Tab(2).Control(2)=   "Label7"
+      Tab(2).Control(2).Enabled=   0   'False
+      Tab(2).Control(3)=   "mskHoraHasta"
+      Tab(2).Control(3).Enabled=   0   'False
+      Tab(2).Control(4)=   "mskHoraDesde"
+      Tab(2).Control(4).Enabled=   0   'False
+      Tab(2).Control(5)=   "cboDiaSemana"
+      Tab(2).Control(5).Enabled=   0   'False
+      Tab(2).Control(6)=   "cmdAgregarHorario"
+      Tab(2).Control(6).Enabled=   0   'False
+      Tab(2).Control(7)=   "cmdQuitarHorario"
+      Tab(2).Control(7).Enabled=   0   'False
+      Tab(2).Control(8)=   "grdHorarios"
+      Tab(2).Control(8).Enabled=   0   'False
+      Tab(2).ControlCount=   9
+      Begin MSFlexGridLib.MSFlexGrid grdHorarios 
+         Height          =   3375
+         Left            =   240
+         TabIndex        =   45
+         Top             =   2400
+         Width           =   6735
+         _ExtentX        =   11880
+         _ExtentY        =   5953
+         _Version        =   393216
+      End
+      Begin VB.CommandButton cmdQuitarHorario 
+         Caption         =   "&Quitar"
+         Height          =   345
+         Left            =   1920
+         TabIndex        =   49
+         Top             =   1920
+         Width           =   1300
+      End
+      Begin VB.CommandButton cmdAgregarHorario 
+         Caption         =   "&Agregar"
+         Height          =   345
+         Left            =   240
+         TabIndex        =   48
+         Top             =   1920
+         Width           =   1300
+      End
+      Begin VB.ComboBox cboDiaSemana 
+         Height          =   315
+         ItemData        =   "ABMVendedor.frx":01AA
+         Left            =   720
+         List            =   "ABMVendedor.frx":01AC
+         Style           =   2  'Dropdown List
+         TabIndex        =   44
+         Top             =   600
+         Width           =   2415
+      End
       Begin VB.TextBox txtLinkProtocolos 
          Height          =   315
-         Left            =   1440
+         Left            =   -73560
          TabIndex        =   40
-         Top             =   5280
+         Top             =   5580
          Width           =   3885
       End
       Begin VB.CommandButton cmdDesasignar 
          Caption         =   ">"
          Height          =   400
-         Left            =   -71880
+         Left            =   -71640
          TabIndex        =   38
-         Top             =   2400
+         Top             =   2700
          Width           =   400
       End
       Begin VB.CommandButton cmdAsignar 
          Caption         =   "<"
          Height          =   400
-         Left            =   -71880
+         Left            =   -71640
          TabIndex        =   37
-         Top             =   1800
+         Top             =   2100
          Width           =   400
       End
       Begin VB.TextBox txtFax 
          Height          =   315
-         Left            =   1425
+         Left            =   -73575
          MaxLength       =   30
          TabIndex        =   26
-         Top             =   3840
+         Top             =   4140
          Width           =   3375
       End
       Begin VB.TextBox txtMail 
          Height          =   315
-         Left            =   1425
+         Left            =   -73575
          MaxLength       =   50
          TabIndex        =   25
-         Top             =   4290
+         Top             =   4590
          Width           =   3375
       End
       Begin VB.TextBox txtPorcentCom 
          Height          =   315
-         Left            =   1410
+         Left            =   -73590
          MaxLength       =   50
          TabIndex        =   24
-         Top             =   4770
+         Top             =   5070
          Width           =   735
       End
       Begin VB.TextBox txtcoseguro 
          Height          =   315
-         Left            =   3810
+         Left            =   -71190
          MaxLength       =   50
          TabIndex        =   23
-         Top             =   4785
+         Top             =   5085
          Width           =   735
       End
       Begin VB.TextBox txtNombre 
          Height          =   315
-         Left            =   1425
+         Left            =   -73575
          MaxLength       =   50
          TabIndex        =   14
-         Top             =   840
+         Top             =   1140
          Width           =   3375
       End
       Begin VB.ComboBox cboPais 
          Height          =   315
-         ItemData        =   "ABMVendedor.frx":018E
-         Left            =   1425
-         List            =   "ABMVendedor.frx":0190
+         ItemData        =   "ABMVendedor.frx":01AE
+         Left            =   -73575
+         List            =   "ABMVendedor.frx":01B0
          Style           =   2  'Dropdown List
          TabIndex        =   13
-         Top             =   1890
+         Top             =   2190
          Width           =   3375
       End
       Begin VB.ComboBox cboProvincia 
          Height          =   315
-         ItemData        =   "ABMVendedor.frx":0192
-         Left            =   1425
-         List            =   "ABMVendedor.frx":0194
+         ItemData        =   "ABMVendedor.frx":01B2
+         Left            =   -73575
+         List            =   "ABMVendedor.frx":01B4
          Style           =   2  'Dropdown List
          TabIndex        =   12
-         Top             =   2235
+         Top             =   2535
          Width           =   3375
       End
       Begin VB.ComboBox cboLocalidad 
          Height          =   315
-         ItemData        =   "ABMVendedor.frx":0196
-         Left            =   1425
-         List            =   "ABMVendedor.frx":0198
+         ItemData        =   "ABMVendedor.frx":01B6
+         Left            =   -73575
+         List            =   "ABMVendedor.frx":01B8
          Style           =   2  'Dropdown List
          TabIndex        =   11
-         Top             =   2610
+         Top             =   2910
          Width           =   3375
       End
       Begin VB.TextBox txtTelefono 
          Height          =   315
-         Left            =   1425
+         Left            =   -73575
          MaxLength       =   30
          TabIndex        =   10
-         Top             =   3375
+         Top             =   3675
          Width           =   3375
       End
       Begin VB.TextBox txtDomicilio 
          Height          =   315
-         Left            =   1425
+         Left            =   -73575
          MaxLength       =   50
          TabIndex        =   9
-         Top             =   2925
+         Top             =   3225
          Width           =   3375
       End
       Begin VB.ComboBox cboprofesion 
          Height          =   315
-         ItemData        =   "ABMVendedor.frx":019A
-         Left            =   1425
-         List            =   "ABMVendedor.frx":019C
+         ItemData        =   "ABMVendedor.frx":01BA
+         Left            =   -73575
+         List            =   "ABMVendedor.frx":01BC
          Style           =   2  'Dropdown List
          TabIndex        =   8
-         Top             =   1170
+         Top             =   1470
          Width           =   3375
       End
       Begin VB.TextBox txtConsul 
          Height          =   315
-         Left            =   1425
+         Left            =   -73575
          TabIndex        =   7
-         Top             =   1530
+         Top             =   1830
          Width           =   720
       End
       Begin VB.TextBox txtID 
          Height          =   315
-         Left            =   1440
+         Left            =   -73560
          TabIndex        =   5
-         Top             =   480
+         Top             =   780
          Width           =   720
       End
       Begin MSFlexGridLib.MSFlexGrid grdMotivoAsignado 
          Height          =   4455
          Left            =   -74880
          TabIndex        =   35
-         Top             =   960
-         Width           =   2805
-         _ExtentX        =   4948
+         Top             =   1260
+         Width           =   3165
+         _ExtentX        =   5583
          _ExtentY        =   7858
          _Version        =   393216
       End
       Begin MSFlexGridLib.MSFlexGrid grdMotivo 
          Height          =   4455
-         Left            =   -71280
+         Left            =   -71040
          TabIndex        =   36
-         Top             =   960
-         Width           =   2800
-         _ExtentX        =   4948
+         Top             =   1200
+         Width           =   3045
+         _ExtentX        =   5371
          _ExtentY        =   7858
          _Version        =   393216
+      End
+      Begin MSMask.MaskEdBox mskHoraDesde 
+         Height          =   315
+         Left            =   5760
+         TabIndex        =   46
+         Top             =   600
+         Width           =   705
+         _ExtentX        =   1244
+         _ExtentY        =   556
+         _Version        =   393216
+         MaxLength       =   5
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Mask            =   "##:##"
+         PromptChar      =   "_"
+      End
+      Begin MSMask.MaskEdBox mskHoraHasta 
+         Height          =   315
+         Left            =   5760
+         TabIndex        =   47
+         Top             =   1320
+         Width           =   705
+         _ExtentX        =   1244
+         _ExtentY        =   556
+         _Version        =   393216
+         MaxLength       =   5
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Mask            =   "##:##"
+         PromptChar      =   "_"
+      End
+      Begin VB.Label Label7 
+         Caption         =   "Hasta:"
+         Height          =   375
+         Left            =   5040
+         TabIndex        =   43
+         Top             =   1320
+         Width           =   735
+      End
+      Begin VB.Label Label6 
+         Caption         =   "Desde:"
+         Height          =   375
+         Left            =   5040
+         TabIndex        =   42
+         Top             =   600
+         Width           =   615
+      End
+      Begin VB.Label Label5 
+         Caption         =   "Día:"
+         Height          =   375
+         Left            =   360
+         TabIndex        =   41
+         Top             =   600
+         Width           =   255
       End
       Begin VB.Label Label1 
          AutoSize        =   -1  'True
          Caption         =   "Link a protocolos:"
          Height          =   195
          Index           =   14
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   39
-         Top             =   5325
+         Top             =   5625
          Width           =   1260
       End
       Begin VB.Label Label4 
          Caption         =   "Motivos Disponibles"
          Height          =   375
-         Left            =   -70680
+         Left            =   -70920
          TabIndex        =   34
-         Top             =   600
+         Top             =   900
          Width           =   1695
       End
       Begin VB.Label Label3 
          Caption         =   "Motivos Asignados"
          Height          =   495
-         Left            =   -74280
+         Left            =   -74760
          TabIndex        =   33
-         Top             =   600
+         Top             =   900
          Width           =   1455
       End
       Begin VB.Label Label1 
@@ -328,9 +454,9 @@ Begin VB.Form ABMVendedor
          Caption         =   "Fax:"
          Height          =   195
          Index           =   6
-         Left            =   135
+         Left            =   -74865
          TabIndex        =   32
-         Top             =   3885
+         Top             =   4185
          Width           =   330
       End
       Begin VB.Label Label1 
@@ -338,9 +464,9 @@ Begin VB.Form ABMVendedor
          Caption         =   "Email:"
          Height          =   195
          Index           =   7
-         Left            =   135
+         Left            =   -74865
          TabIndex        =   31
-         Top             =   4335
+         Top             =   4635
          Width           =   420
       End
       Begin VB.Label Label1 
@@ -348,9 +474,9 @@ Begin VB.Form ABMVendedor
          Caption         =   "Particular:"
          Height          =   195
          Index           =   10
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   30
-         Top             =   4830
+         Top             =   5130
          Width           =   735
       End
       Begin VB.Label Label1 
@@ -358,9 +484,9 @@ Begin VB.Form ABMVendedor
          Caption         =   "%"
          Height          =   195
          Index           =   11
-         Left            =   2160
+         Left            =   -72840
          TabIndex        =   29
-         Top             =   4830
+         Top             =   5130
          Width           =   165
       End
       Begin VB.Label Label1 
@@ -368,9 +494,9 @@ Begin VB.Form ABMVendedor
          Caption         =   "%"
          Height          =   195
          Index           =   12
-         Left            =   4560
+         Left            =   -70440
          TabIndex        =   28
-         Top             =   4845
+         Top             =   5145
          Width           =   165
       End
       Begin VB.Label Label1 
@@ -378,9 +504,9 @@ Begin VB.Form ABMVendedor
          Caption         =   "Coseguro:"
          Height          =   195
          Index           =   13
-         Left            =   2880
+         Left            =   -72120
          TabIndex        =   27
-         Top             =   4845
+         Top             =   5145
          Width           =   750
       End
       Begin VB.Label Label1 
@@ -388,9 +514,9 @@ Begin VB.Form ABMVendedor
          Caption         =   "Nombre:"
          Height          =   195
          Index           =   1
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   22
-         Top             =   885
+         Top             =   1185
          Width           =   615
       End
       Begin VB.Label Label1 
@@ -398,9 +524,9 @@ Begin VB.Form ABMVendedor
          Caption         =   "País:"
          Height          =   195
          Index           =   2
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   21
-         Top             =   1935
+         Top             =   2235
          Width           =   345
       End
       Begin VB.Label Label1 
@@ -408,9 +534,9 @@ Begin VB.Form ABMVendedor
          Caption         =   "Provincia:"
          Height          =   195
          Index           =   3
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   20
-         Top             =   2280
+         Top             =   2580
          Width           =   705
       End
       Begin VB.Label Label1 
@@ -418,9 +544,9 @@ Begin VB.Form ABMVendedor
          Caption         =   "Localidad:"
          Height          =   195
          Index           =   4
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   19
-         Top             =   2625
+         Top             =   2925
          Width           =   720
       End
       Begin VB.Label Label1 
@@ -428,9 +554,9 @@ Begin VB.Form ABMVendedor
          Caption         =   "Teléfono:"
          Height          =   195
          Index           =   5
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   18
-         Top             =   3420
+         Top             =   3720
          Width           =   690
       End
       Begin VB.Label Label1 
@@ -438,9 +564,9 @@ Begin VB.Form ABMVendedor
          Caption         =   "Domicilio:"
          Height          =   195
          Index           =   8
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   17
-         Top             =   2970
+         Top             =   3270
          Width           =   660
       End
       Begin VB.Label Label1 
@@ -448,17 +574,17 @@ Begin VB.Form ABMVendedor
          Caption         =   "Ocupacion:"
          Height          =   195
          Index           =   9
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   16
-         Top             =   1215
+         Top             =   1515
          Width           =   810
       End
       Begin VB.Label Label2 
          Caption         =   "Consultorio:"
          Height          =   255
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   15
-         Top             =   1530
+         Top             =   1830
          Width           =   855
       End
       Begin VB.Label Label1 
@@ -466,9 +592,9 @@ Begin VB.Form ABMVendedor
          Caption         =   "Id.:"
          Height          =   195
          Index           =   0
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   6
-         Top             =   510
+         Top             =   810
          Width           =   270
       End
    End
@@ -511,13 +637,13 @@ Function ActualizarListaBase(pMode As Integer)
     
     'armo la cadena a ejecutar
     If InStr(1, vStringSQL, "WHERE") = 0 Then
-        cSQL = vStringSQL & " WHERE " & cCampoID & " = " & txtID.Text
+        cSQL = vStringSQL & " WHERE " & cCampoID & " = " & txtID.text
     Else
-        cSQL = vStringSQL & " AND " & cCampoID & " = " & txtID.Text
+        cSQL = vStringSQL & " AND " & cCampoID & " = " & txtID.text
     End If
     
     If pMode = 4 Then
-        vListView.ListItems.Remove vListView.SelectedItem.Index
+        vListView.ListItems.Remove vListView.SelectedItem.index
         Exit Function
     End If
     
@@ -530,7 +656,7 @@ Function ActualizarListaBase(pMode As Integer)
             IndiceCampoID = 0
             For Each f In rec.Fields
                 OrdenCampo = OrdenCampo + 1
-                If UCase(f.Name) = UCase(vDesFieldID) Then
+                If UCase(f.name) = UCase(vDesFieldID) Then
                     IndiceCampoID = OrdenCampo - 1
                 End If
             Next f
@@ -546,7 +672,7 @@ Function ActualizarListaBase(pMode As Integer)
                             
                         Case 2
                             Set auxListItem = vListView.SelectedItem
-                            auxListItem.Text = rec.Fields(i)
+                            auxListItem.text = rec.Fields(i)
                     End Select
                 Else
                     auxListItem.SubItems(i) = IIf(IsNull(rec.Fields(i)), "", rec.Fields(i))
@@ -584,6 +710,8 @@ Function SetMode(pMode As Integer)
             AcCtrl txtMail
             AcCtrl txtLinkProtocolos
             AcCtrl chkVenEstado
+            AcCtrl mskHoraDesde
+            AcCtrl mskHoraHasta
         Case 3, 4
             DesacCtrl txtNombre
             DesacCtrl cboPais
@@ -596,6 +724,11 @@ Function SetMode(pMode As Integer)
             DesacCtrl txtMail
             DesacCtrl txtLinkProtocolos
             DesacCtrl chkVenEstado
+            DesacCtrl cboDiaSemana
+            DesacCtrl mskHoraDesde
+            DesacCtrl mskHoraHasta
+            DesacCtrl cmdAgregarHorario
+            DesacCtrl cmdQuitarHorario
     End Select
     
     Select Case pMode
@@ -631,7 +764,7 @@ Public Function SetWindow(pWindow As Form, pSQL As String, pMode As Integer, pLi
     'valor del campo identificador de registro seleccionado (0 si es un reg. nuevo)
     If vMode <> 1 Then
         If vListView.SelectedItem.Selected = True Then
-            vFieldID = vListView.SelectedItem.Key
+            vFieldID = vListView.SelectedItem.key
         Else
             vFieldID = 0
         End If
@@ -646,13 +779,13 @@ Function Validar(pMode As Integer) As Boolean
 
     If pMode <> 4 Then
         Validar = False
-        If txtID.Text = "" Then
+        If txtID.text = "" Then
             Beep
             MsgBox "Falta información." & Chr(13) & _
                              "Ingrese la Identificación del  " & cDesRegistro & " antes de aceptar.", vbCritical + vbOKOnly, App.Title
             txtID.SetFocus
             Exit Function
-        ElseIf txtNombre.Text = "" Then
+        ElseIf txtNombre.text = "" Then
             Beep
             MsgBox "Falta información." & Chr(13) & _
                              "Ingrese el Nombre del " & cDesRegistro & " antes de aceptar.", vbCritical + vbOKOnly, App.Title
@@ -678,8 +811,8 @@ Function Validar(pMode As Integer) As Boolean
             MsgBox "Falta información." & Chr(13) & _
                              "Ingrese la Localidad del " & cDesRegistro & " antes de aceptar.", vbCritical + vbOKOnly, App.Title
             cboProvincia.SetFocus
-        ElseIf txtPorcentCom.Text <> "" Then
-            If txtPorcentCom.Text > 100 Then
+        ElseIf txtPorcentCom.text <> "" Then
+            If txtPorcentCom.text > 100 Then
                 MsgBox "El porcentaje de comisión no puede ser mayor al 100 % ", vbOKOnly + vbCritical, TIT_MSGBOX
                 Exit Function
             End If
@@ -699,7 +832,7 @@ Private Sub cboPais_Click()
 End Sub
 
 Private Sub cboPais_LostFocus()
-    If vMode = 2 And Pais = cboPais.Text Then
+    If vMode = 2 And Pais = cboPais.text Then
         Exit Sub
     End If
     Set Rec1 = New ADODB.Recordset
@@ -728,7 +861,7 @@ Private Sub cboProvincia_Click()
 End Sub
 
 Private Sub cboProvincia_LostFocus()
-    If vMode = 2 And Provincia = cboProvincia.Text Then
+    If vMode = 2 And Provincia = cboProvincia.text Then
         Exit Sub
     End If
     Set Rec1 = New ADODB.Recordset
@@ -780,20 +913,36 @@ Private Sub cmdAceptar_Click()
         'Guardar motivos
         Select Case vMode
             Case 1 'nuevo
-                If grdMotivoAsignado.Rows > 1 Then
+                If grdMotivoAsignado.rows > 1 Then
                     GuardarMotivos
                 End If
             Case 2 'editaar
                 'hay q borrar por mas que este vacia la grilla
-                BorrarMotivos (XN(txtID.Text))
-                If grdMotivoAsignado.Rows > 1 Then
+                BorrarMotivos (XN(txtID.text))
+                If grdMotivoAsignado.rows > 1 Then
                     GuardarMotivos
                 End If
             Case 4 'Eliminar
-                If grdMotivoAsignado.Rows > 1 Then
-                    BorrarMotivos (XN(txtID.Text))
+                If grdMotivoAsignado.rows > 1 Then
+                    BorrarMotivos (XN(txtID.text))
                 End If
         End Select
+        
+        ' Guardar/Borrar horarios
+        Select Case vMode
+            Case 1 'nuevo
+                If grdHorarios.rows > 1 Then
+                    GuardarHorarios
+                End If
+            Case 2 'editar
+                BorrarHorarios (XN(txtID.text))
+                If grdHorarios.rows > 1 Then
+                    GuardarHorarios
+                End If
+            Case 4 'eliminar
+                BorrarHorarios (XN(txtID.text))
+        End Select
+        
         Select Case vMode
             Case 1 'nuevo
             
@@ -801,9 +950,9 @@ Private Sub cmdAceptar_Click()
                 cSQL = cSQL & "     (VEN_CODIGO, VEN_NOMBRE, VEN_DOMICI, VEN_TELEFONO,"
                 cSQL = cSQL & " VEN_MAIL, VEN_FAX, LOC_CODIGO, PRO_CODIGO, PAI_CODIGO,PR_CODIGO,VEN_ESTADO,VEN_CONSULTORIO,VEN_PORCENTCOM,VEN_COSEGURO, VEN_LINKPROT) "
                 cSQL = cSQL & " VALUES "
-                cSQL = cSQL & "     (" & XN(txtID.Text) & ", " & XS(txtNombre.Text) & ", "
-                cSQL = cSQL & XS(txtDomicilio.Text) & ", " & XS(txtTelefono.Text) & ", "
-                cSQL = cSQL & XS(txtMail.Text) & ", " & XS(txtFax.Text) & ", "
+                cSQL = cSQL & "     (" & XN(txtID.text) & ", " & XS(txtNombre.text) & ", "
+                cSQL = cSQL & XS(txtDomicilio.text) & ", " & XS(txtTelefono.text) & ", "
+                cSQL = cSQL & XS(txtMail.text) & ", " & XS(txtFax.text) & ", "
                 cSQL = cSQL & cboLocalidad.ItemData(cboLocalidad.ListIndex) & ", "
                 cSQL = cSQL & cboProvincia.ItemData(cboProvincia.ListIndex) & ", "
                 cSQL = cSQL & cboPais.ItemData(cboPais.ListIndex) & ","
@@ -814,19 +963,19 @@ Private Sub cmdAceptar_Click()
                 Else
                     cSQL = cSQL & "'N'" & ","
                 End If
-            cSQL = cSQL & XN(txtConsul.Text) & ","
-            cSQL = cSQL & XN(txtPorcentCom.Text) & ","
-            cSQL = cSQL & XN(txtcoseguro.Text) & ","
-            cSQL = cSQL & "'" & txtLinkProtocolos.Text & "') "
+            cSQL = cSQL & XN(txtConsul.text) & ","
+            cSQL = cSQL & XN(txtPorcentCom.text) & ","
+            cSQL = cSQL & XN(txtcoseguro.text) & ","
+            cSQL = cSQL & "'" & txtLinkProtocolos.text & "') "
                 
             Case 2 'editar
                 
                 cSQL = "UPDATE " & cTabla & " SET "
-                cSQL = cSQL & "  VEN_NOMBRE=" & XS(txtNombre.Text)
-                cSQL = cSQL & " ,VEN_DOMICI=" & XS(txtDomicilio.Text)
-                cSQL = cSQL & " ,VEN_TELEFONO=" & XS(txtTelefono.Text)
-                cSQL = cSQL & " ,VEN_MAIL=" & XS(txtMail.Text)
-                cSQL = cSQL & " ,VEN_FAX=" & XS(txtFax.Text)
+                cSQL = cSQL & "  VEN_NOMBRE=" & XS(txtNombre.text)
+                cSQL = cSQL & " ,VEN_DOMICI=" & XS(txtDomicilio.text)
+                cSQL = cSQL & " ,VEN_TELEFONO=" & XS(txtTelefono.text)
+                cSQL = cSQL & " ,VEN_MAIL=" & XS(txtMail.text)
+                cSQL = cSQL & " ,VEN_FAX=" & XS(txtFax.text)
                 cSQL = cSQL & " ,LOC_CODIGO=" & cboLocalidad.ItemData(cboLocalidad.ListIndex)
                 cSQL = cSQL & " ,PRO_CODIGO=" & cboProvincia.ItemData(cboProvincia.ListIndex)
                 cSQL = cSQL & " ,PAI_CODIGO=" & cboPais.ItemData(cboPais.ListIndex)
@@ -836,14 +985,14 @@ Private Sub cmdAceptar_Click()
                 Else
                     cSQL = cSQL & " ,VEN_ESTADO = 'N'"
                 End If
-                cSQL = cSQL & " ,VEN_CONSULTORIO=" & XN(txtConsul.Text)
-                cSQL = cSQL & " ,VEN_PORCENTCOM=" & XN(txtPorcentCom.Text)
-                cSQL = cSQL & " ,VEN_COSEGURO=" & XN(txtcoseguro.Text)
-                cSQL = cSQL & " ,VEN_LINKPROT='" & txtLinkProtocolos.Text & "'"
-                cSQL = cSQL & " WHERE VEN_CODIGO  = " & XN(txtID.Text)
+                cSQL = cSQL & " ,VEN_CONSULTORIO=" & XN(txtConsul.text)
+                cSQL = cSQL & " ,VEN_PORCENTCOM=" & XN(txtPorcentCom.text)
+                cSQL = cSQL & " ,VEN_COSEGURO=" & XN(txtcoseguro.text)
+                cSQL = cSQL & " ,VEN_LINKPROT='" & txtLinkProtocolos.text & "'"
+                cSQL = cSQL & " WHERE VEN_CODIGO  = " & XN(txtID.text)
             Case 4 'eliminar
             
-                cSQL = "DELETE FROM " & cTabla & " WHERE VEN_CODIGO  = " & XN(txtID.Text)
+                cSQL = "DELETE FROM " & cTabla & " WHERE VEN_CODIGO  = " & XN(txtID.text)
         End Select
         
         DBConn.Execute cSQL
@@ -871,11 +1020,11 @@ ErrorTran:
 End Sub
 Private Sub GuardarMotivos()
     Dim i As Integer
-    For i = 2 To grdMotivoAsignado.Rows - 1
+    For i = 2 To grdMotivoAsignado.rows - 1
         cSQL = "INSERT INTO MOTIVO_VENDEDOR "
         cSQL = cSQL & "  (VEN_CODIGO,MOT_CODIGO)"
         cSQL = cSQL & " VALUES "
-        cSQL = cSQL & "     (" & XN(txtID.Text) & " , "
+        cSQL = cSQL & "     (" & XN(txtID.text) & " , "
         cSQL = cSQL & XN(grdMotivoAsignado.TextMatrix(i, 0)) & " )"
         DBConn.Execute cSQL
         
@@ -891,7 +1040,7 @@ Private Sub cmdAsignar_Click()
     cmdAceptar.Enabled = True
     Dim i As Integer
     i = 2
-    Do While i <= grdMotivo.Rows - 1
+    Do While i <= grdMotivo.rows - 1
         If grdMotivo.TextMatrix(i, 2) = "SI" Then
             'Limpio Campo Seleccionado
             grdMotivo.TextMatrix(i, 2) = "NO"
@@ -919,7 +1068,7 @@ Private Sub cmdDesasignar_Click()
     cmdAceptar.Enabled = True
     Dim i As Integer
     i = 2
-    Do While i <= grdMotivoAsignado.Rows - 1
+    Do While i <= grdMotivoAsignado.rows - 1
         If grdMotivoAsignado.TextMatrix(i, 2) = "SI" Then
             'limpio campo seleccionado
             grdMotivoAsignado.TextMatrix(i, 2) = "NO"
@@ -963,6 +1112,11 @@ Private Sub Form_Load()
     
     'cargo el combo de PROFESION
     configurogrilla
+    
+    'Horarios
+    ConfigurarGrillaHorarios
+    CargarCboDiaSemana
+    
     CargoCboProfesion
     'CargoGrillaMotivo
     'cargo el combo de PAIS
@@ -986,29 +1140,29 @@ Private Sub Form_Load()
             cSQL = "SELECT * FROM " & cTabla & "  WHERE VEN_CODIGO = " & Mid(vFieldID, 2, Len(vFieldID) - 2)
             rec.Open cSQL, DBConn, adOpenStatic, adLockOptimistic
             If (rec.BOF And rec.EOF) = 0 Then
-                txtID.Text = rec!VEN_CODIGO
-                txtNombre.Text = rec!VEN_NOMBRE
+                txtID.text = rec!VEN_CODIGO
+                txtNombre.text = rec!VEN_NOMBRE
                 'si encontró el registro muestro los datos
                 Call BuscaCodigoProxItemData(CInt(rec!PAI_CODIGO), cboPais)
                 cboPais_LostFocus
-                Pais = cboPais.Text
+                Pais = cboPais.text
                 
                 Call BuscaCodigoProxItemData(CInt(rec!PRO_CODIGO), cboProvincia)
                 cboProvincia_LostFocus
-                Provincia = cboProvincia.Text
+                Provincia = cboProvincia.text
                 
                 
                 Call BuscaCodigoProxItemData(CInt(rec!LOC_CODIGO), cboLocalidad)
                 
                 Call BuscaCodigoProxItemData(CInt(rec!PR_CODIGO), cboprofesion)
-                txtConsul.Text = ChkNull(rec!VEN_CONSULTORIO)
-                txtDomicilio.Text = ChkNull(rec!VEN_DOMICI)
-                txtTelefono.Text = ChkNull(rec!VEN_TELEFONO)
-                txtFax.Text = ChkNull(rec!VEN_FAX)
-                txtMail.Text = ChkNull(rec!VEN_MAIL)
-                txtPorcentCom.Text = Format(Chk0(rec!VEN_PORCENTCOM), "#,##0.00")
-                txtcoseguro.Text = Format(Chk0(rec!VEN_COSEGURO), "#,##0.00")
-                txtLinkProtocolos.Text = ChkNull(rec!VEN_LINKPROT)
+                txtConsul.text = ChkNull(rec!VEN_CONSULTORIO)
+                txtDomicilio.text = ChkNull(rec!VEN_DOMICI)
+                txtTelefono.text = ChkNull(rec!VEN_TELEFONO)
+                txtFax.text = ChkNull(rec!VEN_FAX)
+                txtMail.text = ChkNull(rec!VEN_MAIL)
+                txtPorcentCom.text = Format(Chk0(rec!VEN_PORCENTCOM), "#,##0.00")
+                txtcoseguro.text = Format(Chk0(rec!VEN_COSEGURO), "#,##0.00")
+                txtLinkProtocolos.text = ChkNull(rec!VEN_LINKPROT)
                 
                 If ChkNull(rec!VEN_ESTADO) = "N" Or ChkNull(rec!VEN_ESTADO) = "" Then
                     chkVenEstado.Value = Unchecked
@@ -1025,6 +1179,11 @@ Private Sub Form_Load()
     'establesco funcionalidad del form de datos
     SetMode vMode
     cargarGrillasMotivoYAsignado
+    
+    ''Horarios
+    If vMode <> 1 And vFieldID <> "0" Then
+        CargarHorarios
+    End If
 End Sub
 
 
@@ -1035,7 +1194,7 @@ Private Sub cargarGrillasMotivoYAsignado()
     'busco motivos asignados
     cSQL = "SELECT M.MOT_CODIGO FROM MOTIVO M,MOTIVO_VENDEDOR MV"
     cSQL = cSQL & " WHERE  M.MOT_CODIGO= MV.MOT_CODIGO"
-    cSQL = cSQL & " AND  MV.VEN_CODIGO= " & txtID.Text
+    cSQL = cSQL & " AND  MV.VEN_CODIGO= " & txtID.text
     rec.Open cSQL, DBConn, adOpenStatic, adLockOptimistic
     'lleno la collection con numeros d emotivos asign
     Do While rec.EOF = False
@@ -1090,13 +1249,13 @@ Private Sub configurogrilla()
     grdMotivoAsignado.ColWidth(0) = 0 'codigo
     grdMotivoAsignado.ColWidth(1) = 2400 'descipcion
     grdMotivoAsignado.ColWidth(2) = 0 'selecc
-    grdMotivoAsignado.Rows = 1
+    grdMotivoAsignado.rows = 1
     grdMotivoAsignado.Cols = 3
     grdMotivoAsignado.BorderStyle = flexBorderNone
     grdMotivoAsignado.row = 0
     Dim i As Integer
     For i = 0 To grdMotivoAsignado.Cols - 1
-        grdMotivoAsignado.Col = i
+        grdMotivoAsignado.col = i
         grdMotivoAsignado.CellForeColor = &HFFFFFF 'FUENTE COLOR BLANCO
         grdMotivoAsignado.CellBackColor = &H808080    'GRIS OSCURO
         grdMotivoAsignado.CellFontBold = True
@@ -1107,12 +1266,12 @@ Private Sub configurogrilla()
     grdMotivo.ColWidth(0) = 0 'codigo
     grdMotivo.ColWidth(1) = 2400 'descipcion
     grdMotivo.ColWidth(2) = 0 'selecc
-    grdMotivo.Rows = 1
+    grdMotivo.rows = 1
     grdMotivo.Cols = 3
     grdMotivo.BorderStyle = flexBorderNone
     grdMotivo.row = 0
     For i = 0 To grdMotivo.Cols - 1
-        grdMotivo.Col = i
+        grdMotivo.col = i
         grdMotivo.CellForeColor = &HFFFFFF 'FUENTE COLOR BLANCO
         grdMotivo.CellBackColor = &H808080    'GRIS OSCURO
         grdMotivo.CellFontBold = True
@@ -1135,23 +1294,23 @@ Private Sub CargoCboProfesion()
 End Sub
 
 Private Sub grdMotivo_DblClick()
-    Dim J As Integer
+    Dim j As Integer
     If grdMotivo.TextMatrix(grdMotivo.RowSel, 0) <> "" Then
         If grdMotivo.TextMatrix(grdMotivo.RowSel, 2) = "NO" Then
             grdMotivo.TextMatrix(grdMotivo.RowSel, 2) = "SI"
             'CAMBIAR COLOR
             'backColor = &HC000&
             'foreColor = &HFFFFFF
-            For J = 0 To grdMotivo.Cols - 1
-                grdMotivo.Col = J
+            For j = 0 To grdMotivo.Cols - 1
+                grdMotivo.col = j
                 grdMotivo.CellForeColor = &HFFFFFF
                 grdMotivo.CellBackColor = &HC000&
                 grdMotivo.CellFontBold = True
             Next
         Else
             grdMotivo.TextMatrix(grdMotivo.RowSel, 2) = "NO"
-            For J = 0 To grdMotivo.Cols - 1
-                grdMotivo.Col = J
+            For j = 0 To grdMotivo.Cols - 1
+                grdMotivo.col = j
                 grdMotivo.CellForeColor = &H80000008
                 grdMotivo.CellBackColor = &H80000005
                 grdMotivo.CellFontBold = False
@@ -1161,23 +1320,23 @@ Private Sub grdMotivo_DblClick()
 End Sub
 
 Private Sub grdMotivoAsignado_DblClick()
-    Dim J As Integer
+    Dim j As Integer
     If grdMotivoAsignado.TextMatrix(grdMotivoAsignado.RowSel, 0) <> "" Then
         If grdMotivoAsignado.TextMatrix(grdMotivoAsignado.RowSel, 2) = "NO" Then
             grdMotivoAsignado.TextMatrix(grdMotivoAsignado.RowSel, 2) = "SI"
             'CAMBIAR COLOR
             'backColor = &HC000&
             'foreColor = &HFFFFFF
-            For J = 0 To grdMotivoAsignado.Cols - 1
-                grdMotivoAsignado.Col = J
+            For j = 0 To grdMotivoAsignado.Cols - 1
+                grdMotivoAsignado.col = j
                 grdMotivoAsignado.CellForeColor = &HFFFFFF
                 grdMotivoAsignado.CellBackColor = &HC000&
                 grdMotivoAsignado.CellFontBold = True
             Next
         Else
             grdMotivoAsignado.TextMatrix(grdMotivoAsignado.RowSel, 2) = "NO"
-            For J = 0 To grdMotivoAsignado.Cols - 1
-                grdMotivoAsignado.Col = J
+            For j = 0 To grdMotivoAsignado.Cols - 1
+                grdMotivoAsignado.col = j
                 grdMotivoAsignado.CellForeColor = &H80000008
                 grdMotivoAsignado.CellBackColor = &H80000005
                 grdMotivoAsignado.CellFontBold = False
@@ -1264,22 +1423,22 @@ Private Sub txtID_LostFocus()
     Set rec = New ADODB.Recordset
     
     If vMode = 1 Then ' si se esta usando en modo de nuevo registro
-        If txtID.Text = "" Then
+        If txtID.text = "" Then
             If cSugerirID = True Then
                 cSQL = "SELECT MAX(" & cCampoID & ") FROM " & cTabla
                 'cSQL = cSQL & " WHERE PAI_CODIGO = " & cboPais.ItemData(cboPais.ListIndex)
                 rec.Open cSQL, DBConn, adOpenStatic, adLockOptimistic
                 If (rec.BOF And rec.EOF) = 0 Then
                     If rec.Fields(0) > 0 Then
-                        txtID.Text = rec.Fields(0) + 1
+                        txtID.text = rec.Fields(0) + 1
                     Else
-                        txtID.Text = 1
+                        txtID.text = 1
                     End If
                 End If
             End If
         Else
             'verifico que no sea clave repetida
-            cSQL = "SELECT COUNT(*) FROM " & cTabla & " WHERE " & cCampoID & " = " & XN(txtID.Text)
+            cSQL = "SELECT COUNT(*) FROM " & cTabla & " WHERE " & cCampoID & " = " & XN(txtID.text)
             'cSQL = cSQL & " AND PAI_CODIGO = " & cboPais.ItemData(cboPais.ListIndex)
             rec.Open cSQL, DBConn, adOpenStatic, adLockOptimistic
             If (rec.BOF And rec.EOF) = 0 Then
@@ -1287,7 +1446,7 @@ Private Sub txtID_LostFocus()
                     Beep
                     MsgBox "Código de " & cDesRegistro & " repetido." & Chr(13) & _
                                      "El código ingresado Pertenece a otro registro de " & cDesRegistro & ".", vbCritical + vbOKOnly, App.Title
-                    txtID.Text = ""
+                    txtID.text = ""
                     txtID.SetFocus
                 End If
             End If
@@ -1308,8 +1467,8 @@ Private Sub txtPorcentCom_KeyPress(KeyAscii As Integer)
 End Sub
 
 Private Sub txtPorcentCom_LostFocus()
-    If txtPorcentCom.Text <> "" Then
-        txtPorcentCom.Text = Valido_Importe(txtPorcentCom.Text)
+    If txtPorcentCom.text <> "" Then
+        txtPorcentCom.text = Valido_Importe(txtPorcentCom.text)
     End If
 End Sub
 
@@ -1324,3 +1483,276 @@ End Sub
 Private Sub txtTelefono_KeyPress(KeyAscii As Integer)
     KeyAscii = CarTexto(KeyAscii)
 End Sub
+
+' --------------------------------------------------------------------------
+'  Configuración de la grilla de horarios (llamar desde Form_Load)
+' --------------------------------------------------------------------------
+Private Sub ConfigurarGrillaHorarios()
+    With grdHorarios
+        .FormatString = "Cod|Día|Desde|Hasta"
+        .Cols = 4
+        .rows = 1
+        .ColWidth(0) = 0        ' código día (oculto)
+        .ColWidth(1) = 1800     ' nombre del día
+        .ColWidth(2) = 1200     ' hora inicio
+        .ColWidth(3) = 1200     ' hora fin
+        .BorderStyle = flexBorderNone
+        .SelectionMode = flexSelectionByRow
+        
+        ' formato del encabezado
+        .row = 0
+        Dim i As Integer
+        For i = 0 To .Cols - 1
+            .col = i
+            .CellForeColor = &HFFFFFF
+            .CellBackColor = &H808080
+            .CellFontBold = True
+        Next i
+        
+        ' fila vacía separadora (misma lógica que grdMotivo)
+        .AddItem "" & Chr(9) & "" & Chr(9) & "" & Chr(9) & ""
+    End With
+End Sub
+
+
+' --------------------------------------------------------------------------
+'  Cargar el combo de días de la semana (llamar desde Form_Load)
+' --------------------------------------------------------------------------
+Private Sub CargarCboDiaSemana()
+    cboDiaSemana.Clear
+    cboDiaSemana.AddItem "Lunes"
+    cboDiaSemana.ItemData(cboDiaSemana.NewIndex) = 1
+    cboDiaSemana.AddItem "Martes"
+    cboDiaSemana.ItemData(cboDiaSemana.NewIndex) = 2
+    cboDiaSemana.AddItem "Miércoles"
+    cboDiaSemana.ItemData(cboDiaSemana.NewIndex) = 3
+    cboDiaSemana.AddItem "Jueves"
+    cboDiaSemana.ItemData(cboDiaSemana.NewIndex) = 4
+    cboDiaSemana.AddItem "Viernes"
+    cboDiaSemana.ItemData(cboDiaSemana.NewIndex) = 5
+    cboDiaSemana.AddItem "Sábado"
+    cboDiaSemana.ItemData(cboDiaSemana.NewIndex) = 6
+    cboDiaSemana.AddItem "Domingo"
+    cboDiaSemana.ItemData(cboDiaSemana.NewIndex) = 7
+End Sub
+
+
+' --------------------------------------------------------------------------
+'  Función auxiliar: número de día -> nombre
+' --------------------------------------------------------------------------
+Private Function NombreDia(numDia As Integer) As String
+    Select Case numDia
+        Case 1: NombreDia = "Lunes"
+        Case 2: NombreDia = "Martes"
+        Case 3: NombreDia = "Miércoles"
+        Case 4: NombreDia = "Jueves"
+        Case 5: NombreDia = "Viernes"
+        Case 6: NombreDia = "Sábado"
+        Case 7: NombreDia = "Domingo"
+        Case Else: NombreDia = ""
+    End Select
+End Function
+
+
+' --------------------------------------------------------------------------
+'  Validar formato de hora "HH:MM"
+' --------------------------------------------------------------------------
+Private Function ValidarFormatoHora(ByVal hora As String) As Boolean
+    Dim h As Integer
+    Dim m As Integer
+
+    ValidarFormatoHora = False
+
+    ' Si tiene caracteres de prompt sin llenar, está incompleta
+    If InStr(hora, "_") > 0 Then Exit Function
+    If Len(hora) <> 5 Then Exit Function
+
+    On Error GoTo SalirFalso
+    h = CInt(Left(hora, 2))
+    m = CInt(Right(hora, 2))
+
+    If h < 0 Or h > 23 Then Exit Function
+    If m < 0 Or m > 59 Then Exit Function
+
+    ValidarFormatoHora = True
+    Exit Function
+
+SalirFalso:
+    ValidarFormatoHora = False
+End Function
+
+
+' --------------------------------------------------------------------------
+'  Cargar horarios existentes desde la BD a la grilla
+' --------------------------------------------------------------------------
+Private Sub CargarHorarios()
+    Dim recH As ADODB.Recordset
+    Set recH = New ADODB.Recordset
+    
+    Dim sqlH As String
+    sqlH = "SELECT HOR_DIASEMANA, HOR_HORAINICIO, HOR_HORAFIN" _
+         & " FROM HORARIO_VENDEDOR" _
+         & " WHERE VEN_CODIGO = " & XN(txtID.text) _
+         & " ORDER BY HOR_DIASEMANA, HOR_HORAINICIO"
+    
+    recH.Open sqlH, DBConn, adOpenStatic, adLockOptimistic
+    
+    Do While recH.EOF = False
+        grdHorarios.AddItem CStr(recH!HOR_DIASEMANA) & Chr(9) _
+                          & NombreDia(CInt(recH!HOR_DIASEMANA)) & Chr(9) _
+                          & Trim(recH!HOR_HORAINICIO) & Chr(9) _
+                          & Trim(recH!HOR_HORAFIN)
+        recH.MoveNext
+    Loop
+    
+    recH.Close
+    Set recH = Nothing
+End Sub
+
+
+' --------------------------------------------------------------------------
+'  Guardar todos los horarios de la grilla en la BD
+'  (se llama después de BorrarHorarios en modo edición)
+' --------------------------------------------------------------------------
+Private Sub GuardarHorarios()
+    Dim i As Integer
+    Dim sqlH As String
+    
+    For i = 2 To grdHorarios.rows - 1
+        If grdHorarios.TextMatrix(i, 0) <> "" Then
+            sqlH = "INSERT INTO HORARIO_VENDEDOR" _
+                 & " (VEN_CODIGO, HOR_DIASEMANA, HOR_HORAINICIO, HOR_HORAFIN)" _
+                 & " VALUES (" _
+                 & XN(txtID.text) & ", " _
+                 & XN(grdHorarios.TextMatrix(i, 0)) & ", " _
+                 & "'" & grdHorarios.TextMatrix(i, 2) & "', " _
+                 & "'" & grdHorarios.TextMatrix(i, 3) & "')"
+            DBConn.Execute sqlH
+        End If
+    Next i
+End Sub
+
+
+' --------------------------------------------------------------------------
+'  Borrar todos los horarios de un vendedor en la BD
+' --------------------------------------------------------------------------
+Private Sub BorrarHorarios(vencod As Integer)
+    Dim sqlH As String
+    sqlH = "DELETE FROM HORARIO_VENDEDOR WHERE VEN_CODIGO = " & vencod
+    DBConn.Execute sqlH
+End Sub
+
+
+' --------------------------------------------------------------------------
+'  Botón AGREGAR: valida y agrega una fila a la grilla
+' --------------------------------------------------------------------------
+Private Sub cmdAgregarHorario_Click()
+    Dim numDia As Integer
+    Dim i As Integer
+
+    If cboDiaSemana.ListIndex = -1 Then
+        Beep
+        MsgBox "Seleccione un día de la semana.", vbOKOnly + vbCritical, App.Title
+        cboDiaSemana.SetFocus
+        Exit Sub
+    End If
+
+    If Not ValidarFormatoHora(mskHoraDesde.text) Then
+        Beep
+        MsgBox "Ingrese la hora de inicio completa (HH:MM).", vbOKOnly + vbCritical, App.Title
+        mskHoraDesde.SetFocus
+        Exit Sub
+    End If
+
+    If Not ValidarFormatoHora(mskHoraHasta.text) Then
+        Beep
+        MsgBox "Ingrese la hora de fin completa (HH:MM).", vbOKOnly + vbCritical, App.Title
+        mskHoraHasta.SetFocus
+        Exit Sub
+    End If
+
+    If mskHoraHasta.text <= mskHoraDesde.text Then
+        Beep
+        MsgBox "La hora 'Hasta' debe ser mayor a la hora 'Desde'.", _
+               vbOKOnly + vbCritical, App.Title
+        mskHoraHasta.SetFocus
+        Exit Sub
+    End If
+
+    numDia = cboDiaSemana.ItemData(cboDiaSemana.ListIndex)
+
+    For i = 2 To grdHorarios.rows - 1
+        If grdHorarios.TextMatrix(i, 0) <> "" Then
+            If CInt(grdHorarios.TextMatrix(i, 0)) = numDia Then
+                If mskHoraDesde.text < grdHorarios.TextMatrix(i, 3) And _
+                   mskHoraHasta.text > grdHorarios.TextMatrix(i, 2) Then
+                    Beep
+                    MsgBox "El horario se superpone con otro bloque" & Chr(13) _
+                         & "del " & cboDiaSemana.text & " (" _
+                         & grdHorarios.TextMatrix(i, 2) & " a " _
+                         & grdHorarios.TextMatrix(i, 3) & ").", _
+                           vbOKOnly + vbCritical, App.Title
+                    Exit Sub
+                End If
+            End If
+        End If
+    Next i
+
+    grdHorarios.AddItem CStr(numDia) & Chr(9) _
+                      & cboDiaSemana.text & Chr(9) _
+                      & mskHoraDesde.text & Chr(9) _
+                      & mskHoraHasta.text
+
+    ' Limpiar controles (resetear máscara para limpiar)
+    cboDiaSemana.ListIndex = -1
+    mskHoraDesde.Mask = ""
+    mskHoraDesde.text = ""
+    mskHoraDesde.Mask = "##:##"
+    mskHoraHasta.Mask = ""
+    mskHoraHasta.text = ""
+    mskHoraHasta.Mask = "##:##"
+
+    cmdAceptar.Enabled = True
+End Sub
+
+
+' --------------------------------------------------------------------------
+'  Botón QUITAR: elimina la fila seleccionada de la grilla
+' --------------------------------------------------------------------------
+Private Sub cmdQuitarHorario_Click()
+    ' Row 0 = encabezado, Row 1 = fila vacía separadora
+    If grdHorarios.row < 2 Then
+        Beep
+        MsgBox "Seleccione un horario de la grilla para quitar.", _
+               vbOKOnly + vbCritical, App.Title
+        Exit Sub
+    End If
+    
+    If grdHorarios.TextMatrix(grdHorarios.row, 0) = "" Then
+        Exit Sub
+    End If
+    
+    grdHorarios.RemoveItem grdHorarios.row
+    cmdAceptar.Enabled = True
+End Sub
+
+Private Sub mskHoraDesde_Change()
+    cmdAceptar.Enabled = True
+End Sub
+
+Private Sub mskHoraHasta_Change()
+    cmdAceptar.Enabled = True
+End Sub
+
+Private Sub cboDiaSemana_Click()
+    cmdAceptar.Enabled = True
+End Sub
+
+Private Sub mskHoraDesde_GotFocus()
+    seltxt
+End Sub
+
+Private Sub mskHoraHasta_GotFocus()
+    seltxt
+End Sub
+
