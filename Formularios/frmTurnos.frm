@@ -18,6 +18,30 @@ Begin VB.Form frmTurnos
    ScaleHeight     =   10050
    ScaleWidth      =   19725
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Frame frmVista 
+      Caption         =   "Modo de vista"
+      Height          =   735
+      Left            =   11040
+      TabIndex        =   78
+      Top             =   50
+      Width           =   3255
+      Begin VB.CommandButton cmdLibres 
+         Caption         =   "&Ver Libres"
+         Height          =   375
+         Left            =   1800
+         TabIndex        =   80
+         Top             =   240
+         Width           =   1095
+      End
+      Begin VB.CommandButton cmdSoloTurnos 
+         Caption         =   "&Solo Turnos"
+         Height          =   375
+         Left            =   360
+         TabIndex        =   79
+         Top             =   240
+         Width           =   1095
+      End
+   End
    Begin VB.CommandButton cmdEditar 
       Height          =   495
       Left            =   16560
@@ -40,18 +64,18 @@ Begin VB.Form frmTurnos
          Strikethrough   =   0   'False
       EndProperty
       Height          =   360
-      Left            =   9240
+      Left            =   8760
       Style           =   2  'Dropdown List
       TabIndex        =   76
       Top             =   480
-      Width           =   2700
+      Width           =   2220
    End
    Begin VB.Frame fraDisponibilidad 
       Caption         =   "Horarios de atención"
       Height          =   6975
       Left            =   12240
       TabIndex        =   72
-      Top             =   960
+      Top             =   1080
       Visible         =   0   'False
       Width           =   7335
       Begin VB.CommandButton cmdCerrarDisp 
@@ -94,7 +118,7 @@ Begin VB.Form frmTurnos
       Height          =   495
       Left            =   14280
       TabIndex        =   71
-      Top             =   0
+      Top             =   50
       Width           =   1695
    End
    Begin VB.CommandButton cmdExportarTurno 
@@ -233,7 +257,7 @@ Begin VB.Form frmTurnos
       _ExtentX        =   3201
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   152109057
+      Format          =   151650305
       CurrentDate     =   43340
    End
    Begin VB.Frame fraprotocolos 
@@ -1023,19 +1047,19 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   152109058
+         StartOfWeek     =   151650306
          CurrentDate     =   40049
       End
    End
    Begin MSFlexGridLib.MSFlexGrid grdGrilla 
-      Height          =   8325
+      Height          =   8205
       Left            =   3720
       TabIndex        =   14
       ToolTipText     =   "Doble Click para ver la Historia Clinica del Paciente"
-      Top             =   885
+      Top             =   1005
       Width           =   16005
       _ExtentX        =   28231
-      _ExtentY        =   14684
+      _ExtentY        =   14473
       _Version        =   393216
       Rows            =   25
       Cols            =   6
@@ -1105,7 +1129,7 @@ Begin VB.Form frmTurnos
          Strikethrough   =   0   'False
       EndProperty
       Height          =   195
-      Left            =   7440
+      Left            =   6960
       TabIndex        =   75
       Top             =   480
       Width           =   1620
@@ -1193,9 +1217,9 @@ Begin VB.Form frmTurnos
          Strikethrough   =   0   'False
       EndProperty
       Height          =   195
-      Left            =   12000
+      Left            =   16800
       TabIndex        =   28
-      Top             =   570
+      Top             =   690
       Width           =   2685
    End
    Begin VB.Label lbldiaTurno 
@@ -1225,7 +1249,7 @@ Begin VB.Form frmTurnos
       Height          =   375
       Left            =   3720
       Top             =   60
-      Width           =   10485
+      Width           =   7245
    End
 End
 Attribute VB_Name = "frmTurnos"
@@ -2316,9 +2340,9 @@ Private Sub colocarModoEdicionTurno()
     cmdAgregar.Caption = "&" & "Editar"
 End Sub
 Private Function validarTurnoSeleccionado() As Boolean
-Dim codigoCli As String
-codigoCli = grdGrilla.TextMatrix(grdGrilla.RowSel, 9)
-validarTurnoSeleccionado = codigoCli <> ""
+Dim CodigoCli As String
+CodigoCli = grdGrilla.TextMatrix(grdGrilla.RowSel, 9)
+validarTurnoSeleccionado = CodigoCli <> ""
 End Function
 
 Private Sub cmdespera_Click()
@@ -2574,6 +2598,11 @@ Private Sub cmdInforTurno_Click()
     Frm.Show vbModal
 
 End Sub
+
+Private Sub cmdLibres_Click()
+BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
+End Sub
+
 Private Sub CmdNuevo_Click()
     LimpiarTurno
     MViewFecha.Value = Date
@@ -2919,59 +2948,6 @@ Private Sub cmdReport_Click()
                     cboDoctor.text
     Frm.Show vbModal
 End Sub
-Private Sub cmdReport_old_Click()
-    Dim ultimoimporte As Double
-    Dim ultimoid As Integer
-    'If txtCodCliente.Text = "" Or GrillaAplicar.Rows = 1 Then Exit Sub
-    Screen.MousePointer = vbHourglass
-    'lblEstado.Caption = "Buscando Recibo..."
-
-    sql = "DELETE FROM TMP_TURNOS"
-    DBConn.Execute sql
-    i = 1
-    
-    For i = 1 To grdGrilla.rows - 1
-        If grdGrilla.TextMatrix(i, 1) <> "" Then
-            sql = "INSERT INTO TMP_TURNOS "
-            sql = sql & " (TMP_ID,TMP_HORA,TMP_FECHA,TMP_DOCTOR,TMP_PACIENTE,TMP_EDAD,TMP_TELEFONO,TMP_CELULAR,TMP_OSOCIAL,TMP_MOTIVO,TMP_DRSOLICITA,TMP_IMPORTE)"
-            sql = sql & " VALUES ( "
-            sql = sql & i & ","
-            sql = sql & XS(grdGrilla.TextMatrix(i, 0)) & ","
-            sql = sql & XDQ(MViewFecha.Value) & ","
-            sql = sql & XS(cboDoctor.text) & ","
-            sql = sql & XS(grdGrilla.TextMatrix(i, 1)) & ","
-            sql = sql & XS(grdGrilla.TextMatrix(i, 2)) & ","
-            sql = sql & XS(grdGrilla.TextMatrix(i, 3)) & ","
-            sql = sql & XS(grdGrilla.TextMatrix(i, 4)) & ","
-            sql = sql & XS(grdGrilla.TextMatrix(i, 5)) & ","
-            sql = sql & XS(grdGrilla.TextMatrix(i, 6)) & ","
-            sql = sql & XS(grdGrilla.TextMatrix(i, 7)) & ","
-            sql = sql & XN(grdGrilla.TextMatrix(i, 14)) & ")"
-            DBConn.Execute sql
-        End If
-    Next
-    ultimoimporte = XN(grdGrilla.TextMatrix(grdGrilla.rows - 1, 14))
-    ultimoid = grdGrilla.rows - 1
-    
-    'actualizo tabla para solucionar lo del ultimo registro
-    sql = "UPDATE TMP_TURNOS"
-    sql = sql & " SET TMP_IMPORTE=" & ultimoimporte
-    sql = sql & " WHERE TMP_ID=" & ultimoid
-    DBConn.Execute sql
-
-    Rep.WindowState = crptMaximized
-    Rep.WindowBorderStyle = crptNoBorder
-    Rep.WindowTitle = "Listado de Turnos del dia"
-    Rep.ReportFileName = DirReport & "rptTurnosDiario_nuevo.rpt"
-    
-    Rep.LogOnServer "pdsodbc.dll", SERVIDOR_REPORTES, BASEDATO, USERID, PASSWORD
-
-    Rep.Action = 1
-'    lblEstado.Caption = ""
-    Screen.MousePointer = vbNormal
-    Rep.SelectionFormula = ""
-    
-End Sub
 
 Private Sub cmdSalir_Click()
     If MsgBox("Seguro que desea Salir", vbQuestion + vbYesNo, TIT_MSGBOX) = vbYes Then
@@ -3006,6 +2982,11 @@ Private Function limpiar_protocolos()
     Next
 
 End Function
+
+Private Sub cmdSoloTurnos_Click()
+BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex), 1
+End Sub
+
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     If KeyCode = vbKeyF5 Then
         BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
@@ -3316,6 +3297,14 @@ Private Sub Form_Load()
         cmdOcultar.Enabled = False
     End If
     
+    If mNomUser <> "DIGOR" Then
+        ocultarControlesHorarios
+        DeshabilitarTurnero
+        cmdReport.Enabled = False
+        cmdExcel.Enabled = False
+        cmdExportarTurno.Enabled = False
+    End If
+    
     cargo_protocolos
     
     CargarLlavesUsuarios
@@ -3454,6 +3443,12 @@ Public Function DoctorPuedeAtender(Fecha As Date, vencod As Integer, _
     DoctorPuedeAtender = False
 
 End Function
+Private Sub ocultarControlesHorarios()
+    cboTamanioSlot.Visible = False
+     lblTamanioSlot.Visible = False
+     cmdHorariosAtencion.Visible = False
+     frmVista.Visible = False
+End Sub
 Private Sub DeshabilitarTurnero()
     txtBuscaCliente.text = ""
      txtBuscaCliente.Enabled = False
@@ -3487,8 +3482,7 @@ Private Sub DeshabilitarTurnero()
      cmdEditar.Enabled = False
      cmdCopiar.Enabled = False
      cboMotivo.Enabled = False
-    cboTamanioSlot.Visible = False
-     lblTamanioSlot.Visible = False
+
 End Sub
 Private Sub HabilitarTurnero()
     txtBuscaCliente.text = ""
@@ -3521,14 +3515,11 @@ Private Sub HabilitarTurnero()
      cmdEditar.Enabled = True
      cmdCopiar.Enabled = True
      cboMotivo.Enabled = True
-     
-     cboTamanioSlot.Visible = True
-     lblTamanioSlot.Visible = True
 End Sub
 ' ------------------------------------------------------------------
 '  5. BUSCAR TURNOS (versión con slots solo para huecos libres)
 ' ------------------------------------------------------------------
-Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
+Private Sub BuscarTurnos(Fecha As Date, Doc As Integer, Optional Modo As Integer) 'modo 1 sin lots, 2 con slots, 0 sin seleccion
     Dim foreColor As Long
     Dim backColor As Long
     Dim total As Double
@@ -3580,6 +3571,8 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
     Dim turMostrado() As Boolean
     Dim menorFinTurno As Integer
     
+    If Doc = 0 Then Exit Sub
+    
     
     ' =============================================================
     '  DÍA Y VALIDACIÓN DE DISPONIBILIDAD
@@ -3592,18 +3585,14 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
         lbldiaTurno.Caption = "El doctor no está disponible los días " & diaNombre
         DeshabilitarTurnero
         Exit Sub
+    Else
+        lbldiaTurno.Caption = "Turnos del dia " & diaNombre & " " & Day(MViewFecha.Value) & " de " & MonthName(Month(MViewFecha.Value), False) & " de " & Year(MViewFecha.Value)
     End If
     
     If mNomUser = "DIGOR" Then
         HabilitarTurnero
-        cmdHorariosAtencion.Visible = True
-    Else
-        DeshabilitarTurnero
-        cmdHorariosAtencion.Visible = False
     End If
 
-    lbldiaTurno.Caption = "Turnos del dia " & diaNombre & " " & Day(MViewFecha.Value) & " de " & MonthName(Month(MViewFecha.Value), False) & " de " & Year(MViewFecha.Value)
-    
     
     ' =============================================================
     '  TAMAÑO DE SLOT
@@ -3649,7 +3638,7 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
     ' =============================================================
     '  MODO CON SLOTS (doctor tiene horarios configurados)
     ' =============================================================
-    If tieneBloques And mNomUser = "DIGOR" Then
+    If (tieneBloques And mNomUser = "DIGOR") And Modo <> 1 Then
         
         ' ---------------------------------------------------------
         '  PASO 1: Cargar turnos existentes en arrays
@@ -3819,8 +3808,20 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer)
             
             
             If turnoEncontrado Then
-                ' Avanzar al fin del turno más corto encontrado
-                currentMin = menorFinTurno
+                ' Antes de avanzar, verificar si hay turnos no mostrados
+                ' que arrancan entre currentMin y menorFinTurno
+                ' (turnos solapados que empiezan después)
+                Dim nextStart As Integer
+                nextStart = menorFinTurno
+                For k = 1 To turCount
+                    If Not turMostrado(k) Then
+                        turStartMin = HoraAMinutos(turHoraD(k))
+                        If turStartMin > currentMin And turStartMin < nextStart Then
+                            nextStart = turStartMin
+                        End If
+                    End If
+                Next k
+                currentMin = nextStart
             
             Else
                 ' --- No hay turnos: ¿estoy en bloque de atención? ---
