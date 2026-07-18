@@ -18,10 +18,389 @@ Begin VB.Form frmTurnos
    ScaleHeight     =   10050
    ScaleWidth      =   19725
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Frame fraConfiguracionHorarios 
+      Caption         =   "Configurar cronograma de atención"
+      Height          =   8415
+      Left            =   6360
+      TabIndex        =   81
+      Top             =   960
+      Visible         =   0   'False
+      Width           =   10335
+      Begin VB.CommandButton cmdCerrarDisponibilidad 
+         Height          =   375
+         Left            =   9480
+         Picture         =   "frmTurnos.frx":030A
+         Style           =   1  'Graphical
+         TabIndex        =   104
+         Top             =   240
+         Width           =   495
+      End
+      Begin VB.Frame Frame6 
+         Caption         =   "Excepción para la fecha actual"
+         Height          =   3615
+         Left            =   120
+         TabIndex        =   93
+         Top             =   4680
+         Width           =   10095
+         Begin VB.Frame Frame4 
+            Height          =   1215
+            Left            =   5400
+            TabIndex        =   106
+            Top             =   600
+            Width           =   4575
+            Begin VB.TextBox txtMotivoExcepcion 
+               BeginProperty Font 
+                  Name            =   "Tahoma"
+                  Size            =   8.25
+                  Charset         =   0
+                  Weight          =   700
+                  Underline       =   0   'False
+                  Italic          =   0   'False
+                  Strikethrough   =   0   'False
+               EndProperty
+               Height          =   555
+               Left            =   840
+               MaxLength       =   100
+               MultiLine       =   -1  'True
+               TabIndex        =   112
+               Tag             =   "DescripciÃ³n"
+               Top             =   600
+               Width           =   3615
+            End
+            Begin VB.OptionButton optAtiende 
+               Caption         =   "SI"
+               Height          =   255
+               Left            =   1080
+               TabIndex        =   108
+               Top             =   240
+               Width           =   495
+            End
+            Begin VB.OptionButton optNoAtiende 
+               Caption         =   "NO"
+               Height          =   255
+               Left            =   1680
+               TabIndex        =   107
+               Top             =   240
+               Width           =   615
+            End
+            Begin VB.Label Label21 
+               Caption         =   "Motivo:"
+               Height          =   255
+               Left            =   240
+               TabIndex        =   111
+               Top             =   600
+               Width           =   615
+            End
+            Begin VB.Label Label18 
+               Caption         =   "Atende:"
+               Height          =   255
+               Left            =   240
+               TabIndex        =   109
+               Top             =   240
+               Width           =   615
+            End
+         End
+         Begin VB.CommandButton cmdEliminarExcepcion 
+            Caption         =   "&Eliminar Excepción"
+            Height          =   375
+            Left            =   5280
+            TabIndex        =   102
+            Top             =   3120
+            Width           =   1815
+         End
+         Begin VB.CommandButton cmdGuardarExcepcion 
+            Caption         =   "&Guardar Excepción"
+            Height          =   375
+            Left            =   3240
+            TabIndex        =   101
+            Top             =   3120
+            Width           =   1815
+         End
+         Begin VB.CommandButton cmdQuitarExc 
+            Caption         =   "&Quitar"
+            Height          =   345
+            Left            =   4320
+            TabIndex        =   98
+            Top             =   840
+            Width           =   945
+         End
+         Begin VB.CommandButton cmdAgregarExc 
+            Caption         =   "&Agregar"
+            Height          =   345
+            Left            =   3240
+            TabIndex        =   97
+            Top             =   840
+            Width           =   945
+         End
+         Begin MSFlexGridLib.MSFlexGrid grdHorariosExc 
+            Height          =   1215
+            Left            =   240
+            TabIndex        =   94
+            Top             =   1800
+            Width           =   9855
+            _ExtentX        =   17383
+            _ExtentY        =   2143
+            _Version        =   393216
+            SelectionMode   =   1
+         End
+         Begin MSMask.MaskEdBox mskHoraDesdeExc 
+            Height          =   315
+            Left            =   960
+            TabIndex        =   95
+            Top             =   840
+            Width           =   705
+            _ExtentX        =   1244
+            _ExtentY        =   556
+            _Version        =   393216
+            MaxLength       =   5
+            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+               Name            =   "MS Sans Serif"
+               Size            =   8.25
+               Charset         =   0
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Mask            =   "##:##"
+            PromptChar      =   "_"
+         End
+         Begin MSMask.MaskEdBox mskHoraHastaExc 
+            Height          =   315
+            Left            =   2400
+            TabIndex        =   96
+            Top             =   840
+            Width           =   705
+            _ExtentX        =   1244
+            _ExtentY        =   556
+            _Version        =   393216
+            MaxLength       =   5
+            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+               Name            =   "MS Sans Serif"
+               Size            =   8.25
+               Charset         =   0
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Mask            =   "##:##"
+            PromptChar      =   "_"
+         End
+         Begin VB.Label lblExcepcion 
+            Caption         =   "Excepción de atención para el día"
+            BeginProperty Font 
+               Name            =   "MS Sans Serif"
+               Size            =   9.75
+               Charset         =   0
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            ForeColor       =   &H00008000&
+            Height          =   255
+            Left            =   360
+            TabIndex        =   110
+            Top             =   240
+            Width           =   3615
+         End
+         Begin VB.Label Label20 
+            Caption         =   "Hasta:"
+            Height          =   375
+            Left            =   1800
+            TabIndex        =   103
+            Top             =   840
+            Width           =   495
+         End
+         Begin VB.Label Label19 
+            Caption         =   "Desde:"
+            Height          =   375
+            Left            =   360
+            TabIndex        =   100
+            Top             =   840
+            Width           =   615
+         End
+         Begin VB.Label lblDiaActual 
+            Caption         =   "Día:"
+            BeginProperty Font 
+               Name            =   "MS Sans Serif"
+               Size            =   9.75
+               Charset         =   0
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            ForeColor       =   &H00008000&
+            Height          =   255
+            Left            =   3960
+            TabIndex        =   99
+            Top             =   240
+            Width           =   3255
+         End
+      End
+      Begin VB.Frame Frame5 
+         Caption         =   "Horario habitual"
+         Height          =   4095
+         Left            =   120
+         TabIndex        =   82
+         Top             =   600
+         Width           =   10095
+         Begin VB.CommandButton cmdGuardarDisponibilidad 
+            Caption         =   "&Guardar"
+            Height          =   375
+            Left            =   4200
+            TabIndex        =   91
+            Top             =   3600
+            Width           =   1335
+         End
+         Begin VB.ComboBox cboDiaSemana 
+            Height          =   315
+            ItemData        =   "frmTurnos.frx":0FD4
+            Left            =   720
+            List            =   "frmTurnos.frx":0FD6
+            Style           =   2  'Dropdown List
+            TabIndex        =   84
+            Top             =   360
+            Width           =   2055
+         End
+         Begin VB.CommandButton cmdAgregarHorario 
+            Caption         =   "&Agregar"
+            Height          =   345
+            Left            =   6360
+            TabIndex        =   88
+            Top             =   360
+            Width           =   945
+         End
+         Begin VB.CommandButton cmdQuitarHorario 
+            Caption         =   "&Quitar"
+            Height          =   345
+            Left            =   7440
+            TabIndex        =   90
+            Top             =   360
+            Width           =   945
+         End
+         Begin MSFlexGridLib.MSFlexGrid grdHorarios 
+            Height          =   2655
+            Left            =   120
+            TabIndex        =   83
+            Top             =   840
+            Width           =   2655
+            _ExtentX        =   4683
+            _ExtentY        =   4683
+            _Version        =   393216
+            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+               Name            =   "Tahoma"
+               Size            =   9
+               Charset         =   0
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+         End
+         Begin MSMask.MaskEdBox mskHoraDesde 
+            Height          =   315
+            Left            =   3480
+            TabIndex        =   85
+            Top             =   360
+            Width           =   705
+            _ExtentX        =   1244
+            _ExtentY        =   556
+            _Version        =   393216
+            MaxLength       =   5
+            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+               Name            =   "MS Sans Serif"
+               Size            =   8.25
+               Charset         =   0
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Mask            =   "##:##"
+            PromptChar      =   "_"
+         End
+         Begin MSMask.MaskEdBox mskHoraHasta 
+            Height          =   315
+            Left            =   5040
+            TabIndex        =   86
+            Top             =   360
+            Width           =   705
+            _ExtentX        =   1244
+            _ExtentY        =   556
+            _Version        =   393216
+            MaxLength       =   5
+            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+               Name            =   "MS Sans Serif"
+               Size            =   8.25
+               Charset         =   0
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Mask            =   "##:##"
+            PromptChar      =   "_"
+         End
+         Begin MSFlexGridLib.MSFlexGrid grdDisponibilidad 
+            Height          =   2670
+            Left            =   2880
+            TabIndex        =   105
+            Top             =   840
+            Width           =   7140
+            _ExtentX        =   12594
+            _ExtentY        =   4710
+            _Version        =   393216
+            Cols            =   3
+            FixedCols       =   0
+            RowHeightMin    =   280
+            BackColorSel    =   16761024
+            AllowBigSelection=   -1  'True
+            FocusRect       =   0
+            HighLight       =   0
+            SelectionMode   =   1
+            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+               Name            =   "Tahoma"
+               Size            =   9
+               Charset         =   0
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+         End
+         Begin VB.Label Label17 
+            Caption         =   "Día:"
+            Height          =   255
+            Left            =   240
+            TabIndex        =   92
+            Top             =   360
+            Width           =   375
+         End
+         Begin VB.Label Label16 
+            Caption         =   "Desde:"
+            Height          =   375
+            Left            =   2880
+            TabIndex        =   89
+            Top             =   360
+            Width           =   615
+         End
+         Begin VB.Label Label15 
+            Caption         =   "Hasta:"
+            Height          =   375
+            Left            =   4440
+            TabIndex        =   87
+            Top             =   360
+            Width           =   495
+         End
+      End
+   End
    Begin VB.Frame frmVista 
       Caption         =   "Modo de vista"
       Height          =   735
-      Left            =   11040
+      Left            =   10800
       TabIndex        =   78
       Top             =   50
       Width           =   3255
@@ -45,7 +424,7 @@ Begin VB.Form frmTurnos
    Begin VB.CommandButton cmdEditar 
       Height          =   495
       Left            =   16560
-      Picture         =   "frmTurnos.frx":030A
+      Picture         =   "frmTurnos.frx":0FD8
       Style           =   1  'Graphical
       TabIndex        =   77
       ToolTipText     =   "Editar Turno"
@@ -68,7 +447,7 @@ Begin VB.Form frmTurnos
       Style           =   2  'Dropdown List
       TabIndex        =   76
       Top             =   480
-      Width           =   2220
+      Width           =   1980
    End
    Begin VB.Frame fraDisponibilidad 
       Caption         =   "Horarios de atención"
@@ -86,7 +465,7 @@ Begin VB.Form frmTurnos
          Top             =   6360
          Width           =   1455
       End
-      Begin MSFlexGridLib.MSFlexGrid grdDisponibilidad 
+      Begin MSFlexGridLib.MSFlexGrid grdDisponibilidad_old 
          Height          =   5910
          Left            =   120
          TabIndex        =   73
@@ -116,7 +495,7 @@ Begin VB.Form frmTurnos
    Begin VB.CommandButton cmdHorariosAtencion 
       Caption         =   "&Horarios de atención"
       Height          =   495
-      Left            =   14280
+      Left            =   14400
       TabIndex        =   71
       Top             =   50
       Width           =   1695
@@ -125,7 +504,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Exportar turno"
       Height          =   735
       Left            =   6360
-      Picture         =   "frmTurnos.frx":134C
+      Picture         =   "frmTurnos.frx":201A
       Style           =   1  'Graphical
       TabIndex        =   70
       ToolTipText     =   "Listado de Turnos del dia por Doctor"
@@ -136,7 +515,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Exportar turnero"
       Height          =   735
       Left            =   5040
-      Picture         =   "frmTurnos.frx":2016
+      Picture         =   "frmTurnos.frx":2CE4
       Style           =   1  'Graphical
       TabIndex        =   69
       ToolTipText     =   "Listado de Turnos del dia por Doctor"
@@ -147,7 +526,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Salir"
       Height          =   735
       Left            =   8520
-      Picture         =   "frmTurnos.frx":2CE0
+      Picture         =   "frmTurnos.frx":39AE
       Style           =   1  'Graphical
       TabIndex        =   68
       Top             =   9240
@@ -190,7 +569,7 @@ Begin VB.Form frmTurnos
       Height          =   495
       Left            =   18960
       MaskColor       =   &H00FFFFFF&
-      Picture         =   "frmTurnos.frx":3D22
+      Picture         =   "frmTurnos.frx":49F0
       Style           =   1  'Graphical
       TabIndex        =   63
       ToolTipText     =   "Ir a protocolos"
@@ -201,7 +580,7 @@ Begin VB.Form frmTurnos
       Enabled         =   0   'False
       Height          =   495
       Left            =   18000
-      Picture         =   "frmTurnos.frx":4DEC
+      Picture         =   "frmTurnos.frx":5ABA
       Style           =   1  'Graphical
       TabIndex        =   58
       ToolTipText     =   "Protocolos"
@@ -211,7 +590,7 @@ Begin VB.Form frmTurnos
    Begin VB.CommandButton cmdCopiar 
       Height          =   495
       Left            =   17040
-      Picture         =   "frmTurnos.frx":6AE6
+      Picture         =   "frmTurnos.frx":77B4
       Style           =   1  'Graphical
       TabIndex        =   57
       ToolTipText     =   "Copiar Turno"
@@ -222,7 +601,7 @@ Begin VB.Form frmTurnos
       Enabled         =   0   'False
       Height          =   495
       Left            =   17520
-      Picture         =   "frmTurnos.frx":6E70
+      Picture         =   "frmTurnos.frx":7B3E
       Style           =   1  'Graphical
       TabIndex        =   56
       ToolTipText     =   "Cortar Turnos"
@@ -233,7 +612,7 @@ Begin VB.Form frmTurnos
       Enabled         =   0   'False
       Height          =   495
       Left            =   16080
-      Picture         =   "frmTurnos.frx":71FA
+      Picture         =   "frmTurnos.frx":7EC8
       Style           =   1  'Graphical
       TabIndex        =   55
       ToolTipText     =   "ImprimirTurno"
@@ -257,7 +636,7 @@ Begin VB.Form frmTurnos
       _ExtentX        =   3201
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   151650305
+      Format          =   151715841
       CurrentDate     =   43340
    End
    Begin VB.Frame fraprotocolos 
@@ -386,7 +765,7 @@ Begin VB.Form frmTurnos
       MaxLength       =   50
       TabIndex        =   35
       Tag             =   "DescripciÃ³n"
-      Top             =   9240
+      Top             =   9480
       Visible         =   0   'False
       Width           =   1500
    End
@@ -394,7 +773,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Historial"
       Height          =   735
       Left            =   7560
-      Picture         =   "frmTurnos.frx":CE0C
+      Picture         =   "frmTurnos.frx":DADA
       Style           =   1  'Graphical
       TabIndex        =   16
       Top             =   9240
@@ -404,7 +783,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Reporte"
       Height          =   735
       Left            =   4080
-      Picture         =   "frmTurnos.frx":13096
+      Picture         =   "frmTurnos.frx":13D64
       Style           =   1  'Graphical
       TabIndex        =   26
       ToolTipText     =   "Listado de Turnos del dia por Doctor"
@@ -415,7 +794,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Nuevo"
       Height          =   735
       Left            =   3120
-      Picture         =   "frmTurnos.frx":13D60
+      Picture         =   "frmTurnos.frx":14A2E
       Style           =   1  'Graphical
       TabIndex        =   27
       Top             =   9240
@@ -425,7 +804,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Buscar Turnos"
       Height          =   735
       Left            =   2160
-      Picture         =   "frmTurnos.frx":14DA2
+      Picture         =   "frmTurnos.frx":15A70
       Style           =   1  'Graphical
       TabIndex        =   24
       Top             =   9240
@@ -459,7 +838,7 @@ Begin VB.Form frmTurnos
             Strikethrough   =   0   'False
          EndProperty
          Height          =   360
-         Left            =   400
+         Left            =   165
          Style           =   2  'Dropdown List
          TabIndex        =   1
          Top             =   200
@@ -1037,9 +1416,9 @@ Begin VB.Form frmTurnos
       Width           =   3495
       Begin MSComCtl2.MonthView MViewFecha 
          Height          =   2370
-         Left            =   405
+         Left            =   120
          TabIndex        =   0
-         Top             =   180
+         Top             =   240
          Width           =   2595
          _ExtentX        =   4577
          _ExtentY        =   4180
@@ -1047,19 +1426,31 @@ Begin VB.Form frmTurnos
          ForeColor       =   -2147483630
          BackColor       =   -2147483633
          Appearance      =   1
-         StartOfWeek     =   151650306
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         StartOfWeek     =   151715842
+         TitleBackColor  =   4194304
+         TitleForeColor  =   -2147483634
+         TrailingForeColor=   -2147483638
          CurrentDate     =   40049
       End
    End
    Begin MSFlexGridLib.MSFlexGrid grdGrilla 
-      Height          =   8205
-      Left            =   3720
+      Height          =   7845
+      Left            =   3600
       TabIndex        =   14
       ToolTipText     =   "Doble Click para ver la Historia Clinica del Paciente"
-      Top             =   1005
+      Top             =   1320
       Width           =   16005
       _ExtentX        =   28231
-      _ExtentY        =   14473
+      _ExtentY        =   13838
       _Version        =   393216
       Rows            =   25
       Cols            =   6
@@ -1100,7 +1491,7 @@ Begin VB.Form frmTurnos
       Caption         =   "&Quitar"
       Height          =   735
       Left            =   1200
-      Picture         =   "frmTurnos.frx":1512C
+      Picture         =   "frmTurnos.frx":15DFA
       Style           =   1  'Graphical
       TabIndex        =   15
       Top             =   9240
@@ -1110,11 +1501,30 @@ Begin VB.Form frmTurnos
       Caption         =   "&Agregar"
       Height          =   735
       Left            =   240
-      Picture         =   "frmTurnos.frx":1616E
+      Picture         =   "frmTurnos.frx":16E3C
       Style           =   1  'Graphical
       TabIndex        =   13
       Top             =   9240
       Width           =   975
+   End
+   Begin VB.Label lblExcepcionMotivo 
+      AutoSize        =   -1  'True
+      Caption         =   "Motivo Excepcion"
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00800000&
+      Height          =   195
+      Left            =   3720
+      TabIndex        =   113
+      Top             =   960
+      Width           =   7530
    End
    Begin VB.Label lblTamanioSlot 
       AutoSize        =   -1  'True
@@ -1152,7 +1562,7 @@ Begin VB.Form frmTurnos
       Height          =   405
       Left            =   14100
       TabIndex        =   38
-      Top             =   9240
+      Top             =   9480
       Visible         =   0   'False
       Width           =   1500
    End
@@ -1249,7 +1659,7 @@ Begin VB.Form frmTurnos
       Height          =   375
       Left            =   3720
       Top             =   60
-      Width           =   7245
+      Width           =   7005
    End
 End
 Attribute VB_Name = "frmTurnos"
@@ -1274,6 +1684,8 @@ Dim estudiosUrls As Object ' Dictionary para mapear índice -> URL
 Dim dictLlaves As Object
 Dim dicHorariosDoc As Object   ' Scripting.Dictionary
 Dim modoActualizacionTurno As Integer
+' ID_TURNO del turno seleccionado (solo relevante en modo edición)
+Dim idTurnoSeleccionado As Long
 
 ' ------------------------------------------------------------------
 '  1. CONSTANTES DE COLORES (agregar a nivel formulario)
@@ -1282,6 +1694,13 @@ Const COLOR_DISPONIBLE_BACK As Long = &HFFF8F0     ' celeste muy suave, casi bla
 Const COLOR_DISPONIBLE_FORE As Long = &H80000008    ' texto del sistema (negro)
 Const COLOR_FUERA_BACK As Long = &HE0E0E0           ' gris claro
 Const COLOR_FUERA_FORE As Long = &HA0A0A0           ' gris medio
+' ------------------------------------------------------------------
+'  VARIABLES DE EXCEPCIONES HORARIOS
+' ------------------------------------------------------------------
+Dim vExcDiaId As Long       ' ID de la excepción actual, 0 si no hay
+Dim modoVista As Integer
+
+
 ' ------------------------------------------------------------------
 '  2. FUNCIONES AUXILIARES
 ' ------------------------------------------------------------------
@@ -1392,6 +1811,7 @@ Private Sub cboDoctor_Click()
     LimpiarComboMotivo
     'Buscar link drive
     BuscarLinkDrive
+    LimpiarConfiguracionHorarios
     If cboDoctor.ListIndex <> -1 Then
         sql = "SELECT M.MOT_DESCRI"
             sql = sql & " FROM  MOTIVO_VENDEDOR MV,VENDEDOR V,MOTIVO M "
@@ -1406,44 +1826,9 @@ Private Sub cboDoctor_Click()
         Rec1.Close
     End If
     LimpiarGrilla
-    CargarHorariosDoctor cboDoctor.ItemData(cboDoctor.ListIndex)
-    BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
+    CargarHorarios cboDoctor.ItemData(cboDoctor.ListIndex)
+    BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex), modoVista
 
-End Sub
-Public Sub CargarHorariosDoctor(vencod As Integer)
-    Dim recH As ADODB.Recordset
-    Dim sqlH As String
-    Dim clave As String
-
-    ' Crear o limpiar el diccionario
-    Set dicHorariosDoc = CreateObject("Scripting.Dictionary")
-
-    Set recH = New ADODB.Recordset
-    sqlH = "SELECT HOR_DIASEMANA, HOR_HORAINICIO, HOR_HORAFIN" _
-         & " FROM HORARIO_VENDEDOR" _
-         & " WHERE VEN_CODIGO = " & vencod _
-         & " ORDER BY HOR_DIASEMANA, HOR_HORAINICIO"
-
-    recH.Open sqlH, DBConn, adOpenStatic, adLockReadOnly
-
-    Do While recH.EOF = False
-        clave = CStr(recH!HOR_DIASEMANA)
-
-        If dicHorariosDoc.Exists(clave) Then
-            ' Otro bloque más para este día (ej: mañana y tarde)
-            dicHorariosDoc(clave) = dicHorariosDoc(clave) & ";" _
-                & Trim(recH!HOR_HORAINICIO) & "-" & Trim(recH!HOR_HORAFIN)
-        Else
-            ' Primer bloque de este día
-            dicHorariosDoc.Add clave, _
-                Trim(recH!HOR_HORAINICIO) & "-" & Trim(recH!HOR_HORAFIN)
-        End If
-
-        recH.MoveNext
-    Loop
-
-    recH.Close
-    Set recH = Nothing
 End Sub
 Private Sub LimpiarComboMotivo()
     cboMotivo.Clear
@@ -1463,7 +1848,6 @@ Private Sub BuscarLinkDrive()
 End Sub
 
 Private Sub cboDoctor_Change()
-    'LimpiarTurno
     LimpiarGrilla
     BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
 
@@ -1694,6 +2078,7 @@ Private Sub cboMotivo_Click()
     
 End Sub
 
+
 Private Sub cmdAceptarP_Click()
     'Guardar PROTOCOLO SELECCIONADO en tabla IMAGEN
     Dim i, cont As Integer
@@ -1769,24 +2154,20 @@ Private Sub cmdAgregar_Click()
     
     Dim asistio As String
     
-    ' ID_TURNO del turno seleccionado (solo relevante en modo edición)
-    Dim idTurnoSeleccionado As Long
-    idTurnoSeleccionado = 0
-    
     ' CLI_CODIGO del turno seleccionado en la grilla (para validación de solapamiento)
     Dim cliCodigoGrilla As Long
     cliCodigoGrilla = 0
     
     If modoActualizacionTurno = 1 Then
         ' Modo edición: obtener ID_TURNO y CLI_CODIGO de la grilla
-        If grdGrilla.RowSel > 0 Then
-            If Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 20)) <> "" Then
-                idTurnoSeleccionado = CLng(grdGrilla.TextMatrix(grdGrilla.RowSel, 20))
-            End If
-            If Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 9)) <> "" Then
-                cliCodigoGrilla = CLng(grdGrilla.TextMatrix(grdGrilla.RowSel, 9))
-            End If
-        End If
+        'If grdGrilla.RowSel > 0 Then
+        '    If Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 20)) <> "" Then
+        '        idTurnoSeleccionado = CLng(grdGrilla.TextMatrix(grdGrilla.RowSel, 20))
+        '    End If
+        '    If Trim(grdGrilla.TextMatrix(grdGrilla.RowSel, 9)) <> "" Then
+        '        cliCodigoGrilla = CLng(grdGrilla.TextMatrix(grdGrilla.RowSel, 9))
+        '    End If
+        'End If
         
         If idTurnoSeleccionado = 0 Then
             MsgBox "No se pudo obtener el turno seleccionado para editar.", vbExclamation, TIT_MSGBOX
@@ -1809,7 +2190,7 @@ Private Sub cmdAgregar_Click()
     ' Validar solapamiento con turnos de DISTINTO cliente
     If ValidarSolapamientoTurno(fechaturno.Value, mebHoraD.text, mebHoraH.text, _
                                  venCodigo, CLng(txtCodigo.text), idTurnoSeleccionado) = False Then
-        MsgBox "Ya existe un turno de otro paciente en ese horario. Las horas se solapan.", vbExclamation, TIT_MSGBOX
+        MsgBox "Ya existe un turno de otro paciente en ese horario. Las horas se solapan.", vbCritical, TIT_MSGBOX
         Exit Sub
     End If
     
@@ -1963,7 +2344,7 @@ Private Sub cmdAgregar_Click()
         sql = sql & " ,TUR_HORAH = '" & fechaturno.Value & " " & mebHoraH.text & "'"
         sql = sql & " ,TUR_MOTIVO = " & XS(txtMotivo.text)
         sql = sql & " ,TUR_DRSOLICITA = " & XS(txtDrSolicitante.text)
-        sql = sql & " ,TUR_FECALTA = " & XDQ(Date)
+        'sql = sql & " ,TUR_FECALTA = " & XDQ(Date)
         If User <> 99 Then
             sql = sql & " ,TUR_USER = " & User
         End If
@@ -1981,6 +2362,8 @@ Private Sub cmdAgregar_Click()
         sql = sql & " ,TUR_ORDEN = " & XN(txtOrden.text)
         sql = sql & " ,TUR_OBSERV = " & XS(txtObservaciones.text)
         sql = sql & " ,TUR_ASISTIO = " & asistio
+        sql = sql & " ,TUR_FECHA = " & XDQ(fechaturno.Value)
+        sql = sql & " ,VEN_CODIGO = " & cboDoctor.ItemData(cboDoctor.ListIndex)
         sql = sql & " ,UPDATED_AT = GETDATE()"
         sql = sql & " ,ACTUALIZADO_POR = " & usuarioCodigoActual
         sql = sql & " WHERE ID_TURNO = " & idTurnoSeleccionado
@@ -2209,6 +2592,16 @@ Private Sub LimpiarTurno()
     optSI.Enabled = True
     cboMotivo.ListIndex = -1
     txtOrden.text = ""
+    cancelarEdicionTurno
+End Sub
+Private Sub cancelarEdicionTurno()
+    idTurnoSeleccionado = 0
+    cmdAgregar.Caption = "&" & "Agregar"
+    modoActualizacionTurno = 0
+End Sub
+
+Private Sub cmdCerrarDisponibilidad_Click()
+    fraConfiguracionHorarios.Visible = False
 End Sub
 
 Private Sub cmdCerrarFraListaEstudios_Click()
@@ -2294,6 +2687,7 @@ End Sub
 Private Sub cmdCopiar_Click()
     Dim turnovalido As Boolean
     turnovalido = validarTurnoSeleccionado
+    idTurnoSeleccionado = 0
     If turnovalido = False Then
         MsgBox "Seleccione un turno cargado para Copiar", vbExclamation, "Información"
         Exit Sub
@@ -2322,11 +2716,13 @@ End Sub
 
 Private Sub cmdEditar_Click()
     Dim turnovalido As Boolean
+    idTurnoSeleccionado = 0
     turnovalido = validarTurnoSeleccionado
     If turnovalido = False Then
         MsgBox "Seleccione un turno cargado para Editar", vbExclamation, "Información"
         Exit Sub
     End If
+    idTurnoSeleccionado = CLng(grdGrilla.TextMatrix(grdGrilla.RowSel, 20))
     colocarModoEdicionTurno
     CopiarTurno
 End Sub
@@ -2600,7 +2996,8 @@ Private Sub cmdInforTurno_Click()
 End Sub
 
 Private Sub cmdLibres_Click()
-BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
+modoVista = 2
+BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex), modoVista
 End Sub
 
 Private Sub CmdNuevo_Click()
@@ -2974,7 +3371,7 @@ Private Function limpiar_protocolos()
         grdProtocolos.TextMatrix(i, 3) = "NO"
         For j = 0 To grdProtocolos.Cols - 1
             grdProtocolos.row = i
-            grdProtocolos.col = j
+            grdProtocolos.Col = j
             grdProtocolos.CellForeColor = &H80000008
             grdProtocolos.CellBackColor = &H80000005
             grdProtocolos.CellFontBold = False
@@ -2984,7 +3381,8 @@ Private Function limpiar_protocolos()
 End Function
 
 Private Sub cmdSoloTurnos_Click()
-BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex), 1
+modoVista = 1
+BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex), modoVista
 End Sub
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
@@ -3218,7 +3616,7 @@ Private Sub grdGrilla_Click()
     Fila = grdGrilla.row ' Obtiene la fila seleccionada
 
     ' Verifica si hizo clic en la columna de Estudios
-    If grdGrilla.col = 18 Then
+    If grdGrilla.Col = 18 Then
         If grdGrilla.text = "Ver" Then
             dni = grdGrilla.TextMatrix(Fila, 11)
             
@@ -3268,15 +3666,16 @@ Private Sub Form_Load()
     Set rec = New ADODB.Recordset
     Set Rec1 = New ADODB.Recordset
     Set Rec2 = New ADODB.Recordset
+    modoVista = 1
     
     Call Centrar_pantalla(Me)
     
     ConfigurarCboTamanioSlot
     
+    CargarCboDiaSemana
+    
     MViewFecha.Value = Date
     fechaturno.Value = Date
-    'MsgBox WeekdayName(7, False)
-    'lbldiaTurno.Caption = "Turnos del dia " & WeekdayName(Weekday(Date) - 1, False) & " " & day(Date) & " de " & MonthName(Month(Date), False) & " de " & Year(Date)
     configurodia Date
     configurogrilla
     LlenarComboDoctor
@@ -3311,22 +3710,11 @@ Private Sub Form_Load()
     
     fraListaEstudios.Visible = False
     colocarModoCreacionTurno
+    
+    ConfigurarGrillaHorariosExc
 End Sub
 Private Sub LimpiarGrilla()
     grdGrilla.rows = 1
-'    For i = 1 To grdGrilla.Rows - 1
-'        grdGrilla.TextMatrix(i, 1) = ""
-'        grdGrilla.TextMatrix(i, 2) = ""
-'        grdGrilla.TextMatrix(i, 3) = ""
-'        grdGrilla.TextMatrix(i, 4) = ""
-'        grdGrilla.row = i
-'        For J = 1 To grdGrilla.Cols - 1
-'            grdGrilla.Col = J
-'            grdGrilla.CellForeColor = &H80000008          'FUENTE COLOR BLANCO
-'            grdGrilla.CellBackColor = &HC0FFC0       'ROSA
-'            grdGrilla.CellFontBold = True
-'        Next
-'    Next
 End Sub
 Private Function cargo_protocolos()
     
@@ -3390,58 +3778,39 @@ Private Function obtenerTieneLinkDrive(link As String)
     
     obtenerTieneLinkDrive = res
 End Function
-'VALIDAR QUE EL DOCTOR ATIENE EL DIA SELECCIONADO
-Public Function DoctorAtiendeElDia(Fecha As Date) As Boolean
-    Dim diaSemana As Integer
-
-    DoctorAtiendeElDia = True   ' default: permitir
-
-    ' Sin diccionario o vacío = doctor sin horarios cargados, no restringir
-    If dicHorariosDoc Is Nothing Then Exit Function
-    If dicHorariosDoc.Count = 0 Then Exit Function
-
-    ' vbMonday hace que 1=Lunes ... 7=Domingo
-    diaSemana = Weekday(Fecha, vbMonday)
-
-    DoctorAtiendeElDia = dicHorariosDoc.Exists(CStr(diaSemana))
-End Function
 Public Function DoctorPuedeAtender(Fecha As Date, vencod As Integer, _
                                    horaDesde As String, horaHasta As String) As Boolean
-    Dim diaSemana As Integer
-    Dim clave As String
     Dim bloques() As String
     Dim rango() As String
     Dim i As Integer
+    Dim bloquesStr As String
 
-    DoctorPuedeAtender = True   ' default: si no hay horarios cargados, permitir
+    DoctorPuedeAtender = True
 
-    If dicHorariosDoc Is Nothing Then Exit Function
-    If dicHorariosDoc.Count = 0 Then Exit Function
+    ' Obtener bloques efectivos (excepción > habitual)
+    bloquesStr = ObtenerBloquesDelDia(vencod, Fecha)
 
-    diaSemana = Weekday(Fecha, vbMonday)   ' 1=Lunes ... 7=Domingo
-    clave = CStr(diaSemana)
-
-    ' Si el día no existe en el diccionario, no atiende
-    If Not dicHorariosDoc.Exists(clave) Then
+    ' Sin bloques configurados ? permitir (no restringir)
+    If bloquesStr = "" Then
+        ' Verificar si es porque no atiende o porque no tiene config
+        If dicHorariosDoc Is Nothing Then Exit Function
+        If dicHorariosDoc.Count = 0 Then Exit Function
+        ' Tiene config pero no atiende este día
         DoctorPuedeAtender = False
         Exit Function
     End If
 
-    ' Recorrer los bloques del día ("08:00-12:00;14:00-18:00")
-    ' El turno debe estar CONTENIDO dentro de al menos un bloque
-    bloques = Split(dicHorariosDoc(clave), ";")
-
+    ' Recorrer bloques: el turno debe caber dentro de al menos uno
+    bloques = Split(bloquesStr, ";")
     For i = 0 To UBound(bloques)
-        rango = Split(bloques(i), "-")    ' rango(0)="08:00"  rango(1)="12:00"
+        rango = Split(bloques(i), "-")
         If horaDesde >= rango(0) And horaHasta <= rango(1) Then
             DoctorPuedeAtender = True
             Exit Function
         End If
     Next i
 
-    ' No encajó en ningún bloque
     DoctorPuedeAtender = False
-
 End Function
 Private Sub ocultarControlesHorarios()
     cboTamanioSlot.Visible = False
@@ -3450,30 +3819,18 @@ Private Sub ocultarControlesHorarios()
      frmVista.Visible = False
 End Sub
 Private Sub DeshabilitarTurnero()
-    txtBuscaCliente.text = ""
      txtBuscaCliente.Enabled = False
-     txtCodigo.text = ""
      txtCodigo.Enabled = False
-     txtBuscarCliDescri.text = ""
      txtBuscarCliDescri.Enabled = False
-     txtTelefono.text = ""
      txtTelefono.Enabled = False
-     txtOSocial.text = ""
      txtOSocial.Enabled = False
-     txtMotivo.text = ""
      txtMotivo.Enabled = False
-     cboDesde.ListIndex = -1
      cboDesde.Enabled = False
-     cbohasta.ListIndex = -1
      cbohasta.Enabled = False
-     mebHoraD.text = "__:__"
      mebHoraD.Enabled = False
-     mebHoraH.text = "__:__"
      mebHoraH.Enabled = False
-     txtimporte.text = "0,00"
      txtimporte.Enabled = False
      txtMotivo.Enabled = False
-     txtMotivo.text = ""
      
      cmdAgregar.Enabled = False
      cmdQuitar.Enabled = False
@@ -3485,29 +3842,29 @@ Private Sub DeshabilitarTurnero()
 
 End Sub
 Private Sub HabilitarTurnero()
-    txtBuscaCliente.text = ""
+   ' txtBuscaCliente.text = ""
     txtBuscaCliente.Enabled = True
-    txtCodigo.text = ""
+   ' txtCodigo.text = ""
     txtCodigo.Enabled = True
-    txtBuscarCliDescri.text = ""
+   ' txtBuscarCliDescri.text = ""
     txtBuscarCliDescri.Enabled = True
-    txtTelefono.text = ""
+   ' txtTelefono.text = ""
     txtTelefono.Enabled = True
-    txtOSocial.text = ""
+   ' txtOSocial.text = ""
     txtOSocial.Enabled = True
-    txtMotivo.text = ""
+   ' txtMotivo.text = ""
     txtMotivo.Enabled = True
-    cboDesde.ListIndex = -1
+    'cboDesde.ListIndex = -1
     cboDesde.Enabled = True
-    cbohasta.ListIndex = -1
+    'cbohasta.ListIndex = -1
     cbohasta.Enabled = True
-    mebHoraD.text = "__:__"
+    'mebHoraD.text = "__:__"
     mebHoraD.Enabled = True
-    mebHoraH.text = "__:__"
+    'mebHoraH.text = "__:__"
     mebHoraH.Enabled = True
-    txtimporte.text = "0,00"
+    'txtimporte.text = "0,00"
+    
     txtimporte.Enabled = True
-
     cmdAgregar.Enabled = True
     cmdQuitar.Enabled = True
     cmdOcultar.Enabled = True
@@ -3573,6 +3930,7 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer, Optional Modo As Integer
     
     If Doc = 0 Then Exit Sub
     
+    LimpiarGrilla
     
     ' =============================================================
     '  DÍA Y VALIDACIÓN DE DISPONIBILIDAD
@@ -3581,11 +3939,16 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer, Optional Modo As Integer
     diaNombre = UCase(Left(WeekdayName(DIA, False), 1)) _
               & Mid(WeekdayName(DIA, False), 2)
     
+    'Coloco el día actual en la configuración de horarios
+    lblDiaActual = diaNombre & " " & Day(MViewFecha.Value) & " de " & MonthName(Month(MViewFecha.Value), False) & " de " & Year(MViewFecha.Value)
+    
     If Not DoctorAtiendeElDia(Fecha) Then
-        lbldiaTurno.Caption = "El doctor no está disponible los días " & diaNombre
+        lbldiaTurno.Caption = "El doctor no está disponible el día " & diaNombre
+        lblExcepcionMotivo.Caption = ObtenerMotivoExcepcion(Doc, Fecha)
         DeshabilitarTurnero
         Exit Sub
     Else
+        lblExcepcionMotivo.Caption = ObtenerMotivoExcepcion(Doc, Fecha)
         lbldiaTurno.Caption = "Turnos del dia " & diaNombre & " " & Day(MViewFecha.Value) & " de " & MonthName(Month(MViewFecha.Value), False) & " de " & Year(MViewFecha.Value)
     End If
     
@@ -3607,17 +3970,19 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer, Optional Modo As Integer
     ' =============================================================
     '  OBTENER BLOQUES DE ATENCIÓN DEL DÍA
     ' =============================================================
-    claveDia = CStr(DIA)
-    tieneBloques = False
+    'claveDia = CStr(DIA)
+    'tieneBloques = False
     
-    If Not dicHorariosDoc Is Nothing Then
-        If dicHorariosDoc.Count > 0 Then
-            If dicHorariosDoc.Exists(claveDia) Then
-                bloquesStr = dicHorariosDoc(claveDia)
-                tieneBloques = True
-            End If
-        End If
-    End If
+   ' If Not dicHorariosDoc Is Nothing Then
+   '     If dicHorariosDoc.Count > 0 Then
+   '         If dicHorariosDoc.Exists(claveDia) Then
+   '             bloquesStr = dicHorariosDoc(claveDia)
+   '             tieneBloques = True
+   '         End If
+   '     End If
+   ' End If
+    bloquesStr = ObtenerBloquesDelDia(Doc, Fecha)
+    tieneBloques = (bloquesStr <> "")
     
     
     ' =============================================================
@@ -3787,12 +4152,12 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer, Optional Modo As Integer
                         
                         ' Colorear la fila
                         grdGrilla.row = i
-                        grdGrilla.col = 0
+                        grdGrilla.Col = 0
                         grdGrilla.CellForeColor = &HFFFFFF
                         grdGrilla.CellBackColor = &H808080
                         grdGrilla.CellFontBold = True
                         For j = 1 To grdGrilla.Cols - 1
-                            grdGrilla.col = j
+                            grdGrilla.Col = j
                             grdGrilla.CellForeColor = foreColor
                             grdGrilla.CellBackColor = backColor
                             grdGrilla.CellFontBold = True
@@ -3863,12 +4228,12 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer, Optional Modo As Integer
                     
                     ' Colorear la fila
                     grdGrilla.row = i
-                    grdGrilla.col = 0
+                    grdGrilla.Col = 0
                     grdGrilla.CellForeColor = &HFFFFFF
                     grdGrilla.CellBackColor = &H808080
                     grdGrilla.CellFontBold = True
                     For j = 1 To grdGrilla.Cols - 1
-                        grdGrilla.col = j
+                        grdGrilla.Col = j
                         grdGrilla.CellForeColor = foreColor
                         grdGrilla.CellBackColor = backColor
                         grdGrilla.CellFontBold = True
@@ -3897,12 +4262,12 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer, Optional Modo As Integer
                     
                     ' Colorear la fila
                     grdGrilla.row = i
-                    grdGrilla.col = 0
+                    grdGrilla.Col = 0
                     grdGrilla.CellForeColor = &HFFFFFF
                     grdGrilla.CellBackColor = &H808080
                     grdGrilla.CellFontBold = True
                     For j = 1 To grdGrilla.Cols - 1
-                        grdGrilla.col = j
+                        grdGrilla.Col = j
                         grdGrilla.CellForeColor = foreColor
                         grdGrilla.CellBackColor = backColor
                         grdGrilla.CellFontBold = True
@@ -3972,7 +4337,7 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer, Optional Modo As Integer
                 
                 total = total + Chk0(rec!TUR_IMPORTE)
                 
-                grdGrilla.col = 0
+                grdGrilla.Col = 0
                 grdGrilla.row = i
                 grdGrilla.CellForeColor = &HFFFFFF
                 grdGrilla.CellBackColor = &H808080
@@ -3980,7 +4345,7 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer, Optional Modo As Integer
                 
                 grdGrilla.row = i
                 For j = 1 To grdGrilla.Cols - 1
-                    grdGrilla.col = j
+                    grdGrilla.Col = j
                     grdGrilla.CellForeColor = foreColor
                     grdGrilla.CellBackColor = backColor
                     grdGrilla.CellFontBold = True
@@ -4000,7 +4365,7 @@ Private Sub BuscarTurnos(Fecha As Date, Doc As Integer, Optional Modo As Integer
     txtTotal.text = Valido_Importe(txtTotal.text)
     
     rec.Close
-    grdGrilla.col = 10
+    grdGrilla.Col = 10
     If grdGrilla.row > 1 Then
         grdGrilla.row = 1
     End If
@@ -4025,7 +4390,7 @@ Private Function cambiocolor(asistio As Integer)
     
     grdGrilla.row = grdGrilla.RowSel
     For j = 1 To grdGrilla.Cols - 1
-        grdGrilla.col = j
+        grdGrilla.Col = j
         grdGrilla.CellForeColor = foreColor       'FUENTE COLOR NEGRO
         grdGrilla.CellBackColor = backColor      'ROSA
         grdGrilla.CellFontBold = True
@@ -4142,7 +4507,7 @@ Private Function configurogrilla()
     grdGrilla.BorderStyle = flexBorderNone
     grdGrilla.row = 0
     For i = 0 To grdGrilla.Cols - 1
-        grdGrilla.col = i
+        grdGrilla.Col = i
         grdGrilla.CellForeColor = &HFFFFFF 'FUENTE COLOR BLANCO
         grdGrilla.CellBackColor = &H808080    'GRIS OSCURO
         grdGrilla.CellFontBold = True
@@ -4157,7 +4522,7 @@ Private Function configurogrilla()
     grdGrilla.rows = (hHasta - hDesde) * 12 + 1
     
     For i = 1 To grdGrilla.rows - 1
-        grdGrilla.col = 0
+        grdGrilla.Col = 0
         grdGrilla.row = i
         'grdGrilla.CellForeColor = &HFFFFFF 'FUENTE COLOR BLANCO
         'grdGrilla.CellBackColor = &H808080    'GRIS OSCURO
@@ -4252,7 +4617,7 @@ Private Sub grdProtocolos_DblClick()
         'backColor = &HC000&
         'foreColor = &HFFFFFF
         For j = 0 To grdProtocolos.Cols - 1
-            grdProtocolos.col = j
+            grdProtocolos.Col = j
             grdProtocolos.CellForeColor = &HFFFFFF
             grdProtocolos.CellBackColor = &H8000&
             grdProtocolos.CellFontBold = True
@@ -4260,7 +4625,7 @@ Private Sub grdProtocolos_DblClick()
     Else
         grdProtocolos.TextMatrix(grdProtocolos.RowSel, 8) = "NO"
         For j = 0 To grdProtocolos.Cols - 1
-            grdProtocolos.col = j
+            grdProtocolos.Col = j
             grdProtocolos.CellForeColor = &H80000008
             grdProtocolos.CellBackColor = &H80000005
             grdProtocolos.CellFontBold = False
@@ -4297,13 +4662,11 @@ Private Sub mebHoraH_LostFocus()
 End Sub
 
 Private Sub MViewFecha_DateClick(ByVal DateClicked As Date)
-    'lbldiaTurno.Caption = "Turnos del dia " & MViewFecha.Value
-    'lbldiaTurno.Caption = "Turnos del dia " & WeekdayName(Weekday(MViewFecha.Value) - 1, False) & " " & day(MViewFecha.Value) & " de " & MonthName(Month(MViewFecha.Value), False) & " de " & Year(MViewFecha.Value)
     configurodia MViewFecha.Value
     fechaturno.Value = MViewFecha.Value
     LimpiarGrilla
-    'LimpiarTurno
-    BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
+    CargarExcepcionDia MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
+    BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex), modoVista
 
 End Sub
 Private Sub configurodia(Fecha As Date)
@@ -4347,6 +4710,7 @@ Private Sub txtBuscaCliente_Change()
         txtCodigo.text = ""
         txtTelefono.text = ""
         txtOSocial.text = ""
+        LimpiarTurno
     End If
     If Len(Trim(txtBuscaCliente.text)) < 7 Then
         txtBuscaCliente.ToolTipText = "Numero de Paciente"
@@ -4574,12 +4938,97 @@ End Sub
 Private Sub txtOrden_KeyPress(KeyAscii As Integer)
     KeyAscii = CarNumeroDecimal(txtOrden, KeyAscii)
 End Sub
+' ------------------------------------------------------------------
+'  MostrarDisponibilidad: lee de grdHorarios (no de dicHorariosDoc)
+'  Así refleja cambios sin guardar
+' ------------------------------------------------------------------
+Private Sub MostrarDisponibilidad()
+    Dim dicTemp As Object
+    Set dicTemp = CreateObject("Scripting.Dictionary")
+    
+    Dim r As Integer
+    Dim clave As String
+    Dim bloque As String
+    
+    ' Armar diccionario temporal desde la grilla de edición
+    For r = 2 To grdHorarios.rows - 1
+        If grdHorarios.TextMatrix(r, 0) <> "" Then
+            clave = grdHorarios.TextMatrix(r, 0)
+            bloque = grdHorarios.TextMatrix(r, 2) & "-" & grdHorarios.TextMatrix(r, 3)
+            
+            If dicTemp.Exists(clave) Then
+                dicTemp(clave) = dicTemp(clave) & ";" & bloque
+            Else
+                dicTemp.Add clave, bloque
+            End If
+        End If
+    Next r
+    
+    ' Configurar grilla de resumen
+    With grdDisponibilidad
+        .rows = 1
+        .Cols = 2
+        .FormatString = "Día|Horarios"
+        .ColWidth(0) = 1500
+        .ColWidth(1) = 5400
+        .BorderStyle = flexBorderNone
+        .SelectionMode = flexSelectionByRow
+        .row = 0
+        Dim c As Integer
+        For c = 0 To 1
+            .Col = c
+            .CellForeColor = &HFFFFFF
+            .CellBackColor = &H808080
+            .CellFontBold = True
+        Next c
+    End With
+    
+    ' Llenar una fila por día
+    Dim i As Integer
+    Dim horarios As String
+    Dim bloques() As String
+    Dim rango() As String
+    Dim j As Integer
+    
+    For i = 1 To 7
+        clave = CStr(i)
+        
+        If dicTemp.Exists(clave) Then
+            bloques = Split(dicTemp(clave), ";")
+            horarios = ""
+            For j = 0 To UBound(bloques)
+                rango = Split(bloques(j), "-")
+                If horarios <> "" Then horarios = horarios & "  /  "
+                horarios = horarios & rango(0) & " a " & rango(1)
+            Next j
+        Else
+            horarios = "No atiende"
+        End If
+        
+        grdDisponibilidad.AddItem NombreDiaSemana(i) & Chr(9) & horarios
+        
+        grdDisponibilidad.row = i
+        grdDisponibilidad.Col = 0
+        grdDisponibilidad.CellFontBold = True
+        
+        grdDisponibilidad.Col = 1
+        If dicTemp.Exists(clave) Then
+            grdDisponibilidad.CellBackColor = &HC0FFC0
+            grdDisponibilidad.CellForeColor = &H80000008
+        Else
+            grdDisponibilidad.CellBackColor = &HC0C0C0
+            grdDisponibilidad.CellForeColor = &H808080
+        End If
+    Next i
+    
+    Set dicTemp = Nothing
+End Sub
 
 ' ---------------------------------------------------------------
 '  Arma la grilla con la disponibilidad de los 7 días
 '  usando el diccionario ya cargado (dicHorariosDoc)
 ' ---------------------------------------------------------------
-Private Sub MostrarDisponibilidad()
+Private Sub MostrarDisponibilidad_old()
     Dim i As Integer
     Dim j As Integer
     Dim clave As String
@@ -4600,7 +5049,7 @@ Private Sub MostrarDisponibilidad()
         .row = 0
         Dim c As Integer
         For c = 0 To 1
-            .col = c
+            .Col = c
             .CellForeColor = &HFFFFFF
             .CellBackColor = &H808080
             .CellFontBold = True
@@ -4632,10 +5081,10 @@ Private Sub MostrarDisponibilidad()
 
         ' Colorear según si atiende o no
         grdDisponibilidad.row = i
-        grdDisponibilidad.col = 0
+        grdDisponibilidad.Col = 0
         grdDisponibilidad.CellFontBold = True
 
-        grdDisponibilidad.col = 1
+        grdDisponibilidad.Col = 1
         If Not dicHorariosDoc Is Nothing Then
             If dicHorariosDoc.Exists(clave) Then
                 grdDisponibilidad.CellBackColor = &HC0FFC0    ' verde claro
@@ -4647,8 +5096,8 @@ Private Sub MostrarDisponibilidad()
         End If
     Next i
 
-    fraDisponibilidad.Visible = True
-    fraDisponibilidad.ZOrder 0   ' traer al frente
+    fraConfiguracionHorarios.Visible = True
+    fraConfiguracionHorarios.ZOrder 0   ' traer al frente
 End Sub
 ' ---------------------------------------------------------------
 '  Auxiliar: número de día ? nombre
@@ -4668,11 +5117,17 @@ End Function
 '  Botón "Horarios de atención"
 ' ---------------------------------------------------------------
 Private Sub cmdHorariosAtencion_Click()
-    If fraDisponibilidad.Visible Then
-        fraDisponibilidad.Visible = False
+   If fraConfiguracionHorarios.Visible Then
+        fraConfiguracionHorarios.Visible = False
     Else
         MostrarDisponibilidad
+        CargarExcepcionDia MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
+        fraConfiguracionHorarios.Visible = True
+        fraConfiguracionHorarios.ZOrder 0
     End If
+End Sub
+Private Sub LimpiarConfiguracionHorarios()
+    fraConfiguracionHorarios.Visible = False
 End Sub
 
 
@@ -4682,3 +5137,799 @@ End Sub
 Private Sub cmdCerrarDisp_Click()
     fraDisponibilidad.Visible = False
 End Sub
+' --------------------------------------------------------------------------
+'  Configuración de la grilla de horarios (llamar desde Form_Load)
+' --------------------------------------------------------------------------
+Private Sub ConfigurarGrillaHorarios()
+    With grdHorarios
+        .FormatString = "Cod|Día|Desde|Hasta"
+        .Cols = 4
+        .rows = 1
+        .ColWidth(0) = 0        ' código día (oculto)
+        .ColWidth(1) = 900     ' nombre del día
+        .ColWidth(2) = 700     ' hora inicio
+        .ColWidth(3) = 700     ' hora fin
+        .BorderStyle = flexBorderNone
+        .SelectionMode = flexSelectionByRow
+        
+        ' formato del encabezado
+        .row = 0
+        Dim c As Integer
+        For c = 0 To 1
+            .Col = c
+            .CellForeColor = &HFFFFFF
+            .CellBackColor = &H808080
+            .CellFontBold = True
+        Next c
+        
+        
+        ' fila vacía separadora (misma lógica que grdMotivo)
+        .AddItem "" & Chr(9) & "" & Chr(9) & "" & Chr(9) & ""
+    End With
+End Sub
+
+
+' --------------------------------------------------------------------------
+'  Cargar el combo de días de la semana (llamar desde Form_Load)
+' --------------------------------------------------------------------------
+Private Sub CargarCboDiaSemana()
+    cboDiaSemana.Clear
+    cboDiaSemana.AddItem "Lunes"
+    cboDiaSemana.ItemData(cboDiaSemana.NewIndex) = 1
+    cboDiaSemana.AddItem "Martes"
+    cboDiaSemana.ItemData(cboDiaSemana.NewIndex) = 2
+    cboDiaSemana.AddItem "Miércoles"
+    cboDiaSemana.ItemData(cboDiaSemana.NewIndex) = 3
+    cboDiaSemana.AddItem "Jueves"
+    cboDiaSemana.ItemData(cboDiaSemana.NewIndex) = 4
+    cboDiaSemana.AddItem "Viernes"
+    cboDiaSemana.ItemData(cboDiaSemana.NewIndex) = 5
+    cboDiaSemana.AddItem "Sábado"
+    cboDiaSemana.ItemData(cboDiaSemana.NewIndex) = 6
+    cboDiaSemana.AddItem "Domingo"
+    cboDiaSemana.ItemData(cboDiaSemana.NewIndex) = 7
+End Sub
+
+
+' --------------------------------------------------------------------------
+'  Función auxiliar: número de día -> nombre
+' --------------------------------------------------------------------------
+Private Function NombreDia(numDia As Integer) As String
+    Select Case numDia
+        Case 1: NombreDia = "Lunes"
+        Case 2: NombreDia = "Martes"
+        Case 3: NombreDia = "Miércoles"
+        Case 4: NombreDia = "Jueves"
+        Case 5: NombreDia = "Viernes"
+        Case 6: NombreDia = "Sábado"
+        Case 7: NombreDia = "Domingo"
+        Case Else: NombreDia = ""
+    End Select
+End Function
+
+
+' --------------------------------------------------------------------------
+'  Validar formato de hora "HH:MM"
+' --------------------------------------------------------------------------
+Private Function ValidarFormatoHora(ByVal Hora As String) As Boolean
+    Dim h As Integer
+    Dim m As Integer
+
+    ValidarFormatoHora = False
+
+    ' Si tiene caracteres de prompt sin llenar, está incompleta
+    If InStr(Hora, "_") > 0 Then Exit Function
+    If Len(Hora) <> 5 Then Exit Function
+
+    On Error GoTo SalirFalso
+    h = CInt(Left(Hora, 2))
+    m = CInt(Right(Hora, 2))
+
+    If h < 0 Or h > 23 Then Exit Function
+    If m < 0 Or m > 59 Then Exit Function
+
+    ValidarFormatoHora = True
+    Exit Function
+
+SalirFalso:
+    ValidarFormatoHora = False
+End Function
+
+
+' --------------------------------------------------------------------------
+'  Cargar horarios existentes desde la BD a la grilla y  al diccionario
+' --------------------------------------------------------------------------
+Public Sub CargarHorarios(vencod As Integer)
+    ' Resetear diccionario
+    Set dicHorariosDoc = CreateObject("Scripting.Dictionary")
+    
+    ' Resetear grilla
+    ConfigurarGrillaHorarios
+    
+    Dim recH As ADODB.Recordset
+    Set recH = New ADODB.Recordset
+    Dim sqlH As String
+    Dim clave As String
+    
+    sqlH = "SELECT HOR_DIASEMANA, HOR_HORAINICIO, HOR_HORAFIN" _
+         & " FROM HORARIO_VENDEDOR" _
+         & " WHERE VEN_CODIGO = " & vencod _
+         & " ORDER BY HOR_DIASEMANA, HOR_HORAINICIO"
+    
+    recH.Open sqlH, DBConn, adOpenStatic, adLockReadOnly
+    
+    Do While recH.EOF = False
+        clave = CStr(recH!HOR_DIASEMANA)
+        
+        ' Cargar diccionario
+        If dicHorariosDoc.Exists(clave) Then
+            dicHorariosDoc(clave) = dicHorariosDoc(clave) & ";" _
+                & Trim(recH!HOR_HORAINICIO) & "-" & Trim(recH!HOR_HORAFIN)
+        Else
+            dicHorariosDoc.Add clave, _
+                Trim(recH!HOR_HORAINICIO) & "-" & Trim(recH!HOR_HORAFIN)
+        End If
+        
+        ' Cargar grilla
+        grdHorarios.AddItem clave & Chr(9) _
+                          & NombreDiaSemana(CInt(recH!HOR_DIASEMANA)) & Chr(9) _
+                          & Trim(recH!HOR_HORAINICIO) & Chr(9) _
+                          & Trim(recH!HOR_HORAFIN)
+        
+        recH.MoveNext
+    Loop
+    
+    recH.Close
+    Set recH = Nothing
+End Sub
+' --------------------------------------------------------------------------
+'  Borrar todos los horarios de un vendedor en la BD
+' --------------------------------------------------------------------------
+Private Sub BorrarHorarios(vencod As Integer)
+    Dim sqlH As String
+    sqlH = "DELETE FROM HORARIO_VENDEDOR WHERE VEN_CODIGO = " & vencod
+    DBConn.Execute sqlH
+End Sub
+'  Agregar horario a la grilla + refrescar resumen
+' ------------------------------------------------------------------
+Private Sub cmdAgregarHorario_Click()
+    Dim numDia As Integer
+    Dim i As Integer
+    
+    If cboDiaSemana.ListIndex = -1 Then
+        Beep
+        MsgBox "Seleccione un día de la semana.", vbOKOnly + vbCritical, App.Title
+        cboDiaSemana.SetFocus
+        Exit Sub
+    End If
+    
+    If Not ValidarFormatoHora(mskHoraDesde.text) Then
+        Beep
+        MsgBox "Ingrese la hora de inicio completa (HH:MM).", vbOKOnly + vbCritical, App.Title
+        mskHoraDesde.SetFocus
+        Exit Sub
+    End If
+    
+    If Not ValidarFormatoHora(mskHoraHasta.text) Then
+        Beep
+        MsgBox "Ingrese la hora de fin completa (HH:MM).", vbOKOnly + vbCritical, App.Title
+        mskHoraHasta.SetFocus
+        Exit Sub
+    End If
+    
+    If mskHoraHasta.text <= mskHoraDesde.text Then
+        Beep
+        MsgBox "La hora 'Hasta' debe ser mayor a la hora 'Desde'.", _
+               vbOKOnly + vbCritical, App.Title
+        mskHoraHasta.SetFocus
+        Exit Sub
+    End If
+    
+    numDia = cboDiaSemana.ItemData(cboDiaSemana.ListIndex)
+    
+    ' Verificar solapamiento
+    For i = 2 To grdHorarios.rows - 1
+        If grdHorarios.TextMatrix(i, 0) <> "" Then
+            If CInt(grdHorarios.TextMatrix(i, 0)) = numDia Then
+                If mskHoraDesde.text < grdHorarios.TextMatrix(i, 3) And _
+                   mskHoraHasta.text > grdHorarios.TextMatrix(i, 2) Then
+                    Beep
+                    MsgBox "El horario se superpone con otro bloque" & Chr(13) _
+                         & "del " & cboDiaSemana.text & " (" _
+                         & grdHorarios.TextMatrix(i, 2) & " a " _
+                         & grdHorarios.TextMatrix(i, 3) & ").", _
+                           vbOKOnly + vbCritical, App.Title
+                    Exit Sub
+                End If
+            End If
+        End If
+    Next i
+    
+    grdHorarios.AddItem CStr(numDia) & Chr(9) _
+                      & cboDiaSemana.text & Chr(9) _
+                      & mskHoraDesde.text & Chr(9) _
+                      & mskHoraHasta.text
+    
+    ' Limpiar controles
+    cboDiaSemana.ListIndex = -1
+    mskHoraDesde.Mask = ""
+    mskHoraDesde.text = ""
+    mskHoraDesde.Mask = "##:##"
+    mskHoraHasta.Mask = ""
+    mskHoraHasta.text = ""
+    mskHoraHasta.Mask = "##:##"
+    
+    ' Refrescar resumen visual
+    MostrarDisponibilidad
+End Sub
+' ------------------------------------------------------------------
+'  Quitar horario de la grilla + refrescar resumen
+' ------------------------------------------------------------------
+Private Sub cmdQuitarHorario_Click()
+    If grdHorarios.row < 2 Then
+        Beep
+        MsgBox "Seleccione un horario de la grilla para quitar.", _
+               vbOKOnly + vbCritical, App.Title
+        Exit Sub
+    End If
+    
+    If grdHorarios.TextMatrix(grdHorarios.row, 0) = "" Then
+        Exit Sub
+    End If
+    
+    grdHorarios.RemoveItem grdHorarios.row
+    
+    ' Refrescar resumen visual
+    MostrarDisponibilidad
+End Sub
+
+
+' ------------------------------------------------------------------
+'  Guardar disponibilidad en BD
+'  (borrar todo y reinsertar desde grdHorarios)
+' ------------------------------------------------------------------
+Private Sub cmdGuardarDisponibilidad_Click()
+    Dim vencod As Integer
+    vencod = cboDoctor.ItemData(cboDoctor.ListIndex)
+    
+    If vencod = 0 Then Exit Sub
+    
+    On Error GoTo ErrorGuardar
+    DBConn.BeginTrans
+    
+    ' 1. Borrar horarios existentes
+    Dim sqlH As String
+    sqlH = "DELETE FROM HORARIO_VENDEDOR WHERE VEN_CODIGO = " & vencod
+    DBConn.Execute sqlH
+    
+    ' 2. Insertar desde la grilla
+    Dim i As Integer
+    For i = 2 To grdHorarios.rows - 1
+        If grdHorarios.TextMatrix(i, 0) <> "" Then
+            sqlH = "INSERT INTO HORARIO_VENDEDOR" _
+                 & " (VEN_CODIGO, HOR_DIASEMANA, HOR_HORAINICIO, HOR_HORAFIN)" _
+                 & " VALUES (" _
+                 & vencod & ", " _
+                 & grdHorarios.TextMatrix(i, 0) & ", " _
+                 & "'" & grdHorarios.TextMatrix(i, 2) & "', " _
+                 & "'" & grdHorarios.TextMatrix(i, 3) & "')"
+            DBConn.Execute sqlH
+        End If
+    Next i
+    
+    DBConn.CommitTrans
+    
+    ' 3. Refrescar el diccionario en memoria
+    CargarHorarios vencod
+    
+    ' 4. Refrescar la grilla de turnos
+    ' BuscarTurnos fechaActual, vencod, modoActual   ? reemplazar
+    
+    MsgBox "Disponibilidad guardada correctamente.", vbInformation, App.Title
+    
+    BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
+    Exit Sub
+    
+ErrorGuardar:
+    DBConn.RollbackTrans
+    MsgBox "Error al guardar: " & Err.Description, vbCritical, App.Title
+End Sub
+
+
+Private Sub mskHoraDesde_Change()
+    cmdGuardarDisponibilidad.Enabled = True
+End Sub
+
+Private Sub mskHoraHasta_Change()
+    cmdGuardarDisponibilidad.Enabled = True
+End Sub
+
+Private Sub cboDiaSemana_Click()
+    cmdGuardarDisponibilidad.Enabled = True
+End Sub
+
+Private Sub mskHoraDesde_GotFocus()
+    seltxt
+End Sub
+
+Private Sub mskHoraHasta_GotFocus()
+    seltxt
+End Sub
+
+' ------------------------------------------------------------------
+'  EXCEPCIONES DE HORARIO ATENCIÓN
+' ------------------------------------------------------------------
+
+' ------------------------------------------------------------------
+'  2. CONFIGURAR GRILLA DE EXCEPCIONES (llamar en Form_Load)
+' ------------------------------------------------------------------
+Private Sub ConfigurarGrillaHorariosExc()
+    With grdHorariosExc
+        .FormatString = "Desde|Hasta"
+        .Cols = 2
+        .rows = 1
+        .ColWidth(0) = 1200
+        .ColWidth(1) = 1200
+        .BorderStyle = flexBorderNone
+        .SelectionMode = flexSelectionByRow
+        .row = 0
+        Dim c As Integer
+        For c = 0 To .Cols - 1
+            .Col = c
+            .CellForeColor = &HFFFFFF
+            .CellBackColor = &H808080
+            .CellFontBold = True
+        Next c
+    End With
+End Sub
+
+
+' ------------------------------------------------------------------
+'  3. CARGAR EXCEPCIÓN PARA UNA FECHA
+'     Llamar al seleccionar fecha en el calendario
+' ------------------------------------------------------------------
+Public Sub CargarExcepcionDia(Fecha As Date, vencod As Integer)
+    Dim recExc As ADODB.Recordset
+    Dim sqlExc As String
+    Dim Motivo As String
+    
+    ' Resetear grilla
+    ConfigurarGrillaHorariosExc
+    vExcDiaId = 0
+    
+    ' Actualizar label del día
+    Dim diaSem As Integer
+    diaSem = Weekday(Fecha, vbMonday)
+    lblDiaActual.Caption = NombreDiaSemana(diaSem) & " " _
+        & Day(Fecha) & " de " & MonthName(Month(Fecha), False) _
+        & " de " & Year(Fecha)
+    
+    ' Buscar excepción en la BD
+    Set recExc = New ADODB.Recordset
+    sqlExc = "SELECT EXD_ID, EXD_ATIENDE, EXD_MOTIVO FROM EXCEPCION_DIA_VENDEDOR" _
+           & " WHERE VEN_CODIGO = " & vencod _
+           & " AND EXD_FECHA = " & XDQ(Fecha)
+    recExc.Open sqlExc, DBConn, adOpenStatic, adLockReadOnly
+    
+    If Not recExc.EOF Then
+        ' === HAY EXCEPCIÓN ===
+        vExcDiaId = recExc!EXD_ID
+        Motivo = ChkNull(recExc!EXD_MOTIVO)
+        
+        txtMotivoExcepcion.text = ChkNull(recExc!EXD_MOTIVO)
+        txtMotivoExcepcion.Enabled = True
+        
+        If recExc!EXD_ATIENDE = "S" Then
+            ' Atiende con horario especial
+           optAtiende.Value = True
+            recExc.Close
+            
+            ' Cargar bloques
+            sqlExc = "SELECT EXH_HORAINICIO, EXH_HORAFIN" _
+                   & " FROM EXCEPCION_HORARIO_VENDEDOR" _
+                   & " WHERE EXD_ID = " & vExcDiaId _
+                   & " ORDER BY EXH_HORAINICIO"
+            recExc.Open sqlExc, DBConn, adOpenStatic, adLockReadOnly
+            
+            Do While recExc.EOF = False
+                grdHorariosExc.AddItem _
+                    Trim(recExc!EXH_HORAINICIO) & Chr(9) _
+                  & Trim(recExc!EXH_HORAFIN)
+                recExc.MoveNext
+            Loop
+            recExc.Close
+            
+            HabilitarControlesExc True
+        Else
+            ' No atiende (excepción de bloqueo)
+            optNoAtiende.Value = True
+            recExc.Close
+            HabilitarControlesExc False
+        End If
+        
+        txtMotivoExcepcion.text = Motivo
+        
+        ' Mostrar botón para eliminar la excepción
+        cmdEliminarExcepcion.Enabled = True
+    Else
+        ' === NO HAY EXCEPCIÓN ? estado según horario habitual ===
+        recExc.Close
+        
+        Dim clave As String
+        clave = CStr(diaSem)
+        
+        If Not dicHorariosDoc Is Nothing Then
+            If dicHorariosDoc.Count > 0 And dicHorariosDoc.Exists(clave) Then
+                ' Día habitual: check marcado, controles deshabilitados
+                optAtiende.Value = True
+            Else
+                ' Día no habitual: check desmarcado
+                optNoAtiende.Value = True
+            End If
+        Else
+            optNoAtiende.Value = True
+        End If
+        
+        HabilitarControlesExc False
+        cmdEliminarExcepcion.Enabled = False
+        txtMotivoExcepcion.text = ""
+        txtMotivoExcepcion.Enabled = False
+    End If
+    
+    Set recExc = Nothing
+End Sub
+
+
+' ------------------------------------------------------------------
+'  Habilitar/deshabilitar controles de hora de excepción
+' ------------------------------------------------------------------
+Private Sub HabilitarControlesExc(ByVal habilitar As Boolean)
+    mskHoraDesdeExc.Enabled = habilitar
+    mskHoraHastaExc.Enabled = habilitar
+    cmdAgregarExc.Enabled = habilitar
+    cmdQuitarExc.Enabled = habilitar
+End Sub
+
+
+' ------------------------------------------------------------------
+'  4. CHECK "ATIENDE" - toggle controles
+' ------------------------------------------------------------------
+Private Sub optAtiende_Click()
+    HabilitarControlesExc True
+    txtMotivoExcepcion.Enabled = True
+End Sub
+
+Private Sub optNoAtiende_Click()
+    HabilitarControlesExc False
+    ConfigurarGrillaHorariosExc
+    txtMotivoExcepcion.Enabled = True
+End Sub
+
+' ------------------------------------------------------------------
+'  5. AGREGAR HORARIO A EXCEPCIÓN
+' ------------------------------------------------------------------
+Private Sub cmdAgregarExc_Click()
+    If Not ValidarFormatoHora(mskHoraDesdeExc.text) Then
+        Beep
+        MsgBox "Ingrese la hora de inicio completa (HH:MM).", _
+               vbOKOnly + vbCritical, App.Title
+        mskHoraDesdeExc.SetFocus
+        Exit Sub
+    End If
+    
+    If Not ValidarFormatoHora(mskHoraHastaExc.text) Then
+        Beep
+        MsgBox "Ingrese la hora de fin completa (HH:MM).", _
+               vbOKOnly + vbCritical, App.Title
+        mskHoraHastaExc.SetFocus
+        Exit Sub
+    End If
+    
+    If mskHoraHastaExc.text <= mskHoraDesdeExc.text Then
+        Beep
+        MsgBox "La hora 'Hasta' debe ser mayor a la hora 'Desde'.", _
+               vbOKOnly + vbCritical, App.Title
+        mskHoraHastaExc.SetFocus
+        Exit Sub
+    End If
+    
+    ' Verificar solapamiento
+    Dim i As Integer
+    For i = 1 To grdHorariosExc.rows - 1
+        If grdHorariosExc.TextMatrix(i, 0) <> "" Then
+            If mskHoraDesdeExc.text < grdHorariosExc.TextMatrix(i, 1) And _
+               mskHoraHastaExc.text > grdHorariosExc.TextMatrix(i, 0) Then
+                Beep
+                MsgBox "El horario se superpone con otro bloque (" _
+                     & grdHorariosExc.TextMatrix(i, 0) & " a " _
+                     & grdHorariosExc.TextMatrix(i, 1) & ").", _
+                       vbOKOnly + vbCritical, App.Title
+                Exit Sub
+            End If
+        End If
+    Next i
+    
+    grdHorariosExc.AddItem mskHoraDesdeExc.text & Chr(9) & mskHoraHastaExc.text
+    
+    ' Limpiar
+    mskHoraDesdeExc.Mask = ""
+    mskHoraDesdeExc.text = ""
+    mskHoraDesdeExc.Mask = "##:##"
+    mskHoraHastaExc.Mask = ""
+    mskHoraHastaExc.text = ""
+    mskHoraHastaExc.Mask = "##:##"
+End Sub
+
+
+' ------------------------------------------------------------------
+'  QUITAR HORARIO DE EXCEPCIÓN
+' ------------------------------------------------------------------
+Private Sub cmdQuitarExc_Click()
+    If grdHorariosExc.row < 1 Then
+        Beep
+        MsgBox "Seleccione un horario para quitar.", _
+               vbOKOnly + vbCritical, App.Title
+        Exit Sub
+    End If
+    If grdHorariosExc.TextMatrix(grdHorariosExc.row, 0) = "" Then
+        Exit Sub
+    End If
+    grdHorariosExc.RemoveItem grdHorariosExc.row
+End Sub
+
+
+' ------------------------------------------------------------------
+'  6. GUARDAR EXCEPCIÓN EN BD
+' ------------------------------------------------------------------
+Private Sub cmdGuardarExcepcion_Click()
+    Dim vencod As Integer
+    Dim Fecha As Date
+    vencod = cboDoctor.ItemData(cboDoctor.ListIndex)
+    Fecha = MViewFecha.Value
+    
+    If vencod = 0 Then Exit Sub
+    
+    On Error GoTo ErrorGuardarExc
+    DBConn.BeginTrans
+    
+    Dim sqlExc As String
+    
+    ' 1. Borrar excepción anterior si existía
+    If vExcDiaId > 0 Then
+        sqlExc = "DELETE FROM EXCEPCION_HORARIO_VENDEDOR WHERE EXD_ID = " & vExcDiaId
+        DBConn.Execute sqlExc
+        sqlExc = "DELETE FROM EXCEPCION_DIA_VENDEDOR WHERE EXD_ID = " & vExcDiaId
+        DBConn.Execute sqlExc
+    End If
+    
+    ' 2. Insertar cabecera
+    Dim atiende As String
+    If optAtiende.Value = True Then
+        atiende = "S"
+    Else
+        atiende = "N"
+    End If
+    
+    sqlExc = "INSERT INTO EXCEPCION_DIA_VENDEDOR" _
+       & " (VEN_CODIGO, EXD_FECHA, EXD_ATIENDE, EXD_MOTIVO)" _
+       & " VALUES (" & vencod & ", " & XDQ(Fecha) & ", '" & atiende & "', " _
+       & XS(txtMotivoExcepcion.text) & ")"
+    DBConn.Execute sqlExc
+    
+    ' 3. Obtener el ID recién insertado
+    Dim recId As ADODB.Recordset
+    Set recId = New ADODB.Recordset
+    recId.Open "SELECT @@IDENTITY AS NuevoId", DBConn, adOpenStatic, adLockReadOnly
+    vExcDiaId = recId!nuevoid
+    recId.Close
+    Set recId = Nothing
+    
+    ' 4. Insertar bloques horarios (solo si atiende)
+    If atiende = "S" Then
+        Dim i As Integer
+        For i = 1 To grdHorariosExc.rows - 1
+            If grdHorariosExc.TextMatrix(i, 0) <> "" Then
+                sqlExc = "INSERT INTO EXCEPCION_HORARIO_VENDEDOR" _
+                       & " (EXD_ID, EXH_HORAINICIO, EXH_HORAFIN)" _
+                       & " VALUES (" & vExcDiaId & ", " _
+                       & "'" & grdHorariosExc.TextMatrix(i, 0) & "', " _
+                       & "'" & grdHorariosExc.TextMatrix(i, 1) & "')"
+                DBConn.Execute sqlExc
+            End If
+        Next i
+    End If
+    
+    DBConn.CommitTrans
+    
+    cmdEliminarExcepcion.Enabled = True
+    
+    MsgBox "Excepción guardada correctamente.", vbInformation, App.Title
+    
+    ' 5. Refrescar turnos
+    BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
+    
+    Exit Sub
+    
+ErrorGuardarExc:
+    DBConn.RollbackTrans
+    MsgBox "Error al guardar: " & Err.Description, vbCritical, App.Title
+End Sub
+Private Function ObtenerMotivoExcepcion(vencod As Integer, Fecha As Date) As String
+    ObtenerMotivoExcepcion = ""
+    
+    Dim recExc As ADODB.Recordset
+    Set recExc = New ADODB.Recordset
+    Dim sqlExc As String
+    
+    sqlExc = "SELECT EXD_ATIENDE, EXD_MOTIVO FROM EXCEPCION_DIA_VENDEDOR" _
+           & " WHERE VEN_CODIGO = " & vencod _
+           & " AND EXD_FECHA = " & XDQ(Fecha)
+    recExc.Open sqlExc, DBConn, adOpenStatic, adLockReadOnly
+    
+    If Not recExc.EOF Then
+        If Not IsNull(recExc!EXD_MOTIVO) Then
+            If Trim(recExc!EXD_MOTIVO) <> "" Then
+                If recExc!EXD_ATIENDE = "S" Then
+                    ObtenerMotivoExcepcion = "El doctor ATIENDE debido a: " _
+                        & recExc!EXD_MOTIVO
+                Else
+                    ObtenerMotivoExcepcion = "El doctor NO ATIENDE debido a: " _
+                        & recExc!EXD_MOTIVO
+                End If
+            End If
+        End If
+    End If
+    
+    recExc.Close
+    Set recExc = Nothing
+End Function
+
+
+' ------------------------------------------------------------------
+'  7. ELIMINAR EXCEPCIÓN (volver al horario habitual)
+' ------------------------------------------------------------------
+Private Sub cmdEliminarExcepcion_Click()
+    If vExcDiaId = 0 Then Exit Sub
+    
+    If MsgBox("¿Eliminar la excepción y volver al horario habitual?", _
+              vbYesNo + vbQuestion, App.Title) = vbNo Then
+        Exit Sub
+    End If
+    
+    On Error GoTo ErrorEliminarExc
+    DBConn.BeginTrans
+    
+    Dim sqlExc As String
+    sqlExc = "DELETE FROM EXCEPCION_HORARIO_VENDEDOR WHERE EXD_ID = " & vExcDiaId
+    DBConn.Execute sqlExc
+    sqlExc = "DELETE FROM EXCEPCION_DIA_VENDEDOR WHERE EXD_ID = " & vExcDiaId
+    DBConn.Execute sqlExc
+    
+    DBConn.CommitTrans
+    
+    ' Recargar estado del día (vuelve al habitual)
+    Dim Fecha As Date
+    Fecha = MViewFecha.Value
+    CargarExcepcionDia MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
+    
+    ' Refrescar turnos
+    BuscarTurnos Fecha, cboDoctor.ItemData(cboDoctor.ListIndex)
+    
+    Exit Sub
+    
+ErrorEliminarExc:
+    DBConn.RollbackTrans
+    MsgBox "Error al eliminar: " & Err.Description, vbCritical, App.Title
+End Sub
+
+
+' ------------------------------------------------------------------
+'  8. OBTENER BLOQUES DEL DÍA (excepción > habitual)
+'
+'     Devuelve "" si no atiende
+'     Devuelve "08:00-12:00;14:00-18:00" si atiende
+'     Prioriza excepción sobre horario habitual
+' ------------------------------------------------------------------
+Public Function ObtenerBloquesDelDia(vencod As Integer, Fecha As Date) As String
+    ObtenerBloquesDelDia = ""
+    
+    Dim recExc As ADODB.Recordset
+    Dim sqlExc As String
+    
+    ' --- 1. Buscar excepción ---
+    Set recExc = New ADODB.Recordset
+    sqlExc = "SELECT EXD_ID, EXD_ATIENDE FROM EXCEPCION_DIA_VENDEDOR" _
+           & " WHERE VEN_CODIGO = " & vencod _
+           & " AND EXD_FECHA = " & XDQ(Fecha)
+    recExc.Open sqlExc, DBConn, adOpenStatic, adLockReadOnly
+    
+    If Not recExc.EOF Then
+        ' Hay excepción
+        If recExc!EXD_ATIENDE = "N" Then
+            ' No atiende
+            recExc.Close
+            Set recExc = Nothing
+            Exit Function   ' devuelve ""
+        End If
+        
+        ' Atiende con horario especial: cargar bloques
+        Dim exdId As Long
+        exdId = recExc!EXD_ID
+        recExc.Close
+        
+        sqlExc = "SELECT EXH_HORAINICIO, EXH_HORAFIN" _
+               & " FROM EXCEPCION_HORARIO_VENDEDOR" _
+               & " WHERE EXD_ID = " & exdId _
+               & " ORDER BY EXH_HORAINICIO"
+        recExc.Open sqlExc, DBConn, adOpenStatic, adLockReadOnly
+        
+        Dim bloques As String
+        bloques = ""
+        Do While recExc.EOF = False
+            If bloques <> "" Then bloques = bloques & ";"
+            bloques = bloques & Trim(recExc!EXH_HORAINICIO) _
+                    & "-" & Trim(recExc!EXH_HORAFIN)
+            recExc.MoveNext
+        Loop
+        recExc.Close
+        Set recExc = Nothing
+        
+        ObtenerBloquesDelDia = bloques
+        Exit Function
+    End If
+    
+    recExc.Close
+    Set recExc = Nothing
+    
+    ' --- 2. Sin excepción ? horario habitual ---
+    If dicHorariosDoc Is Nothing Then Exit Function
+    If dicHorariosDoc.Count = 0 Then Exit Function
+    
+    Dim diaSemana As Integer
+    diaSemana = Weekday(Fecha, vbMonday)
+    Dim clave As String
+    clave = CStr(diaSemana)
+    
+    If dicHorariosDoc.Exists(clave) Then
+        ObtenerBloquesDelDia = dicHorariosDoc(clave)
+    End If
+End Function
+
+
+' ------------------------------------------------------------------
+'  9. DOCTOR ATIENDE EL DÍA (versión actualizada)
+'     Reemplaza la versión anterior
+' ------------------------------------------------------------------
+Public Function DoctorAtiendeElDia(Fecha As Date) As Boolean
+    DoctorAtiendeElDia = True   ' default: permitir
+    
+    ' --- 1. Excepción siempre tiene prioridad ---
+    Dim recExc As ADODB.Recordset
+    Set recExc = New ADODB.Recordset
+    Dim sqlExc As String
+    
+    sqlExc = "SELECT EXD_ATIENDE FROM EXCEPCION_DIA_VENDEDOR" _
+           & " WHERE VEN_CODIGO = " & cboDoctor.ItemData(cboDoctor.ListIndex) _
+           & " AND EXD_FECHA = " & XDQ(Fecha)
+    recExc.Open sqlExc, DBConn, adOpenStatic, adLockReadOnly
+    
+    If Not recExc.EOF Then
+        ' Hay excepción: la respuesta es directa
+        DoctorAtiendeElDia = (recExc!EXD_ATIENDE = "S")
+        recExc.Close
+        Set recExc = Nothing
+        Exit Function
+    End If
+    
+    recExc.Close
+    Set recExc = Nothing
+    
+    ' --- 2. Sin excepción ? horario habitual ---
+    If dicHorariosDoc Is Nothing Then Exit Function
+    If dicHorariosDoc.Count = 0 Then Exit Function
+    
+    Dim diaSemana As Integer
+    diaSemana = Weekday(Fecha, vbMonday)
+    DoctorAtiendeElDia = dicHorariosDoc.Exists(CStr(diaSemana))
+End Function
+

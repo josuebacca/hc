@@ -73,76 +73,46 @@ Begin VB.Form ABMVendedor
       TabCaption(0)   =   "Datos"
       TabPicture(0)   =   "ABMVendedor.frx":0156
       Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "Label1(0)"
-      Tab(0).Control(0).Enabled=   0   'False
-      Tab(0).Control(1)=   "Label2"
-      Tab(0).Control(1).Enabled=   0   'False
-      Tab(0).Control(2)=   "Label1(9)"
-      Tab(0).Control(2).Enabled=   0   'False
-      Tab(0).Control(3)=   "Label1(8)"
-      Tab(0).Control(3).Enabled=   0   'False
-      Tab(0).Control(4)=   "Label1(5)"
-      Tab(0).Control(4).Enabled=   0   'False
-      Tab(0).Control(5)=   "Label1(4)"
-      Tab(0).Control(5).Enabled=   0   'False
-      Tab(0).Control(6)=   "Label1(3)"
-      Tab(0).Control(6).Enabled=   0   'False
-      Tab(0).Control(7)=   "Label1(2)"
-      Tab(0).Control(7).Enabled=   0   'False
-      Tab(0).Control(8)=   "Label1(1)"
-      Tab(0).Control(8).Enabled=   0   'False
-      Tab(0).Control(9)=   "Label1(13)"
-      Tab(0).Control(9).Enabled=   0   'False
-      Tab(0).Control(10)=   "Label1(12)"
-      Tab(0).Control(10).Enabled=   0   'False
-      Tab(0).Control(11)=   "Label1(11)"
-      Tab(0).Control(11).Enabled=   0   'False
-      Tab(0).Control(12)=   "Label1(10)"
-      Tab(0).Control(12).Enabled=   0   'False
-      Tab(0).Control(13)=   "Label1(7)"
-      Tab(0).Control(13).Enabled=   0   'False
-      Tab(0).Control(14)=   "Label1(6)"
-      Tab(0).Control(14).Enabled=   0   'False
-      Tab(0).Control(15)=   "Label1(14)"
-      Tab(0).Control(15).Enabled=   0   'False
-      Tab(0).Control(16)=   "txtID"
-      Tab(0).Control(16).Enabled=   0   'False
-      Tab(0).Control(17)=   "txtConsul"
-      Tab(0).Control(17).Enabled=   0   'False
-      Tab(0).Control(18)=   "cboprofesion"
-      Tab(0).Control(18).Enabled=   0   'False
-      Tab(0).Control(19)=   "txtDomicilio"
-      Tab(0).Control(19).Enabled=   0   'False
-      Tab(0).Control(20)=   "txtTelefono"
-      Tab(0).Control(20).Enabled=   0   'False
-      Tab(0).Control(21)=   "cboLocalidad"
-      Tab(0).Control(21).Enabled=   0   'False
-      Tab(0).Control(22)=   "cboProvincia"
-      Tab(0).Control(22).Enabled=   0   'False
-      Tab(0).Control(23)=   "cboPais"
-      Tab(0).Control(23).Enabled=   0   'False
-      Tab(0).Control(24)=   "txtNombre"
-      Tab(0).Control(24).Enabled=   0   'False
-      Tab(0).Control(25)=   "txtcoseguro"
-      Tab(0).Control(25).Enabled=   0   'False
-      Tab(0).Control(26)=   "txtPorcentCom"
-      Tab(0).Control(26).Enabled=   0   'False
-      Tab(0).Control(27)=   "txtMail"
-      Tab(0).Control(27).Enabled=   0   'False
-      Tab(0).Control(28)=   "txtFax"
-      Tab(0).Control(28).Enabled=   0   'False
-      Tab(0).Control(29)=   "txtLinkProtocolos"
-      Tab(0).Control(29).Enabled=   0   'False
+      Tab(0).Control(0)=   "txtLinkProtocolos"
+      Tab(0).Control(1)=   "txtFax"
+      Tab(0).Control(2)=   "txtMail"
+      Tab(0).Control(3)=   "txtPorcentCom"
+      Tab(0).Control(4)=   "txtcoseguro"
+      Tab(0).Control(5)=   "txtNombre"
+      Tab(0).Control(6)=   "cboPais"
+      Tab(0).Control(7)=   "cboProvincia"
+      Tab(0).Control(8)=   "cboLocalidad"
+      Tab(0).Control(9)=   "txtTelefono"
+      Tab(0).Control(10)=   "txtDomicilio"
+      Tab(0).Control(11)=   "cboprofesion"
+      Tab(0).Control(12)=   "txtConsul"
+      Tab(0).Control(13)=   "txtID"
+      Tab(0).Control(14)=   "Label1(14)"
+      Tab(0).Control(15)=   "Label1(6)"
+      Tab(0).Control(16)=   "Label1(7)"
+      Tab(0).Control(17)=   "Label1(10)"
+      Tab(0).Control(18)=   "Label1(11)"
+      Tab(0).Control(19)=   "Label1(12)"
+      Tab(0).Control(20)=   "Label1(13)"
+      Tab(0).Control(21)=   "Label1(1)"
+      Tab(0).Control(22)=   "Label1(2)"
+      Tab(0).Control(23)=   "Label1(3)"
+      Tab(0).Control(24)=   "Label1(4)"
+      Tab(0).Control(25)=   "Label1(5)"
+      Tab(0).Control(26)=   "Label1(8)"
+      Tab(0).Control(27)=   "Label1(9)"
+      Tab(0).Control(28)=   "Label2"
+      Tab(0).Control(29)=   "Label1(0)"
       Tab(0).ControlCount=   30
       TabCaption(1)   =   "Motivos"
       TabPicture(1)   =   "ABMVendedor.frx":0172
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "cmdDesasignar"
-      Tab(1).Control(1)=   "cmdAsignar"
-      Tab(1).Control(2)=   "grdMotivoAsignado"
-      Tab(1).Control(3)=   "grdMotivo"
-      Tab(1).Control(4)=   "Label4"
-      Tab(1).Control(5)=   "Label3"
+      Tab(1).Control(0)=   "Label3"
+      Tab(1).Control(1)=   "Label4"
+      Tab(1).Control(2)=   "grdMotivo"
+      Tab(1).Control(3)=   "grdMotivoAsignado"
+      Tab(1).Control(4)=   "cmdAsignar"
+      Tab(1).Control(5)=   "cmdDesasignar"
       Tab(1).ControlCount=   6
       TabCaption(2)   =   "Horarios"
       TabPicture(2)   =   "ABMVendedor.frx":018E
@@ -1557,19 +1527,19 @@ End Function
 ' --------------------------------------------------------------------------
 '  Validar formato de hora "HH:MM"
 ' --------------------------------------------------------------------------
-Private Function ValidarFormatoHora(ByVal hora As String) As Boolean
+Private Function ValidarFormatoHora(ByVal Hora As String) As Boolean
     Dim h As Integer
     Dim m As Integer
 
     ValidarFormatoHora = False
 
     ' Si tiene caracteres de prompt sin llenar, está incompleta
-    If InStr(hora, "_") > 0 Then Exit Function
-    If Len(hora) <> 5 Then Exit Function
+    If InStr(Hora, "_") > 0 Then Exit Function
+    If Len(Hora) <> 5 Then Exit Function
 
     On Error GoTo SalirFalso
-    h = CInt(Left(hora, 2))
-    m = CInt(Right(hora, 2))
+    h = CInt(Left(Hora, 2))
+    m = CInt(Right(Hora, 2))
 
     If h < 0 Or h > 23 Then Exit Function
     If m < 0 Or m > 59 Then Exit Function
