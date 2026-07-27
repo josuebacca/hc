@@ -113,7 +113,7 @@ Begin VB.Form ABMClientes
             _ExtentX        =   2566
             _ExtentY        =   556
             _Version        =   393216
-            Format          =   152043521
+            Format          =   154402817
             CurrentDate     =   40071
          End
          Begin VB.Label lblGenerandoCarpeta 
@@ -410,7 +410,7 @@ Begin VB.Form ABMClientes
          _ExtentY        =   556
          _Version        =   393216
          CheckBox        =   -1  'True
-         Format          =   152043521
+         Format          =   154402817
          CurrentDate     =   40071
       End
       Begin MSComCtl2.DTPicker DTFechaNac 
@@ -423,7 +423,7 @@ Begin VB.Form ABMClientes
          _ExtentY        =   556
          _Version        =   393216
          CheckBox        =   -1  'True
-         Format          =   152043521
+         Format          =   154402817
          CurrentDate     =   40071
       End
       Begin VB.Label Label1 
@@ -689,27 +689,27 @@ Begin VB.Form ABMClientes
       TabCaption(2)   =   "&Historia Clinica"
       TabPicture(2)   =   "ABMClientes.frx":3584
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "Frame6"
-      Tab(2).Control(1)=   "cboTratamiento"
-      Tab(2).Control(2)=   "Frame2"
-      Tab(2).Control(3)=   "Frame1"
-      Tab(2).Control(4)=   "txtHC"
-      Tab(2).Control(5)=   "grdCClinico"
+      Tab(2).Control(0)=   "grdCClinico"
+      Tab(2).Control(1)=   "txtHC"
+      Tab(2).Control(2)=   "Frame1"
+      Tab(2).Control(3)=   "Frame2"
+      Tab(2).Control(4)=   "cboTratamiento"
+      Tab(2).Control(5)=   "Frame6"
       Tab(2).ControlCount=   6
       TabCaption(3)   =   "Medicamentos"
       TabPicture(3)   =   "ABMClientes.frx":35A0
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "GrdCMedica"
+      Tab(3).Control(0)=   "Frame4"
       Tab(3).Control(1)=   "txtMedica"
-      Tab(3).Control(2)=   "Frame4"
+      Tab(3).Control(2)=   "GrdCMedica"
       Tab(3).ControlCount=   3
       TabCaption(4)   =   "Pedidos"
       TabPicture(4)   =   "ABMClientes.frx":35BC
       Tab(4).ControlEnabled=   0   'False
-      Tab(4).Control(0)=   "Frame7"
-      Tab(4).Control(1)=   "Command2"
-      Tab(4).Control(2)=   "cmdCancelarPedido"
-      Tab(4).Control(3)=   "cmdRealizado"
+      Tab(4).Control(0)=   "cmdRealizado"
+      Tab(4).Control(1)=   "cmdCancelarPedido"
+      Tab(4).Control(2)=   "Command2"
+      Tab(4).Control(3)=   "Frame7"
       Tab(4).ControlCount=   4
       TabCaption(5)   =   "Imágenes"
       TabPicture(5)   =   "ABMClientes.frx":35D8
@@ -893,7 +893,7 @@ Begin VB.Form ABMClientes
             _ExtentY        =   556
             _Version        =   393216
             CheckBox        =   -1  'True
-            Format          =   152043521
+            Format          =   154402817
             CurrentDate     =   40070
          End
          Begin VB.TextBox txtcualca 
@@ -1272,7 +1272,7 @@ Begin VB.Form ABMClientes
             CalendarBackColor=   12648384
             CalendarForeColor=   0
             CalendarTitleBackColor=   12648384
-            Format          =   152043521
+            Format          =   154402817
             UpDown          =   -1  'True
             CurrentDate     =   40063
          End
@@ -1299,7 +1299,7 @@ Begin VB.Form ABMClientes
             CalendarTitleBackColor=   12648384
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   152043521
+            Format          =   154402817
             CurrentDate     =   40063
          End
          Begin VB.TextBox txtDescTra 
@@ -1724,7 +1724,7 @@ Begin VB.Form ABMClientes
             CalendarBackColor=   12648384
             CalendarForeColor=   0
             CalendarTitleBackColor=   12648384
-            Format          =   152043521
+            Format          =   154402817
             UpDown          =   -1  'True
             CurrentDate     =   40063
          End
@@ -2012,7 +2012,7 @@ Const cTabla = "CLIENTE"
 Const cCampoID = "CLI_CODIGO"
 Const cDesRegistro = "Paciente"
 
-Dim tiposEstablecimiento(17) As String
+Dim tiposEstablecimiento(18) As String
 Dim studyLinkDrive As String
 Dim errorPostStudyFolder As Boolean
 
@@ -3076,8 +3076,8 @@ HayErrorCClinico:
 End Sub
 
 Private Sub Command1_Click()
-    Dim X As Integer
-    X = 2
+    Dim x As Integer
+    x = 2
     sql = "SELECT * FROM XX"
     rec.Open sql, DBConn, adOpenStatic, adLockOptimistic
     If rec.EOF = False Then
@@ -3085,7 +3085,7 @@ Private Sub Command1_Click()
             sql = "INSERT INTO CLIENTE (CLI_CODIGO,CLI_RAZSOC,"
             sql = sql & " CLI_DOMICI,CLI_TELEFONO,CLI_CELULAR,CLI_MAIL,CLI_CUMPLE,"
             sql = sql & " IVA_CODIGO,PAI_CODIGO,PRO_CODIGO,LOC_CODIGO,CLI_NRODOC) VALUES ("
-            sql = sql & X & ","
+            sql = sql & x & ","
             sql = sql & "'" & Trim(rec!apellido) & " " & Trim(rec!Nombre) & "',"
             sql = sql & XS(rec!DIRECCION) & ","
             sql = sql & XS(rec!te) & ","
@@ -3095,7 +3095,7 @@ Private Sub Command1_Click()
             sql = sql & buscaloc(Trim(rec!CIUDAD)) & ","
             sql = sql & XN(rec!dni) & ")"
             DBConn.Execute sql
-            X = X + 1
+            x = x + 1
             rec.MoveNext
         Loop
     End If
@@ -3605,7 +3605,7 @@ Private Sub Form_Load()
     tiposEstablecimiento(15) = "ECOCARDIO-4D-STRAIN"
     tiposEstablecimiento(16) = "PLAN-ALIMENTARIO"
     tiposEstablecimiento(17) = "ERGOESPIROMETRIA"
-    
+    tiposEstablecimiento(17) = "FIBROSCOPIA"
     
 
     For i = 0 To 17

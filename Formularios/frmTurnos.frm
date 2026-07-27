@@ -636,7 +636,7 @@ Begin VB.Form frmTurnos
       _ExtentX        =   3201
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   151715841
+      Format          =   151846913
       CurrentDate     =   43340
    End
    Begin VB.Frame fraprotocolos 
@@ -1435,7 +1435,7 @@ Begin VB.Form frmTurnos
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         StartOfWeek     =   151715842
+         StartOfWeek     =   151846914
          TitleBackColor  =   4194304
          TitleForeColor  =   -2147483634
          TrailingForeColor=   -2147483638
@@ -1761,7 +1761,7 @@ End Sub
 ' Reemplazar con las variables reales de fecha y doctor actual.
 Private Sub cboTamanioSlot_Click()
 If cboDoctor.text <> "" Then
-    BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
+    BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex), modoVista
 End If
 
 End Sub
@@ -1849,7 +1849,7 @@ End Sub
 
 Private Sub cboDoctor_Change()
     LimpiarGrilla
-    BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
+    BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex), modoVista
 
 End Sub
 
@@ -2042,8 +2042,7 @@ Private Function ImprimirTurno()
     Rep.Action = 1
     
     actualizo_turno_impreso
-    BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
-
+    BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex), modoVista
     
 End Function
 
@@ -2416,7 +2415,7 @@ Private Sub cmdAgregar_Click()
     DBConn.Execute sql
     
     DBConn.CommitTrans
-    BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
+    BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex), modoVista
     
     ' =============================================
     ' VOLVER A MODO CREACIÓN
@@ -3387,7 +3386,7 @@ End Sub
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     If KeyCode = vbKeyF5 Then
-        BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
+        BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex), modoVista
     End If
 End Sub
 
@@ -5423,11 +5422,10 @@ Private Sub cmdGuardarDisponibilidad_Click()
     CargarHorarios vencod
     
     ' 4. Refrescar la grilla de turnos
-    ' BuscarTurnos fechaActual, vencod, modoActual   ? reemplazar
     
     MsgBox "Disponibilidad guardada correctamente.", vbInformation, App.Title
     
-    BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
+    BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex), modoVista
     Exit Sub
     
 ErrorGuardar:
@@ -5746,7 +5744,7 @@ Private Sub cmdGuardarExcepcion_Click()
     MsgBox "Excepción guardada correctamente.", vbInformation, App.Title
     
     ' 5. Refrescar turnos
-    BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
+    BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex), modoVista
     
     Exit Sub
     
@@ -5813,7 +5811,7 @@ Private Sub cmdEliminarExcepcion_Click()
     CargarExcepcionDia MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
     
     ' Refrescar turnos
-    BuscarTurnos Fecha, cboDoctor.ItemData(cboDoctor.ListIndex)
+    BuscarTurnos Fecha, cboDoctor.ItemData(cboDoctor.ListIndex), modoVista
     
     Exit Sub
     
