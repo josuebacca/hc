@@ -636,7 +636,7 @@ Begin VB.Form frmTurnos
       _ExtentX        =   3201
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   151846913
+      Format          =   152895489
       CurrentDate     =   43340
    End
    Begin VB.Frame fraprotocolos 
@@ -1419,8 +1419,8 @@ Begin VB.Form frmTurnos
          Left            =   120
          TabIndex        =   0
          Top             =   240
-         Width           =   2595
-         _ExtentX        =   4577
+         Width           =   2490
+         _ExtentX        =   4392
          _ExtentY        =   4180
          _Version        =   393216
          ForeColor       =   -2147483630
@@ -1435,7 +1435,7 @@ Begin VB.Form frmTurnos
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         StartOfWeek     =   151846914
+         StartOfWeek     =   152895490
          TitleBackColor  =   4194304
          TitleForeColor  =   -2147483634
          TrailingForeColor=   -2147483638
@@ -1699,6 +1699,13 @@ Const COLOR_FUERA_FORE As Long = &HA0A0A0           ' gris medio
 ' ------------------------------------------------------------------
 Dim vExcDiaId As Long       ' ID de la excepción actual, 0 si no hay
 Dim modoVista As Integer
+
+'''debugger
+Private Const DEBUG_TURNOS As Boolean = False
+Private sTurnoConflicto As String
+
+' a nivel formulario
+Private dFechaCargada As Date
 
 
 ' ------------------------------------------------------------------
@@ -2186,10 +2193,36 @@ Private Sub cmdAgregar_Click()
     ' Validar campos requeridos
     If ValidarTurno = False Then Exit Sub
     
+    ''DEBUGGER
+    If DEBUG_TURNOS Then
+        If DateValue(fechaturno.Value) <> DateValue(MViewFecha.Value) Then
+             dFechaCargada = 0
+            CambiarFechaTurnero
+            MsgBox "El turnero se actualizó a la fecha seleccionada. Verifique el horario y vuelva a confirmar.", vbExclamation, TIT_MSGBOX
+            Exit Sub
+            End If
+    End If
+    '''''''''''
+    
     ' Validar solapamiento con turnos de DISTINTO cliente
     If ValidarSolapamientoTurno(fechaturno.Value, mebHoraD.text, mebHoraH.text, _
                                  venCodigo, CLng(txtCodigo.text), idTurnoSeleccionado) = False Then
-        MsgBox "Ya existe un turno de otro paciente en ese horario. Las horas se solapan.", vbCritical, TIT_MSGBOX
+                                 
+        ''debuggger
+        If DEBUG_TURNOS Then
+            MsgBox "DEBUG - SOLAPAMIENTO" & vbCrLf & vbCrLf & _
+                   "Calendario: " & Format(MViewFecha.Value, "dd/mm/yyyy") & vbCrLf & _
+                   "fechaturno: " & Format(fechaturno.Value, "dd/mm/yyyy") & vbCrLf & _
+                   "Doctor combo: " & cboDoctor.text & " (" & venCodigo & ")" & vbCrLf & _
+                   "Paciente: " & txtCodigo.text & vbCrLf & _
+                   "Desde/Hasta: " & mebHoraD.text & " - " & mebHoraH.text & vbCrLf & _
+                   "Modo: " & modoActualizacionTurno & "  idTurno: " & idTurnoSeleccionado & vbCrLf & vbCrLf & _
+                   "Choca con: " & sTurnoConflicto, vbInformation, "DEBUG"
+        End If
+        '''''''''''''''''
+        
+        MsgBox "Ya existe un turno de otro paciente en ese horario. Las horas se solapan." & _
+               vbCrLf & vbCrLf & "Turno existente: " & sTurnoConflicto, vbCritical, TIT_MSGBOX
         Exit Sub
     End If
     
@@ -2471,18 +2504,32 @@ Private Function ValidarSolapamientoTurno(ByVal sFecha As String, _
     
     ' Buscar turnos de DISTINTO cliente cuyas horas se solapen
     ' Solapamiento: TUR_HORAD < @HoraHasta AND TUR_HORAH > @HoraDesde
-    sqlVal = "SELECT ID_TURNO FROM TURNOS"
-    sqlVal = sqlVal & " WHERE TUR_FECHA = " & XDQ(sFecha)
-    sqlVal = sqlVal & " AND VEN_CODIGO = " & venCodigo
-    sqlVal = sqlVal & " AND CLI_CODIGO <> " & cliCodigo
-    sqlVal = sqlVal & " AND TUR_HORAD < '" & sHasta & "'"
-    sqlVal = sqlVal & " AND TUR_HORAH > '" & sDesde & "'"
-    sqlVal = sqlVal & " AND DELETED_AT IS NULL"
     
-    ' En modo edición, excluir el turno que estoy editando
-    If idTurnoExcluir > 0 Then
-        sqlVal = sqlVal & " AND ID_TURNO <> " & idTurnoExcluir
-    End If
+    ''DEBUGGER
+    'sqlVal = "SELECT ID_TURNO FROM TURNOS"
+    'sqlVal = sqlVal & " WHERE TUR_FECHA = " & XDQ(sFecha)
+    'sqlVal = sqlVal & " AND VEN_CODIGO = " & venCodigo
+    'sqlVal = sqlVal & " AND CLI_CODIGO <> " & cliCodigo
+    'sqlVal = sqlVal & " AND TUR_HORAD < '" & sHasta & "'"
+    'sqlVal = sqlVal & " AND TUR_HORAH > '" & sDesde & "'"
+    'sqlVal = sqlVal & " AND DELETED_AT IS NULL"
+    
+    '' En modo edición, excluir el turno que estoy editando
+    'If idTurnoExcluir > 0 Then
+    '    sqlVal = sqlVal & " AND ID_TURNO <> " & idTurnoExcluir
+    'End If
+    
+    sqlVal = "SELECT TOP 1 T.ID_TURNO, T.TUR_FECHA, T.TUR_HORAD, T.TUR_HORAH, T.TUR_FECALTA, C.CLI_RAZSOC" & _
+             " FROM TURNOS T INNER JOIN CLIENTE C ON C.CLI_CODIGO = T.CLI_CODIGO" & _
+             " WHERE T.TUR_FECHA = " & XDQ(sFecha) & _
+             " AND T.VEN_CODIGO = " & venCodigo & _
+             " AND T.CLI_CODIGO <> " & cliCodigo & _
+             " AND T.TUR_HORAD < '" & sHasta & "'" & _
+             " AND T.TUR_HORAH > '" & sDesde & "'" & _
+             " AND T.DELETED_AT IS NULL"
+    If idTurnoExcluir > 0 Then sqlVal = sqlVal & " AND T.ID_TURNO <> " & idTurnoExcluir
+    
+    ''''''''''''''''
     
     recVal.Open sqlVal, DBConn, adOpenStatic, adLockOptimistic
     
@@ -2490,6 +2537,10 @@ Private Function ValidarSolapamientoTurno(ByVal sFecha As String, _
         ' No hay solapamiento
         ValidarSolapamientoTurno = True
     Else
+        sTurnoConflicto = Format(recVal!TUR_FECHA, "dd/mm/yyyy") & " " & _
+            Format(recVal!TUR_HORAD, "hh:nn") & " a " & Format(recVal!TUR_HORAH, "hh:nn") & _
+            " - " & recVal!CLI_RAZSOC
+        
         ' Hay solapamiento
         ValidarSolapamientoTurno = False
     End If
@@ -2665,7 +2716,7 @@ optNO.Enabled = True
            cmdCopiar.Enabled = True
        Else
            If txtBuscaCliente.text <> "" Then
-               MViewFecha.Value = Date
+               'MViewFecha.Value = Date
                txtBuscaCliente.text = ""
                txtCodigo.text = ""
                txtBuscarCliDescri.text = ""
@@ -3002,7 +3053,8 @@ End Sub
 Private Sub CmdNuevo_Click()
     LimpiarTurno
     MViewFecha.Value = Date
-    fechaturno.Value = Date
+    dFechaCargada = 0
+    CambiarFechaTurnero
     'If User <> 99 Then
     '    Call BuscaCodigoProxItemData(XN(User), cboDoctor)
     'Else
@@ -3436,25 +3488,16 @@ Public Sub GetStudiesLoadedByDate()
     Dim jsonBodyToSend As String
     Dim endpoint As String
     Dim jsonBody As String
-    
+
+    'Si no hay internet o el servidor web no responde, no se corta el sistema:
+    'la grilla de turnos se sigue mostrando, solo sin la info de estudios
+    On Error GoTo ErrorWeb
+
     endpoint = "/api/v1/studies?date=" & Format(MViewFecha.Value, "yyyy-mm-dd")
-    
+
     Set request = CreateObject("MSXML2.ServerXMLHTTP.6.0")
-    'Set request = CreateObject("WinHttp.WinHttpRequest.5.1")
-    'Set request = CreateObject("MSXML2.XMLHTTP")
-    
-    ' Forzar TLS 1.2
-    'request.Option(6) = 268435456 ' WINHTTP_OPTION_SECURE_PROTOCOLS = TLS 1.2
-    'request.Option(9) = &H80000000 ' WINHTTP_OPTION_ENABLE_TLS12
-
-    'request.Option(9) = 2048 ' TLS 1.2
-    'request.Option(6) = True ' Deshabilita la caché
-    'request.Option(9) = 0    ' Modo síncrono
-    'request.Option(4) = 13056 ' Ignorar errores SSL
-
-    ' ?? Fuerza el uso de TLS 1.2
-    'request.Option(2) = 268435456
-    'request.SetOption 2, 268435456  ' MSXML Option(2) = SecureProtocols, 268435456 = TLS 1.2
+    'Timeouts (ms): resolucion DNS, conexion, envio, recepcion
+    request.setTimeouts 5000, 5000, 10000, 10000
 
     request.Open "GET", DIGOR_CORE_URL & endpoint, False    'populates object fields
     request.setRequestHeader "Authorization", "Bearer " & DIGOR_PUBLIC_API_KEY
@@ -3462,11 +3505,19 @@ Public Sub GetStudiesLoadedByDate()
 
     request.send
     responseText = request.responseText
-    
-    Set request = Nothing
-    
-    ActualizarInfoEstudiosTurnos responseText
+    MarcarConexionWebOk
 
+    Set request = Nothing
+
+    ActualizarInfoEstudiosTurnos responseText
+    Exit Sub
+
+ErrorWeb:
+    'Fallo la request web (sin internet, timeout, respuesta invalida, etc.)
+    'Se avisa (solo la primera vez) y se deja el diccionario vacio para que la grilla no falle
+    AvisarFalloWeb Err.Number, Err.Description, "Turnos - estudios del día"
+    Set request = Nothing
+    Set studiesDict = CreateObject("Scripting.Dictionary")
 End Sub
 Private Function parseStudiesJSON(JsonString As String) As Variant
     Dim jsonObject As Object
@@ -3711,6 +3762,7 @@ Private Sub Form_Load()
     colocarModoCreacionTurno
     
     ConfigurarGrillaHorariosExc
+    dFechaCargada = Date
 End Sub
 Private Sub LimpiarGrilla()
     grdGrilla.rows = 1
@@ -4660,13 +4712,26 @@ Private Sub mebHoraH_LostFocus()
     End If
 End Sub
 
+
 Private Sub MViewFecha_DateClick(ByVal DateClicked As Date)
+    CambiarFechaTurnero
+End Sub
+
+Private Sub MViewFecha_SelChange(ByVal StartDate As Date, ByVal EndDate As Date, Cancel As Boolean)
+    CambiarFechaTurnero
+End Sub
+
+Private Sub CambiarFechaTurnero()
+    ' Evita recargar dos veces (un click dispara DateClick y SelChange)
+    If cboDoctor.ListIndex = -1 Then Exit Sub
+    If DateValue(MViewFecha.Value) = dFechaCargada Then Exit Sub
+    dFechaCargada = DateValue(MViewFecha.Value)
+
     configurodia MViewFecha.Value
     fechaturno.Value = MViewFecha.Value
     LimpiarGrilla
     CargarExcepcionDia MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex)
     BuscarTurnos MViewFecha.Value, cboDoctor.ItemData(cboDoctor.ListIndex), modoVista
-
 End Sub
 Private Sub configurodia(Fecha As Date)
     Dim DIA As Integer

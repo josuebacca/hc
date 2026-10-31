@@ -57,7 +57,7 @@ Begin VB.Form frmReporteEstudios
          _ExtentX        =   2566
          _ExtentY        =   556
          _Version        =   393216
-         Format          =   151257089
+         Format          =   151388161
          CurrentDate     =   40071
       End
       Begin MSComCtl2.DTPicker dtFechaHasta 
@@ -69,7 +69,7 @@ Begin VB.Form frmReporteEstudios
          _ExtentX        =   2566
          _ExtentY        =   556
          _Version        =   393216
-         Format          =   151257089
+         Format          =   151388161
          CurrentDate     =   40071
       End
       Begin VB.Label lblExito 
@@ -124,8 +124,8 @@ Private Sub cmdCerrar_Click()
 End Sub
 
 Private Sub cmdGenerar_Click()
-    DTFechaDesde.Enabled = False
-    DTFechaHasta.Enabled = False
+    dtFechaDesde.Enabled = False
+    dtFechaHasta.Enabled = False
     cmdGenerar.Enabled = False
     cmdCerrar.Enabled = False
     lblExito.Visible = False
@@ -137,8 +137,8 @@ Private Sub cmdGenerar_Click()
 End Sub
 
 Private Sub LimpioForm()
-    DTFechaDesde.Value = Date
-    DTFechaHasta.Value = Date
+    dtFechaDesde.Value = Date
+    dtFechaHasta.Value = Date
     cmdGenerar.Enabled = True
     cmdCerrar.Enabled = True
     lblExito.Visible = False
@@ -195,8 +195,8 @@ Public Sub PostStudiesReport()
     Set request = CreateObject("MSXML2.ServerXMLHTTP.6.0")
     
     ' Construcción del JSON a enviar
-    jsonBody = "{""dateFrom"": """ & Format(DTFechaDesde.Value, "yyyy-mm-dd") & """, " & _
-               """dateTo"": """ & Format(DTFechaHasta.Value, "yyyy-mm-dd") & """}"
+    jsonBody = "{""dateFrom"": """ & Format(dtFechaDesde.Value, "yyyy-mm-dd") & """, " & _
+               """dateTo"": """ & Format(dtFechaHasta.Value, "yyyy-mm-dd") & """}"
 
     
     request.Open "POST", DIGOR_CORE_URL & endpoint, False    'populates object fields
@@ -205,7 +205,7 @@ Public Sub PostStudiesReport()
 
     request.send jsonBody
     responseText = request.responseText
-    
+    MarcarConexionWebOk
     'Obtengo el link de la carpeta del estudio y el mensaje de información
     getLinkFromReportJSON (responseText)
     
@@ -228,8 +228,8 @@ Public Sub PostStudiesReport()
     End If
     
     cmdCerrar.Enabled = True
-    DTFechaDesde.Enabled = True
-    DTFechaHasta.Enabled = True
+    dtFechaDesde.Enabled = True
+    dtFechaHasta.Enabled = True
     
     Set request = Nothing
 End Sub

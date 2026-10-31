@@ -113,7 +113,7 @@ Begin VB.Form ABMClientes
             _ExtentX        =   2566
             _ExtentY        =   556
             _Version        =   393216
-            Format          =   154402817
+            Format          =   151388161
             CurrentDate     =   40071
          End
          Begin VB.Label lblGenerandoCarpeta 
@@ -410,7 +410,7 @@ Begin VB.Form ABMClientes
          _ExtentY        =   556
          _Version        =   393216
          CheckBox        =   -1  'True
-         Format          =   154402817
+         Format          =   151388161
          CurrentDate     =   40071
       End
       Begin MSComCtl2.DTPicker DTFechaNac 
@@ -423,7 +423,7 @@ Begin VB.Form ABMClientes
          _ExtentY        =   556
          _Version        =   393216
          CheckBox        =   -1  'True
-         Format          =   154402817
+         Format          =   151388161
          CurrentDate     =   40071
       End
       Begin VB.Label Label1 
@@ -893,7 +893,7 @@ Begin VB.Form ABMClientes
             _ExtentY        =   556
             _Version        =   393216
             CheckBox        =   -1  'True
-            Format          =   154402817
+            Format          =   151388161
             CurrentDate     =   40070
          End
          Begin VB.TextBox txtcualca 
@@ -1272,7 +1272,7 @@ Begin VB.Form ABMClientes
             CalendarBackColor=   12648384
             CalendarForeColor=   0
             CalendarTitleBackColor=   12648384
-            Format          =   154402817
+            Format          =   151388161
             UpDown          =   -1  'True
             CurrentDate     =   40063
          End
@@ -1299,7 +1299,7 @@ Begin VB.Form ABMClientes
             CalendarTitleBackColor=   12648384
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   154402817
+            Format          =   151388161
             CurrentDate     =   40063
          End
          Begin VB.TextBox txtDescTra 
@@ -1724,7 +1724,7 @@ Begin VB.Form ABMClientes
             CalendarBackColor=   12648384
             CalendarForeColor=   0
             CalendarTitleBackColor=   12648384
-            Format          =   154402817
+            Format          =   151388161
             UpDown          =   -1  'True
             CurrentDate     =   40063
          End
@@ -2410,7 +2410,11 @@ End Sub
 Private Sub DeletePatientCurl(method As String, endpoint As String)
     Dim command As String
     Dim Result As Long
-    
+
+    'Si falla (sin internet, curl no disponible, etc.) no se corta la eliminacion local
+    'TODO: avisar al usuario / dejar pendiente la eliminacion en el servidor web
+    On Error Resume Next
+
     ' Comando curl para hacer una solicitud POST
     command = "curl -X " & method & " """ & DIGOR_CORE_URL & endpoint & """ " & _
               "-H ""Authorization: Bearer " & DIGOR_PUBLIC_API_KEY & """ " & _
@@ -3353,40 +3357,47 @@ Public Sub PostPatientStudyLink()
     Dim jsonBodyToSend As String
     Dim endpoint As String
     Dim jsonBody As String
-    
+
+    'Si no hay internet o el servidor web no responde, no se corta el sistema:
+    'se muestra el mensaje de error del frame y se puede seguir trabajando
+    On Error GoTo ErrorWeb
+
     endpoint = "/api/v1/create-study-folder"
-    
+
     Set request = CreateObject("MSXML2.ServerXMLHTTP.6.0")
-    
+    'Timeouts (ms): resolucion DNS, conexion, envio, recepcion
+    request.setTimeouts 5000, 5000, 15000, 15000
+
     ' Construcción del JSON a enviar
     jsonBody = "{""patientName"": """ & CleanString(txtNombre) & """, " & _
                """studyShortName"": """ & cboTipoEstudio.text & """, " & _
                """studyDate"": """ & Format(dtFechaEstudio.Value, "yyyy-mm-dd") & """, " & _
                """patientDNI"": " & txtNroDoc & "}"
 
-    
     request.Open "POST", DIGOR_CORE_URL & endpoint, False    'populates object fields
     request.setRequestHeader "Authorization", "Bearer " & DIGOR_PUBLIC_API_KEY
     request.setRequestHeader "Content-Type", "application/json"
 
     request.send jsonBody
     responseText = request.responseText
-    
+    MarcarConexionWebOk
+    Set request = Nothing
+
     'Obtengo los links de la carpeta del estudio y del paciente y los guardo
     'en variables del modulo si existen
     getLinkFromFoldersJSON (responseText)
-    
+
     If patientLinkDrive <> "" Then
         'Guardo el link del paciente en la BD SQL, si no lo tiene todavía (primera vez)
         If txtLinkPaciente = "" Then
             ActualizoLinkPacienteSQL patientLinkDrive
         End If
-        
+
         txtLinkPaciente.text = patientLinkDrive
         lblNoTieneLink.Visible = False
         cmdIrCarpetaPaciente.Enabled = True
     End If
-    
+
     lblGenerandoCarpeta.Visible = False
     If errorPostStudyFolder = True Then
         lblErrorGenerarCarpetaPaciente.Visible = True
@@ -3399,9 +3410,22 @@ Public Sub PostPatientStudyLink()
         dtFechaEstudio.Enabled = True
     End If
     cmdCerrarFrameGenerarCarpetaEstudio.Enabled = True
-    
-    Set request = Nothing
+    Exit Sub
 
+ErrorWeb:
+    'Fallo la request web (sin internet, timeout, respuesta invalida, etc.)
+    'Se avisa (solo la primera vez) y se restaura el frame para cerrar o reintentar
+    AvisarFalloWeb Err.Number, Err.Description, "Pacientes - generar carpeta de estudio"
+    Set request = Nothing
+    errorPostStudyFolder = True
+    lblGenerandoCarpeta.Visible = False
+    lblExitoGenerarCarpetaPaciente.Visible = False
+    lblErrorGenerarCarpetaPaciente.Visible = True
+    cmdIrCarpetaEstudio.Visible = False
+    cboTipoEstudio.Enabled = True
+    dtFechaEstudio.Enabled = True
+    cmdGenerar.Enabled = True
+    cmdCerrarFrameGenerarCarpetaEstudio.Enabled = True
 End Sub
 Public Sub GetPatientStudyLinkByDNI()
 
@@ -3411,34 +3435,47 @@ Public Sub GetPatientStudyLinkByDNI()
     Dim jsonBodyToSend As String
     Dim endpoint As String
     Dim jsonBody As String
-    
+
+    'Si no hay internet o el servidor web no responde, no se corta el sistema:
+    'se conserva el link guardado en la BD local
+    On Error GoTo ErrorWeb
+
     endpoint = "/api/v1/patient-by-dni/" & txtNroDoc.text
-    
+
     Set request = CreateObject("MSXML2.ServerXMLHTTP.6.0")
-    
+    'Timeouts (ms): resolucion DNS, conexion, envio, recepcion
+    request.setTimeouts 5000, 5000, 10000, 10000
+
     request.Open "GET", DIGOR_CORE_URL & endpoint, False    'populates object fields
     request.setRequestHeader "Authorization", "Bearer " & DIGOR_PUBLIC_API_KEY
     request.setRequestHeader "Content-Type", "application/json"
 
     request.send
     responseText = request.responseText
-    
+    MarcarConexionWebOk
+    Set request = Nothing
+
     'Obtengo el link del paciente
     linkDrive = getLinkFromPatientJSON(responseText)
-    
+
     'Si el link del paciente en la BD del servidor web es distinto al que tengo
-    'en la BD local, actualizo con el del servidor web
-    If linkDrive <> txtLinkPaciente.text Then
+    'en la BD local, actualizo con el del servidor web.
+    'Si el servidor no devolvio link (error o respuesta vacia) NO piso el link local.
+    If linkDrive <> "" And linkDrive <> txtLinkPaciente.text Then
         'Guardo el link del paciente en la BD SQL
         ActualizoLinkPacienteSQL linkDrive
-        
+
         txtLinkPaciente.text = linkDrive
         lblNoTieneLink.Visible = False
         cmdIrCarpetaPaciente.Enabled = True
     End If
-    
-    Set request = Nothing
+    Exit Sub
 
+ErrorWeb:
+    'Fallo la request web (sin internet, timeout, respuesta invalida, etc.)
+    'Se avisa (solo la primera vez) y se continua con el link de la BD local
+    AvisarFalloWeb Err.Number, Err.Description, "Pacientes - link del paciente"
+    Set request = Nothing
 End Sub
 Private Sub ActualizoLinkPacienteSQL(link As String)
     Dim cSQL As String

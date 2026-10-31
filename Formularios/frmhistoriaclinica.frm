@@ -687,7 +687,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   151257089
+            Format          =   151388161
             CurrentDate     =   41098
          End
          Begin VB.Label Label19 
@@ -805,7 +805,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   151257089
+            Format          =   151388161
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHastaPedido 
@@ -819,7 +819,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   151257089
+            Format          =   151388161
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdPedidos 
@@ -1008,7 +1008,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   151257089
+            Format          =   151388161
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHastaImg 
@@ -1022,7 +1022,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   151257089
+            Format          =   151388161
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdImagenes 
@@ -1182,7 +1182,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   151257089
+            Format          =   151388161
             CurrentDate     =   43205
          End
          Begin VB.CommandButton cmdCancelar 
@@ -1219,7 +1219,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   151257089
+            Format          =   151388161
             CurrentDate     =   41098
          End
          Begin VB.CommandButton cmdAceptar 
@@ -1365,7 +1365,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   151257089
+            Format          =   151388161
             CurrentDate     =   41098
          End
          Begin MSComCtl2.DTPicker FechaHasta 
@@ -1379,7 +1379,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   151257089
+            Format          =   151388161
             CurrentDate     =   41098
          End
          Begin MSFlexGridLib.MSFlexGrid grdConsultas 
@@ -1660,7 +1660,7 @@ Begin VB.Form frmhistoriaclinica
             _Version        =   393216
             CheckBox        =   -1  'True
             DateIsNull      =   -1  'True
-            Format          =   151257089
+            Format          =   151388161
             CurrentDate     =   41098
          End
          Begin VB.Label lblnroja 
@@ -1848,35 +1848,47 @@ Public Sub GetPatientStudyLinkByDNI(Nrodoc As String)
     Dim jsonBodyToSend As String
     Dim endpoint As String
     Dim jsonBody As String
-    
+
+    'Si no hay internet o el servidor web no responde, no se corta el sistema:
+    'se sigue trabajando con los datos de la BD local
+    On Error GoTo ErrorWeb
+
     endpoint = "/api/v1/patient-by-dni/" & Nrodoc
-    
+
     Set request = CreateObject("MSXML2.ServerXMLHTTP.6.0")
-    
+    'Timeouts (ms): resolucion DNS, conexion, envio, recepcion
+    request.setTimeouts 5000, 5000, 10000, 10000
+
     request.Open "GET", DIGOR_CORE_URL & endpoint, False    'populates object fields
     request.setRequestHeader "Authorization", "Bearer " & DIGOR_PUBLIC_API_KEY
     request.setRequestHeader "Content-Type", "application/json"
 
     request.send
     responseText = request.responseText
-    
+    MarcarConexionWebOk
+    Set request = Nothing
+
     'Obtengo el link del paciente
     linkDrive = getLinkFromPatientJSON(responseText)
-    
+
     If linkDrive <> "" Then
         'Guardo el link del paciente en la BD SQL
         ActualizoLinkPacienteSQL linkDrive, Nrodoc
-        
+
         'Seteo el link en la variable global
         cliDriveLink = linkDrive
     End If
-    
+
     yaBuscoLink = True
-    
+    Exit Sub
+
+ErrorWeb:
+    'Fallo la request web (sin internet, timeout, respuesta invalida, etc.)
+    'Se avisa (solo la primera vez) y se continua con el link local
+    AvisarFalloWeb Err.Number, Err.Description, "Historia clínica - link del paciente"
     Set request = Nothing
-
+    yaBuscoLink = True
 End Sub
-
 Private Function BuscarProxPaciente(codven, DIA) As Long
     Dim CodPac As Long
     CodPac = 0
@@ -3864,4 +3876,5 @@ Private Function hojaactual() As Integer
     Next
 
 End Function
+
 
